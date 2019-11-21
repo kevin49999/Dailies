@@ -17,9 +17,6 @@ class ViewController: UIViewController {
         tableView.register(cell: TodoListCell.self)
         tableView.estimatedRowHeight = 250
         tableView.rowHeight = UITableView.automaticDimension
-        
-        tableView.reloadData()
-        tableView.layoutIfNeeded()
     }
 }
 
@@ -27,7 +24,7 @@ class ViewController: UIViewController {
 
 extension ViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return 5
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -41,14 +38,4 @@ extension ViewController: UITableViewDataSource {
     }
 }
 
-extension ViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return UIView()
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 44
-    }
-}
 // ++ TBV delegate, no scrolling but allow reording, swipe to mark complete ++ cell at bottom to add item
-

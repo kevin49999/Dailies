@@ -10,6 +10,7 @@ import UIKit
 
 class TodoListCell: UITableViewCell {
 
+    private var heightBuffer: [CGFloat] = []
     @IBOutlet weak private var tableView: UITableView!
     @IBOutlet weak private var tableViewHeight: NSLayoutConstraint!
     
@@ -27,15 +28,19 @@ class TodoListCell: UITableViewCell {
         tableView.register(cell: TodoCell.self)
         tableView.estimatedRowHeight = 44
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.dataSource = self
+        tableView.dataSource = self // ..
+        //tableView.delegate = self
+        tableView.tableFooterView = UIView(frame: .zero)
         
-        // set height
-        tableView.reloadData()
-        tableView.layoutIfNeeded()
-        print(self.tableView.contentSize.height)
-        self.tableViewHeight.constant = self.tableView.contentSize.height
+        //tableView.reloadData()
+        //tableView.layoutIfNeeded()
+        let height: CGFloat = tableView.visibleCells.map { $0.frame.height }.reduce(0, +)
+        print(height, "😡")
+        self.tableViewHeight.constant = height // bottom separator clip
     }
 }
+
+// MARK: - UITableViewDataSource
 
 extension TodoListCell: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -44,7 +49,19 @@ extension TodoListCell: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: TodoCell = tableView.dequeueReusableCell(for: indexPath)
-        // config..
+        // ..
         return cell
     }
 }
+
+// MARK: - UITableViewDelegate
+
+//extension TodoListCell: UITableViewDelegate {
+//    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+//        return UIView()
+//    }
+//
+//    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+//        return 1 // hide last cell separator
+//    }
+//}

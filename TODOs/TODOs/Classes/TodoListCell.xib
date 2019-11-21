@@ -12,22 +12,31 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TodoListCell" rowHeight="304" id="KGk-i7-Jjw" customClass="TodoListCell" customModule="TODOs" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="315" height="304"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="315" height="304"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="List Title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MqK-2X-ETy">
+                        <rect key="frame" x="20" y="20" width="275" height="20.5"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                     <tableView clipsSubviews="YES" contentMode="scaleToFill" scrollEnabled="NO" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pPO-YH-otY">
-                        <rect key="frame" x="0.0" y="0.0" width="315" height="250"/>
+                        <rect key="frame" x="0.0" y="48.5" width="315" height="200"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="250" id="mVE-UI-xJD"/>
+                            <constraint firstAttribute="height" priority="250" constant="200" id="mVE-UI-xJD"/>
                         </constraints>
                     </tableView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="pPO-YH-otY" secondAttribute="bottom" id="2uU-o6-DVq"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="pPO-YH-otY" secondAttribute="bottom" id="2uU-o6-DVq"/>
+                    <constraint firstItem="MqK-2X-ETy" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" symbolic="YES" id="BTD-Zx-Gyp"/>
+                    <constraint firstItem="MqK-2X-ETy" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" symbolic="YES" id="IDD-v5-YFE"/>
                     <constraint firstItem="pPO-YH-otY" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Jfx-Dp-Yfy"/>
-                    <constraint firstItem="pPO-YH-otY" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="gW5-6q-Jf8"/>
+                    <constraint firstItem="pPO-YH-otY" firstAttribute="top" secondItem="MqK-2X-ETy" secondAttribute="bottom" constant="8" symbolic="YES" id="Lad-Co-dPQ"/>
+                    <constraint firstAttribute="trailing" secondItem="MqK-2X-ETy" secondAttribute="trailing" constant="20" symbolic="YES" id="NS5-gS-InV"/>
                     <constraint firstAttribute="trailing" secondItem="pPO-YH-otY" secondAttribute="trailing" id="lwD-xK-IRm"/>
                 </constraints>
             </tableViewCellContentView>
