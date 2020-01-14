@@ -10,16 +10,23 @@ import UIKit
 
 class TodoCell: UITableViewCell {
     
-    @IBOutlet weak private var todoLabel: UILabel!
+    @IBOutlet weak private var textView: UITextView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         setup()
     }
+
+    func configure(data: TodoViewData) {
+        textView.text = data.text
+    }
     
     private func setup() {
-        todoLabel.adjustsFontForContentSizeCategory = true
-        todoLabel.font = UIFont.systemFont(ofSize: 16, weight: .semibold).scaledFontforTextStyle(.body)
+        textView.adjustsFontForContentSizeCategory = true
+        textView.font = UIFont.systemFont(
+            ofSize: 16,
+            weight: .semibold
+        ).scaledFontforTextStyle(.body)
     }
     
 }

@@ -4,6 +4,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -11,8 +12,8 @@
         <scene sceneID="h5o-xN-37R">
             <objects>
                 <navigationController id="9Vt-fV-Urb" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="vBh-Ag-Igl">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="vBh-Ag-Igl">
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -31,26 +32,51 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="200" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="f8n-09-NiV">
-                                <rect key="frame" x="20" y="0.0" width="374" height="862"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="Wae-9B-Dx2"/>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="sA6-ae-Ooc"/>
-                                </connections>
-                            </tableView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NU0-n9-dTP">
+                                <rect key="frame" x="0.0" y="140" width="414" height="756"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IuR-E8-DaS">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="600"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="414" placeholderIntrinsicHeight="600" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="fPb-nm-T3r">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="600"/>
+                                                <edgeInsets key="layoutMargins" top="16" left="16" bottom="16" right="16"/>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstItem="fPb-nm-T3r" firstAttribute="leading" secondItem="IuR-E8-DaS" secondAttribute="leading" id="47w-KM-Rz0"/>
+                                            <constraint firstAttribute="bottom" secondItem="fPb-nm-T3r" secondAttribute="bottom" id="DGJ-YG-tI6"/>
+                                            <constraint firstAttribute="trailing" secondItem="fPb-nm-T3r" secondAttribute="trailing" id="dXn-DY-7KV"/>
+                                            <constraint firstItem="fPb-nm-T3r" firstAttribute="top" secondItem="IuR-E8-DaS" secondAttribute="top" id="k4e-qx-6Sp"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="IuR-E8-DaS" firstAttribute="top" secondItem="NU0-n9-dTP" secondAttribute="top" id="Jdp-I1-0CQ"/>
+                                    <constraint firstItem="IuR-E8-DaS" firstAttribute="leading" secondItem="NU0-n9-dTP" secondAttribute="leading" id="eRu-18-WUv"/>
+                                    <constraint firstAttribute="bottom" secondItem="IuR-E8-DaS" secondAttribute="bottom" id="gRO-yo-p1H"/>
+                                    <constraint firstAttribute="trailing" secondItem="IuR-E8-DaS" secondAttribute="trailing" id="yPn-h8-u5Q"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="hmA-BW-6QU"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="LF9-dy-AnG"/>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="f8n-09-NiV" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="7oh-kq-ISq"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="f8n-09-NiV" secondAttribute="bottom" id="94J-dZ-f8n"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="f8n-09-NiV" secondAttribute="trailing" constant="20" id="po7-i5-9Ua"/>
-                            <constraint firstItem="f8n-09-NiV" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="woO-Ip-ElL"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="NU0-n9-dTP" secondAttribute="trailing" id="PM5-zf-bwL"/>
+                            <constraint firstItem="NU0-n9-dTP" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="d9u-sH-cyG"/>
+                            <constraint firstItem="NU0-n9-dTP" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="e9d-ms-4Cw"/>
+                            <constraint firstAttribute="bottom" secondItem="NU0-n9-dTP" secondAttribute="bottom" id="seY-Hp-jxS"/>
+                            <constraint firstItem="IuR-E8-DaS" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="vHZ-zd-aoC"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="TODOs" largeTitleDisplayMode="always" id="uzk-y5-BPN"/>
+                    <navigationItem key="navigationItem" title="TODOs" largeTitleDisplayMode="always" id="uzk-y5-BPN">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="B08-ZY-5WR"/>
+                    </navigationItem>
                     <connections>
-                        <outlet property="tableView" destination="f8n-09-NiV" id="v0J-EB-2ZC"/>
+                        <outlet property="todoListsStackView" destination="fPb-nm-T3r" id="oAW-PZ-Tmz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

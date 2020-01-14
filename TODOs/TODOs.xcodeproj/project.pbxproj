@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0A1F748123862DDB00820FE8 /* TodoListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1F747F23862DDB00820FE8 /* TodoListCell.swift */; };
-		0A1F748223862DDB00820FE8 /* TodoListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A1F748023862DDB00820FE8 /* TodoListCell.xib */; };
 		0A424A452384B0FC00E1FC34 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A424A442384B0FC00E1FC34 /* AppDelegate.swift */; };
 		0A424A472384B0FC00E1FC34 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A424A462384B0FC00E1FC34 /* SceneDelegate.swift */; };
 		0A424A492384B0FC00E1FC34 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A424A482384B0FC00E1FC34 /* ViewController.swift */; };
@@ -34,8 +32,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0A1F747F23862DDB00820FE8 /* TodoListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListCell.swift; sourceTree = "<group>"; };
-		0A1F748023862DDB00820FE8 /* TodoListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TodoListCell.xib; sourceTree = "<group>"; };
 		0A424A412384B0FC00E1FC34 /* TODOs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TODOs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A424A442384B0FC00E1FC34 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0A424A462384B0FC00E1FC34 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -153,8 +149,6 @@
 				0A1F748423862E4200820FE8 /* Protocols */,
 				0A424A6A2384B29D00E1FC34 /* TodoCell.swift */,
 				0A424A6C2384B2B100E1FC34 /* TodoCell.xib */,
-				0A1F747F23862DDB00820FE8 /* TodoListCell.swift */,
-				0A1F748023862DDB00820FE8 /* TodoListCell.xib */,
 				0A424A482384B0FC00E1FC34 /* ViewController.swift */,
 			);
 			path = Classes;
@@ -245,7 +239,6 @@
 				0A424A4E2384B0FF00E1FC34 /* Assets.xcassets in Resources */,
 				0A424A4C2384B0FC00E1FC34 /* Main.storyboard in Resources */,
 				0A424A6D2384B2B100E1FC34 /* TodoCell.xib in Resources */,
-				0A1F748223862DDB00820FE8 /* TodoListCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,7 +263,6 @@
 				0A424A732384B3C200E1FC34 /* UITableViewCell+Extensions.swift in Sources */,
 				0A424A712384B34B00E1FC34 /* UIFont+Extensions.swift in Sources */,
 				0A424A6F2384B32E00E1FC34 /* StoryboardIdentifiable.swift in Sources */,
-				0A1F748123862DDB00820FE8 /* TodoListCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
