@@ -23,7 +23,7 @@
             </objects>
             <point key="canvasLocation" x="-886" y="104"/>
         </scene>
-        <!--TODOs-->
+        <!--TODOs 📝-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="TodoViewController" customModule="TODOs" customModuleProvider="target" sceneMemberID="viewController">
@@ -32,7 +32,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="RRf-5r-5P2">
-                                <rect key="frame" x="0.0" y="140" width="414" height="722"/>
+                                <rect key="frame" x="0.0" y="148.5" width="414" height="713.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="Jwi-Xp-285"/>
@@ -48,7 +48,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="TODOs" largeTitleDisplayMode="always" id="uzk-y5-BPN">
+                    <navigationItem key="navigationItem" title="TODOs 📝" largeTitleDisplayMode="always" id="uzk-y5-BPN">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="B08-ZY-5WR"/>
                     </navigationItem>
                     <connections>

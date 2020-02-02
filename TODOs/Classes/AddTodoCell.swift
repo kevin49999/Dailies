@@ -10,7 +10,7 @@ import UIKit
 
 protocol AddTodoCellDelegate: class {
     func addTodoCell(_ cell: AddTodoCell, isEditing textView: UITextView)
-    func addTodoCell(_ cell: AddTodoCell, didEndEditing todo: String)
+    func addTodoCell(_ cell: AddTodoCell, didEndEditing text: String)
 }
 
 class AddTodoCell: UITableViewCell {
@@ -37,6 +37,12 @@ class AddTodoCell: UITableViewCell {
             weight: .semibold
         ).scaledFontforTextStyle(.body)
     }
+
+    private func reset() {
+        textView.text = nil
+        textView.resignFirstResponder()
+        placeholderTextView.isHidden = false
+    }
 }
 
 // MARK: - UITextViewDelegate
@@ -53,6 +59,7 @@ extension AddTodoCell: UITextViewDelegate {
         let text = textView.text.trimmingCharacters(in: .whitespacesAndNewlines)
         if !text.isEmpty {
             delegate?.addTodoCell(self, didEndEditing: textView.text)
+            reset()
         }
     }
 }

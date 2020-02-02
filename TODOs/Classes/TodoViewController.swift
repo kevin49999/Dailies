@@ -8,50 +8,61 @@
 
 import UIKit
 
-// TODO: UITableViewDiffableDataSource, ..
+// TODO: UITableViewDiffableDataSource w/ dynamic section names and count basically..
+// round corners and inset entire thing slightly.., some constraints breaking
+// https://gist.github.com/longhorn499/cdcc05437381ce20e3d771637657c2da
 
 class TodoViewController: UIViewController {
 
     // MARK: - Properties
-    // the custom ones, then 7 for the days
-    var todoLists: [TodoList] = [
-        TodoList(
-            name: "Projects",
-            todos: [Todo(text: "New App"),
-                    Todo(text: "Automate Thing"),
-                    Todo(text: "Derp")]
-        ),
-        TodoList(
-            name: "Finance",
-            todos: [Todo(text: "Upgrade Credit Card"),
-                    Todo(text: "Cancel Old Bank"),
-                    Todo(text: "$")]
-        ),
-        TodoList(
-            name: "Misc.",
-            todos: [Todo(text: "Get New Plant"),
-                    Todo(text: "Do That Thing"),
-                    Todo(text: "Nice Thing")]
-        )
-    ]
 
-    @IBOutlet weak var tableView: UITableView!
+    private var todoLists: [TodoList]!
+    @IBOutlet private weak var tableView: UITableView!
 
     // MARK: - View Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        todoLists = [
+            TodoList.createdTodoLists(),
+            TodoList.daysOfWeekTodoLists()
+        ].reduce([TodoList](), +)
+
         tableView.register(cell: TodoCell.self)
         tableView.register(cell: AddTodoCell.self)
         tableView.estimatedRowHeight = 250
         tableView.rowHeight = UITableView.automaticDimension
         tableView.tableFooterView = UIView(frame: .zero)
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(willResignActive),
+            name: UIApplication.willResignActiveNotification,
+            object: nil
+        )
+    }
+
+    @objc func willResignActive() {
+        var created: [TodoList] = []
+        var daysOfweek: [TodoList] = []
+        for todoList in todoLists {
+            switch todoList.classification {
+            case .created:
+                created.append(todoList)
+            case .dayOfWeek:
+                daysOfweek.append(todoList)
+            }
+        }
+        try? TodoList.saveCreated(created)
+        try? TodoList.saveDaysOfWeek(daysOfweek)
     }
 
     // MARK: - IBAction
 
-    // TODO: add list bar button item!
+    @IBAction func tappedActionBarButtonItem(_ sender: UIBarButtonItem) {
+        // TODO: alert for new list generation..
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -62,7 +73,7 @@ extension TodoViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return todoLists[section].todos.count + 1 // For AddTodo..
+        return todoLists[section].todos.count + 1 // for AddTodoCell
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -78,11 +89,24 @@ extension TodoViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        // TODO: custom
+        // TODO: custom view! w/ trash icon to delete
         return todoLists[section].name
     }
 
-    // TODO: Enable deleting!
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if todoLists[indexPath.section].todos.count == indexPath.row {
+            return false // AddTodoCell
+        }
+        return true
+    }
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        guard editingStyle == .delete else {
+            return
+        }
+        _ = todoLists[indexPath.section].todos.remove(at: indexPath.row)
+        tableView.deleteRows(at: [indexPath], with: .automatic)
+    }
 }
 
 // MARK: - AddTodoCellDelegate
@@ -96,13 +120,12 @@ extension TodoViewController: AddTodoCellDelegate {
         UIView.setAnimationsEnabled(true)
     }
 
-    func addTodoCell(_ cell: AddTodoCell, didEndEditing todo: String) {
+    func addTodoCell(_ cell: AddTodoCell, didEndEditing text: String) {
         guard let indexPath = tableView.indexPath(for: cell) else {
             assertionFailure()
             return
         }
-
-        // TODO: update model and add item! to that list
-        print(todo)
+        todoLists[indexPath.section].todos.append(Todo(text: text))
+        tableView.insertRows(at: [indexPath], with: .automatic)
     }
 }

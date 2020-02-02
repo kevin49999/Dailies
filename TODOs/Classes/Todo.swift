@@ -8,6 +8,6 @@
 
 import Foundation
 
-struct Todo {
+struct Todo: Codable {
     let text: String
 }

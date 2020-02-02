@@ -8,6 +8,8 @@
 
 import UIKit
 
+// TODO: Mark completed setup?
+
 class TodoCell: UITableViewCell {
     
     @IBOutlet weak private var textView: UITextView!
@@ -28,5 +30,4 @@ class TodoCell: UITableViewCell {
             weight: .semibold
         ).scaledFontforTextStyle(.body)
     }
-    
 }
