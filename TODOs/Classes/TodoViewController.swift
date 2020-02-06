@@ -9,26 +9,22 @@
 import UIKit
 
 // TODO: UITableViewDiffableDataSource w/ dynamic section names and count basically..
-// round corners and inset entire thing slightly.., some constraints breaking
-// https://gist.github.com/longhorn499/cdcc05437381ce20e3d771637657c2da
+// Table round corners and inset entire thing slightly.., some constraints breaking
 
 class TodoViewController: UIViewController {
 
     // MARK: - Properties
 
-    private var todoLists: [TodoList]!
+    private var todoLists: [TodoList] = [
+        TodoList.createdTodoLists(),
+        TodoList.daysOfWeekTodoLists()
+    ].reduce([TodoList](), +)
     @IBOutlet private weak var tableView: UITableView!
 
     // MARK: - View Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        todoLists = [
-            TodoList.createdTodoLists(),
-            TodoList.daysOfWeekTodoLists()
-        ].reduce([TodoList](), +)
-
         tableView.register(cell: TodoCell.self)
         tableView.register(cell: AddTodoCell.self)
         tableView.estimatedRowHeight = 250
@@ -44,18 +40,7 @@ class TodoViewController: UIViewController {
     }
 
     @objc func willResignActive() {
-        var created: [TodoList] = []
-        var daysOfweek: [TodoList] = []
-        for todoList in todoLists {
-            switch todoList.classification {
-            case .created:
-                created.append(todoList)
-            case .dayOfWeek:
-                daysOfweek.append(todoList)
-            }
-        }
-        try? TodoList.saveCreated(created)
-        try? TodoList.saveDaysOfWeek(daysOfweek)
+        try? TodoList.saveLists(todoLists)
     }
 
     // MARK: - IBAction
@@ -129,3 +114,5 @@ extension TodoViewController: AddTodoCellDelegate {
         tableView.insertRows(at: [indexPath], with: .automatic)
     }
 }
+
+///

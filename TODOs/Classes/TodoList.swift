@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct TodoList: Codable {
+class TodoList: Codable {
     enum Classification: String, Codable {
         case created
         case dayOfWeek
@@ -33,72 +33,83 @@ struct TodoList: Codable {
 }
 
 extension TodoList {
-    static func createdTodoLists() -> [Self] {
-        // TODO: Mocking, need to write extension to save, read.
-        return [TodoList(classification: .created,
-                         name: "Projects",
-                         todos: [Todo(text: "New App"),
-                                 Todo(text: "Automate Thing"),
-                                 Todo(text: "Derp")]),
-                TodoList(classification: .created,
-                    name: "Finance",
-                         todos: [Todo(text: "Upgrade Credit Card"),
-                                 Todo(text: "Cancel Old Bank"),
-                                 Todo(text: "$")]),
-                TodoList(classification: .created,
-                    name: "Misc.",
-                         todos: [Todo(text: "Get New Plant"),
-                                 Todo(text: "Do That Thing"),
-                                 Todo(text: "Nice Thing")]
-            )
-        ]
+    static func createdTodoLists() -> [TodoList] {
+        guard let saved = try? getCreated() else {
+            return []
+        }
+        return saved
     }
 
-    static func daysOfWeekTodoLists() -> [Self] {
-        let currentDays = currentDaysOfWeek()
-        var savedDays: [TodoList] = []
-        do {
-            savedDays = try TodoList.getDaysOfWeek()
-            assert(savedDays.count == 7)
-            // TODO: Start Here!
-            for (i, day) in savedDays.enumerated() {
-                // if createdDate day > Date(), keep it, otherwise overwrite it
-                
+    static func daysOfWeekTodoLists(
+        calendar: Calendar = .current,
+        today: Date = .todayMonthDateYear()
+    ) -> [TodoList] {
+        guard let saved = try? getDaysOfWeek() else {
+            return newDaysOfWeekTodoLists()
+        }
 
+        let new = newDaysOfWeekTodoLists()
+        for list in new {
+            let match = saved.first(where: { $0.name == list.name })!
+            if match.dateCreated >= today {
+                list.todos = match.todos
             }
-            return []
+        }
+        return new
+    }
 
-        } catch {
-            // TODO: Need to create with correct dateCreated.. month/date/year correctly, using start as reference
-            return currentDays.map {
-                TodoList(classification: .dayOfWeek, name: $0, todos: [])
-            }
+    private static func newDaysOfWeekTodoLists(
+        calendar: Calendar = .current,
+        today: Date = .todayMonthDateYear()
+    ) -> [TodoList] {
+        return currentDaysOfWeek().enumerated().map { offset, day in
+            return TodoList(
+                classification: .dayOfWeek,
+                dateCreated: calendar.date(byAdding: DateComponents(day: offset), to: today)!,
+                name: day
+            )
         }
     }
 }
 
-// MARK: - Save/Get
+// MARK: - Caching
 
 extension TodoList {
-    static func saveCreated(_ lists: [TodoList]) throws {
+    static func saveLists(_ lists: [TodoList]) throws {
+        var created: [TodoList] = []
+        var daysOfweek: [TodoList] = []
+        for list in lists {
+            switch list.classification {
+            case .created:
+                created.append(list)
+            case .dayOfWeek:
+                daysOfweek.append(list)
+            }
+        }
+        try? saveCreated(created)
+        try? saveDaysOfWeek(daysOfweek)
+    }
+
+    private static func saveCreated(_ lists: [TodoList]) throws {
         try Cache.save(lists, path: "created")
     }
 
-    static func saveDaysOfWeek(_ lists: [TodoList]) throws {
+    private static func saveDaysOfWeek(_ lists: [TodoList]) throws {
         try Cache.save(lists, path: "week")
     }
 
-    static func getCreated() throws -> [TodoList] {
+    private static func getCreated() throws -> [TodoList] {
         return try Cache.read(path: "created")
     }
 
-    static func getDaysOfWeek() throws -> [TodoList] {
+    private static func getDaysOfWeek() throws -> [TodoList] {
         return try Cache.read(path: "week")
     }
 }
 
-///
-func currentDaysOfWeek(starting date: Date = Date(), calendar: Calendar = .current) -> [String] {
+// MARK: - Random
+
+fileprivate func currentDaysOfWeek(starting date: Date = Date(), calendar: Calendar = .current) -> [String] {
     let current = calendar.component(.weekday, from: date)
     let days = [1, 2, 3, 4, 5, 6, 7]
     var rearrangedDays = days
@@ -107,18 +118,4 @@ func currentDaysOfWeek(starting date: Date = Date(), calendar: Calendar = .curre
         .flatMap { $0 }
     rearrangedDays.insert(current, at: 0)
     return rearrangedDays.map { calendar.weekdaySymbols[$0 - 1] }
-}
-
-//
-extension Date {
-    static func from(year: Int, month: Int, day: Int, calendar: Calendar = .current) -> Date {
-        var components = DateComponents()
-        components.year = year
-        components.month = month
-        components.day = day
-        guard let date = calendar.date(from: components) else {
-            preconditionFailure("Invalid Date")
-        }
-        return date
-    }
 }
