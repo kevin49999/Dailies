@@ -8,8 +8,8 @@
 
 import UIKit
 
+// Table round corners and inset entire thing slightly.., some constraints breaking messing things up, reset AddTBV after added.. height doens't get reset
 // TODO: UITableViewDiffableDataSource w/ dynamic section names and count basically..
-// Table round corners and inset entire thing slightly.., some constraints breaking
 
 class TodoViewController: UIViewController {
 
@@ -46,7 +46,7 @@ class TodoViewController: UIViewController {
     // MARK: - IBAction
 
     @IBAction func tappedActionBarButtonItem(_ sender: UIBarButtonItem) {
-        // TODO: alert for new list generation..
+        // TODO: Next Up alert for new list generation!! create w/ name :-)
     }
 }
 
@@ -69,12 +69,13 @@ extension TodoViewController: UITableViewDataSource {
             return cell
         }
         let cell: TodoCell = tableView.dequeueReusableCell(for: indexPath)
+        cell.delegate = self
         cell.configure(data: list.todos[indexPath.row])
         return cell
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        // TODO: custom view! w/ trash icon to delete
+        // TODO: Custom view! w/ trash icon to delete
         return todoLists[section].name
     }
 
@@ -84,13 +85,23 @@ extension TodoViewController: UITableViewDataSource {
         }
         return true
     }
+}
 
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        guard editingStyle == .delete else {
-            return
+// MARK: - UITableViewDelegate
+
+extension TodoViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteItem = UIContextualAction(style: .destructive, title: "Delete") {  (contextualAction, view, boolValue) in
+            _ = self.todoLists[indexPath.section].todos.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
         }
-        _ = todoLists[indexPath.section].todos.remove(at: indexPath.row)
-        tableView.deleteRows(at: [indexPath], with: .automatic)
+        let markCompleted = UIContextualAction(style: .normal, title: "Completed") {  (contextualAction, view, boolValue) in
+            // TODO: Don't just delete, update TodoList to have completed array that have their own display cell (not editable, but delatable)
+            _ = self.todoLists[indexPath.section].todos.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+        markCompleted.backgroundColor = .systemGreen
+        return UISwipeActionsConfiguration(actions: [deleteItem, markCompleted])
     }
 }
 
@@ -115,4 +126,26 @@ extension TodoViewController: AddTodoCellDelegate {
     }
 }
 
-///
+// MARK: TodoCellDelegate
+
+extension TodoViewController: TodoCellCellDelegate {
+    func todoCell(_ cell: TodoCell, isEditing textView: UITextView) {
+        // dry
+        UIView.setAnimationsEnabled(false)
+        textView.sizeToFit()
+        tableView.beginUpdates()
+        tableView.endUpdates()
+        UIView.setAnimationsEnabled(true)
+    }
+
+    func todoCell(_ cell: TodoCell, didEndEditing text: String) {
+        guard let indexPath = tableView.indexPath(for: cell) else {
+            assertionFailure()
+            return
+        }
+        if !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            todoLists[indexPath.section].todos[indexPath.row].text = text
+        }
+        tableView.reloadRows(at: [indexPath], with: .automatic)
+    }
+}
