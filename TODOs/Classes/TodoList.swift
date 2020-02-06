@@ -44,7 +44,7 @@ extension TodoList {
         calendar: Calendar = .current,
         today: Date = .todayMonthDateYear()
     ) -> [TodoList] {
-        guard let saved = try? getDaysOfWeek() else {
+        guard let saved = try? getDaysOfWeek(), !saved.isEmpty else {
             return newDaysOfWeekTodoLists()
         }
 

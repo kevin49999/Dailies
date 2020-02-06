@@ -146,6 +146,6 @@ extension TodoViewController: TodoCellCellDelegate {
         if !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             todoLists[indexPath.section].todos[indexPath.row].text = text
         }
-        tableView.reloadRows(at: [indexPath], with: .automatic)
+        tableView.reloadRows(at: [indexPath], with: .none)
     }
 }
