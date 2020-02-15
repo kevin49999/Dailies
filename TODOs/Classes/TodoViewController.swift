@@ -131,8 +131,8 @@ extension TodoViewController: UITableViewDelegate {
 extension TodoViewController: AddTodoCellDelegate {
     func addTodoCell(_ cell: AddTodoCell, isEditing textView: UITextView) {
         UIView.setAnimationsEnabled(false)
-        textView.sizeToFit()
         tableView.beginUpdates()
+        textView.sizeToFit()
         tableView.endUpdates()
         UIView.setAnimationsEnabled(true)
     }
@@ -145,7 +145,6 @@ extension TodoViewController: AddTodoCellDelegate {
         tableView.reloadRows(at: [indexPath], with: .automatic)
         todoLists[indexPath.section].todos.append(Todo(text: text))
         tableView.insertRows(at: [indexPath], with: .automatic)
-
     }
 }
 
@@ -155,8 +154,8 @@ extension TodoViewController: TodoCellCellDelegate {
     func todoCell(_ cell: TodoCell, isEditing textView: UITextView) {
         // dry
         UIView.setAnimationsEnabled(false)
-        textView.sizeToFit()
         tableView.beginUpdates()
+        textView.sizeToFit()
         tableView.endUpdates()
         UIView.setAnimationsEnabled(true)
     }

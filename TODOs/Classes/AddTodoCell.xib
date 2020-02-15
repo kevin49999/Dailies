@@ -8,7 +8,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="AddTodoCell" editingAccessoryType="checkmark" rowHeight="100" id="8F0-cS-roU" customClass="AddTodoCell" customModule="TODOs" customModuleProvider="target">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="AddTodoCell" id="8F0-cS-roU" customClass="AddTodoCell" customModule="TODOs" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="378" height="121"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8F0-cS-roU" id="KHx-Er-ipC">
@@ -39,7 +39,7 @@
                     <constraint firstItem="TxH-Y3-Dlk" firstAttribute="leading" secondItem="xue-8d-4ek" secondAttribute="leading" id="Ki2-05-Fpw"/>
                     <constraint firstAttribute="trailing" secondItem="xue-8d-4ek" secondAttribute="trailing" constant="20" symbolic="YES" id="gnv-m9-iMo"/>
                     <constraint firstItem="TxH-Y3-Dlk" firstAttribute="bottom" secondItem="xue-8d-4ek" secondAttribute="bottom" id="nuz-Yk-j7g"/>
-                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="xue-8d-4ek" secondAttribute="bottom" constant="20" symbolic="YES" id="xHk-ea-heG"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="xue-8d-4ek" secondAttribute="bottom" priority="999" constant="20" symbolic="YES" id="xHk-ea-heG"/>
                     <constraint firstItem="TxH-Y3-Dlk" firstAttribute="top" secondItem="xue-8d-4ek" secondAttribute="top" id="zvD-IN-T7B"/>
                 </constraints>
             </tableViewCellContentView>
