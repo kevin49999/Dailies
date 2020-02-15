@@ -7,9 +7,8 @@
 //
 
 import UIKit
-import SwiftReorder
 
-// Table round corners and inset entire thing slightly.., some constraints breaking messing things up, reset AddTBV after added.. height doens't get reset
+// Table round corners and inset entire thing slightly / 2 page setup (custom lists, and days)
 // TODO: UITableViewDiffableDataSource w/ dynamic section names and count basically..
 
 class TodoViewController: UIViewController {
@@ -19,7 +18,8 @@ class TodoViewController: UIViewController {
     private var todoLists: [TodoList] = [
         TodoList.createdTodoLists(),
         TodoList.daysOfWeekTodoLists()
-    ].reduce([TodoList](), +)
+        ]
+        .reduce([TodoList](), +)
     @IBOutlet private weak var tableView: UITableView!
 
     // MARK: - View Lifecycle
@@ -28,10 +28,9 @@ class TodoViewController: UIViewController {
         super.viewDidLoad()
         tableView.register(cell: TodoCell.self)
         tableView.register(cell: AddTodoCell.self)
-        tableView.estimatedRowHeight = 80
+        tableView.estimatedRowHeight = 92
         tableView.rowHeight = UITableView.automaticDimension
         tableView.tableFooterView = UIView(frame: .zero)
-        //tableView.reorder.delegate = self
 
         NotificationCenter.default.addObserver(
             self,
@@ -50,6 +49,18 @@ class TodoViewController: UIViewController {
     @IBAction func tappedActionBarButtonItem(_ sender: UIBarButtonItem) {
         // TODO: Next Up alert for new list generation!! create w/ name :-)
     }
+
+    @IBAction func tappedEditDoneBarButtonItem(_ sender: UIBarButtonItem) {
+        // TODO: do custom grab to reorder like TrelloSwiftReorder
+        tableView.isEditing.toggle()
+        let barButtonItem = UIBarButtonItem(
+            barButtonSystemItem: tableView.isEditing ? .done : .edit,
+            target:  self,
+            action: #selector(tappedEditDoneBarButtonItem(_:))
+        )
+        barButtonItem.tintColor = .systemPurple
+        navigationItem.rightBarButtonItems![1] = barButtonItem
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -64,9 +75,6 @@ extension TodoViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let spacer = tableView.reorder.spacerCell(for: indexPath) {
-            return spacer // for reordering
-        }
         let list = todoLists[indexPath.section]
         if list.todos.count == indexPath.row {
             let cell: AddTodoCell = tableView.dequeueReusableCell(for: indexPath)
@@ -97,14 +105,13 @@ extension TodoViewController: UITableViewDataSource {
         }
         return true
     }
-}
 
-// MARK: - TableViewReorderDelegate
-
-extension TodoViewController: TableViewReorderDelegate {
-    func tableView(_ tableView: UITableView, reorderRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+    // TODO: Next up, SwiftReorder! use that!
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         let todoList = todoLists[sourceIndexPath.section]
-        todoList.todos.swapAt(sourceIndexPath.row, destinationIndexPath.row)
+        let todo = todoList.todos.remove(at: sourceIndexPath.row)
+        todoList.todos.insert(todo, at: destinationIndexPath.row)
+        tableView.moveRow(at: sourceIndexPath, to: destinationIndexPath)
     }
 }
 
@@ -131,8 +138,8 @@ extension TodoViewController: UITableViewDelegate {
 extension TodoViewController: AddTodoCellDelegate {
     func addTodoCell(_ cell: AddTodoCell, isEditing textView: UITextView) {
         UIView.setAnimationsEnabled(false)
-        tableView.beginUpdates()
         textView.sizeToFit()
+        tableView.beginUpdates()
         tableView.endUpdates()
         UIView.setAnimationsEnabled(true)
     }
@@ -142,7 +149,6 @@ extension TodoViewController: AddTodoCellDelegate {
             assertionFailure()
             return
         }
-        tableView.reloadRows(at: [indexPath], with: .automatic)
         todoLists[indexPath.section].todos.append(Todo(text: text))
         tableView.insertRows(at: [indexPath], with: .automatic)
     }
@@ -154,8 +160,8 @@ extension TodoViewController: TodoCellCellDelegate {
     func todoCell(_ cell: TodoCell, isEditing textView: UITextView) {
         // dry
         UIView.setAnimationsEnabled(false)
-        tableView.beginUpdates()
         textView.sizeToFit()
+        tableView.beginUpdates()
         tableView.endUpdates()
         UIView.setAnimationsEnabled(true)
     }

@@ -50,7 +50,17 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" title="TODOs 📝" largeTitleDisplayMode="always" id="uzk-y5-BPN">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="B08-ZY-5WR"/>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="add" id="B08-ZY-5WR">
+                                <color key="tintColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </barButtonItem>
+                            <barButtonItem systemItem="edit" id="Acq-xL-G8W">
+                                <color key="tintColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="tappedEditDoneBarButtonItem:" destination="BYZ-38-t0r" id="XkD-aj-ssc"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="RRf-5r-5P2" id="cbf-b1-Z8T"/>
