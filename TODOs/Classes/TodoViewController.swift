@@ -8,7 +8,8 @@
 
 import UIKit
 
-// Table round corners and inset entire thing slightly / 2 page setup (custom lists, and days)
+// Table round corners and inset entire thing slightly / 2 page setup (custom lists + days separated)
+// Reorder TodoLists (custom only)
 // TODO: UITableViewDiffableDataSource w/ dynamic section names and count basically..
 
 class TodoViewController: UIViewController {
@@ -89,7 +90,7 @@ extension TodoViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         // TODO: Custom view! w/ trash icon to delete
-        return todoLists[section].name
+        return todoLists[section].titleCopy()
     }
 
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -106,7 +107,6 @@ extension TodoViewController: UITableViewDataSource {
         return true
     }
 
-    // TODO: Next up, SwiftReorder! use that!
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         let todoList = todoLists[sourceIndexPath.section]
         let todo = todoList.todos.remove(at: sourceIndexPath.row)
@@ -158,7 +158,7 @@ extension TodoViewController: AddTodoCellDelegate {
 
 extension TodoViewController: TodoCellCellDelegate {
     func todoCell(_ cell: TodoCell, isEditing textView: UITextView) {
-        // dry
+        // dry/still looks slightly wrong here some jank (took a screenshot of message)
         UIView.setAnimationsEnabled(false)
         textView.sizeToFit()
         tableView.beginUpdates()

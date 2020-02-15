@@ -21,7 +21,7 @@ class TodoList: Codable {
 
     init(
         classification: Classification,
-        dateCreated: Date = Date(),
+        dateCreated: Date = .todayYearMonthDay(),
         name: String,
         todos: [Todo] = []
     ) {
@@ -42,7 +42,7 @@ extension TodoList {
 
     static func daysOfWeekTodoLists(
         calendar: Calendar = .current,
-        today: Date = .todayMonthDateYear()
+        today: Date = .todayYearMonthDay()
     ) -> [TodoList] {
         guard let saved = try? getDaysOfWeek(), !saved.isEmpty else {
             return newDaysOfWeekTodoLists()
@@ -60,7 +60,7 @@ extension TodoList {
 
     private static func newDaysOfWeekTodoLists(
         calendar: Calendar = .current,
-        today: Date = .todayMonthDateYear()
+        today: Date = .todayYearMonthDay()
     ) -> [TodoList] {
         return currentDaysOfWeek().enumerated().map { offset, day in
             return TodoList(
@@ -106,8 +106,6 @@ extension TodoList {
         return try Cache.read(path: "week")
     }
 }
-
-// MARK: - Random
 
 fileprivate func currentDaysOfWeek(starting date: Date = Date(), calendar: Calendar = .current) -> [String] {
     let current = calendar.component(.weekday, from: date)

@@ -20,6 +20,8 @@
 		0A424A712384B34B00E1FC34 /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A424A702384B34B00E1FC34 /* UIFont+Extensions.swift */; };
 		0A424A732384B3C200E1FC34 /* UITableViewCell+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A424A722384B3C200E1FC34 /* UITableViewCell+Extensions.swift */; };
 		429CAA603CA8D6596ECD46A0 /* Pods_TODOsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B949676916858D68118CACF6 /* Pods_TODOsTests.framework */; };
+		524D268E23F8993F00EC46CC /* TodoListViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524D268D23F8993F00EC46CC /* TodoListViewData.swift */; };
+		524D269023F8995B00EC46CC /* DateFormatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524D268F23F8995B00EC46CC /* DateFormatters.swift */; };
 		52567EB323DE8D3E000332EA /* AddTodoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52567EB223DE8D3E000332EA /* AddTodoCell.xib */; };
 		52567EB523DE8D5F000332EA /* AddTodoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52567EB423DE8D5F000332EA /* AddTodoCell.swift */; };
 		52567EB723DE9060000332EA /* TodoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52567EB623DE9060000332EA /* TodoList.swift */; };
@@ -57,6 +59,8 @@
 		0A424A6E2384B32E00E1FC34 /* StoryboardIdentifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardIdentifiable.swift; sourceTree = "<group>"; };
 		0A424A702384B34B00E1FC34 /* UIFont+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extensions.swift"; sourceTree = "<group>"; };
 		0A424A722384B3C200E1FC34 /* UITableViewCell+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Extensions.swift"; sourceTree = "<group>"; };
+		524D268D23F8993F00EC46CC /* TodoListViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewData.swift; sourceTree = "<group>"; };
+		524D268F23F8995B00EC46CC /* DateFormatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatters.swift; sourceTree = "<group>"; };
 		52567EB223DE8D3E000332EA /* AddTodoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddTodoCell.xib; sourceTree = "<group>"; };
 		52567EB423DE8D5F000332EA /* AddTodoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTodoCell.swift; sourceTree = "<group>"; };
 		52567EB623DE9060000332EA /* TodoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoList.swift; sourceTree = "<group>"; };
@@ -98,6 +102,7 @@
 				0A424A702384B34B00E1FC34 /* UIFont+Extensions.swift */,
 				0A424A722384B3C200E1FC34 /* UITableViewCell+Extensions.swift */,
 				52567EBE23EBBC91000332EA /* Date+Extensions.swift */,
+				524D268F23F8995B00EC46CC /* DateFormatters.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -106,6 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				0A424A6E2384B32E00E1FC34 /* StoryboardIdentifiable.swift */,
+				524D268D23F8993F00EC46CC /* TodoListViewData.swift */,
 				52567EBA23DE907B000332EA /* TodoViewData.swift */,
 			);
 			path = Protocols;
@@ -383,6 +389,8 @@
 				52567EBF23EBBC91000332EA /* Date+Extensions.swift in Sources */,
 				0A424A452384B0FC00E1FC34 /* AppDelegate.swift in Sources */,
 				0A424A472384B0FC00E1FC34 /* SceneDelegate.swift in Sources */,
+				524D269023F8995B00EC46CC /* DateFormatters.swift in Sources */,
+				524D268E23F8993F00EC46CC /* TodoListViewData.swift in Sources */,
 				52567EB523DE8D5F000332EA /* AddTodoCell.swift in Sources */,
 				0A424A6B2384B29D00E1FC34 /* TodoCell.swift in Sources */,
 				0A424A732384B3C200E1FC34 /* UITableViewCell+Extensions.swift in Sources */,

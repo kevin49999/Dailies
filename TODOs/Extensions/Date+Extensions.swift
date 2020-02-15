@@ -20,7 +20,7 @@ extension Date {
         return date
     }
 
-    static func todayMonthDateYear(calendar: Calendar = .current) -> Date {
+    static func todayYearMonthDay(calendar: Calendar = .current) -> Date {
         let today = Date()
         return Date.from(
             year: calendar.component(.year, from: today),
