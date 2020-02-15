@@ -8,6 +8,7 @@ target 'TODOs' do
   # Pods for TODOs
   # Do add w/ SPM..
   pod 'IQKeyboardManagerSwift'
+  pod 'SwiftReorder'
 
   target 'TODOsTests' do
     inherit! :search_paths

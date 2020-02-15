@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftReorder
 
 // Table round corners and inset entire thing slightly.., some constraints breaking messing things up, reset AddTBV after added.. height doens't get reset
 // TODO: UITableViewDiffableDataSource w/ dynamic section names and count basically..
@@ -27,9 +28,10 @@ class TodoViewController: UIViewController {
         super.viewDidLoad()
         tableView.register(cell: TodoCell.self)
         tableView.register(cell: AddTodoCell.self)
-        tableView.estimatedRowHeight = 250
+        tableView.estimatedRowHeight = 80
         tableView.rowHeight = UITableView.automaticDimension
         tableView.tableFooterView = UIView(frame: .zero)
+        //tableView.reorder.delegate = self
 
         NotificationCenter.default.addObserver(
             self,
@@ -62,6 +64,9 @@ extension TodoViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if let spacer = tableView.reorder.spacerCell(for: indexPath) {
+            return spacer // for reordering
+        }
         let list = todoLists[indexPath.section]
         if list.todos.count == indexPath.row {
             let cell: AddTodoCell = tableView.dequeueReusableCell(for: indexPath)
@@ -84,6 +89,22 @@ extension TodoViewController: UITableViewDataSource {
             return false // AddTodoCell
         }
         return true
+    }
+
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        if todoLists[indexPath.section].todos.count == indexPath.row {
+            return false // AddTodoCell
+        }
+        return true
+    }
+}
+
+// MARK: - TableViewReorderDelegate
+
+extension TodoViewController: TableViewReorderDelegate {
+    func tableView(_ tableView: UITableView, reorderRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let todoList = todoLists[sourceIndexPath.section]
+        todoList.todos.swapAt(sourceIndexPath.row, destinationIndexPath.row)
     }
 }
 
@@ -121,8 +142,10 @@ extension TodoViewController: AddTodoCellDelegate {
             assertionFailure()
             return
         }
+        tableView.reloadRows(at: [indexPath], with: .automatic)
         todoLists[indexPath.section].todos.append(Todo(text: text))
         tableView.insertRows(at: [indexPath], with: .automatic)
+
     }
 }
 
