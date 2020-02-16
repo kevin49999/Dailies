@@ -9,7 +9,6 @@
 import UIKit
 import IQKeyboardManagerSwift
 
-// TODO: how do you save in Go? That would be fine
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 

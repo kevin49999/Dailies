@@ -9,7 +9,7 @@
 import UIKit
 
 // Table round corners and inset entire thing slightly / 2 page setup (custom lists + days separated)
-// Reorder TodoLists (custom only)
+// Reorder TodoLists (sections, basically)
 // TODO: UITableViewDiffableDataSource w/ dynamic section names and count basically..
 
 class TodoViewController: UIViewController {
@@ -56,49 +56,8 @@ class TodoViewController: UIViewController {
     // MARK: - IBAction
 
     @IBAction func tappedActionBarButtonItem(_ sender: UIBarButtonItem) {
-        // extension on UIAlertController for configuring.. w/ completion for passing title for todo list
-        let alertController = UIAlertController(
-            title: "Create new todo list",
-            message: nil,
-            preferredStyle: .alert
-        )
-
-        let textField = UITextField()
-        textField.placeholder = "Name of list.."
-        textField.borderStyle = .roundedRect
-        textField.backgroundColor = .clear
-        textField.translatesAutoresizingMaskIntoConstraints = false
-
-        alertController.view.addSubview(textField)
-        NSLayoutConstraint.activate([
-            textField.topAnchor.constraint(equalTo: alertController.view.topAnchor, constant: 64.0),
-            textField.bottomAnchor.constraint(equalTo: alertController.view.bottomAnchor, constant: -64.0),
-            textField.centerXAnchor.constraint(equalTo: alertController.view.centerXAnchor),
-            textField.leadingAnchor.constraint(equalTo: alertController.view.leadingAnchor, constant: 8.0),
-            textField.trailingAnchor.constraint(equalTo: alertController.view.trailingAnchor, constant: -8.0)
-        ])
-
-        alertController.addAction(
-            UIAlertAction(
-                title: "Cancel",
-                style: .cancel
-            )
-        )
-        alertController.addAction(
-            UIAlertAction(
-                title: "Create",
-                style: .default,
-                handler: { _ in
-                    guard let text = textField.text, !text.isEmpty else {
-                        return
-                    }
-                    self.addNewTodoList(with: text)
-                }
-            )
-        )
-
-        present(alertController, animated: true, completion: {
-            textField.becomeFirstResponder()
+        UIAlertController.addTodoAlert(presenter: self, completion: { name in
+            self.addNewTodoList(with: name)
         })
     }
 
@@ -140,7 +99,7 @@ extension TodoViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        // TODO: Custom view! w/ trash icon to delete
+        // TODO: Next up - Custom view! w/ trash icon to delete
         return todoLists[section].titleCopy()
     }
 
