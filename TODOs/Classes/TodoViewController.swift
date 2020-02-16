@@ -45,14 +45,65 @@ class TodoViewController: UIViewController {
         try? TodoList.saveLists(todoLists)
     }
 
+    private func addNewTodoList(with name: String) {
+        todoLists.insert(
+            TodoList(classification: .created, name: name),
+            at: 0
+        )
+        tableView.insertSections(IndexSet(arrayLiteral: 0), with: .automatic)
+    }
+
     // MARK: - IBAction
 
     @IBAction func tappedActionBarButtonItem(_ sender: UIBarButtonItem) {
-        // TODO: Next Up alert for new list generation!! create w/ name :-)
+        // extension on UIAlertController for configuring.. w/ completion for passing title for todo list
+        let alertController = UIAlertController(
+            title: "Create new todo list",
+            message: nil,
+            preferredStyle: .alert
+        )
+
+        let textField = UITextField()
+        textField.placeholder = "Name of list.."
+        textField.borderStyle = .roundedRect
+        textField.backgroundColor = .clear
+        textField.translatesAutoresizingMaskIntoConstraints = false
+
+        alertController.view.addSubview(textField)
+        NSLayoutConstraint.activate([
+            textField.topAnchor.constraint(equalTo: alertController.view.topAnchor, constant: 64.0),
+            textField.bottomAnchor.constraint(equalTo: alertController.view.bottomAnchor, constant: -64.0),
+            textField.centerXAnchor.constraint(equalTo: alertController.view.centerXAnchor),
+            textField.leadingAnchor.constraint(equalTo: alertController.view.leadingAnchor, constant: 8.0),
+            textField.trailingAnchor.constraint(equalTo: alertController.view.trailingAnchor, constant: -8.0)
+        ])
+
+        alertController.addAction(
+            UIAlertAction(
+                title: "Cancel",
+                style: .cancel
+            )
+        )
+        alertController.addAction(
+            UIAlertAction(
+                title: "Create",
+                style: .default,
+                handler: { _ in
+                    guard let text = textField.text, !text.isEmpty else {
+                        return
+                    }
+                    self.addNewTodoList(with: text)
+                }
+            )
+        )
+
+        present(alertController, animated: true, completion: {
+            textField.becomeFirstResponder()
+        })
     }
 
     @IBAction func tappedEditDoneBarButtonItem(_ sender: UIBarButtonItem) {
-        // TODO: do custom grab to reorder like TrelloSwiftReorder
+        // TODO: Do custom grab to reorder like Trello/SwiftReorder
         tableView.isEditing.toggle()
         let barButtonItem = UIBarButtonItem(
             barButtonSystemItem: tableView.isEditing ? .done : .edit,
