@@ -8,8 +8,9 @@
 
 import UIKit
 
-// Table round corners and inset entire thing slightly / 2 page setup (custom lists + days separated)
+// TODO: Next up, 2 "pages" for custom lists, and days
 // Reorder TodoLists (sections, basically)
+// Table round corners and inset entire thing slightly / 2 page setup (custom lists + days separated)
 // TODO: UITableViewDiffableDataSource w/ dynamic section names and count basically..
 
 class TodoViewController: UIViewController {
@@ -29,8 +30,10 @@ class TodoViewController: UIViewController {
         super.viewDidLoad()
         tableView.register(cell: TodoCell.self)
         tableView.register(cell: AddTodoCell.self)
-        tableView.estimatedRowHeight = 92
         tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 92
+        tableView.sectionHeaderHeight = UITableView.automaticDimension
+        tableView.estimatedSectionHeaderHeight = 44
         tableView.tableFooterView = UIView(frame: .zero)
 
         NotificationCenter.default.addObserver(
@@ -98,11 +101,6 @@ extension TodoViewController: UITableViewDataSource {
         return cell
     }
 
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        // TODO: Next up - Custom view! w/ trash icon to delete
-        return todoLists[section].titleCopy()
-    }
-
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         if todoLists[indexPath.section].todos.count == indexPath.row {
             return false // AddTodoCell
@@ -140,6 +138,14 @@ extension TodoViewController: UITableViewDelegate {
         }
         markCompleted.backgroundColor = .systemGreen
         return UISwipeActionsConfiguration(actions: [deleteItem, markCompleted])
+    }
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = TodoListSectionHeaderView()
+        header.configure(data: todoLists[section])
+        header.delegate = self
+        header.tag = section // can't use indexPathForHeader(view:)?
+        return header
     }
 }
 
@@ -185,5 +191,18 @@ extension TodoViewController: TodoCellCellDelegate {
             todoLists[indexPath.section].todos[indexPath.row].text = text
         }
         tableView.reloadRows(at: [indexPath], with: .none)
+    }
+}
+
+// MARK: - TodoListSectionHeaderViewDelegate
+
+extension TodoViewController: TodoListSectionHeaderViewDelegate {
+    func todoListSectionHeaderView(_ view: TodoListSectionHeaderView, tappedTrash section: Int) {
+        UIAlertController.deleteTodoList(presenter: self, completion: { delete in
+            if delete {
+                self.todoLists.remove(at: section)
+                self.tableView.deleteSections(IndexSet(arrayLiteral: section), with: .automatic)
+            }
+        })
     }
 }

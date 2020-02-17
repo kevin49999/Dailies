@@ -55,4 +55,34 @@ extension UIAlertController {
             textField.becomeFirstResponder()
         })
     }
+
+    static func deleteTodoList(
+        presenter: UIViewController,
+        completion: @escaping (_ delete: Bool) -> Void
+    ) {
+        let alertController = UIAlertController(
+            title: "Are you sure you want to delete this list? 🚮",
+            message: "Support hasn't been added yet to undo 😝",
+            preferredStyle: .alert
+        )
+        alertController.addAction(
+            UIAlertAction(
+                title: "Cancel",
+                style: .cancel,
+                handler: { _ in
+                    completion(false)
+                }
+            )
+        )
+        alertController.addAction(
+            UIAlertAction(
+                title: "Delete",
+                style: .destructive,
+                handler: { _ in
+                    completion(true)
+                }
+            )
+        )
+        presenter.present(alertController, animated: true)
+    }
 }
