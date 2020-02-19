@@ -144,7 +144,7 @@ extension TodoViewController: UITableViewDelegate {
         let header = TodoListSectionHeaderView()
         header.configure(data: todoLists[section])
         header.delegate = self
-        header.tag = section // can't use indexPathForHeader(view:)?
+        header.section = section
         return header
     }
 }

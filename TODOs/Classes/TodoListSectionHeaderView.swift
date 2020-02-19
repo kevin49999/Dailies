@@ -15,13 +15,16 @@ protocol TodoListSectionHeaderViewDelegate: class {
 class TodoListSectionHeaderView: UIView {
 
     weak var delegate: TodoListSectionHeaderViewDelegate?
+    var section: Int!
+
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 16, weight: .semibold).scaledFontforTextStyle(.body)
         return label
     }()
-    // TODO: how to scale this for dynamic type? look up
+
+    // TODO: how to scale this for dynamic type? look up // make a bit larger now
     private let trashButton: UIButton = {
         let imageConfig = UIImage.SymbolConfiguration(scale: .medium)
         let trashImage = UIImage(systemName: "trash", withConfiguration: imageConfig)
@@ -48,6 +51,7 @@ class TodoListSectionHeaderView: UIView {
 
     func configure(data: TodoListViewData) {
         titleLabel.text = data.titleCopy()
+        trashButton.isHidden = !data.showTrash
     }
     
     private func setup() {
@@ -87,6 +91,6 @@ class TodoListSectionHeaderView: UIView {
     }
 
     @IBAction func tappedTrash(_ sender: UIButton) {
-        delegate?.todoListSectionHeaderView(self, tappedTrash: self.tag)
+        delegate?.todoListSectionHeaderView(self, tappedTrash: self.section)
     }
 }

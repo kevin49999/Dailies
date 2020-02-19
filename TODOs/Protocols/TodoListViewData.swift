@@ -9,10 +9,19 @@
 import Foundation
 
 protocol TodoListViewData {
+    var showTrash: Bool { get }
     func titleCopy() -> String
 }
 
 extension TodoList: TodoListViewData {
+    var showTrash: Bool {
+        switch classification {
+        case .created:
+            return true
+        case .dayOfWeek:
+            return false
+        }
+    }
     func titleCopy() -> String {
         switch classification {
         case .created:
