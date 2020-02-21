@@ -116,10 +116,10 @@ extension TodoViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        let todoList = todoLists[sourceIndexPath.section]
-        let todo = todoList.todos.remove(at: sourceIndexPath.row)
-        todoList.todos.insert(todo, at: destinationIndexPath.row)
-        tableView.moveRow(at: sourceIndexPath, to: destinationIndexPath)
+        let sourceTodoList = todoLists[sourceIndexPath.section]
+        let destinationTodoList = todoLists[destinationIndexPath.section]
+        let movedTodo = sourceTodoList.todos.remove(at: sourceIndexPath.row)
+        destinationTodoList.todos.insert(movedTodo, at: destinationIndexPath.row)
     }
 }
 
