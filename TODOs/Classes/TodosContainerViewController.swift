@@ -6,12 +6,12 @@
 //  Copyright © 2019 Kevin Johnson. All rights reserved.
 //
 
-// Rename sections (trash cange to action, w/ 2 options presented in action list)
+import UIKit
+
+// Rename sections (trash change to action, w/ 2 options presented in action list)
 // Reorder sections TodoLists
 // Table round corners and inset entire thing slightly
 // UITableViewDiffableDataSource w/ dynamic section names and count basically..
-
-import UIKit
 
 protocol TodosContainerViewControllerDelegate: class {
     func todosContainerViewControllerDidTapEdit(_ controller: TodosContainerViewControllerDelegate)
@@ -28,14 +28,15 @@ class TodosContainerViewController: UIViewController {
             case .created:
                 daysOfWeekTodoController.remove()
                 add(createdTodoViewController)
-                navigationItem.rightBarButtonItems?[1].isEnabled = true
+                navigationItem.rightBarButtonItems?[0].isEnabled = true
             case .daysOfWeek:
                 createdTodoViewController.remove()
                 add(daysOfWeekTodoController)
-                navigationItem.rightBarButtonItems?[1].isEnabled = false
+                navigationItem.rightBarButtonItems?[0].isEnabled = false
             }
         }
     }
+    private var isEditingLists: Bool = false
 
     private lazy var createdTodoViewController: TodoListViewController = {
         let controller = TodoListViewController(
@@ -79,14 +80,15 @@ class TodosContainerViewController: UIViewController {
 
     @IBAction func tappedEditDoneBarButtonItem(_ sender: UIBarButtonItem) {
         // TODO: Do custom grab to reorder like Trello/SwiftReorder
-        //tableView.isEditing.toggle()
-//        let barButtonItem = UIBarButtonItem(
-//            barButtonSystemItem: tableView.isEditing ? .done : .edit,
-//            target:  self,
-//            action: #selector(tappedEditDoneBarButtonItem(_:))
-//        )
-//        barButtonItem.tintColor = .systemPurple
-//        navigationItem.rightBarButtonItems![1] = barButtonItem
+        isEditingLists.toggle()
+        createdTodoViewController.setEditing(isEditingLists)
+        daysOfWeekTodoController.setEditing(isEditingLists)
+        let barButtonItem = UIBarButtonItem(
+            barButtonSystemItem: self.isEditingLists ? .done : .edit,
+            target:  self,
+            action: #selector(tappedEditDoneBarButtonItem(_:))
+        )
+        navigationItem.rightBarButtonItems![1] = barButtonItem
     }
 
     @IBAction func listSegmentedControlChanged(_ sender: UISegmentedControl) {

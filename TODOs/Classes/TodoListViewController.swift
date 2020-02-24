@@ -52,6 +52,10 @@ class TodoListViewController: UIViewController {
     }
 
     // MARK: - Public Functions
+
+    func setEditing(_ editing: Bool) {
+        tableView.isEditing = editing
+    }
     
     func addNewTodoList(with name: String) {
         todoLists.insert(
@@ -189,24 +193,5 @@ extension TodoListViewController: TodoListSectionHeaderViewDelegate {
                 self.tableView.deleteSections(IndexSet(arrayLiteral: section), with: .automatic)
             }
         })
-    }
-}
-
-/// no custom transition though
-extension UIViewController {
-    func add(_ child: UIViewController) {
-        addChild(child)
-        view.addSubview(child.view)
-        child.didMove(toParent: self)
-    }
-
-    func remove() {
-        guard parent != nil else {
-            return
-        }
-
-        willMove(toParent: nil)
-        view.removeFromSuperview()
-        removeFromParent()
     }
 }
