@@ -9,7 +9,7 @@
 import Foundation
 
 struct DateFormatters {
-    static let dayOfWeekNameDayMonth: DateFormatter = {
+    static let daysOfWeekNameDayMonth: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "EEEE M/dd"
         return formatter

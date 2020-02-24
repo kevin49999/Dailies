@@ -1,33 +1,38 @@
 //
-//  ViewController.swift
+//  TodoListViewController.swift
 //  TODOs
 //
-//  Created by Kevin Johnson on 11/19/19.
-//  Copyright © 2019 Kevin Johnson. All rights reserved.
+//  Created by Kevin Johnson on 2/23/20.
+//  Copyright © 2020 Kevin Johnson. All rights reserved.
 //
 
 import UIKit
 
-// TODO: Next up, 2 "pages" for custom lists, and days
-// Reorder TodoLists (sections, basically)
-// Table round corners and inset entire thing slightly / 2 page setup (custom lists + days separated)
-// TODO: UITableViewDiffableDataSource w/ dynamic section names and count basically..
-
-class TodoViewController: UIViewController {
+class TodoListViewController: UIViewController {
 
     // MARK: - Properties
 
-    private var todoLists: [TodoList] = [
-        TodoList.createdTodoLists(),
-        TodoList.daysOfWeekTodoLists()
-        ]
-        .reduce([TodoList](), +)
-    @IBOutlet private weak var tableView: UITableView!
+    weak var containerDelegate: TodosContainerViewControllerDelegate?
+    private(set) var todoLists: [TodoList]
+    private let tableView: UITableView = UITableView()
+
+    // MARK: - Init
+
+    init(todoLists: [TodoList]) {
+        self.todoLists = todoLists
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     // MARK: - View Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.delegate = self
+        tableView.dataSource = self
         tableView.register(cell: TodoCell.self)
         tableView.register(cell: AddTodoCell.self)
         tableView.rowHeight = UITableView.automaticDimension
@@ -36,50 +41,30 @@ class TodoViewController: UIViewController {
         tableView.estimatedSectionHeaderHeight = 44
         tableView.tableFooterView = UIView(frame: .zero)
 
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(willResignActive),
-            name: UIApplication.willResignActiveNotification,
-            object: nil
-        )
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(tableView)
+        NSLayoutConstraint.activate([
+            tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            tableView.topAnchor.constraint(equalTo: self.view.topAnchor)
+        ])
     }
 
-    @objc func willResignActive() {
-        try? TodoList.saveLists(todoLists)
-    }
-
-    private func addNewTodoList(with name: String) {
+    // MARK: - Public Functions
+    
+    func addNewTodoList(with name: String) {
         todoLists.insert(
             TodoList(classification: .created, name: name),
             at: 0
         )
         tableView.insertSections(IndexSet(arrayLiteral: 0), with: .automatic)
     }
-
-    // MARK: - IBAction
-
-    @IBAction func tappedActionBarButtonItem(_ sender: UIBarButtonItem) {
-        UIAlertController.addTodoAlert(presenter: self, completion: { name in
-            self.addNewTodoList(with: name)
-        })
-    }
-
-    @IBAction func tappedEditDoneBarButtonItem(_ sender: UIBarButtonItem) {
-        // TODO: Do custom grab to reorder like Trello/SwiftReorder
-        tableView.isEditing.toggle()
-        let barButtonItem = UIBarButtonItem(
-            barButtonSystemItem: tableView.isEditing ? .done : .edit,
-            target:  self,
-            action: #selector(tappedEditDoneBarButtonItem(_:))
-        )
-        barButtonItem.tintColor = .systemPurple
-        navigationItem.rightBarButtonItems![1] = barButtonItem
-    }
 }
 
 // MARK: - UITableViewDataSource
 
-extension TodoViewController: UITableViewDataSource {
+extension TodoListViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return todoLists.count
     }
@@ -125,7 +110,7 @@ extension TodoViewController: UITableViewDataSource {
 
 // MARK: - UITableViewDelegate
 
-extension TodoViewController: UITableViewDelegate {
+extension TodoListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteItem = UIContextualAction(style: .destructive, title: "Delete") {  (contextualAction, view, boolValue) in
             _ = self.todoLists[indexPath.section].todos.remove(at: indexPath.row)
@@ -151,7 +136,7 @@ extension TodoViewController: UITableViewDelegate {
 
 // MARK: - AddTodoCellDelegate
 
-extension TodoViewController: AddTodoCellDelegate {
+extension TodoListViewController: AddTodoCellDelegate {
     func addTodoCell(_ cell: AddTodoCell, isEditing textView: UITextView) {
         UIView.setAnimationsEnabled(false)
         textView.sizeToFit()
@@ -172,7 +157,7 @@ extension TodoViewController: AddTodoCellDelegate {
 
 // MARK: TodoCellDelegate
 
-extension TodoViewController: TodoCellCellDelegate {
+extension TodoListViewController: TodoCellCellDelegate {
     func todoCell(_ cell: TodoCell, isEditing textView: UITextView) {
         // dry/still looks slightly wrong here some jank (took a screenshot of message)
         UIView.setAnimationsEnabled(false)
@@ -196,7 +181,7 @@ extension TodoViewController: TodoCellCellDelegate {
 
 // MARK: - TodoListSectionHeaderViewDelegate
 
-extension TodoViewController: TodoListSectionHeaderViewDelegate {
+extension TodoListViewController: TodoListSectionHeaderViewDelegate {
     func todoListSectionHeaderView(_ view: TodoListSectionHeaderView, tappedTrash section: Int) {
         UIAlertController.deleteTodoList(presenter: self, completion: { delete in
             if delete {
@@ -204,5 +189,24 @@ extension TodoViewController: TodoListSectionHeaderViewDelegate {
                 self.tableView.deleteSections(IndexSet(arrayLiteral: section), with: .automatic)
             }
         })
+    }
+}
+
+/// no custom transition though
+extension UIViewController {
+    func add(_ child: UIViewController) {
+        addChild(child)
+        view.addSubview(child.view)
+        child.didMove(toParent: self)
+    }
+
+    func remove() {
+        guard parent != nil else {
+            return
+        }
+
+        willMove(toParent: nil)
+        view.removeFromSuperview()
+        removeFromParent()
     }
 }

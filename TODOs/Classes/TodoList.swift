@@ -9,9 +9,21 @@
 import Foundation
 
 class TodoList: Codable {
-    enum Classification: String, Codable {
-        case created
-        case dayOfWeek
+    enum Classification: Int, Codable {
+        case created = 0
+        case daysOfWeek
+
+        // if conform to decodable doesn't get rawValue init?
+        init?(int: Int) {
+            switch int {
+            case 0:
+                self = .created
+            case 1:
+                self = .daysOfWeek
+            default:
+                return nil
+            }
+        }
     }
 
     let classification: Classification
@@ -64,7 +76,7 @@ extension TodoList {
     ) -> [TodoList] {
         return currentDaysOfWeek().enumerated().map { offset, day in
             return TodoList(
-                classification: .dayOfWeek,
+                classification: .daysOfWeek,
                 dateCreated: calendar.date(byAdding: DateComponents(day: offset), to: today)!,
                 name: day
             )
@@ -75,26 +87,11 @@ extension TodoList {
 // MARK: - Caching
 
 extension TodoList {
-    static func saveLists(_ lists: [TodoList]) throws {
-        var created: [TodoList] = []
-        var daysOfweek: [TodoList] = []
-        for list in lists {
-            switch list.classification {
-            case .created:
-                created.append(list)
-            case .dayOfWeek:
-                daysOfweek.append(list)
-            }
-        }
-        try? saveCreated(created)
-        try? saveDaysOfWeek(daysOfweek)
-    }
-
-    private static func saveCreated(_ lists: [TodoList]) throws {
+    static func saveCreated(_ lists: [TodoList]) throws {
         try Cache.save(lists, path: "created")
     }
 
-    private static func saveDaysOfWeek(_ lists: [TodoList]) throws {
+    static func saveDaysOfWeek(_ lists: [TodoList]) throws {
         try Cache.save(lists, path: "week")
     }
 

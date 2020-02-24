@@ -18,7 +18,7 @@ extension TodoList: TodoListViewData {
         switch classification {
         case .created:
             return true
-        case .dayOfWeek:
+        case .daysOfWeek:
             return false
         }
     }
@@ -26,9 +26,9 @@ extension TodoList: TodoListViewData {
         switch classification {
         case .created:
             return name
-        case .dayOfWeek:
+        case .daysOfWeek:
             let isToday = dateCreated == .todayYearMonthDay()
-            let dateString = DateFormatters.dayOfWeekNameDayMonth.string(
+            let dateString = DateFormatters.daysOfWeekNameDayMonth.string(
                 from: dateCreated
             )
             if isToday {
