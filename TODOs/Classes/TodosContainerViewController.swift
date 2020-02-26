@@ -9,13 +9,11 @@
 import UIKit
 
 // Rename sections (trash change to action, w/ 2 options presented in action list)
-// Reorder sections TodoLists
-// Table round corners and inset entire thing slightly
-// UITableViewDiffableDataSource w/ dynamic section names and count basically..
 
-protocol TodosContainerViewControllerDelegate: class {
-    func todosContainerViewControllerDidTapEdit(_ controller: TodosContainerViewControllerDelegate)
-}
+// Reorder sections TodoLists 🤔 - drag and drop? separate page w/ tableView representing? drag and drop you should figure out.. then apply to cells as well (without having to enter editing mode)
+// If day changed while backgrounded, when didComeBack, update current day if it changed (AppDelegate notification?)
+
+// 💡 UITableViewDiffableDataSource w/ dynamic section names and count basically..
 
 class TodosContainerViewController: UIViewController {
 

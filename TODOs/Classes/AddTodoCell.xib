@@ -42,6 +42,7 @@
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+            <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
             <connections>
                 <outlet property="placeholderTextView" destination="TxH-Y3-Dlk" id="VPW-JS-Sq9"/>
                 <outlet property="textView" destination="xue-8d-4ek" id="S9D-HP-Zn6"/>

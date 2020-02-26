@@ -12,7 +12,6 @@ class TodoListViewController: UIViewController {
 
     // MARK: - Properties
 
-    weak var containerDelegate: TodosContainerViewControllerDelegate?
     private(set) var todoLists: [TodoList]
     private let tableView: UITableView = UITableView()
 
@@ -40,14 +39,28 @@ class TodoListViewController: UIViewController {
         tableView.sectionHeaderHeight = UITableView.automaticDimension
         tableView.estimatedSectionHeaderHeight = 44
         tableView.tableFooterView = UIView(frame: .zero)
+        tableView.layer.cornerRadius = 6
+        tableView.clipsToBounds = true
 
         tableView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(tableView)
         NSLayoutConstraint.activate([
-            tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
-            tableView.topAnchor.constraint(equalTo: self.view.topAnchor)
+            tableView.leadingAnchor.constraint(
+                equalTo: view.leadingAnchor,
+                constant: 20
+            ),
+            tableView.trailingAnchor.constraint(
+                equalTo: view.trailingAnchor,
+                constant: -20
+            ),
+            tableView.bottomAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.bottomAnchor,
+                constant: -16
+            ),
+            tableView.topAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.topAnchor,
+                constant: 16
+            )
         ])
     }
 
@@ -81,6 +94,9 @@ extension TodoListViewController: UITableViewDataSource {
         let list = todoLists[indexPath.section]
         if list.todos.count == indexPath.row {
             let cell: AddTodoCell = tableView.dequeueReusableCell(for: indexPath)
+            if indexPath.section == todoLists.count - 1 {
+                cell.separatorInset = .hideSeparator // hide last
+            }
             cell.delegate = self
             return cell
         }
