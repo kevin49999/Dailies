@@ -8,11 +8,15 @@
 
 import UIKit
 
-// Reorder sections TodoLists 🤔 - drag and drop? separate page w/ tableView representing? drag and drop you should figure out.. then apply to cells as well (without having to enter editing mode)
-// If day changed while backgrounded, when didComeBack, update current day if it changed (AppDelegate notification?)
+// Top 4 4️⃣
+// Before publish: App Icon, README, License
+// Reorder sections TodoLists 🤔 drag and drop how to (once established there use elsewhere)? If can't get it, come up with dumb solution
 // Sizeup + make action item accessible/scale w/ accessibility category
+// If day changed while backgrounded, when didComeBack, update current day if it changed (AppDelegate notification?)
 
-// 💡 UITableViewDiffableDataSource w/ dynamic section names and count basically..
+// Notes on phone..
+
+// 💡 UITableViewDiffableDataSource w/ dynamic section names and cases basically, how to do..
 
 class TodosContainerViewController: UIViewController {
 
