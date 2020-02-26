@@ -9,7 +9,7 @@
 import UIKit
 
 protocol TodoListSectionHeaderViewDelegate: class {
-    func todoListSectionHeaderView(_ view: TodoListSectionHeaderView, tappedTrash section: Int)
+    func todoListSectionHeaderView(_ view: TodoListSectionHeaderView, tappedAction section: Int)
 }
 
 class TodoListSectionHeaderView: UIView {
@@ -25,9 +25,12 @@ class TodoListSectionHeaderView: UIView {
     }()
 
     // TODO: how to scale this for dynamic type? look up // make a bit larger now
-    private let trashButton: UIButton = {
+    private let actionButton: UIButton = {
         let imageConfig = UIImage.SymbolConfiguration(scale: .medium)
-        let trashImage = UIImage(systemName: "trash", withConfiguration: imageConfig)
+        let trashImage = UIImage(
+            systemName: "square.and.arrow.up",
+            withConfiguration: imageConfig
+        )
         let button = UIButton()
         button.setImage(trashImage, for: .normal)
         return button
@@ -51,13 +54,13 @@ class TodoListSectionHeaderView: UIView {
 
     func configure(data: TodoListViewData) {
         titleLabel.text = data.titleCopy()
-        trashButton.isHidden = !data.showTrash
+        actionButton.isHidden = !data.showTrash
     }
     
     private func setup() {
         backgroundColor = .tertiarySystemBackground // not right on light mode
 
-        trashButton.addTarget(self, action: #selector(tappedTrash(_:)), for: .touchUpInside)
+        actionButton.addTarget(self, action: #selector(tappedTrash(_:)), for: .touchUpInside)
 
         if traitCollection.preferredContentSizeCategory.isAccessibilityCategory {
             stackView.axis = .vertical
@@ -67,7 +70,7 @@ class TodoListSectionHeaderView: UIView {
             stackView.alignment = .fill
         }
         stackView.addArrangedSubview(titleLabel)
-        stackView.addArrangedSubview(trashButton)
+        stackView.addArrangedSubview(actionButton)
         addSubview(stackView)
         NSLayoutConstraint.activate([
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.0),
@@ -91,6 +94,6 @@ class TodoListSectionHeaderView: UIView {
     }
 
     @IBAction func tappedTrash(_ sender: UIButton) {
-        delegate?.todoListSectionHeaderView(self, tappedTrash: self.section)
+        delegate?.todoListSectionHeaderView(self, tappedAction: self.section)
     }
 }

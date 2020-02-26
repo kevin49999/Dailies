@@ -8,8 +8,32 @@
 
 import UIKit
 
+// MARK: - UIAlertAction
+
+extension UIAlertAction {
+    static func cancel(_ handler: ((UIAlertAction) -> Void)? = nil) -> UIAlertAction{
+        return UIAlertAction(title: "Cancel", style: .cancel, handler: handler)
+    }
+
+    static func delete(_ handler: ((UIAlertAction) -> Void)? = nil) -> UIAlertAction{
+        return UIAlertAction(title: "Delete", style: .destructive, handler: handler)
+    }
+}
+
+// MARK: - Utility
+
 extension UIAlertController {
-    static func addTodoAlert(
+    func addActions(_ alerts: [UIAlertAction]) {
+        for alert in alerts {
+            addAction(alert)
+        }
+    }
+}
+
+// MARK: - Custom Configurations
+
+extension UIAlertController {
+    static func addTodoListAlert(
         presenter: UIViewController,
         completion: @escaping (_ name: String) -> Void
     ) {
@@ -33,13 +57,7 @@ extension UIAlertController {
             textField.trailingAnchor.constraint(equalTo: alertController.view.trailingAnchor, constant: -8.0)
         ])
 
-        alertController.addAction(
-            UIAlertAction(
-                title: "Cancel",
-                style: .cancel
-            )
-        )
-        alertController.addAction(
+        alertController.addActions([
             UIAlertAction(
                 title: "Create",
                 style: .default,
@@ -49,40 +67,78 @@ extension UIAlertController {
                     }
                     completion(text)
                 }
-            )
+            ),
+            UIAlertAction.cancel()
+        ])
+
+        presenter.present(alertController, animated: true, completion: {
+            textField.becomeFirstResponder()
+        })
+    }
+
+    static func editTodoListAlert(
+        _ name: String,
+        presenter: UIViewController,
+        completion: @escaping (_ name: String) -> Void
+    ) {
+        let alertController = UIAlertController(
+            title: "Edit todo list name",
+            message: nil,
+            preferredStyle: .alert
         )
+
+        let textField = UITextField()
+        textField.text = name
+        textField.placeholder = "Name of list.."
+        textField.borderStyle = .roundedRect
+        textField.backgroundColor = .clear
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        alertController.view.addSubview(textField)
+        NSLayoutConstraint.activate([
+            textField.topAnchor.constraint(equalTo: alertController.view.topAnchor, constant: 64.0),
+            textField.bottomAnchor.constraint(equalTo: alertController.view.bottomAnchor, constant: -64.0),
+            textField.centerXAnchor.constraint(equalTo: alertController.view.centerXAnchor),
+            textField.leadingAnchor.constraint(equalTo: alertController.view.leadingAnchor, constant: 8.0),
+            textField.trailingAnchor.constraint(equalTo: alertController.view.trailingAnchor, constant: -8.0)
+        ])
+
+        alertController.addActions([
+            UIAlertAction(
+                title: "Update",
+                style: .default,
+                handler: { _ in
+                    guard let text = textField.text, !text.isEmpty else {
+                        return
+                    }
+                    completion(text)
+                }
+            ),
+            UIAlertAction.cancel()
+        ])
+
         presenter.present(alertController, animated: true, completion: {
             textField.becomeFirstResponder()
         })
     }
 
     static func deleteTodoList(
+        _ listName: String,
         presenter: UIViewController,
         completion: @escaping (_ delete: Bool) -> Void
     ) {
         let alertController = UIAlertController(
-            title: "Are you sure you want to delete this list? 🚮",
+            title: "Are you sure you want to delete \"\(listName)?\" 🚮",
             message: "Support hasn't been added yet to undo 😝",
             preferredStyle: .alert
         )
-        alertController.addAction(
-            UIAlertAction(
-                title: "Cancel",
-                style: .cancel,
-                handler: { _ in
-                    completion(false)
-                }
-            )
-        )
-        alertController.addAction(
-            UIAlertAction(
-                title: "Delete",
-                style: .destructive,
-                handler: { _ in
-                    completion(true)
-                }
-            )
-        )
+
+        alertController.addActions([
+            UIAlertAction.delete { _ in
+                completion(true)
+            },
+            UIAlertAction.cancel()
+        ])
+
         presenter.present(alertController, animated: true)
     }
 }

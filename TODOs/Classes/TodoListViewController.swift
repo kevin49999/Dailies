@@ -202,12 +202,35 @@ extension TodoListViewController: TodoCellCellDelegate {
 // MARK: - TodoListSectionHeaderViewDelegate
 
 extension TodoListViewController: TodoListSectionHeaderViewDelegate {
-    func todoListSectionHeaderView(_ view: TodoListSectionHeaderView, tappedTrash section: Int) {
-        UIAlertController.deleteTodoList(presenter: self, completion: { delete in
-            if delete {
-                self.todoLists.remove(at: section)
-                self.tableView.deleteSections(IndexSet(arrayLiteral: section), with: .automatic)
-            }
-        })
+    func todoListSectionHeaderView(_ view: TodoListSectionHeaderView, tappedAction section: Int) {
+        let selectionsAlert = UIAlertController(
+            title: nil,
+            message: nil,
+            preferredStyle: .actionSheet
+        )
+
+        selectionsAlert.addActions([
+            UIAlertAction(title: "Edit Name", style: .default, handler: { _ in
+                UIAlertController.editTodoListAlert(
+                    self.todoLists[section].name,
+                    presenter: self
+                ) { name in
+                    self.todoLists[section].name = name
+                    self.tableView.reloadSections(IndexSet(arrayLiteral: section), with: .automatic)
+                }
+            }),
+            UIAlertAction(title: "Delete", style: .destructive, handler: { _ in
+                UIAlertController.deleteTodoList(
+                    self.todoLists[section].name,
+                    presenter: self
+                ) { delete in
+                    guard delete else { return }
+                    self.todoLists.remove(at: section)
+                    self.tableView.deleteSections(IndexSet(arrayLiteral: section), with: .automatic)
+                }
+            }),
+            UIAlertAction.cancel()
+        ])
+        present(selectionsAlert, animated: true)
     }
 }

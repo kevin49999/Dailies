@@ -8,10 +8,9 @@
 
 import UIKit
 
-// Rename sections (trash change to action, w/ 2 options presented in action list)
-
 // Reorder sections TodoLists 🤔 - drag and drop? separate page w/ tableView representing? drag and drop you should figure out.. then apply to cells as well (without having to enter editing mode)
 // If day changed while backgrounded, when didComeBack, update current day if it changed (AppDelegate notification?)
+// Sizeup + make action item accessible/scale w/ accessibility category
 
 // 💡 UITableViewDiffableDataSource w/ dynamic section names and count basically..
 
@@ -71,7 +70,7 @@ class TodosContainerViewController: UIViewController {
 
     @IBAction func tappedActionBarButtonItem(_ sender: UIBarButtonItem) {
         assert(state == .created)
-        UIAlertController.addTodoAlert(presenter: self, completion: { name in
+        UIAlertController.addTodoListAlert(presenter: self, completion: { name in
             self.createdTodoViewController.addNewTodoList(with: name)
         })
     }
