@@ -39,7 +39,6 @@ class TodoListViewController: UIViewController {
         tableView.sectionHeaderHeight = UITableView.automaticDimension
         tableView.estimatedSectionHeaderHeight = 44
         tableView.tableFooterView = UIView(frame: .zero)
-        tableView.layer.cornerRadius = 6
         tableView.clipsToBounds = true
 
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -47,19 +46,19 @@ class TodoListViewController: UIViewController {
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
-                constant: 20
+                constant: 0
             ),
             tableView.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor,
-                constant: -20
+                constant: 0
             ),
             tableView.bottomAnchor.constraint(
                 equalTo: view.safeAreaLayoutGuide.bottomAnchor,
-                constant: -16
+                constant: 0
             ),
             tableView.topAnchor.constraint(
                 equalTo: view.safeAreaLayoutGuide.topAnchor,
-                constant: 16
+                constant: 0
             )
         ])
     }

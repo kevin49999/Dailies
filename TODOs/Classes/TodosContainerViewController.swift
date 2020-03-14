@@ -11,9 +11,9 @@ import UIKit
 // TODO:
 // Reorder sections TodoLists 🤔
 // README, License, App Icon (do Dark and Light!)
+
 // Drag and drop how to (once established there use elsewhere)? If can't get it, come up with dumb solution - done well in Reminders app, is this not part of System?
 // Sizeup + make action item accessible/scale w/ accessibility category
-
 // Notes on phone..
 
 // 💡 UITableViewDiffableDataSource w/ dynamic section names and cases basically, how to do..

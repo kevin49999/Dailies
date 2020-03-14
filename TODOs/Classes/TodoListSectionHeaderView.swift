@@ -58,7 +58,7 @@ class TodoListSectionHeaderView: UIView {
     }
     
     private func setup() {
-        backgroundColor = .tertiarySystemBackground // not right on light mode
+        backgroundColor = .tertiarySystemGroupedBackground
 
         actionButton.addTarget(self, action: #selector(tappedTrash(_:)), for: .touchUpInside)
 
