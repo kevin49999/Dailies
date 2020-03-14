@@ -66,6 +66,11 @@ class TodoListViewController: UIViewController {
 
     // MARK: - Public Functions
 
+    func updateTodoLists(_ lists: [TodoList]) {
+        todoLists = lists
+        tableView.reloadData()
+    }
+
     func setEditing(_ editing: Bool) {
         tableView.isEditing = editing
     }

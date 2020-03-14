@@ -9,12 +9,12 @@
 import Foundation
 
 protocol TodoListViewData {
-    var showTrash: Bool { get }
+    var showAction: Bool { get }
     func titleCopy() -> String
 }
 
 extension TodoList: TodoListViewData {
-    var showTrash: Bool {
+    var showAction: Bool {
         switch classification {
         case .created:
             return true
@@ -28,14 +28,21 @@ extension TodoList: TodoListViewData {
             return name
         case .daysOfWeek:
             let isToday = dateCreated == .todayYearMonthDay()
-            let dateString = DateFormatters.daysOfWeekNameDayMonth.string(
+            var dateString = DateFormatters.daysOfWeekNameDayMonth.string(
                 from: dateCreated
             )
+
+            // can be cleaner
+            if isWeekend || isToday {
+                dateString.insert(" ", at: dateString.startIndex)
+            }
+            if isWeekend {
+                dateString.insert("🏝", at: dateString.startIndex)
+            }
             if isToday {
-                return "🌠 \(dateString)"
+                dateString.insert("🌠", at: dateString.startIndex)
             }
             return dateString
         }
     }
 }
-

@@ -8,11 +8,11 @@
 
 import UIKit
 
-// Top 4 4️⃣
-// Before publish: App Icon, README, License
-// Reorder sections TodoLists 🤔 drag and drop how to (once established there use elsewhere)? If can't get it, come up with dumb solution
+// TODO:
+// Reorder sections TodoLists 🤔
+// README, License, App Icon (do Dark and Light!)
+// Drag and drop how to (once established there use elsewhere)? If can't get it, come up with dumb solution - done well in Reminders app, is this not part of System?
 // Sizeup + make action item accessible/scale w/ accessibility category
-// If day changed while backgrounded, when didComeBack, update current day if it changed (AppDelegate notification?)
 
 // Notes on phone..
 
@@ -62,12 +62,7 @@ class TodosContainerViewController: UIViewController {
         listsSegmentedControl.selectedSegmentIndex = state
         self.state = TodoList.Classification(int: state) ?? .created
 
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(willResignActive),
-            name: UIApplication.willResignActiveNotification,
-            object: nil
-        )
+        observeNotifications()
     }
 
     // MARK: - IBAction
@@ -103,11 +98,37 @@ class TodosContainerViewController: UIViewController {
             fatalError()
         }
     }
+}
 
-    // MARK: - Notification
+// MARK: - Notifications
+
+extension TodosContainerViewController {
+    private func observeNotifications() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(willResignActive),
+            name: UIApplication.willResignActiveNotification,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(willEnterForeground),
+            name: UIApplication.willEnterForegroundNotification,
+            object: nil
+        )
+    }
 
     @objc func willResignActive() {
         try? TodoList.saveCreated(createdTodoViewController.todoLists)
         try? TodoList.saveDaysOfWeek(daysOfWeekTodoController.todoLists)
+    }
+
+    @objc func willEnterForeground() {
+        guard let firstDay = daysOfWeekTodoController.todoLists.first else {
+            fatalError("First day should be set")
+        }
+        if Date.todayYearMonthDay() > firstDay.dateCreated {
+            daysOfWeekTodoController.updateTodoLists(TodoList.daysOfWeekTodoLists())
+        }
     }
 }

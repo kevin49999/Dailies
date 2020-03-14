@@ -54,7 +54,7 @@ class TodoListSectionHeaderView: UIView {
 
     func configure(data: TodoListViewData) {
         titleLabel.text = data.titleCopy()
-        actionButton.isHidden = !data.showTrash
+        actionButton.isHidden = !data.showAction
     }
     
     private func setup() {

@@ -30,6 +30,15 @@ class TodoList: Codable {
     let dateCreated: Date
     var name: String
     var todos: [Todo]
+    var isWeekend: Bool {
+        switch classification {
+        case .daysOfWeek where name == "Sunday",
+             .daysOfWeek where name == "Saturday":
+            return true
+        default:
+            return false
+        }
+    }
 
     init(
         classification: Classification,
