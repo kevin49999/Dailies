@@ -9,7 +9,7 @@
 import UIKit
 
 // TODO:
-// Reorder sections TodoLists 🤔
+// Reorder sections TodoLists 🤔 (tap action, item in list "Reorder", presents VC with order of sections)
 // README, License, App Icon (do Dark and Light!)
 
 // Drag and drop how to (once established there use elsewhere)? If can't get it, come up with dumb solution - done well in Reminders app, is this not part of System?

@@ -214,7 +214,7 @@ extension TodoListViewController: TodoListSectionHeaderViewDelegate {
         )
 
         selectionsAlert.addActions([
-            UIAlertAction(title: "Edit Name", style: .default, handler: { _ in
+            UIAlertAction(title: "Rename", style: .default, handler: { _ in
                 UIAlertController.editTodoListAlert(
                     self.todoLists[section].name,
                     presenter: self
@@ -223,18 +223,24 @@ extension TodoListViewController: TodoListSectionHeaderViewDelegate {
                     self.tableView.reloadSections(IndexSet(arrayLiteral: section), with: .automatic)
                 }
             }),
-            UIAlertAction(title: "Delete", style: .destructive, handler: { _ in
-                UIAlertController.deleteTodoList(
-                    self.todoLists[section].name,
-                    presenter: self
-                ) { delete in
-                    guard delete else { return }
-                    self.todoLists.remove(at: section)
-                    self.tableView.deleteSections(IndexSet(arrayLiteral: section), with: .automatic)
-                }
+            UIAlertAction(title: "Edit Lists", style: .default, handler: { _ in
+                let controller: TodoListsViewController = .init(
+                    delegate: self,
+                    todoLists: self.todoLists
+                )
+                self.present(controller, animated: true)
             }),
             UIAlertAction.cancel()
         ])
         present(selectionsAlert, animated: true)
+    }
+}
+
+// MARK: - TodoListsViewControllerDelegate
+
+extension TodoListViewController: TodoListsViewControllerDelegate {
+    func todoListsViewController(_ controller: TodoListsViewController, orderedLists: [TodoList]) {
+        self.todoLists = orderedLists
+        tableView.reloadData()
     }
 }

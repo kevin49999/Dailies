@@ -60,7 +60,7 @@ class TodoListSectionHeaderView: UIView {
     private func setup() {
         backgroundColor = .tertiarySystemGroupedBackground
 
-        actionButton.addTarget(self, action: #selector(tappedTrash(_:)), for: .touchUpInside)
+        actionButton.addTarget(self, action: #selector(tappedAction(_:)), for: .touchUpInside)
 
         if traitCollection.preferredContentSizeCategory.isAccessibilityCategory {
             stackView.axis = .vertical
@@ -93,7 +93,7 @@ class TodoListSectionHeaderView: UIView {
         }
     }
 
-    @IBAction func tappedTrash(_ sender: UIButton) {
+    @IBAction func tappedAction(_ sender: UIButton) {
         delegate?.todoListSectionHeaderView(self, tappedAction: self.section)
     }
 }
