@@ -6,6 +6,15 @@ Daily TODOs in my preferred style: separate lists for each day of the week plus 
 
 _do!_
 
+## Ideas/Checklist
+
+- [ ] Custom drag and drop of rows and sections
+- [ ] Backup to iCloud?
+- [ ] App Icon (dark + light)
+- [ ] 💡 UITableViewDiffableDataSource w/ dynamic section names and cases basically for custom named lists (not sure how to do currently)
+- [ ] Show completed items in a list similar to Trello
+- [ ] ...
+
 ## App Store
 
 Please feel free to clone/copy/use any of the code in this project, just don't upload this straight to the App Store! Not planning on doing that here, this is just for personal use.
