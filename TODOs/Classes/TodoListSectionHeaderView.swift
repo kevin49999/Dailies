@@ -8,32 +8,13 @@
 
 import UIKit
 
-protocol TodoListSectionHeaderViewDelegate: class {
-    func todoListSectionHeaderView(_ view: TodoListSectionHeaderView, tappedAction section: Int)
-}
-
 class TodoListSectionHeaderView: UIView {
-
-    weak var delegate: TodoListSectionHeaderViewDelegate?
-    var section: Int!
 
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 16, weight: .semibold).scaledFontforTextStyle(.body)
         return label
-    }()
-
-    // TODO: how to scale this for dynamic type? look up // make a bit larger now
-    private let actionButton: UIButton = {
-        let imageConfig = UIImage.SymbolConfiguration(scale: .medium)
-        let trashImage = UIImage(
-            systemName: "square.and.arrow.up",
-            withConfiguration: imageConfig
-        )
-        let button = UIButton()
-        button.setImage(trashImage, for: .normal)
-        return button
     }()
 
     private let stackView: UIStackView = {
@@ -54,14 +35,10 @@ class TodoListSectionHeaderView: UIView {
 
     func configure(data: TodoListViewData) {
         titleLabel.text = data.titleCopy()
-        actionButton.isHidden = !data.showAction
     }
     
     private func setup() {
         backgroundColor = .tertiarySystemGroupedBackground
-
-        actionButton.addTarget(self, action: #selector(tappedAction(_:)), for: .touchUpInside)
-
         if traitCollection.preferredContentSizeCategory.isAccessibilityCategory {
             stackView.axis = .vertical
             stackView.alignment = .leading
@@ -70,7 +47,6 @@ class TodoListSectionHeaderView: UIView {
             stackView.alignment = .fill
         }
         stackView.addArrangedSubview(titleLabel)
-        stackView.addArrangedSubview(actionButton)
         addSubview(stackView)
         NSLayoutConstraint.activate([
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.0),
@@ -91,9 +67,5 @@ class TodoListSectionHeaderView: UIView {
             stackView.axis = .horizontal
             stackView.alignment = .fill
         }
-    }
-
-    @IBAction func tappedAction(_ sender: UIButton) {
-        delegate?.todoListSectionHeaderView(self, tappedAction: self.section)
     }
 }

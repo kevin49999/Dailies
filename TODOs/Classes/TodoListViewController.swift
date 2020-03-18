@@ -152,8 +152,6 @@ extension TodoListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = TodoListSectionHeaderView()
         header.configure(data: todoLists[section])
-        header.delegate = self
-        header.section = section
         return header
     }
 }
@@ -200,48 +198,5 @@ extension TodoListViewController: TodoCellCellDelegate {
             todoLists[indexPath.section].todos[indexPath.row].text = text
         }
         tableView.reloadRows(at: [indexPath], with: .none)
-    }
-}
-
-// MARK: - TodoListSectionHeaderViewDelegate
-
-extension TodoListViewController: TodoListSectionHeaderViewDelegate {
-    func todoListSectionHeaderView(_ view: TodoListSectionHeaderView, tappedAction section: Int) {
-        let selectionsAlert = UIAlertController(
-            title: nil,
-            message: nil,
-            preferredStyle: .actionSheet
-        )
-
-        selectionsAlert.addActions([
-            UIAlertAction(title: "Rename", style: .default, handler: { _ in
-                UIAlertController.editTodoListAlert(
-                    self.todoLists[section].name,
-                    presenter: self
-                ) { name in
-                    self.todoLists[section].name = name
-                    self.tableView.reloadSections(IndexSet(arrayLiteral: section), with: .automatic)
-                }
-            }),
-            UIAlertAction(title: "Edit Lists", style: .default, handler: { _ in
-                let controller: TodoListsViewController = .init(
-                    delegate: self,
-                    todoLists: self.todoLists
-                )
-                let nav = UINavigationController(rootViewController: controller)
-                self.present(nav, animated: true)
-            }),
-            UIAlertAction.cancel()
-        ])
-        present(selectionsAlert, animated: true)
-    }
-}
-
-// MARK: - TodoListsViewControllerDelegate
-
-extension TodoListViewController: TodoListsViewControllerDelegate {
-    func todoListsViewController(_ controller: TodoListsViewController, finishedEditing lists: [TodoList]) {
-        self.todoLists = lists
-        tableView.reloadData()
     }
 }

@@ -34,6 +34,11 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" title="TODOs 📝" largeTitleDisplayMode="always" id="uzk-y5-BPN">
+                        <barButtonItem key="leftBarButtonItem" title="Lists" id="iEN-Rb-D4j">
+                            <connections>
+                                <action selector="tappedListsBarButtonItem:" destination="BYZ-38-t0r" id="z4b-Gy-nWj"/>
+                            </connections>
+                        </barButtonItem>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="g9s-E7-ped">
                             <rect key="frame" x="124.5" y="5.5" width="165" height="33"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

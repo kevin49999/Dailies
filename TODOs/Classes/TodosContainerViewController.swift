@@ -8,14 +8,9 @@
 
 import UIKit
 
-// TODO:
-// Reorder sections TodoLists 🤔 (tap action, item in list "Reorder", presents VC with order of sections)
 // README, License, App Icon (do Dark and Light!)
-
 // Drag and drop how to (once established there use elsewhere)? If can't get it, come up with dumb solution - done well in Reminders app, is this not part of System?
-// Sizeup + make action item accessible/scale w/ accessibility category
 // Notes on phone..
-
 // 💡 UITableViewDiffableDataSource w/ dynamic section names and cases basically, how to do..
 
 class TodosContainerViewController: UIViewController {
@@ -30,10 +25,12 @@ class TodosContainerViewController: UIViewController {
                 daysOfWeekTodoController.remove()
                 add(createdTodoViewController)
                 navigationItem.rightBarButtonItems?[0].isEnabled = true
+                navigationItem.leftBarButtonItem?.isEnabled = true
             case .daysOfWeek:
                 createdTodoViewController.remove()
                 add(daysOfWeekTodoController)
                 navigationItem.rightBarButtonItems?[0].isEnabled = false
+                navigationItem.leftBarButtonItem?.isEnabled = false
             }
         }
     }
@@ -67,6 +64,15 @@ class TodosContainerViewController: UIViewController {
 
     // MARK: - IBAction
 
+    @IBAction func tappedListsBarButtonItem(_ sender: UIBarButtonItem) {
+        let controller: TodoListsViewController = .init(
+            delegate: self,
+            todoLists: createdTodoViewController.todoLists
+        )
+        let nav = UINavigationController(rootViewController: controller)
+        present(nav, animated: true)
+    }
+
     @IBAction func tappedActionBarButtonItem(_ sender: UIBarButtonItem) {
         assert(state == .created)
         UIAlertController.addTodoListAlert(presenter: self, completion: { name in
@@ -75,7 +81,6 @@ class TodosContainerViewController: UIViewController {
     }
 
     @IBAction func tappedEditDoneBarButtonItem(_ sender: UIBarButtonItem) {
-        // TODO: Do custom grab to reorder like Trello/SwiftReorder
         isEditingLists.toggle()
         createdTodoViewController.setEditing(isEditingLists)
         daysOfWeekTodoController.setEditing(isEditingLists)
@@ -130,5 +135,13 @@ extension TodosContainerViewController {
         if Date.todayYearMonthDay() > firstDay.dateCreated {
             daysOfWeekTodoController.updateTodoLists(TodoList.daysOfWeekTodoLists())
         }
+    }
+}
+
+// MARK: - TodoListsViewControllerDelegate
+
+extension TodosContainerViewController: TodoListsViewControllerDelegate {
+    func todoListsViewController(_ controller: TodoListsViewController, finishedEditing lists: [TodoList]) {
+        createdTodoViewController.updateTodoLists(lists)
     }
 }
