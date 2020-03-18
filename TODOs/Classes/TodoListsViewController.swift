@@ -9,7 +9,7 @@
 import UIKit
 
 protocol TodoListsViewControllerDelegate: class {
-    func todoListsViewController(_ controller: TodoListsViewController, orderedLists: [TodoList])
+    func todoListsViewController(_ controller: TodoListsViewController, finishedEditing lists: [TodoList])
 }
 
 class TodoListsViewController: UIViewController {
@@ -39,12 +39,19 @@ class TodoListsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Edit Custom Lists"
+        isModalInPresentation = true
+        let done = UIBarButtonItem(
+            barButtonSystemItem: .done,
+            target: self,
+            action: #selector(tappedDone(_:))
+        )
+        navigationItem.rightBarButtonItem = done
+        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 92
-        tableView.sectionHeaderHeight = UITableView.automaticDimension
-        tableView.estimatedSectionHeaderHeight = 44
         tableView.tableFooterView = UIView(frame: .zero)
         tableView.clipsToBounds = true
         tableView.register(cell: TodoCell.self)
@@ -53,19 +60,16 @@ class TodoListsViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(tableView)
         NSLayoutConstraint.activate([
-            tableView.leadingAnchor.constraint(
-                equalTo: view.leadingAnchor
-            ),
-            tableView.trailingAnchor.constraint(
-                equalTo: view.trailingAnchor
-            ),
-            tableView.bottomAnchor.constraint(
-                equalTo: view.bottomAnchor
-            ),
-            tableView.topAnchor.constraint(
-                equalTo: view.topAnchor
-            )
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
         ])
+    }
+
+    @IBAction private func tappedDone(_ sender: UIBarButtonItem) {
+        delegate?.todoListsViewController(self, finishedEditing: self.todoLists)
+        dismiss(animated: true)
     }
 }
 
@@ -79,6 +83,10 @@ extension TodoListsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: TodoCell = tableView.dequeueReusableCell(for: indexPath)
         cell.configure(data: todoLists[indexPath.row])
+        cell.delegate = self
+        if indexPath.row == todoLists.count - 1 {
+            cell.separatorInset = .hideSeparator // hide last
+        }
         return cell
     }
 
@@ -93,7 +101,6 @@ extension TodoListsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         let movedTodo = todoLists.remove(at: sourceIndexPath.row)
         todoLists.insert(movedTodo, at: destinationIndexPath.row)
-        delegate?.todoListsViewController(self, orderedLists: todoLists)
     }
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -107,7 +114,6 @@ extension TodoListsViewController: UITableViewDataSource {
             guard delete else { return }
             self.todoLists.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
-            self.delegate?.todoListsViewController(self, orderedLists: self.todoLists)
         }
     }
 }
@@ -134,7 +140,7 @@ extension TodoListsViewController: TodoCellCellDelegate {
             return
         }
         if !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            todoLists[indexPath.section].todos[indexPath.row].text = text
+            todoLists[indexPath.row].name = text
         }
         tableView.reloadRows(at: [indexPath], with: .none)
     }

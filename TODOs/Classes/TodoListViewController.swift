@@ -228,7 +228,8 @@ extension TodoListViewController: TodoListSectionHeaderViewDelegate {
                     delegate: self,
                     todoLists: self.todoLists
                 )
-                self.present(controller, animated: true)
+                let nav = UINavigationController(rootViewController: controller)
+                self.present(nav, animated: true)
             }),
             UIAlertAction.cancel()
         ])
@@ -239,8 +240,8 @@ extension TodoListViewController: TodoListSectionHeaderViewDelegate {
 // MARK: - TodoListsViewControllerDelegate
 
 extension TodoListViewController: TodoListsViewControllerDelegate {
-    func todoListsViewController(_ controller: TodoListsViewController, orderedLists: [TodoList]) {
-        self.todoLists = orderedLists
+    func todoListsViewController(_ controller: TodoListsViewController, finishedEditing lists: [TodoList]) {
+        self.todoLists = lists
         tableView.reloadData()
     }
 }

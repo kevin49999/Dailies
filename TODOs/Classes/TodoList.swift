@@ -8,9 +8,6 @@
 
 import Foundation
 
-///
-extension TodoList:
-
 class TodoList: Codable {
     enum Classification: Int, Codable {
         case created = 0

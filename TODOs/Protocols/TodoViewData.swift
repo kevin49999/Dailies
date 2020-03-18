@@ -13,3 +13,7 @@ protocol TodoViewData {
 }
 
 extension Todo: TodoViewData { }
+
+extension TodoList: TodoViewData {
+    var text: String { name }
+}
