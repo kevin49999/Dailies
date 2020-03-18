@@ -39,7 +39,7 @@ class TodoListsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Edit Custom Lists"
+        title = "Edit Lists"
         isModalInPresentation = true
         let done = UIBarButtonItem(
             barButtonSystemItem: .done,
