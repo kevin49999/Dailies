@@ -40,13 +40,12 @@ class TodoListsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Edit Lists"
-        isModalInPresentation = true
-        let done = UIBarButtonItem(
-            barButtonSystemItem: .done,
+        let save = UIBarButtonItem(
+            barButtonSystemItem: .save,
             target: self,
-            action: #selector(tappedDone(_:))
+            action: #selector(tappedSave(_:))
         )
-        navigationItem.rightBarButtonItem = done
+        navigationItem.rightBarButtonItem = save
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -62,12 +61,13 @@ class TodoListsViewController: UIViewController {
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
         ])
     }
 
-    @IBAction private func tappedDone(_ sender: UIBarButtonItem) {
+    // TODO: decide if necessary.. could just swipe down and then it's done - with changes save..
+    @IBAction private func tappedSave(_ sender: UIBarButtonItem) {
         delegate?.todoListsViewController(self, finishedEditing: self.todoLists)
         dismiss(animated: true)
     }
@@ -126,12 +126,7 @@ extension TodoListsViewController: UITableViewDelegate { }
 
 extension TodoListsViewController: TodoCellCellDelegate {
     func todoCell(_ cell: TodoCell, isEditing textView: UITextView) {
-        // dry/still looks slightly wrong here some jank (took a screenshot of message)
-        UIView.setAnimationsEnabled(false)
-        textView.sizeToFit()
-        tableView.beginUpdates()
-        tableView.endUpdates()
-        UIView.setAnimationsEnabled(true)
+        tableView.resize(for: textView)
     }
 
     func todoCell(_ cell: TodoCell, didEndEditing text: String) {

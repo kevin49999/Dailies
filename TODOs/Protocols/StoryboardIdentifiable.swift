@@ -24,5 +24,12 @@ extension StoryboardIdentifiable where Self: UITableViewCell {
     }
 }
 
+extension StoryboardIdentifiable where Self: UIView {
+    static var storyboardIdentifier: String {
+        return String(describing: self)
+    }
+}
+
 extension UIViewController: StoryboardIdentifiable { }
 extension UITableViewCell: StoryboardIdentifiable { }
+extension UIView: StoryboardIdentifiable { }

@@ -19,4 +19,12 @@ extension UITableView {
     func register<T: UITableViewCell>(cell: T.Type) {
         register(UINib(nibName: T.storyboardIdentifier, bundle: nil), forCellReuseIdentifier: T.storyboardIdentifier)
     }
+
+    func resize(for textView: UITextView) {
+        UIView.setAnimationsEnabled(false)
+        beginUpdates()
+        textView.sizeToFit()
+        endUpdates()
+        UIView.setAnimationsEnabled(true)
+    }
 }

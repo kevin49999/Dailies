@@ -13,7 +13,22 @@ class TodoListViewController: UIViewController {
     // MARK: - Properties
 
     private(set) var todoLists: [TodoList]
-    private let tableView: UITableView = UITableView()
+    private lazy var tableView: UITableView = {
+        let table = UITableView(frame: .zero, style: .grouped)
+        table.delegate = self
+        table.dataSource = self
+        table.register(cell: TodoCell.self)
+        table.rowHeight = UITableView.automaticDimension
+        table.estimatedRowHeight = 92
+        table.sectionHeaderHeight = UITableView.automaticDimension
+        table.estimatedSectionHeaderHeight = 44
+        table.sectionFooterHeight = UITableView.automaticDimension
+        table.estimatedSectionFooterHeight = 92
+        table.tableFooterView = UIView(frame: .zero)
+        table.clipsToBounds = true
+        table.translatesAutoresizingMaskIntoConstraints = false
+        return table
+    }()
 
     // MARK: - Init
 
@@ -30,19 +45,8 @@ class TodoListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(cell: TodoCell.self)
-        tableView.register(cell: AddTodoCell.self)
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 92
-        tableView.sectionHeaderHeight = UITableView.automaticDimension
-        tableView.estimatedSectionHeaderHeight = 44
-        tableView.tableFooterView = UIView(frame: .zero)
-        tableView.clipsToBounds = true
 
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(tableView)
+        view.addSubview(tableView)
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
@@ -91,36 +95,21 @@ extension TodoListViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return todoLists[section].todos.count + 1 // for AddTodoCell
+        return todoLists[section].todos.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let list = todoLists[indexPath.section]
-        if list.todos.count == indexPath.row {
-            let cell: AddTodoCell = tableView.dequeueReusableCell(for: indexPath)
-            if indexPath.section == todoLists.count - 1 {
-                cell.separatorInset = .hideSeparator // hide last
-            }
-            cell.delegate = self
-            return cell
-        }
         let cell: TodoCell = tableView.dequeueReusableCell(for: indexPath)
         cell.delegate = self
-        cell.configure(data: list.todos[indexPath.row])
+        cell.configure(data: todoLists[indexPath.section].todos[indexPath.row])
         return cell
     }
 
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        if todoLists[indexPath.section].todos.count == indexPath.row {
-            return false // AddTodoCell
-        }
         return true
     }
 
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        if todoLists[indexPath.section].todos.count == indexPath.row {
-            return false // AddTodoCell
-        }
         return true
     }
 
@@ -154,25 +143,28 @@ extension TodoListViewController: UITableViewDelegate {
         header.configure(data: todoLists[section])
         return header
     }
+
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let footer: AddTodoFooterView = Bundle.loadNibView()
+        footer.section = section
+        footer.delegate = self
+        return footer
+    }
 }
 
-// MARK: - AddTodoCellDelegate
+// MARK: - AddTodoFooterViewDelegate
 
-extension TodoListViewController: AddTodoCellDelegate {
-    func addTodoCell(_ cell: AddTodoCell, isEditing textView: UITextView) {
-        UIView.setAnimationsEnabled(false)
-        textView.sizeToFit()
-        tableView.beginUpdates()
-        tableView.endUpdates()
-        UIView.setAnimationsEnabled(true)
+extension TodoListViewController: AddTodoFooterViewDelegate {
+    func addTodoFooterView(_ view: AddTodoFooterView, isEditing textView: UITextView, section: Int) {
+        tableView.resize(for: textView)
     }
 
-    func addTodoCell(_ cell: AddTodoCell, didEndEditing text: String) {
-        guard let indexPath = tableView.indexPath(for: cell) else {
-            assertionFailure()
-            return
-        }
-        todoLists[indexPath.section].todos.append(Todo(text: text))
+    func addTodoFooterView(_ view: AddTodoFooterView, didEndEditing text: String, section: Int) {
+        todoLists[section].todos.append(Todo(text: text))
+        let indexPath = IndexPath(
+            row: todoLists[section].todos.count - 1,
+            section: section
+        )
         tableView.insertRows(at: [indexPath], with: .automatic)
     }
 }
@@ -181,12 +173,7 @@ extension TodoListViewController: AddTodoCellDelegate {
 
 extension TodoListViewController: TodoCellCellDelegate {
     func todoCell(_ cell: TodoCell, isEditing textView: UITextView) {
-        // dry/still looks slightly wrong here some jank (took a screenshot of message)
-        UIView.setAnimationsEnabled(false)
-        textView.sizeToFit()
-        tableView.beginUpdates()
-        tableView.endUpdates()
-        UIView.setAnimationsEnabled(true)
+        tableView.resize(for: textView)
     }
 
     func todoCell(_ cell: TodoCell, didEndEditing text: String) {

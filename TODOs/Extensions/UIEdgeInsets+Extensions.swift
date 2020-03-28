@@ -1,8 +1,8 @@
 //
-//  UIEdgeInsets+Sizing.swift
+//  UIEdgeInsets+Extensions.swift
 //  TODOs
 //
-//  Created by Kevin Johnson on 2/25/20.
+//  Created by Kevin Johnson on 3/28/20.
 //  Copyright © 2020 Kevin Johnson. All rights reserved.
 //
 
