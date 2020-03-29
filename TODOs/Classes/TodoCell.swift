@@ -13,7 +13,6 @@ protocol TodoCellCellDelegate: class {
     func todoCell(_ cell: TodoCell, didEndEditing text: String)
 }
 
-// TODO: Should probably make more generic..
 class TodoCell: UITableViewCell {
 
     weak var delegate: TodoCellCellDelegate?

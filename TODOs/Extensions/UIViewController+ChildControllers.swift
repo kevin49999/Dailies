@@ -10,9 +10,20 @@ import UIKit
 
 // TODO: Add small fade! like from Dave Delong better MVC
 extension UIViewController {
-    func add(_ child: UIViewController) {
+    func add(_ child: UIViewController, to contentView: UIView? = nil) {
         addChild(child)
-        view.addSubview(child.view)
+        if let contentView = contentView {
+            child.view.translatesAutoresizingMaskIntoConstraints = false
+            contentView.addSubview(child.view)
+            NSLayoutConstraint.activate([
+                child.view.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+                child.view.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+                child.view.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+                child.view.topAnchor.constraint(equalTo: contentView.topAnchor)
+            ])
+        } else {
+            view.addSubview(child.view)
+        }
         child.didMove(toParent: self)
     }
 

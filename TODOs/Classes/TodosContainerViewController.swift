@@ -18,12 +18,12 @@ class TodosContainerViewController: UIViewController {
             switch state {
             case .created:
                 daysOfWeekTodoController.remove()
-                add(createdTodoViewController)
+                add(createdTodoViewController, to: contentView)
                 navigationItem.rightBarButtonItems?[0].isEnabled = true
                 navigationItem.leftBarButtonItem?.isEnabled = true
             case .daysOfWeek:
                 createdTodoViewController.remove()
-                add(daysOfWeekTodoController)
+                add(daysOfWeekTodoController, to: contentView)
                 navigationItem.rightBarButtonItems?[0].isEnabled = false
                 navigationItem.leftBarButtonItem?.isEnabled = false
             }
@@ -32,18 +32,13 @@ class TodosContainerViewController: UIViewController {
     private var isEditingLists: Bool = false
 
     private lazy var createdTodoViewController: TodoListViewController = {
-        let controller = TodoListViewController(
-            todoLists: TodoList.createdTodoLists()
-        )
-        return controller
+        TodoListViewController(todoLists: TodoList.createdTodoLists())
     }()
     private lazy var daysOfWeekTodoController: TodoListViewController = {
-        let controller = TodoListViewController(
-            todoLists: TodoList.daysOfWeekTodoLists()
-        )
-        return controller
+        TodoListViewController(todoLists: TodoList.daysOfWeekTodoLists())
     }()
 
+    @IBOutlet weak private var contentView: UIView!
     @IBOutlet weak private var listsSegmentedControl: UISegmentedControl!
 
     // MARK: - View Lifecycle
