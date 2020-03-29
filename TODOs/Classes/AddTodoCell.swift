@@ -1,5 +1,5 @@
 //
-//  AddTodoFooterView.swift
+//  AddTodoCell.swift
 //  TODOs
 //
 //  Created by Kevin Johnson on 1/26/20.
@@ -8,15 +8,14 @@
 
 import UIKit
 
-protocol AddTodoFooterViewDelegate: class {
-    func addTodoFooterView(_ view: AddTodoFooterView, isEditing textView: UITextView, section: Int)
-    func addTodoFooterView(_ view: AddTodoFooterView, didEndEditing text: String, section: Int)
+protocol AddTodoCellDelegate: class {
+    func addTodoCell(_ cell: AddTodoCell, isEditing textView: UITextView)
+    func addTodoCell(_ cell: AddTodoCell, didEndEditing text: String)
 }
 
-class AddTodoFooterView: UIView {
+class AddTodoCell: UITableViewCell {
 
-    var section: Int = 0
-    weak var delegate: AddTodoFooterViewDelegate?
+    weak var delegate: AddTodoCellDelegate?
     @IBOutlet weak private var textView: UITextView!
     @IBOutlet weak private var placeholderTextView: UITextView!
 
@@ -48,18 +47,18 @@ class AddTodoFooterView: UIView {
 
 // MARK: - UITextViewDelegate
 
-extension AddTodoFooterView: UITextViewDelegate {
+extension AddTodoCell: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         placeholderTextView.isHidden = !textView.text.isEmpty
         if !textView.text.isEmpty {
-            delegate?.addTodoFooterView(self, isEditing: textView, section: section)
+            delegate?.addTodoCell(self, isEditing: textView)
         }
     }
 
     func textViewDidEndEditing(_ textView: UITextView) {
         let text = textView.text.trimmingCharacters(in: .whitespacesAndNewlines)
         if !text.isEmpty {
-            delegate?.addTodoFooterView(self, didEndEditing: textView.text, section: section)
+            delegate?.addTodoCell(self, didEndEditing: textView.text)
             reset()
         }
     }

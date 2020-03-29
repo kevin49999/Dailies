@@ -25,8 +25,8 @@
 		5244F90923F8C67B00B4DAEB /* UIAlertController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5244F90823F8C67B00B4DAEB /* UIAlertController+Extensions.swift */; };
 		524D268E23F8993F00EC46CC /* TodoListViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524D268D23F8993F00EC46CC /* TodoListViewData.swift */; };
 		524D269023F8995B00EC46CC /* DateFormatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524D268F23F8995B00EC46CC /* DateFormatters.swift */; };
-		52567EB323DE8D3E000332EA /* AddTodoFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52567EB223DE8D3E000332EA /* AddTodoFooterView.xib */; };
-		52567EB523DE8D5F000332EA /* AddTodoFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52567EB423DE8D5F000332EA /* AddTodoFooterView.swift */; };
+		52567EB323DE8D3E000332EA /* AddTodoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52567EB223DE8D3E000332EA /* AddTodoCell.xib */; };
+		52567EB523DE8D5F000332EA /* AddTodoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52567EB423DE8D5F000332EA /* AddTodoCell.swift */; };
 		52567EB723DE9060000332EA /* TodoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52567EB623DE9060000332EA /* TodoList.swift */; };
 		52567EB923DE9069000332EA /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52567EB823DE9069000332EA /* Todo.swift */; };
 		52567EBB23DE907B000332EA /* TodoViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52567EBA23DE907B000332EA /* TodoViewData.swift */; };
@@ -71,8 +71,8 @@
 		5244F90823F8C67B00B4DAEB /* UIAlertController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extensions.swift"; sourceTree = "<group>"; };
 		524D268D23F8993F00EC46CC /* TodoListViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewData.swift; sourceTree = "<group>"; };
 		524D268F23F8995B00EC46CC /* DateFormatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatters.swift; sourceTree = "<group>"; };
-		52567EB223DE8D3E000332EA /* AddTodoFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddTodoFooterView.xib; sourceTree = "<group>"; };
-		52567EB423DE8D5F000332EA /* AddTodoFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTodoFooterView.swift; sourceTree = "<group>"; };
+		52567EB223DE8D3E000332EA /* AddTodoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddTodoCell.xib; sourceTree = "<group>"; };
+		52567EB423DE8D5F000332EA /* AddTodoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTodoCell.swift; sourceTree = "<group>"; };
 		52567EB623DE9060000332EA /* TodoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoList.swift; sourceTree = "<group>"; };
 		52567EB823DE9069000332EA /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
 		52567EBA23DE907B000332EA /* TodoViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoViewData.swift; sourceTree = "<group>"; };
@@ -194,8 +194,8 @@
 		0A424A692384B22500E1FC34 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				52567EB423DE8D5F000332EA /* AddTodoFooterView.swift */,
-				52567EB223DE8D3E000332EA /* AddTodoFooterView.xib */,
+				52567EB423DE8D5F000332EA /* AddTodoCell.swift */,
+				52567EB223DE8D3E000332EA /* AddTodoCell.xib */,
 				52567EBC23E74B11000332EA /* Cache.swift */,
 				52567EB823DE9069000332EA /* Todo.swift */,
 				0A424A6A2384B29D00E1FC34 /* TodoCell.swift */,
@@ -309,7 +309,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52567EB323DE8D3E000332EA /* AddTodoFooterView.xib in Resources */,
+				52567EB323DE8D3E000332EA /* AddTodoCell.xib in Resources */,
 				0A424A512384B0FF00E1FC34 /* LaunchScreen.storyboard in Resources */,
 				0A424A4E2384B0FF00E1FC34 /* Assets.xcassets in Resources */,
 				0A424A4C2384B0FC00E1FC34 /* Main.storyboard in Resources */,
@@ -384,7 +384,7 @@
 				524D269023F8995B00EC46CC /* DateFormatters.swift in Sources */,
 				524D268E23F8993F00EC46CC /* TodoListViewData.swift in Sources */,
 				525A8B94242FE2E2002DCDD0 /* UIEdgeInsets+Extensions.swift in Sources */,
-				52567EB523DE8D5F000332EA /* AddTodoFooterView.swift in Sources */,
+				52567EB523DE8D5F000332EA /* AddTodoCell.swift in Sources */,
 				0A424A6B2384B29D00E1FC34 /* TodoCell.swift in Sources */,
 				525A8B92242FDD0B002DCDD0 /* Bundle+Extensions.swift in Sources */,
 				5244F90923F8C67B00B4DAEB /* UIAlertController+Extensions.swift in Sources */,

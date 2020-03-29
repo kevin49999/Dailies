@@ -14,16 +14,15 @@ class TodoListViewController: UIViewController {
 
     private(set) var todoLists: [TodoList]
     private lazy var tableView: UITableView = {
-        let table = UITableView(frame: .zero, style: .grouped)
+        let table = UITableView(frame: .zero, style: .plain)
         table.delegate = self
         table.dataSource = self
         table.register(cell: TodoCell.self)
+        table.register(cell: AddTodoCell.self)
         table.rowHeight = UITableView.automaticDimension
         table.estimatedRowHeight = 92
         table.sectionHeaderHeight = UITableView.automaticDimension
         table.estimatedSectionHeaderHeight = 44
-        table.sectionFooterHeight = UITableView.automaticDimension
-        table.estimatedSectionFooterHeight = 92
         table.tableFooterView = UIView(frame: .zero)
         table.clipsToBounds = true
         table.translatesAutoresizingMaskIntoConstraints = false
@@ -95,21 +94,36 @@ extension TodoListViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return todoLists[section].todos.count
+        return todoLists[section].todos.count + 1 // for AddTodoCell
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let list = todoLists[indexPath.section]
+        if list.todos.count == indexPath.row {
+            let cell: AddTodoCell = tableView.dequeueReusableCell(for: indexPath)
+            if indexPath.section == todoLists.count - 1 {
+                cell.separatorInset = .hideSeparator // hide last
+            }
+            cell.delegate = self
+            return cell
+        }
         let cell: TodoCell = tableView.dequeueReusableCell(for: indexPath)
         cell.delegate = self
-        cell.configure(data: todoLists[indexPath.section].todos[indexPath.row])
+        cell.configure(data: list.todos[indexPath.row])
         return cell
     }
-
+    
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if todoLists[indexPath.section].todos.count == indexPath.row {
+            return false // AddTodoCell
+        }
         return true
     }
 
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        if todoLists[indexPath.section].todos.count == indexPath.row {
+            return false // AddTodoCell
+        }
         return true
     }
 
@@ -144,27 +158,27 @@ extension TodoListViewController: UITableViewDelegate {
         return header
     }
 
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let footer: AddTodoFooterView = Bundle.loadNibView()
-        footer.section = section
-        footer.delegate = self
-        return footer
+    func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
+        if proposedDestinationIndexPath.row == todoLists[proposedDestinationIndexPath.section].todos.count {
+            return sourceIndexPath // AddTodoCell
+        }
+        return proposedDestinationIndexPath
     }
 }
 
-// MARK: - AddTodoFooterViewDelegate
+// MARK: - AddTodoCellDelegate
 
-extension TodoListViewController: AddTodoFooterViewDelegate {
-    func addTodoFooterView(_ view: AddTodoFooterView, isEditing textView: UITextView, section: Int) {
+extension TodoListViewController: AddTodoCellDelegate {
+    func addTodoCell(_ cell: AddTodoCell, isEditing textView: UITextView) {
         tableView.resize(for: textView)
     }
 
-    func addTodoFooterView(_ view: AddTodoFooterView, didEndEditing text: String, section: Int) {
-        todoLists[section].todos.append(Todo(text: text))
-        let indexPath = IndexPath(
-            row: todoLists[section].todos.count - 1,
-            section: section
-        )
+    func addTodoCell(_ cell: AddTodoCell, didEndEditing text: String) {
+        guard let indexPath = tableView.indexPath(for: cell) else {
+            assertionFailure()
+            return
+        }
+        todoLists[indexPath.section].todos.append(Todo(text: text))
         tableView.insertRows(at: [indexPath], with: .automatic)
     }
 }
