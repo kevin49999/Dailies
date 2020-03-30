@@ -33,14 +33,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O0a-i7-UuF">
-                                <rect key="frame" x="0.0" y="140" width="414" height="673"/>
+                                <rect key="frame" x="0.0" y="140" width="414" height="756"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vK1-ab-dA8">
                                 <rect key="frame" x="0.0" y="813" width="414" height="49"/>
                                 <items>
-                                    <barButtonItem style="plain" id="rq9-KW-hCD">
-                                        <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="g9s-E7-ped">
+                                    <barButtonItem style="plain" id="PK9-WG-wm8">
+                                        <segmentedControl key="customView" opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="bar" selectedSegmentIndex="0" id="oMw-sv-f92">
                                             <rect key="frame" x="20" y="10.5" width="374" height="33"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <segments>
@@ -48,7 +48,7 @@
                                                 <segment title="Weekdays"/>
                                             </segments>
                                             <connections>
-                                                <action selector="listSegmentedControlChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="ksi-3C-HHA"/>
+                                                <action selector="listSegmentedControlChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="fok-5O-O5N"/>
                                             </connections>
                                         </segmentedControl>
                                     </barButtonItem>
@@ -60,8 +60,8 @@
                             <constraint firstItem="vK1-ab-dA8" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="3Cg-0G-cnZ"/>
                             <constraint firstItem="O0a-i7-UuF" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="5Cy-jS-Ehg"/>
                             <constraint firstItem="O0a-i7-UuF" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="5Wa-cM-BAX"/>
+                            <constraint firstAttribute="bottom" secondItem="O0a-i7-UuF" secondAttribute="bottom" id="KKQ-7G-9qd"/>
                             <constraint firstAttribute="trailing" secondItem="O0a-i7-UuF" secondAttribute="trailing" id="SrJ-Rw-2NG"/>
-                            <constraint firstItem="vK1-ab-dA8" firstAttribute="top" secondItem="O0a-i7-UuF" secondAttribute="bottom" id="hct-kb-3hP"/>
                             <constraint firstItem="vK1-ab-dA8" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailing" id="ncw-ah-kdd"/>
                             <constraint firstItem="vK1-ab-dA8" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="tvM-qV-wGR"/>
                         </constraints>
@@ -88,7 +88,8 @@
                     </navigationItem>
                     <connections>
                         <outlet property="contentView" destination="O0a-i7-UuF" id="qUt-lw-V5z"/>
-                        <outlet property="listsSegmentedControl" destination="g9s-E7-ped" id="FjK-ze-gZX"/>
+                        <outlet property="listsSegmentedControl" destination="oMw-sv-f92" id="lB9-fb-wr8"/>
+                        <outlet property="toolBar" destination="vK1-ab-dA8" id="Asc-Fw-omx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

@@ -13,6 +13,8 @@ class TodoListViewController: UIViewController {
     // MARK: - Properties
 
     private(set) var todoLists: [TodoList]
+    private var bottomInset: CGFloat
+
     private lazy var tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .plain)
         table.delegate = self
@@ -26,13 +28,15 @@ class TodoListViewController: UIViewController {
         table.tableFooterView = UIView(frame: .zero)
         table.clipsToBounds = true
         table.translatesAutoresizingMaskIntoConstraints = false
+        table.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: self.bottomInset, right: 0)
         return table
     }()
 
     // MARK: - Init
 
-    init(todoLists: [TodoList]) {
+    init(todoLists: [TodoList], bottomInset: CGFloat) {
         self.todoLists = todoLists
+        self.bottomInset = bottomInset
         super.init(nibName: nil, bundle: nil)
     }
 

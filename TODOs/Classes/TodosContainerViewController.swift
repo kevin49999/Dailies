@@ -32,14 +32,21 @@ class TodosContainerViewController: UIViewController {
     private var isEditingLists: Bool = false
 
     private lazy var createdTodoViewController: TodoListViewController = {
-        TodoListViewController(todoLists: TodoList.createdTodoLists())
+        TodoListViewController(
+            todoLists: TodoList.createdTodoLists(),
+            bottomInset: self.toolBar.frame.height
+        )
     }()
     private lazy var daysOfWeekTodoController: TodoListViewController = {
-        TodoListViewController(todoLists: TodoList.daysOfWeekTodoLists())
+        TodoListViewController(
+            todoLists: TodoList.daysOfWeekTodoLists(),
+            bottomInset: self.toolBar.frame.height
+        )
     }()
 
     @IBOutlet weak private var contentView: UIView!
     @IBOutlet weak private var listsSegmentedControl: UISegmentedControl!
+    @IBOutlet weak var toolBar: UIToolbar!
 
     // MARK: - View Lifecycle
 
