@@ -59,11 +59,11 @@
                         <constraints>
                             <constraint firstItem="vK1-ab-dA8" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="3Cg-0G-cnZ"/>
                             <constraint firstItem="O0a-i7-UuF" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="5Cy-jS-Ehg"/>
-                            <constraint firstItem="O0a-i7-UuF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="5Wa-cM-BAX"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="O0a-i7-UuF" secondAttribute="trailing" id="SrJ-Rw-2NG"/>
+                            <constraint firstItem="O0a-i7-UuF" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="5Wa-cM-BAX"/>
+                            <constraint firstAttribute="trailing" secondItem="O0a-i7-UuF" secondAttribute="trailing" id="SrJ-Rw-2NG"/>
                             <constraint firstItem="vK1-ab-dA8" firstAttribute="top" secondItem="O0a-i7-UuF" secondAttribute="bottom" id="hct-kb-3hP"/>
-                            <constraint firstItem="vK1-ab-dA8" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="ncw-ah-kdd"/>
-                            <constraint firstItem="vK1-ab-dA8" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="tvM-qV-wGR"/>
+                            <constraint firstItem="vK1-ab-dA8" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailing" id="ncw-ah-kdd"/>
+                            <constraint firstItem="vK1-ab-dA8" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="tvM-qV-wGR"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>

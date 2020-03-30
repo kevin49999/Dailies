@@ -42,6 +42,7 @@
                     <constraint firstItem="vSe-M8-qq9" firstAttribute="leading" secondItem="2ef-kx-Dj8" secondAttribute="leading" constant="20" symbolic="YES" id="wgW-K8-kdb"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
             <connections>
                 <outlet property="placeholderTextView" destination="yXq-ZE-BCb" id="CLg-ML-Ehx"/>
                 <outlet property="textView" destination="vSe-M8-qq9" id="eQ5-VS-fty"/>
