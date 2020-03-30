@@ -147,8 +147,17 @@ extension TodoListViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
-        if proposedDestinationIndexPath.row == todoLists[proposedDestinationIndexPath.section].todos.count {
-            return sourceIndexPath // AddTodoCell
+        // Disallow moving TodoCell below AddTodoCell
+        let proposedSection = proposedDestinationIndexPath.section
+        let proposedRow = proposedDestinationIndexPath.row
+        let proposedSectionTodosCount = todoLists[proposedSection].todos.count
+
+        if sourceIndexPath.section == proposedSection,
+            proposedRow == proposedSectionTodosCount {
+            return sourceIndexPath
+        } else if sourceIndexPath.section != proposedSection,
+            proposedRow > proposedSectionTodosCount {
+            return IndexPath(row: proposedRow - 1, section: proposedSection)
         }
         return proposedDestinationIndexPath
     }

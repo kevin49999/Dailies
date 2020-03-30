@@ -66,7 +66,6 @@ class TodoListsViewController: UIViewController {
         ])
     }
 
-    // TODO: decide if necessary.. could just swipe down and then it's done - with changes save..
     @IBAction private func tappedSave(_ sender: UIBarButtonItem) {
         delegate?.todoListsViewController(self, finishedEditing: self.todoLists)
         dismiss(animated: true)
