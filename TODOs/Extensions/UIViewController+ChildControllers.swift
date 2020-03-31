@@ -8,7 +8,6 @@
 
 import UIKit
 
-// TODO: Add small fade! like from Dave Delong better MVC
 extension UIViewController {
     func add(_ child: UIViewController, to contentView: UIView? = nil) {
         addChild(child)

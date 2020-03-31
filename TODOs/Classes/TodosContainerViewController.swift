@@ -83,7 +83,7 @@ class TodosContainerViewController: UIViewController {
         daysOfWeekTodoController.setEditing(isEditingLists)
         let barButtonItem = UIBarButtonItem(
             barButtonSystemItem: self.isEditingLists ? .done : .edit,
-            target:  self,
+            target: self,
             action: #selector(tappedEditDoneBarButtonItem(_:))
         )
         navigationItem.rightBarButtonItems![1] = barButtonItem

@@ -13,7 +13,6 @@ class TodoList: Codable {
         case created = 0
         case daysOfWeek
 
-        // if conform to decodable doesn't get rawValue init?
         init?(int: Int) {
             switch int {
             case 0:

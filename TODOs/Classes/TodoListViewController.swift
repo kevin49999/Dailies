@@ -131,17 +131,26 @@ extension TodoListViewController: UITableViewDataSource {
 
 extension TodoListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteItem = UIContextualAction(style: .destructive, title: "Delete") {  (contextualAction, view, boolValue) in
+        let deleteItem = UIContextualAction(style: .destructive, title: "Delete") { (_, _, completion) in
             _ = self.todoLists[indexPath.section].todos.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
+            completion(true)
         }
-        let markCompleted = UIContextualAction(style: .normal, title: "Completed") {  (contextualAction, view, boolValue) in
+        let markCompleted = UIContextualAction(style: .normal, title: "Completed") {  (_, _, completion) in
             // TODO: Don't just delete, update TodoList to have completed array that have their own display cell (not editable, but delatable)
             _ = self.todoLists[indexPath.section].todos.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
+            completion(true)
         }
         markCompleted.backgroundColor = .systemGreen
-        return UISwipeActionsConfiguration(actions: [deleteItem, markCompleted])
+        let duplicate = UIContextualAction(style: .normal, title: "Duplicate") { (_, _, completion) in
+            let todo = self.todoLists[indexPath.section].todos[indexPath.row]
+            self.todoLists[indexPath.section].todos.insert(todo, at: indexPath.row + 1)
+            self.tableView.insertRows(at: [IndexPath(row: indexPath.row + 1, section: indexPath.section)], with: .automatic)
+            completion(true)
+        }
+        duplicate.backgroundColor = .systemBlue
+        return UISwipeActionsConfiguration(actions: [deleteItem, markCompleted, duplicate])
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
