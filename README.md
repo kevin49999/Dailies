@@ -6,4 +6,4 @@ Daily TODOs in my preferred style: separate lists for each day of the week and c
 
 ## App Store
 
-Please feel free to copyand use any of the code in this project. Just don't upload this straight to the App Store.
+Please feel free to copy and use any of the code in this project. Just don't upload this straight to the App Store.
