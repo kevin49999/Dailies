@@ -18,7 +18,7 @@
 		0A424A6D2384B2B100E1FC34 /* TodoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A424A6C2384B2B100E1FC34 /* TodoCell.xib */; };
 		0A424A6F2384B32E00E1FC34 /* StoryboardIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A424A6E2384B32E00E1FC34 /* StoryboardIdentifiable.swift */; };
 		0A424A712384B34B00E1FC34 /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A424A702384B34B00E1FC34 /* UIFont+Extensions.swift */; };
-		0A424A732384B3C200E1FC34 /* UITableViewCell+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A424A722384B3C200E1FC34 /* UITableViewCell+Extensions.swift */; };
+		0A424A732384B3C200E1FC34 /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A424A722384B3C200E1FC34 /* UITableView+Extensions.swift */; };
 		52013985240363070030DD3D /* TodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52013984240363070030DD3D /* TodoListViewController.swift */; };
 		52013987240369890030DD3D /* UIViewController+ChildControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52013986240369890030DD3D /* UIViewController+ChildControllers.swift */; };
 		5201398B24218FB80030DD3D /* TodoListsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5201398A24218FB80030DD3D /* TodoListsViewController.swift */; };
@@ -64,7 +64,7 @@
 		0A424A6C2384B2B100E1FC34 /* TodoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TodoCell.xib; sourceTree = "<group>"; };
 		0A424A6E2384B32E00E1FC34 /* StoryboardIdentifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardIdentifiable.swift; sourceTree = "<group>"; };
 		0A424A702384B34B00E1FC34 /* UIFont+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extensions.swift"; sourceTree = "<group>"; };
-		0A424A722384B3C200E1FC34 /* UITableViewCell+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Extensions.swift"; sourceTree = "<group>"; };
+		0A424A722384B3C200E1FC34 /* UITableView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
 		52013984240363070030DD3D /* TodoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewController.swift; sourceTree = "<group>"; };
 		52013986240369890030DD3D /* UIViewController+ChildControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ChildControllers.swift"; sourceTree = "<group>"; };
 		5201398A24218FB80030DD3D /* TodoListsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListsViewController.swift; sourceTree = "<group>"; };
@@ -114,7 +114,7 @@
 				5244F90823F8C67B00B4DAEB /* UIAlertController+Extensions.swift */,
 				525A8B93242FE2E2002DCDD0 /* UIEdgeInsets+Extensions.swift */,
 				0A424A702384B34B00E1FC34 /* UIFont+Extensions.swift */,
-				0A424A722384B3C200E1FC34 /* UITableViewCell+Extensions.swift */,
+				0A424A722384B3C200E1FC34 /* UITableView+Extensions.swift */,
 				52013986240369890030DD3D /* UIViewController+ChildControllers.swift */,
 			);
 			path = Extensions;
@@ -388,7 +388,7 @@
 				0A424A6B2384B29D00E1FC34 /* TodoCell.swift in Sources */,
 				525A8B92242FDD0B002DCDD0 /* Bundle+Extensions.swift in Sources */,
 				5244F90923F8C67B00B4DAEB /* UIAlertController+Extensions.swift in Sources */,
-				0A424A732384B3C200E1FC34 /* UITableViewCell+Extensions.swift in Sources */,
+				0A424A732384B3C200E1FC34 /* UITableView+Extensions.swift in Sources */,
 				0A424A712384B34B00E1FC34 /* UIFont+Extensions.swift in Sources */,
 				52AABC2F23FA061D000FA700 /* TodoListSectionHeaderView.swift in Sources */,
 				0A424A6F2384B32E00E1FC34 /* StoryboardIdentifiable.swift in Sources */,

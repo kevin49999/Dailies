@@ -1,5 +1,5 @@
 //
-//  UITableViewCell+Extensions.swift
+//  UITableView+Extensions.swift
 //  TODOs
 //
 //  Created by Kevin Johnson on 11/19/19.
