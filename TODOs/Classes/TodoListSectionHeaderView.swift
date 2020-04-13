@@ -12,6 +12,7 @@ class TodoListSectionHeaderView: UIView {
 
     private let titleLabel: UILabel = {
         let label = UILabel()
+        label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 16, weight: .semibold).scaledFontforTextStyle(.body)
         return label
@@ -51,7 +52,8 @@ class TodoListSectionHeaderView: UIView {
         NSLayoutConstraint.activate([
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.0),
             stackView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16.0)
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16.0),
+            stackView.trailingAnchor.constraint(equalToSystemSpacingAfter: trailingAnchor, multiplier: -16.0)
         ])
     }
 
