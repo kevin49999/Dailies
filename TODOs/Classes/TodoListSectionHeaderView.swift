@@ -53,7 +53,7 @@ class TodoListSectionHeaderView: UIView {
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.0),
             stackView.centerYAnchor.constraint(equalTo: centerYAnchor),
             stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16.0),
-            stackView.trailingAnchor.constraint(equalToSystemSpacingAfter: trailingAnchor, multiplier: -16.0)
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.0),
         ])
     }
 
