@@ -19,6 +19,9 @@ class TodoListViewController: UIViewController {
         let table = UITableView(frame: .zero, style: .plain)
         table.delegate = self
         table.dataSource = self
+        table.dragInteractionEnabled = true
+        table.dragDelegate = self
+        table.dropDelegate = self
         table.register(cell: TodoCell.self)
         table.register(cell: AddTodoCell.self)
         table.rowHeight = UITableView.automaticDimension
@@ -63,10 +66,6 @@ class TodoListViewController: UIViewController {
     func updateTodoLists(_ lists: [TodoList]) {
         todoLists = lists
         tableView.reloadData()
-    }
-
-    func setEditing(_ editing: Bool) {
-        tableView.isEditing = editing
     }
     
     func addNewTodoList(with name: String) {
@@ -173,6 +172,22 @@ extension TodoListViewController: UITableViewDelegate {
             return IndexPath(row: proposedRow - 1, section: proposedSection)
         }
         return proposedDestinationIndexPath
+    }
+}
+
+// MARK: - UITableViewDragDelegate
+
+extension TodoListViewController: UITableViewDragDelegate {
+    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        return []
+    }
+}
+
+// MARK: - UITableViewDropDelegate
+
+extension TodoListViewController: UITableViewDropDelegate {
+    func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
+        // do nothing
     }
 }
 

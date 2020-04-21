@@ -2,7 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9Vt-fV-Urb">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -73,18 +73,11 @@
                                 <action selector="tappedListsBarButtonItem:" destination="BYZ-38-t0r" id="z4b-Gy-nWj"/>
                             </connections>
                         </barButtonItem>
-                        <rightBarButtonItems>
-                            <barButtonItem systemItem="add" id="B08-ZY-5WR">
-                                <connections>
-                                    <action selector="tappedActionBarButtonItem:" destination="BYZ-38-t0r" id="I8i-Po-meE"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem systemItem="edit" id="Acq-xL-G8W">
-                                <connections>
-                                    <action selector="tappedEditDoneBarButtonItem:" destination="BYZ-38-t0r" id="XkD-aj-ssc"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="B08-ZY-5WR">
+                            <connections>
+                                <action selector="tappedActionBarButtonItem:" destination="BYZ-38-t0r" id="I8i-Po-meE"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="contentView" destination="O0a-i7-UuF" id="qUt-lw-V5z"/>
