@@ -19,17 +19,13 @@ class TodosContainerViewController: UIViewController {
             case .created:
                 daysOfWeekTodoController.remove()
                 add(createdTodoViewController, to: contentView)
-                navigationItem.rightBarButtonItems?[0].isEnabled = true
-                navigationItem.leftBarButtonItem?.isEnabled = true
             case .daysOfWeek:
                 createdTodoViewController.remove()
                 add(daysOfWeekTodoController, to: contentView)
-                navigationItem.rightBarButtonItems?[0].isEnabled = false
-                navigationItem.leftBarButtonItem?.isEnabled = false
             }
+            listsSegmentedControl.selectedSegmentIndex = state.rawValue
         }
     }
-    private var isEditingLists: Bool = false
 
     private lazy var createdTodoViewController: TodoListViewController = {
         TodoListViewController(
@@ -37,6 +33,7 @@ class TodosContainerViewController: UIViewController {
             bottomInset: self.toolBar.frame.height
         )
     }()
+
     private lazy var daysOfWeekTodoController: TodoListViewController = {
         TodoListViewController(
             todoLists: TodoList.daysOfWeekTodoLists(),
@@ -46,14 +43,13 @@ class TodosContainerViewController: UIViewController {
 
     @IBOutlet weak private var contentView: UIView!
     @IBOutlet weak private var listsSegmentedControl: UISegmentedControl!
-    @IBOutlet weak var toolBar: UIToolbar!
+    @IBOutlet weak private var toolBar: UIToolbar!
 
     // MARK: - View Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         let state = defaults.integer(forKey: "state")
-        listsSegmentedControl.selectedSegmentIndex = state
         self.state = TodoList.Classification(int: state) ?? .created
 
         observeNotifications()
@@ -75,18 +71,6 @@ class TodosContainerViewController: UIViewController {
         UIAlertController.addTodoListAlert(presenter: self, completion: { name in
             self.createdTodoViewController.addNewTodoList(with: name)
         })
-    }
-
-    @IBAction func tappedEditDoneBarButtonItem(_ sender: UIBarButtonItem) {
-        isEditingLists.toggle()
-        createdTodoViewController.setEditing(isEditingLists)
-        daysOfWeekTodoController.setEditing(isEditingLists)
-        let barButtonItem = UIBarButtonItem(
-            barButtonSystemItem: self.isEditingLists ? .done : .edit,
-            target: self,
-            action: #selector(tappedEditDoneBarButtonItem(_:))
-        )
-        navigationItem.rightBarButtonItems![1] = barButtonItem
     }
 
     @IBAction func listSegmentedControlChanged(_ sender: UISegmentedControl) {

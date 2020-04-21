@@ -54,7 +54,6 @@ class TodoListsViewController: UIViewController {
         tableView.tableFooterView = UIView(frame: .zero)
         tableView.clipsToBounds = true
         tableView.register(cell: TodoCell.self)
-        tableView.isEditing = true
 
         tableView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(tableView)
