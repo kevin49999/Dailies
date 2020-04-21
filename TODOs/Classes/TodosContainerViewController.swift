@@ -19,9 +19,13 @@ class TodosContainerViewController: UIViewController {
             case .created:
                 daysOfWeekTodoController.remove()
                 add(createdTodoViewController, to: contentView)
+                navigationItem.rightBarButtonItem?.isEnabled = true
+                navigationItem.leftBarButtonItem?.isEnabled = true
             case .daysOfWeek:
                 createdTodoViewController.remove()
                 add(daysOfWeekTodoController, to: contentView)
+                navigationItem.rightBarButtonItem?.isEnabled = false
+                navigationItem.leftBarButtonItem?.isEnabled = false
             }
             listsSegmentedControl.selectedSegmentIndex = state.rawValue
         }
