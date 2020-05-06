@@ -29,6 +29,7 @@ class TodoList: Codable {
     let dateCreated: Date
     var name: String
     var todos: [Todo]
+    var showCompleted: Bool
     var isWeekend: Bool {
         switch classification {
         case .daysOfWeek where name == "Sunday",
@@ -38,19 +39,29 @@ class TodoList: Codable {
             return false
         }
     }
+    var visibleTodos: ArraySlice<Todo> {
+        if showCompleted {
+            return todos.prefix(Int.max)
+        }
+        return todos.prefix { !$0.completed }
+    }
 
     init(
         classification: Classification,
         dateCreated: Date = .todayYearMonthDay(),
         name: String,
-        todos: [Todo] = []
+        todos: [Todo] = [],
+        showCompleted: Bool = false
     ) {
         self.classification = classification
         self.dateCreated = dateCreated
         self.name = name
         self.todos = todos
+        self.showCompleted = showCompleted
     }
 }
+
+// MARK: - Generated Lists
 
 extension TodoList {
     static func createdTodoLists() -> [TodoList] {

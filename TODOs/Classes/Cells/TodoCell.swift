@@ -24,16 +24,12 @@ class TodoCell: UITableViewCell {
     }
 
     func configure(data: TodoViewData) {
-        textView.text = data.text
+        textView.attributedText = data.attributedText
     }
     
     private func setup() {
         textView.delegate = self
         textView.adjustsFontForContentSizeCategory = true
-        textView.font = UIFont.systemFont(
-            ofSize: 16,
-            weight: .semibold
-        ).scaledFontforTextStyle(.body)
     }
 
     private func reset() {

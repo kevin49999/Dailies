@@ -8,6 +8,12 @@
 
 import Foundation
 
-struct Todo: Codable {
+class Todo: Codable {
     var text: String
+    var completed: Bool
+
+    init(text: String, completed: Bool = false) {
+        self.text = text
+        self.completed = false
+    }
 }
