@@ -33,6 +33,8 @@ class TodoListSectionHeaderView: UIView {
             withConfiguration: imageConfig
         )
         let button = UIButton()
+//        button.priorit
+        // TODO: Fix compression, resistance, etc. etc... label should fill until hits label
         button.setImage(trashImage, for: .normal)
         return button
     }()
@@ -69,6 +71,7 @@ class TodoListSectionHeaderView: UIView {
             stackView.alignment = .fill
         }
         stackView.addArrangedSubview(titleLabel)
+        stackView.addArrangedSubview(UIView())
         stackView.addArrangedSubview(actionButton)
         addSubview(stackView)
         NSLayoutConstraint.activate([
