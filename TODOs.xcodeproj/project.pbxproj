@@ -194,19 +194,59 @@
 		0A424A692384B22500E1FC34 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				52567EB423DE8D5F000332EA /* AddTodoCell.swift */,
-				52567EB223DE8D3E000332EA /* AddTodoCell.xib */,
-				52567EBC23E74B11000332EA /* Cache.swift */,
-				52567EB823DE9069000332EA /* Todo.swift */,
-				0A424A6A2384B29D00E1FC34 /* TodoCell.swift */,
-				0A424A6C2384B2B100E1FC34 /* TodoCell.xib */,
-				52567EB623DE9060000332EA /* TodoList.swift */,
-				52AABC2E23FA061D000FA700 /* TodoListSectionHeaderView.swift */,
+				52CD9C1624632AD20018A303 /* Cells */,
+				52CD9C1924632AEC0018A303 /* Models */,
+				52CD9C1824632AE60018A303 /* Utility */,
+				52CD9C1524632AC50018A303 /* View Controllers */,
+				52CD9C1724632AD90018A303 /* Views */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		52CD9C1524632AC50018A303 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
 				5201398A24218FB80030DD3D /* TodoListsViewController.swift */,
 				52013984240363070030DD3D /* TodoListViewController.swift */,
 				0A424A482384B0FC00E1FC34 /* TodosContainerViewController.swift */,
 			);
-			path = Classes;
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		52CD9C1624632AD20018A303 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				52567EB423DE8D5F000332EA /* AddTodoCell.swift */,
+				52567EB223DE8D3E000332EA /* AddTodoCell.xib */,
+				0A424A6A2384B29D00E1FC34 /* TodoCell.swift */,
+				0A424A6C2384B2B100E1FC34 /* TodoCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		52CD9C1724632AD90018A303 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				52AABC2E23FA061D000FA700 /* TodoListSectionHeaderView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		52CD9C1824632AE60018A303 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				52567EBC23E74B11000332EA /* Cache.swift */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
+		52CD9C1924632AEC0018A303 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				52567EB823DE9069000332EA /* Todo.swift */,
+				52567EB623DE9060000332EA /* TodoList.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		67DEAABA7C96DADD24DACAA8 /* Frameworks */ = {

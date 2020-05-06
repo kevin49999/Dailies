@@ -54,10 +54,11 @@ class TodoList: Codable {
 
 extension TodoList {
     static func createdTodoLists() -> [TodoList] {
-        guard let saved = try? getCreated() else {
+        do {
+            return try getCreated()
+        } catch {
             return []
         }
-        return saved
     }
 
     static func daysOfWeekTodoLists(
@@ -83,7 +84,7 @@ extension TodoList {
         today: Date = .todayYearMonthDay()
     ) -> [TodoList] {
         return currentDaysOfWeek().enumerated().map { offset, day in
-            return TodoList(
+            TodoList(
                 classification: .daysOfWeek,
                 dateCreated: calendar.date(byAdding: DateComponents(day: offset), to: today)!,
                 name: day
