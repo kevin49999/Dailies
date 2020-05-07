@@ -39,13 +39,7 @@ class TodoList: Codable {
             return false
         }
     }
-    var visibleTodos: ArraySlice<Todo> {
-        if showCompleted {
-            return todos.prefix(Int.max)
-        }
-        return todos.prefix { !$0.completed }
-    }
-
+    
     init(
         classification: Classification,
         dateCreated: Date = .todayYearMonthDay(),

@@ -131,41 +131,39 @@ extension TodoListViewController: UITableViewDataSource {
 extension TodoListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let list = todoLists[indexPath.section]
-        let deleteItem = UIContextualAction(style: .destructive, title: "Delete") { (_, _, completion) in
-            _ = list.todos.remove(at: indexPath.row)
+        var actions: [UIContextualAction] = []
+
+        let delete = UIContextualAction(style: .destructive, title: "Delete") { (_, _, completion) in
+            list.todos.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
             completion(true)
         }
+        actions.append(delete)
 
-        let completed = list.todos[indexPath.row].completed
-        let title: String = completed ? "Not Complete" : "Completed"
-        let markCompleted = UIContextualAction(style: .normal, title: title) {  (_, _, completion) in
-            list.todos[indexPath.row].completed.toggle()
-            if list.showCompleted {
+        if !list.todos[indexPath.row].completed {
+            let complete = UIContextualAction(style: .normal, title: "Completed") {  (_, _, completion) in
+                list.todos[indexPath.row].completed.toggle()
                 tableView.reloadRows(at: [indexPath], with: .automatic)
-            } else {
-                if list.todos[indexPath.row].completed {
-                    tableView.deleteRows(at: [indexPath], with: .automatic)
-                }
-                
+                completion(true)
             }
-            completion(true)
+            complete.backgroundColor = .systemGreen
+            actions.append(complete)
         }
-        markCompleted.backgroundColor = .systemGreen
         let duplicate = UIContextualAction(style: .normal, title: "Duplicate") { (_, _, completion) in
-            let todo = list.todos[indexPath.row]
+            var todo = list.todos[indexPath.row]
+            todo.completed = false
             list.todos.insert(todo, at: indexPath.row + 1)
             self.tableView.insertRows(at: [IndexPath(row: indexPath.row + 1, section: indexPath.section)], with: .automatic)
             completion(true)
         }
         duplicate.backgroundColor = .systemBlue
-        return UISwipeActionsConfiguration(actions: [deleteItem, markCompleted, duplicate])
+        actions.append(duplicate)
+        return UISwipeActionsConfiguration(actions: actions)
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = TodoListSectionHeaderView()
         header.configure(data: todoLists[section])
-        header.delegate = self
         header.section = section
         return header
     }
@@ -198,9 +196,7 @@ extension TodoListViewController: UITableViewDragDelegate {
 // MARK: - UITableViewDropDelegate
 
 extension TodoListViewController: UITableViewDropDelegate {
-    func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
-        // do nothing
-    }
+    func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) { }
 }
 
 // MARK: - AddTodoCellDelegate
@@ -236,16 +232,5 @@ extension TodoListViewController: TodoCellCellDelegate {
             todoLists[indexPath.section].todos[indexPath.row].text = text
         }
         tableView.reloadRows(at: [indexPath], with: .none)
-    }
-}
-
-// MARK: - TodoListSectionHeaderViewDelegate
-
-extension TodoListViewController: TodoListSectionHeaderViewDelegate {
-    func todoListSectionHeaderView(_ view: TodoListSectionHeaderView, tappedAction section: Int) {
-        UIAlertController.todoListActions(todoLists[section].showCompleted, presenter: self, completion: { _ in
-            self.todoLists[section].showCompleted.toggle()
-            self.tableView.reloadSections(IndexSet(arrayLiteral: section), with: .none)
-        })
     }
 }
