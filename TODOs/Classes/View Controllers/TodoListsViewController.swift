@@ -18,7 +18,20 @@ class TodoListsViewController: UIViewController {
 
     weak var delegate: TodoListsViewControllerDelegate?
     private(set) var todoLists: [TodoList]
-    private let tableView: UITableView = UITableView()
+    private lazy var tableView: UITableView = {
+        let table = UITableView()
+        table.delegate = self
+        table.dataSource = self
+        table.dragInteractionEnabled = true
+        table.dragDelegate = self
+        table.dropDelegate = self
+        table.rowHeight = UITableView.automaticDimension
+        table.estimatedRowHeight = 92
+        table.tableFooterView = UIView(frame: .zero)
+        table.clipsToBounds = true
+        table.register(cell: TodoCell.self)
+        return table
+    }()
 
     // MARK: - Init
 
@@ -46,14 +59,6 @@ class TodoListsViewController: UIViewController {
             action: #selector(tappedSave(_:))
         )
         navigationItem.rightBarButtonItem = save
-        
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 92
-        tableView.tableFooterView = UIView(frame: .zero)
-        tableView.clipsToBounds = true
-        tableView.register(cell: TodoCell.self)
 
         tableView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(tableView)
@@ -113,6 +118,22 @@ extension TodoListsViewController: UITableViewDataSource {
             self.todoLists.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
         }
+    }
+}
+
+// MARK: - UITableViewDragDelegate
+
+extension TodoListsViewController: UITableViewDragDelegate {
+    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        return []
+    }
+}
+
+// MARK: - UITableViewDropDelegate
+
+extension TodoListsViewController: UITableViewDropDelegate {
+    func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
+        // do nothing
     }
 }
 

@@ -10,6 +10,8 @@ import UIKit
 
 class TodoListSectionHeaderView: UIView {
 
+    var section: Int = 0
+
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
@@ -29,7 +31,7 @@ class TodoListSectionHeaderView: UIView {
         super.init(frame: frame)
         setup()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -37,9 +39,10 @@ class TodoListSectionHeaderView: UIView {
     func configure(data: TodoListViewData) {
         titleLabel.text = data.titleCopy()
     }
-    
+
     private func setup() {
         backgroundColor = .tertiarySystemGroupedBackground
+
         if traitCollection.preferredContentSizeCategory.isAccessibilityCategory {
             stackView.axis = .vertical
             stackView.alignment = .leading
@@ -52,9 +55,11 @@ class TodoListSectionHeaderView: UIView {
         NSLayoutConstraint.activate([
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.0),
             stackView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16.0),
-            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.0),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.0)
         ])
+        let bottom = stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16.0)
+        bottom.priority = UILayoutPriority(rawValue: 999)
+        bottom.isActive = true
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

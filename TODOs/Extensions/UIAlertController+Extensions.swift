@@ -141,4 +141,29 @@ extension UIAlertController {
 
         presenter.present(alertController, animated: true)
     }
+
+    static func todoListActions(
+        _ showCompleted: Bool,
+        presenter: UIViewController,
+        completion: @escaping (_ toggle: Bool) -> Void
+    ) {
+        let alertController = UIAlertController(
+            title: nil,
+            message: nil,
+            preferredStyle: .actionSheet
+        )
+
+        alertController.addActions([
+            UIAlertAction(
+                title: showCompleted ? "Hide Completed" : "Show Completed",
+                style: .default,
+                handler: { _ in
+                    completion(true)
+                }
+            ),
+            UIAlertAction.cancel()
+        ])
+
+        presenter.present(alertController, animated: true)
+    }
 }
