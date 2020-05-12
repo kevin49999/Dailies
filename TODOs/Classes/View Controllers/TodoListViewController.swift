@@ -76,11 +76,6 @@ class TodoListViewController: UIViewController {
         )
         tableView.insertSections(IndexSet(arrayLiteral: 0), with: .automatic)
     }
-
-    func saveableTodos() -> [TodoList] {
-        // iterate through lists,
-        return []
-    }
 }
 
 // MARK: - UITableViewDataSource
@@ -128,15 +123,11 @@ extension TodoListViewController: UITableViewDataSource {
         guard sourceIndexPath != destinationIndexPath else {
             return
         }
-
         todoLists[sourceIndexPath.section].move(
             sIndex: sourceIndexPath.row,
             destination: todoLists[destinationIndexPath.section],
             dIndex: destinationIndexPath.row
         )
-        print("End 🏁")
-        todoLists[destinationIndexPath.section].todos.prettyPrint()
-        todoLists[destinationIndexPath.section].incomplete.prettyPrint()
     }
 }
 
@@ -145,54 +136,36 @@ extension TodoListViewController: UITableViewDataSource {
 extension TodoListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let list = todoLists[indexPath.section]
-        var actions: [UIContextualAction] = []
 
         let delete = UIContextualAction(style: .destructive, title: "Delete") { (_, _, completion) in
-            if list.showCompleted {
-                let todo = list.todos[indexPath.row]
-                list.todos.remove(at: indexPath.row)
-                let index = list.incomplete.firstIndex(where: { $0 === todo })! // ...
-                list.incomplete.remove(at: index)
-            } else {
-                let todo = list.incomplete[indexPath.row]
-                list.incomplete.remove(at: indexPath.row)
-                let index = list.todos.firstIndex(where: { $0 === todo })! // ...
-                list.todos.remove(at: index)
-            }
+            list.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
             completion(true)
         }
-        actions.append(delete)
 
-        if (list.showCompleted) ? !list.todos[indexPath.row].completed : !list.incomplete[indexPath.row].completed {
-            let complete = UIContextualAction(style: .normal, title: "Completed") {  (_, _, completion) in
-                if list.showCompleted {
-                    list.todos[indexPath.row].completed.toggle()
-                    if let index = list.incomplete.firstIndex(where: { $0 === list.todos[indexPath.row] }) {
-                        list.incomplete.remove(at: index)
-                    }
-                    tableView.reloadRows(at: [indexPath], with: .automatic)
-                } else {
-                    list.incomplete[indexPath.row].completed.toggle()
-                    list.incomplete.remove(at: indexPath.row)
-                    tableView.deleteRows(at: [indexPath], with: .automatic)
-                }
-                completion(true)
+        let title = list.visible[indexPath.row].completed ? "Not Complete" : "Completed"
+        let complete = UIContextualAction(style: .normal, title: title) {  (_, _, completion) in
+            let result = list.toggleCompleted(index: indexPath.row)
+            switch result {
+            case .delete:
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+            case .reload:
+                tableView.reloadRows(at: [indexPath], with: .automatic)
             }
-            complete.backgroundColor = .systemGreen
-            actions.append(complete)
+            completion(true)
         }
+        complete.backgroundColor = .systemGreen
+
         let duplicate = UIContextualAction(style: .normal, title: "Duplicate") { (_, _, completion) in
-            // TODO: DO!!
-            var todo = list.todos[indexPath.row]
-            todo.completed = false
-            list.todos.insert(todo, at: indexPath.row + 1)
-            self.tableView.insertRows(at: [IndexPath(row: indexPath.row + 1, section: indexPath.section)], with: .automatic)
+            list.duplicate(index: indexPath.row)
+            self.tableView.insertRows(
+                at: [IndexPath(row: indexPath.row + 1, section: indexPath.section)],
+                with: .automatic
+            )
             completion(true)
         }
         duplicate.backgroundColor = .systemBlue
-        actions.append(duplicate)
-        return UISwipeActionsConfiguration(actions: actions)
+        return UISwipeActionsConfiguration(actions: [delete, complete, duplicate])
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -246,8 +219,7 @@ extension TodoListViewController: AddTodoCellDelegate {
             assertionFailure()
             return
         }
-        todoLists[indexPath.section].todos.append(Todo(text: text))
-        todoLists[indexPath.section].incomplete.append(Todo(text: text))
+        todoLists[indexPath.section].add(todo: Todo(text: text))
         tableView.insertRows(at: [indexPath], with: .automatic)
     }
 }
@@ -287,12 +259,5 @@ extension TodoListViewController: TodoListSectionHeaderViewDelegate {
                 self.todoLists[section].showCompleted.toggle()
                 self.tableView.reloadSections(IndexSet(arrayLiteral: section), with: .automatic)
         })
-    }
-}
-
-fileprivate extension Array where Element == Todo {
-    func prettyPrint() {
-        forEach { print($0.text )}
-        print("---")
     }
 }

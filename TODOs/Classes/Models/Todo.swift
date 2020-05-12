@@ -14,6 +14,13 @@ class Todo: Codable {
 
     init(text: String, completed: Bool = false) {
         self.text = text
-        self.completed = false
+        self.completed = completed
+    }
+}
+
+extension Todo: Equatable {
+    static func == (lhs: Todo, rhs: Todo) -> Bool {
+        // should prob include timestamp..
+        return lhs.text == rhs.text && lhs.completed == rhs.completed
     }
 }

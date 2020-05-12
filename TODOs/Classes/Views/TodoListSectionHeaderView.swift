@@ -26,10 +26,9 @@ class TodoListSectionHeaderView: UIView {
     }()
 
     private let actionButton: UIButton = {
-        let imageConfig = UIImage.SymbolConfiguration(scale: .medium)
         let trashImage = UIImage(
-            systemName: "ellipsis.circle",
-            withConfiguration: imageConfig
+            systemName: "ellipsis",
+            withConfiguration: UIImage.SymbolConfiguration(scale: .medium)
         )
         let button = UIButton()
         button.contentMode = .scaleAspectFit
