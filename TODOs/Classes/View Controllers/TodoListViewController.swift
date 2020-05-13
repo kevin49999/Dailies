@@ -123,11 +123,20 @@ extension TodoListViewController: UITableViewDataSource {
         guard sourceIndexPath != destinationIndexPath else {
             return
         }
-        todoLists[sourceIndexPath.section].move(
+        let result = todoLists[sourceIndexPath.section].move(
             sIndex: sourceIndexPath.row,
             destination: todoLists[destinationIndexPath.section],
             dIndex: destinationIndexPath.row
         )
+        switch result {
+        case .completedMovedToShowComplete?:
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
+                self.todoLists[destinationIndexPath.section].incomplete.remove(at: destinationIndexPath.row)
+                tableView.deleteRows(at: [destinationIndexPath], with: .automatic)
+            })
+        default:
+            break
+        }
     }
 }
 

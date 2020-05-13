@@ -9,9 +9,15 @@
 import Foundation
 
 extension TodoList {
-    func move(sIndex: Int, destination: TodoList, dIndex: Int) {
+
+    enum MoveResult {
+        case completedMovedToShowComplete
+    }
+
+    func move(sIndex: Int, destination: TodoList, dIndex: Int) -> MoveResult? {
         let todo = remove(at: sIndex)
-        reinsert(todo: todo, destination: destination, index: dIndex)
+        let result = reinsert(todo: todo, destination: destination, index: dIndex)
+        return result
     }
 
     @discardableResult
@@ -19,13 +25,11 @@ extension TodoList {
         let todo: Todo
         if showCompleted {
             todo = todos.remove(at: index)
-            // TODO: Could move to background..
             if !todo.completed, let oIndex = incomplete.firstIndex(where: { $0 === todo }) {
                 incomplete.remove(at: oIndex)
             }
         } else {
             todo = incomplete.remove(at: index)
-            // ""
             if let oIndex = todos.firstIndex(where: { $0 === todo }) {
                 todos.remove(at: oIndex)
             }
@@ -33,33 +37,52 @@ extension TodoList {
         return todo
     }
 
-    func reinsert(todo: Todo, destination: TodoList, index: Int) {
+    func reinsert(todo: Todo, destination: TodoList, index: Int) -> MoveResult? {
+        var result: MoveResult?
         if destination.showCompleted {
-            let other: Todo?
-            if self === destination {
+            let neighbor: Todo?
+            if self == destination {
                 // Just removed need to not insert out of bounds at end
-                other = destination.todos[min(index, destination.todos.count - 1)]
+                neighbor = destination.todos[min(index, destination.todos.count - 1)]
             } else {
-                other = destination.todos.count > 0 ? destination.todos[index - 1] : nil
-            }
+                switch index {
+                case 0:
+                    neighbor = destination.todos.count > 0 ? destination.todos[0] : nil
+                case destination.incomplete.count:
+                    neighbor = destination.todos.count > 0 ? destination.todos[index - 1] : nil
+                default:
+                    neighbor = destination.todos.count > 0 ? destination.todos[index] : nil
+                }            }
             destination.todos.insert(todo, at: index)
-            incompleteInsert(neighbor: other, todo: todo, destination: destination, at: index)
+            incompleteInsert(neighbor: neighbor, todo: todo, destination: destination, at: index)
 
         } else {
-            let other: Todo?
-            if self === destination {
-                // ""
-                other = destination.incomplete[min(index, destination.incomplete.count - 1)]
+            let neighbor: Todo?
+            if self == destination {
+                neighbor = destination.incomplete[min(index, destination.incomplete.count - 1)]
             } else {
-                other = destination.incomplete.count > 0 ? destination.incomplete[index - 1] : nil
+                switch index {
+                case 0:
+                    neighbor = destination.incomplete.count > 0 ? destination.incomplete[0] : nil
+                case destination.incomplete.count:
+                    neighbor = destination.incomplete.count > 0 ? destination.incomplete[index - 1] : nil
+                default:
+                    neighbor = destination.incomplete.count > 0 ? destination.incomplete[index] : nil
+                }
             }
             destination.incomplete.insert(todo, at: index)
-
-            // TODO: ""
-            if let o = other, let oIndex = destination.todos.firstIndex(where: { $0 === o }) {
+            if todo.completed {
+                // Moved completed todo to list not showing completed
+                // ..for now will process move then delete
+                result = .completedMovedToShowComplete
+            }
+            if let n = neighbor, let oIndex = destination.todos.firstIndex(where: { $0 === n }) {
                 destination.todos.insert(todo, at: oIndex)
+            } else {
+                destination.todos.append(todo)
             }
         }
+        return result
     }
 
     func incompleteInsert(
@@ -68,11 +91,10 @@ extension TodoList {
         destination: TodoList,
         at index: Int
     ) {
-        // TODO: Also could be background work, not visible in UI
-        if let n = neighbor, let oIndex = destination.incomplete.firstIndex(where: { $0 === n }) {
+        if let n = neighbor, !n.completed, let oIndex = destination.incomplete.firstIndex(where: { $0 === n }) {
             destination.incomplete.insert(todo, at: oIndex)
         } else {
-            // Find nearest incomplete to the left in completed list, and insert there.
+            // Find nearest incomplete to the left in main list
             var i = index - 1
             var lTodo: Todo?
             while i >= 0 && lTodo == nil {
@@ -82,6 +104,7 @@ extension TodoList {
                     i -= 1
                 }
             }
+            // Insert in incomplete right after that item occurs in incomplete
             if let l = lTodo, let oIndex = destination.incomplete.firstIndex(where: { $0 === l }) {
                 destination.incomplete.insert(todo, at: oIndex + 1)
             } else {
@@ -90,20 +113,19 @@ extension TodoList {
         }
     }
 
-    enum MarkCompletedResult {
+    enum ToggleCompletedResult {
         case delete
         case reload
     }
 
     @discardableResult
-    func toggleCompleted(index: Int) -> MarkCompletedResult {
+    func toggleCompleted(index: Int) -> ToggleCompletedResult {
         if showCompleted {
             todos[index].completed.toggle()
             if todos[index].completed,
                 let index = incomplete.firstIndex(where: { $0 === todos[index] })  {
                 incomplete.remove(at: index)
             } else {
-                // re-add
                 incompleteInsert(todo: todos[index], destination: self, at: index)
             }
             return .reload

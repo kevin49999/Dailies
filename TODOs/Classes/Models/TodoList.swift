@@ -61,6 +61,12 @@ class TodoList: Codable {
     }
 }
 
+extension TodoList: Equatable {
+    static func == (lhs: TodoList, rhs: TodoList) -> Bool {
+        return lhs.dateCreated == rhs.dateCreated && lhs.name == rhs.name
+    }
+}
+
 // MARK: - Generated Lists
 
 extension TodoList {
