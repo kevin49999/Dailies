@@ -14,10 +14,10 @@ extension TodoList {
         case completedMovedToShowComplete
     }
 
+    @discardableResult
     func move(sIndex: Int, destination: TodoList, dIndex: Int) -> MoveResult? {
         let todo = remove(at: sIndex)
-        let result = reinsert(todo: todo, destination: destination, index: dIndex)
-        return result
+        return reinsert(todo: todo, destination: destination, index: dIndex)
     }
 
     @discardableResult
@@ -25,7 +25,7 @@ extension TodoList {
         let todo: Todo
         if showCompleted {
             todo = todos.remove(at: index)
-            if !todo.completed, let oIndex = incomplete.firstIndex(where: { $0 === todo }) {
+            if let oIndex = incomplete.firstIndex(where: { $0 === todo }) {
                 incomplete.remove(at: oIndex)
             }
         } else {
@@ -40,76 +40,69 @@ extension TodoList {
     func reinsert(todo: Todo, destination: TodoList, index: Int) -> MoveResult? {
         var result: MoveResult?
         if destination.showCompleted {
-            let neighbor: Todo?
-            if self == destination {
-                // Just removed need to not insert out of bounds at end
-                neighbor = destination.todos[min(index, destination.todos.count - 1)]
-            } else {
-                switch index {
-                case 0:
-                    neighbor = destination.todos.count > 0 ? destination.todos[0] : nil
-                case destination.incomplete.count:
-                    neighbor = destination.todos.count > 0 ? destination.todos[index - 1] : nil
-                default:
-                    neighbor = destination.todos.count > 0 ? destination.todos[index] : nil
-                }            }
             destination.todos.insert(todo, at: index)
-            incompleteInsert(neighbor: neighbor, todo: todo, destination: destination, at: index)
-
+            incompleteInsert(todo: todo, index: index, destination: destination)
         } else {
-            let neighbor: Todo?
-            if self == destination {
-                neighbor = destination.incomplete[min(index, destination.incomplete.count - 1)]
-            } else {
-                switch index {
-                case 0:
-                    neighbor = destination.incomplete.count > 0 ? destination.incomplete[0] : nil
-                case destination.incomplete.count:
-                    neighbor = destination.incomplete.count > 0 ? destination.incomplete[index - 1] : nil
-                default:
-                    neighbor = destination.incomplete.count > 0 ? destination.incomplete[index] : nil
-                }
-            }
             destination.incomplete.insert(todo, at: index)
+            todosInsert(todo: todo, index: index, destination: destination)
             if todo.completed {
                 // Moved completed todo to list not showing completed
                 // ..for now will process move then delete
                 result = .completedMovedToShowComplete
             }
-            if let n = neighbor, let oIndex = destination.todos.firstIndex(where: { $0 === n }) {
-                destination.todos.insert(todo, at: oIndex)
-            } else {
-                destination.todos.append(todo)
-            }
         }
         return result
     }
 
-    func incompleteInsert(
-        neighbor: Todo? = nil,
+    func todosInsert(
         todo: Todo,
-        destination: TodoList,
-        at index: Int
+        index: Int,
+        destination: TodoList
     ) {
-        if let n = neighbor, !n.completed, let oIndex = destination.incomplete.firstIndex(where: { $0 === n }) {
-            destination.incomplete.insert(todo, at: oIndex)
+        var right: Todo?
+        var left: Todo?
+        if index - 1 >= 0 {
+            left = destination.incomplete[index - 1]
+        }
+        if index + 1 < destination.incomplete.count {
+            right = destination.incomplete[index + 1]
+        }
+
+        if let r = right, let rIndex = destination.todos.firstIndex(where: { $0 === r }) {
+            destination.todos.insert(todo, at: rIndex) // put todo before right in opposite list
+        } else if let l = left, let lIndex = destination.todos.firstIndex(where: { $0 === l }) {
+            destination.todos.insert(todo, at: lIndex + 1)
         } else {
-            // Find nearest incomplete to the left in main list
-            var i = index - 1
-            var lTodo: Todo?
-            while i >= 0 && lTodo == nil {
-                if !destination.todos[i].completed {
-                    lTodo = destination.todos[i]
-                } else {
-                    i -= 1
-                }
+            destination.todos.append(todo)
+        }
+    }
+
+    func incompleteInsert(
+        todo: Todo,
+        index: Int,
+        destination: TodoList
+    ) {
+        var lIndex = index - 1
+        var rIndex = index + 1
+        var left: Todo?
+        var right: Todo?
+        while left == nil && right == nil {
+            if lIndex >= 0, !destination.todos[lIndex].completed {
+                left = destination.todos[lIndex]
             }
-            // Insert in incomplete right after that item occurs in incomplete
-            if let l = lTodo, let oIndex = destination.incomplete.firstIndex(where: { $0 === l }) {
-                destination.incomplete.insert(todo, at: oIndex + 1)
-            } else {
-                destination.incomplete.insert(todo, at: 0)
+            if rIndex < destination.todos.count, !destination.todos[rIndex].completed {
+                right = destination.todos[rIndex]
             }
+            lIndex -= 1
+            rIndex += 1
+        }
+
+        if let r = right, let i = destination.todos.firstIndex(where: { $0 === r }) {
+            destination.incomplete.insert(todo, at: i) // put todo before right in opposite list
+        } else if let l = left, let i = destination.todos.firstIndex(where: { $0 === l }) {
+            destination.incomplete.insert(todo, at: i + 1)
+        } else {
+            destination.incomplete.append(todo)
         }
     }
 
@@ -126,7 +119,7 @@ extension TodoList {
                 let index = incomplete.firstIndex(where: { $0 === todos[index] })  {
                 incomplete.remove(at: index)
             } else {
-                incompleteInsert(todo: todos[index], destination: self, at: index)
+                incompleteInsert(todo: todos[index], index: index, destination: self)
             }
             return .reload
         } else {
@@ -142,7 +135,7 @@ extension TodoList {
         todo.completed = false
         if showCompleted {
             todos.insert(todo, at: index + 1)
-            incompleteInsert(todo: visible[index], destination: self, at: index)
+            incompleteInsert(todo: visible[index], index: index, destination: self)
         } else {
             incomplete.insert(todo, at: index + 1)
             if let oIndex = todos.firstIndex(where: { $0 === visible[index] }) {

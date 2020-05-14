@@ -120,9 +120,6 @@ extension TodoListViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        guard sourceIndexPath != destinationIndexPath else {
-            return
-        }
         let result = todoLists[sourceIndexPath.section].move(
             sIndex: sourceIndexPath.row,
             destination: todoLists[destinationIndexPath.section],
@@ -137,6 +134,8 @@ extension TodoListViewController: UITableViewDataSource {
         default:
             break
         }
+        todoLists[destinationIndexPath.section].todos.prettyPrint()
+        todoLists[destinationIndexPath.section].incomplete.prettyPrint()
     }
 }
 
