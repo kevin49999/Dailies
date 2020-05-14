@@ -82,6 +82,8 @@ extension TodoList {
         index: Int,
         destination: TodoList
     ) {
+        guard !todo.completed else { return }
+        
         var lIndex = index - 1
         var rIndex = index + 1
         var left: Todo?
