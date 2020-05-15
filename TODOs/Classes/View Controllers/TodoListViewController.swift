@@ -70,10 +70,7 @@ class TodoListViewController: UIViewController {
     }
     
     func addNewTodoList(with name: String) {
-        todoLists.insert(
-            TodoList(classification: .created, name: name),
-            at: 0
-        )
+        todoLists.insert(.init(classification: .created, name: name), at: 0)
         tableView.insertSections(IndexSet(arrayLiteral: 0), with: .automatic)
     }
 }
