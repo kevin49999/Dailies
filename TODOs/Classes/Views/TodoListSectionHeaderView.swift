@@ -74,7 +74,7 @@ class TodoListSectionHeaderView: UIView {
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.0),
             stackView.centerYAnchor.constraint(equalTo: centerYAnchor),
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.0),
-            actionButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 30),
+            actionButton.heightAnchor.constraint(equalToConstant: 30),
             actionButton.widthAnchor.constraint(equalToConstant: 30)
         ])
         let bottom = stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16.0)
