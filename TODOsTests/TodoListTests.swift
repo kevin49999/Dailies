@@ -11,14 +11,6 @@ import XCTest
 
 class TodoListTests: XCTestCase {
 
-    override func setUp() {
-        //
-    }
-
-    override func tearDown() {
-        //
-    }
-
     func testOneListMoves() {
         let list = TodoList(classification: .created, name: "Fun")
         list.showCompleted = true
@@ -172,6 +164,37 @@ class TodoListTests: XCTestCase {
     }
 
     func testMultiListMoves() {
-        /// TODO:
+        let list = TodoList(classification: .created, name: "Fun")
+        _ = list.incomplete // ""
+        list.add(todo: .init(text: "1"))
+        list.add(todo: .init(text: "2"))
+        list.add(todo: .init(text: "3"))
+
+        let list2 = TodoList(classification: .created, name: "Work")
+
+        list.move(sIndex: 2, destination: list2, dIndex: 0)
+        list.move(sIndex: 1, destination: list2, dIndex: 0)
+        list.move(sIndex: 0, destination: list2, dIndex: 0)
+
+        XCTAssertEqual(
+            list.todos, []
+        )
+        XCTAssertEqual(
+            list.incomplete, []
+        )
+        XCTAssertEqual(
+            list2.todos, [
+                .init(text: "1"),
+                .init(text: "2"),
+                .init(text: "3")
+            ]
+        )
+        XCTAssertEqual(
+            list2.incomplete, [
+                .init(text: "1"),
+                .init(text: "2"),
+                .init(text: "3")
+            ]
+        )
     }
 }

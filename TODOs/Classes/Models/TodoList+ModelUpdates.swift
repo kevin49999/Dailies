@@ -54,6 +54,7 @@ extension TodoList {
         return result
     }
 
+    // TODO: Better naming for these inserts,, insertWhenNotVisible.. idk
     func todosInsert(
         todo: Todo,
         index: Int,
@@ -68,10 +69,10 @@ extension TodoList {
             right = destination.incomplete[index + 1]
         }
 
-        if let r = right, let rIndex = destination.todos.firstIndex(where: { $0 === r }) {
-            destination.todos.insert(todo, at: rIndex) // put todo before right in opposite list
-        } else if let l = left, let lIndex = destination.todos.firstIndex(where: { $0 === l }) {
-            destination.todos.insert(todo, at: lIndex + 1)
+        if let r = right, let i = destination.todos.firstIndex(where: { $0 === r }) {
+            destination.todos.insert(todo, at: i)
+        } else if let l = left, let i = destination.todos.firstIndex(where: { $0 === l }) {
+            destination.todos.insert(todo, at: i + 1)
         } else {
             destination.todos.append(todo)
         }
@@ -100,7 +101,7 @@ extension TodoList {
         }
 
         if let r = right, let i = destination.todos.firstIndex(where: { $0 === r }) {
-            destination.incomplete.insert(todo, at: i) // put todo before right in opposite list
+            destination.incomplete.insert(todo, at: i)
         } else if let l = left, let i = destination.todos.firstIndex(where: { $0 === l }) {
             destination.incomplete.insert(todo, at: i + 1)
         } else {
@@ -121,6 +122,7 @@ extension TodoList {
                 let index = incomplete.firstIndex(where: { $0 === todos[index] })  {
                 incomplete.remove(at: index)
             } else {
+                // TODO: dbl check this..
                 incompleteInsert(todo: todos[index], index: index, destination: self)
             }
             return .reload
@@ -132,6 +134,7 @@ extension TodoList {
         }
     }
 
+    // TODO: Def dbl check this too..
     func duplicate(index: Int) {
         let todo = visible[index]
         todo.completed = false
@@ -154,7 +157,7 @@ extension TodoList {
 
 extension Array where Element == Todo {
     func prettyPrint() {
-        forEach { print($0.text, $0.completed)}
+        forEach { print($0.text, $0.completed) }
         print("---")
     }
 }
