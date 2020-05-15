@@ -41,10 +41,10 @@ extension TodoList {
         var result: MoveResult?
         if destination.showCompleted {
             destination.todos.insert(todo, at: index)
-            incompleteInsert(todo: todo, index: index, destination: destination)
+            incompleteComplementaryInsert(todo: todo, index: index, destination: destination)
         } else {
             destination.incomplete.insert(todo, at: index)
-            todosInsert(todo: todo, index: index, destination: destination)
+            todosComplementaryInsert(todo: todo, index: index, destination: destination)
             if todo.completed {
                 // Moved completed todo to list not showing completed
                 // ..for now will process move then delete
@@ -54,8 +54,7 @@ extension TodoList {
         return result
     }
 
-    // TODO: Better naming for these inserts,, insertWhenNotVisible.. idk
-    func todosInsert(
+    func todosComplementaryInsert(
         todo: Todo,
         index: Int,
         destination: TodoList
@@ -78,7 +77,7 @@ extension TodoList {
         }
     }
 
-    func incompleteInsert(
+    func incompleteComplementaryInsert(
         todo: Todo,
         index: Int,
         destination: TodoList
@@ -122,8 +121,7 @@ extension TodoList {
                 let index = incomplete.firstIndex(where: { $0 === todos[index] })  {
                 incomplete.remove(at: index)
             } else {
-                // TODO: dbl check this..
-                incompleteInsert(todo: todos[index], index: index, destination: self)
+                incompleteComplementaryInsert(todo: todos[index], index: index, destination: self)
             }
             return .reload
         } else {
@@ -134,18 +132,16 @@ extension TodoList {
         }
     }
 
-    // TODO: Def dbl check this too..
+    // TODO: Finish/fix
     func duplicate(index: Int) {
         let todo = visible[index]
-        todo.completed = false
+        let copy = Todo(text: todo.text, completed: false)
         if showCompleted {
-            todos.insert(todo, at: index + 1)
-            incompleteInsert(todo: visible[index], index: index, destination: self)
+            todos.insert(copy, at: index + 1)
+            incompleteComplementaryInsert(todo: copy, index: index + 1, destination: self)
         } else {
-            incomplete.insert(todo, at: index + 1)
-            if let oIndex = todos.firstIndex(where: { $0 === visible[index] }) {
-                todos.insert(todo, at: oIndex)
-            }
+            incomplete.insert(copy, at: index + 1)
+            todosComplementaryInsert(todo: copy, index: index + 1, destination: self)
         }
     }
 
