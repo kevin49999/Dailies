@@ -8,12 +8,18 @@
 
 import Foundation
 
-struct Todo: Codable {
+class Todo: Codable {
     var text: String
     var completed: Bool
 
     init(text: String, completed: Bool = false) {
         self.text = text
-        self.completed = false
+        self.completed = completed
+    }
+}
+
+extension Todo: Equatable {
+    static func == (lhs: Todo, rhs: Todo) -> Bool {
+        return lhs.text == rhs.text && lhs.completed == rhs.completed
     }
 }

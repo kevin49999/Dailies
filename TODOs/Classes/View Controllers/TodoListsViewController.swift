@@ -132,9 +132,11 @@ extension TodoListsViewController: UITableViewDragDelegate {
 // MARK: - UITableViewDropDelegate
 
 extension TodoListsViewController: UITableViewDropDelegate {
-    func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
-        // do nothing
+    func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
+        return .init(operation: .move, intent: .insertAtDestinationIndexPath)
     }
+
+    func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) { }
 }
 
 // MARK: - UITableViewDelegate

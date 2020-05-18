@@ -13,6 +13,7 @@ class TodoListViewController: UIViewController {
     // MARK: - Properties
 
     private(set) var todoLists: [TodoList]
+
     private var bottomInset: CGFloat
 
     private lazy var tableView: UITableView = {
@@ -69,10 +70,7 @@ class TodoListViewController: UIViewController {
     }
     
     func addNewTodoList(with name: String) {
-        todoLists.insert(
-            TodoList(classification: .created, name: name),
-            at: 0
-        )
+        todoLists.insert(.init(classification: .created, name: name), at: 0)
         tableView.insertSections(IndexSet(arrayLiteral: 0), with: .automatic)
     }
 }
@@ -85,12 +83,12 @@ extension TodoListViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return todoLists[section].todos.count + 1 // for AddTodoCell
+        return todoLists[section].visible.count + 1 // for AddTodoCell
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let list = todoLists[indexPath.section]
-        if list.todos.count == indexPath.row {
+        if list.visible.count == indexPath.row {
             let cell: AddTodoCell = tableView.dequeueReusableCell(for: indexPath)
             if indexPath.section == todoLists.count - 1 {
                 cell.separatorInset = .hideSeparator // hide last
@@ -100,29 +98,41 @@ extension TodoListViewController: UITableViewDataSource {
         }
         let cell: TodoCell = tableView.dequeueReusableCell(for: indexPath)
         cell.delegate = self
-        cell.configure(data: list.todos[indexPath.row])
+        cell.configure(data: list.visible[indexPath.row])
         return cell
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        if todoLists[indexPath.section].todos.count == indexPath.row {
+        if todoLists[indexPath.section].visible.count == indexPath.row {
             return false // AddTodoCell
         }
         return true
     }
 
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        if todoLists[indexPath.section].todos.count == indexPath.row {
+        if todoLists[indexPath.section].visible.count == indexPath.row {
             return false // AddTodoCell
         }
         return true
     }
 
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        let sourceTodoList = todoLists[sourceIndexPath.section]
-        let destinationTodoList = todoLists[destinationIndexPath.section]
-        let movedTodo = sourceTodoList.todos.remove(at: sourceIndexPath.row)
-        destinationTodoList.todos.insert(movedTodo, at: destinationIndexPath.row)
+        let result = todoLists[sourceIndexPath.section].move(
+            sIndex: sourceIndexPath.row,
+            destination: todoLists[destinationIndexPath.section],
+            dIndex: destinationIndexPath.row
+        )
+        switch result {
+        case .completedMovedToShowComplete?:
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
+                self.todoLists[destinationIndexPath.section].incomplete.remove(at: destinationIndexPath.row)
+                tableView.deleteRows(at: [destinationIndexPath], with: .automatic)
+            })
+        default:
+            break
+        }
+        todoLists[destinationIndexPath.section].todos.prettyPrint()
+        todoLists[destinationIndexPath.section].incomplete.prettyPrint()
     }
 }
 
@@ -131,40 +141,31 @@ extension TodoListViewController: UITableViewDataSource {
 extension TodoListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let list = todoLists[indexPath.section]
-        var actions: [UIContextualAction] = []
-
         let delete = UIContextualAction(style: .destructive, title: "Delete") { (_, _, completion) in
-            list.todos.remove(at: indexPath.row)
+            list.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
             completion(true)
         }
-        actions.append(delete)
-
-        if !list.todos[indexPath.row].completed {
-            let complete = UIContextualAction(style: .normal, title: "Completed") {  (_, _, completion) in
-                list.todos[indexPath.row].completed.toggle()
+        let title = list.visible[indexPath.row].completed ? "Not Complete" : "Completed"
+        let complete = UIContextualAction(style: .normal, title: title) {  (_, _, completion) in
+            let result = list.toggleCompleted(index: indexPath.row)
+            switch result {
+            case .delete:
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+            case .reload:
                 tableView.reloadRows(at: [indexPath], with: .automatic)
-                completion(true)
             }
-            complete.backgroundColor = .systemGreen
-            actions.append(complete)
-        }
-        let duplicate = UIContextualAction(style: .normal, title: "Duplicate") { (_, _, completion) in
-            var todo = list.todos[indexPath.row]
-            todo.completed = false
-            list.todos.insert(todo, at: indexPath.row + 1)
-            self.tableView.insertRows(at: [IndexPath(row: indexPath.row + 1, section: indexPath.section)], with: .automatic)
             completion(true)
         }
-        duplicate.backgroundColor = .systemBlue
-        actions.append(duplicate)
-        return UISwipeActionsConfiguration(actions: actions)
+        complete.backgroundColor = .systemGreen
+        return UISwipeActionsConfiguration(actions: [delete, complete])
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = TodoListSectionHeaderView()
         header.configure(data: todoLists[section])
         header.section = section
+        header.delegate = self
         return header
     }
 
@@ -172,7 +173,7 @@ extension TodoListViewController: UITableViewDelegate {
         // Disallow moving TodoCell below AddTodoCell
         let proposedSection = proposedDestinationIndexPath.section
         let proposedRow = proposedDestinationIndexPath.row
-        let proposedSectionTodosCount = todoLists[proposedSection].todos.count
+        let proposedSectionTodosCount = todoLists[proposedSection].visible.count
 
         if sourceIndexPath.section == proposedSection,
             proposedRow == proposedSectionTodosCount {
@@ -196,6 +197,10 @@ extension TodoListViewController: UITableViewDragDelegate {
 // MARK: - UITableViewDropDelegate
 
 extension TodoListViewController: UITableViewDropDelegate {
+    func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
+        return .init(operation: .move, intent: .insertAtDestinationIndexPath)
+    }
+
     func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) { }
 }
 
@@ -211,7 +216,7 @@ extension TodoListViewController: AddTodoCellDelegate {
             assertionFailure()
             return
         }
-        todoLists[indexPath.section].todos.append(Todo(text: text))
+        todoLists[indexPath.section].add(todo: Todo(text: text))
         tableView.insertRows(at: [indexPath], with: .automatic)
     }
 }
@@ -229,8 +234,27 @@ extension TodoListViewController: TodoCellCellDelegate {
             return
         }
         if !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            todoLists[indexPath.section].todos[indexPath.row].text = text
+            let list = todoLists[indexPath.section]
+            if list.showCompleted {
+                list.todos[indexPath.row].text = text
+            } else {
+                list.incomplete[indexPath.row].text = text
+            }
         }
         tableView.reloadRows(at: [indexPath], with: .none)
+    }
+}
+
+// MARK: - TodoListSectionHeaderView
+
+extension TodoListViewController: TodoListSectionHeaderViewDelegate {
+    func todoListSectionHeaderView(_ view: TodoListSectionHeaderView, tappedAction section: Int) {
+        UIAlertController.todoListActions(
+            todoLists[section].showCompleted,
+            presenter: self,
+            completion: { _ in
+                self.todoLists[section].showCompleted.toggle()
+                self.tableView.reloadSections(IndexSet(arrayLiteral: section), with: .automatic)
+        })
     }
 }

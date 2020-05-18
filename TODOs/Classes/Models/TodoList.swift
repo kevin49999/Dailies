@@ -30,6 +30,12 @@ class TodoList: Codable {
     var name: String
     var todos: [Todo]
     var showCompleted: Bool
+    lazy var incomplete: [Todo] = {
+        return todos.filter { !$0.completed }
+    }()
+    var visible: [Todo] {
+        return showCompleted ? todos : incomplete
+    }
     var isWeekend: Bool {
         switch classification {
         case .daysOfWeek where name == "Sunday",
@@ -52,6 +58,12 @@ class TodoList: Codable {
         self.name = name
         self.todos = todos
         self.showCompleted = showCompleted
+    }
+}
+
+extension TodoList: Equatable {
+    static func == (lhs: TodoList, rhs: TodoList) -> Bool {
+        return lhs.dateCreated == rhs.dateCreated && lhs.name == rhs.name
     }
 }
 
