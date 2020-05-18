@@ -141,13 +141,11 @@ extension TodoListViewController: UITableViewDataSource {
 extension TodoListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let list = todoLists[indexPath.section]
-
         let delete = UIContextualAction(style: .destructive, title: "Delete") { (_, _, completion) in
             list.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
             completion(true)
         }
-
         let title = list.visible[indexPath.row].completed ? "Not Complete" : "Completed"
         let complete = UIContextualAction(style: .normal, title: title) {  (_, _, completion) in
             let result = list.toggleCompleted(index: indexPath.row)
@@ -160,17 +158,7 @@ extension TodoListViewController: UITableViewDelegate {
             completion(true)
         }
         complete.backgroundColor = .systemGreen
-
-        let duplicate = UIContextualAction(style: .normal, title: "Duplicate") { (_, _, completion) in
-            list.duplicate(index: indexPath.row)
-            self.tableView.insertRows(
-                at: [IndexPath(row: indexPath.row + 1, section: indexPath.section)],
-                with: .automatic
-            )
-            completion(true)
-        }
-        duplicate.backgroundColor = .systemBlue
-        return UISwipeActionsConfiguration(actions: [delete, complete, duplicate])
+        return UISwipeActionsConfiguration(actions: [delete, complete])
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

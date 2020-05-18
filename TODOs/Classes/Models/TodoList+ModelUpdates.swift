@@ -132,19 +132,6 @@ extension TodoList {
         }
     }
 
-    // TODO: Finish/fix
-    func duplicate(index: Int) {
-        let todo = visible[index]
-        let copy = Todo(text: todo.text, completed: false)
-        if showCompleted {
-            todos.insert(copy, at: index + 1)
-            incompleteComplementaryInsert(todo: copy, index: index + 1, destination: self)
-        } else {
-            incomplete.insert(copy, at: index + 1)
-            todosComplementaryInsert(todo: copy, index: index + 1, destination: self)
-        }
-    }
-
     func add(todo: Todo) {
         todos.append(todo)
         incomplete.append(todo)
