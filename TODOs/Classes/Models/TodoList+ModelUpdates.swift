@@ -100,9 +100,9 @@ extension TodoList {
         }
 
         if let r = right, let i = destination.todos.firstIndex(where: { $0 === r }) {
-            destination.incomplete.insert(todo, at: i)
+            destination.incomplete.insert(todo, at: i - 1)
         } else if let l = left, let i = destination.todos.firstIndex(where: { $0 === l }) {
-            destination.incomplete.insert(todo, at: i + 1)
+            destination.incomplete.insert(todo, at: min(i + 1, destination.incomplete.count - 1))
         } else {
             destination.incomplete.append(todo)
         }

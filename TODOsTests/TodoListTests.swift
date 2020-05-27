@@ -197,4 +197,33 @@ class TodoListTests: XCTestCase {
             ]
         )
     }
+
+    func testToggleMoveCompleted() {
+        let list = TodoList(classification: .created, name: "Fun")
+        _ = list.incomplete // ""
+        list.showCompleted = true
+        list.add(todo: .init(text: "1"))
+        list.add(todo: .init(text: "2"))
+        list.add(todo: .init(text: "3"))
+        list.toggleCompleted(index: 1)
+        list.move(sIndex: 1, destination: list, dIndex: 0)
+        list.toggleCompleted(index: 0)
+
+        list.todos.prettyPrint()
+        list.incomplete.prettyPrint()
+        XCTAssertEqual(
+            list.todos, [
+                .init(text: "2"),
+                .init(text: "1"),
+                .init(text: "3")
+            ]
+        )
+        XCTAssertEqual(
+            list.incomplete, [
+                .init(text: "2"),
+                .init(text: "1"),
+                .init(text: "3")
+            ]
+        )
+    }
 }
