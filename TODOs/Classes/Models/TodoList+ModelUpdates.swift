@@ -95,14 +95,14 @@ extension TodoList {
             if rIndex < destination.todos.count, !destination.todos[rIndex].completed {
                 right = destination.todos[rIndex]
             }
-            lIndex -= 1
-            rIndex += 1
+            if lIndex > 0 { lIndex -= 1 }
+            if rIndex < destination.todos.count { rIndex += 1 }
         }
 
         if let r = right, let i = destination.todos.firstIndex(where: { $0 === r }) {
-            destination.incomplete.insert(todo, at: i - 1)
+            destination.incomplete.insert(todo, at: max(i - 1, 0))
         } else if let l = left, let i = destination.todos.firstIndex(where: { $0 === l }) {
-            destination.incomplete.insert(todo, at: min(i + 1, destination.incomplete.count - 1))
+            destination.incomplete.insert(todo, at: i + 1)
         } else {
             destination.incomplete.append(todo)
         }

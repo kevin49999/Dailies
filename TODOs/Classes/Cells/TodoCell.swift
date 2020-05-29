@@ -8,14 +8,14 @@
 
 import UIKit
 
-protocol TodoCellCellDelegate: class {
+protocol TodoCellDelegate: class {
     func todoCell(_ cell: TodoCell, isEditing textView: UITextView)
     func todoCell(_ cell: TodoCell, didEndEditing text: String)
 }
 
 class TodoCell: UITableViewCell {
 
-    weak var delegate: TodoCellCellDelegate?
+    weak var delegate: TodoCellDelegate?
     @IBOutlet weak private var textView: UITextView!
     
     override func awakeFromNib() {

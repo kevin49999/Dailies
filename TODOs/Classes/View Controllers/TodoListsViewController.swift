@@ -145,7 +145,7 @@ extension TodoListsViewController: UITableViewDelegate { }
 
 // MARK: TodoCellDelegate
 
-extension TodoListsViewController: TodoCellCellDelegate {
+extension TodoListsViewController: TodoCellDelegate {
     func todoCell(_ cell: TodoCell, isEditing textView: UITextView) {
         tableView.resize(for: textView)
     }

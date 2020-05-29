@@ -13,13 +13,15 @@ class TodoListViewController: UIViewController {
     // MARK: - Properties
 
     private(set) var todoLists: [TodoList]
-
     private var bottomInset: CGFloat
+    private lazy var dataSource: TodoListTableViewDataSource = {
+        TodoListTableViewDataSource(todoLists: todoLists, cellDelegate: self)
+    }()
 
     private lazy var tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .plain)
         table.delegate = self
-        table.dataSource = self
+        table.dataSource = dataSource
         table.dragInteractionEnabled = true
         table.dragDelegate = self
         table.dropDelegate = self
@@ -72,67 +74,6 @@ class TodoListViewController: UIViewController {
     func addNewTodoList(with name: String) {
         todoLists.insert(.init(classification: .created, name: name), at: 0)
         tableView.insertSections(IndexSet(arrayLiteral: 0), with: .automatic)
-    }
-}
-
-// MARK: - UITableViewDataSource
-
-extension TodoListViewController: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return todoLists.count
-    }
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return todoLists[section].visible.count + 1 // for AddTodoCell
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let list = todoLists[indexPath.section]
-        if list.visible.count == indexPath.row {
-            let cell: AddTodoCell = tableView.dequeueReusableCell(for: indexPath)
-            if indexPath.section == todoLists.count - 1 {
-                cell.separatorInset = .hideSeparator // hide last
-            }
-            cell.delegate = self
-            return cell
-        }
-        let cell: TodoCell = tableView.dequeueReusableCell(for: indexPath)
-        cell.delegate = self
-        cell.configure(data: list.visible[indexPath.row])
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        if todoLists[indexPath.section].visible.count == indexPath.row {
-            return false // AddTodoCell
-        }
-        return true
-    }
-
-    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        if todoLists[indexPath.section].visible.count == indexPath.row {
-            return false // AddTodoCell
-        }
-        return true
-    }
-
-    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        let result = todoLists[sourceIndexPath.section].move(
-            sIndex: sourceIndexPath.row,
-            destination: todoLists[destinationIndexPath.section],
-            dIndex: destinationIndexPath.row
-        )
-        switch result {
-        case .completedMovedToShowComplete?:
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
-                self.todoLists[destinationIndexPath.section].incomplete.remove(at: destinationIndexPath.row)
-                tableView.deleteRows(at: [destinationIndexPath], with: .automatic)
-            })
-        default:
-            break
-        }
-        todoLists[destinationIndexPath.section].todos.prettyPrint()
-        todoLists[destinationIndexPath.section].incomplete.prettyPrint()
     }
 }
 
@@ -223,7 +164,7 @@ extension TodoListViewController: AddTodoCellDelegate {
 
 // MARK: TodoCellDelegate
 
-extension TodoListViewController: TodoCellCellDelegate {
+extension TodoListViewController: TodoCellDelegate {
     func todoCell(_ cell: TodoCell, isEditing textView: UITextView) {
         tableView.resize(for: textView)
     }
