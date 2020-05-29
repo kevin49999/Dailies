@@ -64,7 +64,7 @@ class TodosContainerViewController: UIViewController {
     @IBAction func tappedListsBarButtonItem(_ sender: UIBarButtonItem) {
         let controller: TodoListsViewController = .init(
             delegate: self,
-            todoLists: createdTodoViewController.todoLists
+            todoLists: createdTodoViewController.dataSource.todoLists
         )
         let nav = UINavigationController(rootViewController: controller)
         present(nav, animated: true)
@@ -109,12 +109,12 @@ extension TodosContainerViewController {
     }
 
     @objc func willResignActive() {
-        try? TodoList.saveCreated(createdTodoViewController.todoLists)
-        try? TodoList.saveDaysOfWeek(daysOfWeekTodoController.todoLists)
+        try? TodoList.saveCreated(createdTodoViewController.dataSource.todoLists)
+        try? TodoList.saveDaysOfWeek(daysOfWeekTodoController.dataSource.todoLists)
     }
 
     @objc func willEnterForeground() {
-        guard let firstDay = daysOfWeekTodoController.todoLists.first else {
+        guard let firstDay = daysOfWeekTodoController.dataSource.todoLists.first else {
             fatalError("First day should be set")
         }
         if Date.todayYearMonthDay() > firstDay.dateCreated {

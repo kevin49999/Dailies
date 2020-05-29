@@ -12,10 +12,10 @@ typealias TodoListCellsDelegate = AddTodoCellDelegate & TodoCellDelegate
 
 class TodoListTableViewDataSource: NSObject, UITableViewDataSource {
 
-    unowned let cellDelegate: TodoListCellsDelegate
-    private var todoLists: [TodoList]
+    weak var cellDelegate: TodoListCellsDelegate?
+    var todoLists: [TodoList]
 
-    init(todoLists: [TodoList], cellDelegate: TodoListCellsDelegate) {
+    init(todoLists: [TodoList], cellDelegate: TodoListCellsDelegate? = nil) {
         self.todoLists = todoLists
         self.cellDelegate = cellDelegate
     }
