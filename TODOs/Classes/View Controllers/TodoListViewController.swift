@@ -12,8 +12,9 @@ class TodoListViewController: UIViewController {
 
     // MARK: - Properties
 
-    private var bottomInset: CGFloat
+    private let undo: Undo
     private (set)var dataSource: TodoListTableViewDataSource
+    private var bottomInset: CGFloat
 
     private lazy var tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .plain)
@@ -37,7 +38,8 @@ class TodoListViewController: UIViewController {
 
     // MARK: - Init
 
-    init(todoLists: [TodoList], bottomInset: CGFloat) {
+    init(todoLists: [TodoList], bottomInset: CGFloat, undo: Undo = .shared) {
+        self.undo = undo
         self.dataSource = TodoListTableViewDataSource(todoLists: todoLists)
         self.bottomInset = bottomInset
         super.init(nibName: nil, bundle: nil)
@@ -80,16 +82,25 @@ class TodoListViewController: UIViewController {
 extension TodoListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let list = dataSource.todoLists[indexPath.section]
+        let todo = list.visible[indexPath.row]
+        var cp = Todo(text: todo.text, completed: false)
+
         let delete = UIContextualAction(style: .destructive, title: "Delete") { (_, _, completion) in
             list.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
+            self.undo.show(completion: { undo in
+                print("Should undo: \(undo)")
+            })
             completion(true)
         }
-        let title = list.visible[indexPath.row].completed ? "Not Complete" : "Completed"
-        let complete = UIContextualAction(style: .normal, title: title) {  (_, _, completion) in
+        let complete = UIContextualAction(
+            style: .normal,
+            title: todo.completed ? "Not Complete" : "Completed"
+        ) {  (_, _, completion) in
             let result = list.toggleCompleted(index: indexPath.row)
             switch result {
             case .delete:
+                // TODO: Trigger Undo
                 tableView.deleteRows(at: [indexPath], with: .automatic)
             case .reload:
                 tableView.reloadRows(at: [indexPath], with: .automatic)
