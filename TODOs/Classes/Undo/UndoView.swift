@@ -65,6 +65,7 @@ class UndoView: UIView {
         self.delegate = delegate
         super.init(frame: .zero)
         backgroundColor = config.backgroundColor
+        layer.cornerRadius = 6
 
         addSubview(titleLabel)
         NSLayoutConstraint.activate([
@@ -76,13 +77,16 @@ class UndoView: UIView {
         titleLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
 
         let buttonStack = UIStackView(arrangedSubviews: [undoButton, cancelButton])
-        buttonStack.spacing = UIStackView.spacingUseSystem
         buttonStack.translatesAutoresizingMaskIntoConstraints = false
         addSubview(buttonStack)
         NSLayoutConstraint.activate([
-            buttonStack.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            buttonStack.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -8),
             buttonStack.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
-            buttonStack.leadingAnchor.constraint(greaterThanOrEqualToSystemSpacingAfter: titleLabel.trailingAnchor, multiplier: 1.0)
+            buttonStack.leadingAnchor.constraint(greaterThanOrEqualToSystemSpacingAfter: titleLabel.trailingAnchor, multiplier: 1.0),
+            undoButton.heightAnchor.constraint(equalToConstant: 44),
+            undoButton.widthAnchor.constraint(equalToConstant: 44),
+            cancelButton.heightAnchor.constraint(equalToConstant: 44),
+            cancelButton.widthAnchor.constraint(equalToConstant: 44)
         ])
         buttonStack.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
     }

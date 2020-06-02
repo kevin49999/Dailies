@@ -12,6 +12,7 @@ class UndoItem {
 
     private var completion: ((Bool) -> Void)
     private var view: UndoView!
+    private var isDismissing: Bool = false
 
     init(
         presenterView: UIView,
@@ -27,25 +28,28 @@ class UndoItem {
         NSLayoutConstraint.activate([
             view.leadingAnchor.constraint(equalTo: presenterView.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             view.trailingAnchor.constraint(equalTo: presenterView.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            view.bottomAnchor.constraint(equalTo: presenterView.safeAreaLayoutGuide.bottomAnchor, constant: -20)
+            view.bottomAnchor.constraint(equalTo: presenterView.safeAreaLayoutGuide.bottomAnchor, constant: -16)
         ])
         view.alpha = 0.0
         UIView.animate(withDuration: 0.5, animations: {
             self.view.alpha = 1.0
         }, completion: { _ in
-            _ = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false, block: { [weak self] _ in
+            _ = Timer.scheduledTimer(withTimeInterval: 2.5, repeats: false, block: { [weak self] _ in
                 self?.dismiss(undo: false)
             })
         })
     }
 
     func dismiss(undo: Bool) {
-        UIView.animate(withDuration: 0.5, animations: {
-            self.view.alpha = 0.0
-        }, completion: { _ in
-            self.view.removeFromSuperview()
-            self.completion(undo)
-        })
+        if !isDismissing {
+            isDismissing = true
+            UIView.animate(withDuration: 0.5, animations: {
+                self.view.alpha = 0.0
+            }, completion: { _ in
+                self.view.removeFromSuperview()
+                self.completion(undo)
+            })
+        }
     }
 }
 

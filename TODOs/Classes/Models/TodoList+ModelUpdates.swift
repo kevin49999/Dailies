@@ -37,6 +37,7 @@ extension TodoList {
         return todo
     }
 
+    @discardableResult
     func reinsert(todo: Todo, destination: TodoList, index: Int) -> MoveResult? {
         var result: MoveResult?
         if destination.showCompleted {

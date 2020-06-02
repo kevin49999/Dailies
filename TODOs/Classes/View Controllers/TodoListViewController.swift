@@ -12,7 +12,6 @@ class TodoListViewController: UIViewController {
 
     // MARK: - Properties
 
-    private let undo: Undo
     private (set)var dataSource: TodoListTableViewDataSource
     private var bottomInset: CGFloat
 
@@ -38,8 +37,7 @@ class TodoListViewController: UIViewController {
 
     // MARK: - Init
 
-    init(todoLists: [TodoList], bottomInset: CGFloat, undo: Undo = .shared) {
-        self.undo = undo
+    init(todoLists: [TodoList], bottomInset: CGFloat) {
         self.dataSource = TodoListTableViewDataSource(todoLists: todoLists)
         self.bottomInset = bottomInset
         super.init(nibName: nil, bundle: nil)
@@ -83,13 +81,16 @@ extension TodoListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let list = dataSource.todoLists[indexPath.section]
         let todo = list.visible[indexPath.row]
-        var cp = Todo(text: todo.text, completed: false)
+        let cp = Todo(text: todo.text, completed: false)
 
         let delete = UIContextualAction(style: .destructive, title: "Delete") { (_, _, completion) in
             list.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
-            self.undo.show(completion: { undo in
-                print("Should undo: \(undo)")
+            Undo.shared.show(completion: { undo in
+                if undo {
+                    list.reinsert(todo: cp, destination: list, index: indexPath.row)
+                    tableView.insertRows(at: [indexPath], with: .automatic)
+                }
             })
             completion(true)
         }
@@ -100,7 +101,6 @@ extension TodoListViewController: UITableViewDelegate {
             let result = list.toggleCompleted(index: indexPath.row)
             switch result {
             case .delete:
-                // TODO: Trigger Undo
                 tableView.deleteRows(at: [indexPath], with: .automatic)
             case .reload:
                 tableView.reloadRows(at: [indexPath], with: .automatic)
