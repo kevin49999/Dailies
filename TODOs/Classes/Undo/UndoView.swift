@@ -14,6 +14,7 @@ protocol UndoViewDelegate: class {
 }
 
 class UndoView: UIView {
+    
     struct Configuration {
         let title: String
         let backgroundColor: UIColor

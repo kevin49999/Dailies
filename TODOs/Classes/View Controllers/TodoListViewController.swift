@@ -81,14 +81,13 @@ extension TodoListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let list = dataSource.todoLists[indexPath.section]
         let todo = list.visible[indexPath.row]
-        let cp = Todo(text: todo.text, completed: false)
 
         let delete = UIContextualAction(style: .destructive, title: "Delete") { (_, _, completion) in
             list.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
             Undo.shared.show(title: "Undo Delete", completion: { undo in
                 if undo {
-                    list.reinsert(todo: cp, destination: list, index: indexPath.row)
+                    list.reinsert(todo: Todo(text: todo.text), destination: list, index: indexPath.row)
                     tableView.insertRows(at: [indexPath], with: .automatic)
                 }
             })
