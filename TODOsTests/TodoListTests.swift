@@ -209,8 +209,6 @@ class TodoListTests: XCTestCase {
         list.move(sIndex: 1, destination: list, dIndex: 0)
         list.toggleCompleted(index: 0)
 
-        list.todos.prettyPrint()
-        list.incomplete.prettyPrint()
         XCTAssertEqual(
             list.todos, [
                 .init(text: "2"),
@@ -223,6 +221,26 @@ class TodoListTests: XCTestCase {
                 .init(text: "2"),
                 .init(text: "1"),
                 .init(text: "3")
+            ]
+        )O
+    }
+
+    func testToggleCompletedSingleItemList() {
+        let list = TodoList(classification: .created, name: "Fun")
+        _ = list.incomplete // ""
+        list.showCompleted = true
+        list.add(todo: .init(text: "1"))
+        list.toggleCompleted(index: 0)
+        list.toggleCompleted(index: 0)
+
+        XCTAssertEqual(
+            list.todos, [
+                .init(text: "1")
+            ]
+        )
+        XCTAssertEqual(
+            list.incomplete, [
+                .init(text: "1")
             ]
         )
     }

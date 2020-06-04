@@ -8,7 +8,7 @@
 
 import UIKit
 
-// s/o https://github.com/GitHawkApp/Squawk
+// s/o https://github.com/GitHawkApp/Squawk 🦅
 
 class Undo {
 
@@ -18,7 +18,7 @@ class Undo {
 
     private init() { }
 
-    func show(completion: @escaping ((Bool) -> Void)) {
+    func show(title: String, completion: @escaping ((Bool) -> Void)) {
         guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }),
             let topMostChild = window.rootViewController?.topMostChild,
             let presenterView = topMostChild.view else {
@@ -26,17 +26,13 @@ class Undo {
         }
 
         self.active?.dismiss(undo: false)
-        let item = UndoItem(presenterView: presenterView, completion: { [weak self] undo in
-            self?.active = nil
+        let item = UndoItem(title: title, presenterView: presenterView) { undo in
             completion(undo)
-        })
+        }
         self.active = item
     }
 }
 
-
-
-///
 extension UIViewController {
     var topMostChild: UIViewController? {
         if let tab = self as? UITabBarController {

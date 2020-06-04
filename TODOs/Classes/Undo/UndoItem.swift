@@ -15,12 +15,13 @@ class UndoItem {
     private var isDismissing: Bool = false
 
     init(
+        title: String,
         presenterView: UIView,
         completion: @escaping ((Bool) -> Void)
     ) {
         self.completion = completion
         self.view = UndoView(
-            config: .init(title: "Undo Mark Completed", backgroundColor: .systemIndigo),
+            config: .init(title: title, backgroundColor: .systemIndigo),
             delegate: self
         )
         view.translatesAutoresizingMaskIntoConstraints = false

@@ -30,6 +30,7 @@ class UndoView: UIView {
         t.textAlignment = .left
         t.adjustsFontForContentSizeCategory = true
         t.font = UIFont.preferredFont(forTextStyle: .subheadline)
+        t.textColor = .systemBackground
         return t
     }()
 
@@ -43,6 +44,7 @@ class UndoView: UIView {
         b.setImage(image, for: .normal)
         b.translatesAutoresizingMaskIntoConstraints = false
         b.addTarget(self, action: #selector(onTapUndo(_:)), for: .touchUpInside)
+        b.tintColor = .systemBackground
         return b
     }()
 
@@ -56,6 +58,7 @@ class UndoView: UIView {
         b.setImage(image, for: .normal)
         b.translatesAutoresizingMaskIntoConstraints = false
         b.addTarget(self, action: #selector(onTapCancel(_:)), for: .touchUpInside)
+        b.tintColor = .systemBackground
         return b
     }()
 

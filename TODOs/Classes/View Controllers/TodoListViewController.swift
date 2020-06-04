@@ -86,7 +86,7 @@ extension TodoListViewController: UITableViewDelegate {
         let delete = UIContextualAction(style: .destructive, title: "Delete") { (_, _, completion) in
             list.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
-            Undo.shared.show(completion: { undo in
+            Undo.shared.show(title: "Undo Delete", completion: { undo in
                 if undo {
                     list.reinsert(todo: cp, destination: list, index: indexPath.row)
                     tableView.insertRows(at: [indexPath], with: .automatic)
@@ -104,6 +104,16 @@ extension TodoListViewController: UITableViewDelegate {
                 tableView.deleteRows(at: [indexPath], with: .automatic)
             case .reload:
                 tableView.reloadRows(at: [indexPath], with: .automatic)
+            }
+            Undo.shared.show(title: "Undo Toggle Complete") { undo in
+                if undo {
+                    self.undoToggleCompletedTodo(
+                        firstResult: result,
+                        list: list,
+                        todo: todo,
+                        indexPath: indexPath
+                    )
+                }
             }
             completion(true)
         }
@@ -206,5 +216,30 @@ extension TodoListViewController: TodoListSectionHeaderViewDelegate {
                 self.dataSource.todoLists[section].showCompleted.toggle()
                 self.tableView.reloadSections(IndexSet(arrayLiteral: section), with: .automatic)
         })
+    }
+}
+
+// MARK: - Undo
+
+extension TodoListViewController {
+    func undoToggleCompletedTodo(
+        firstResult: TodoList.ToggleCompletedResult,
+        list: TodoList,
+        todo: Todo,
+        indexPath: IndexPath
+    ) {
+        switch firstResult {
+        case .delete:
+            list.toggleCompleted(index: indexPath.row, onCompleted: true)
+            self.tableView.insertRows(at: [indexPath], with: .automatic)
+        case .reload:
+            let undoResult = list.toggleCompleted(index: indexPath.row)
+            switch undoResult {
+            case .delete:
+                self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            case .reload:
+                self.tableView.reloadRows(at: [indexPath], with: .automatic)
+            }
+        }
     }
 }
