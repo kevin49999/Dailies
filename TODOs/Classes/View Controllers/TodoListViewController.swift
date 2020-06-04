@@ -12,16 +12,13 @@ class TodoListViewController: UIViewController {
 
     // MARK: - Properties
 
-    private (set)var dataSource: TodoListTableViewDataSource
-    private var bottomInset: CGFloat
+    lazy var dataSource: TodoListTableViewDataSource = {
+        return .init(tableView: tableView, todoLists: todoLists, cellDelegate: self)
+    }()
 
-    private lazy var tableView: UITableView = {
+    private let tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .plain)
-        table.delegate = self
-        table.dataSource = dataSource
         table.dragInteractionEnabled = true
-        table.dragDelegate = self
-        table.dropDelegate = self
         table.register(cell: TodoCell.self)
         table.register(cell: AddTodoCell.self)
         table.rowHeight = UITableView.automaticDimension
@@ -31,17 +28,17 @@ class TodoListViewController: UIViewController {
         table.tableFooterView = UIView(frame: .zero)
         table.clipsToBounds = true
         table.translatesAutoresizingMaskIntoConstraints = false
-        table.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: self.bottomInset, right: 0)
         return table
     }()
+    private var bottomInset: CGFloat
+    private var todoLists: [TodoList]
 
     // MARK: - Init
 
     init(todoLists: [TodoList], bottomInset: CGFloat) {
-        self.dataSource = TodoListTableViewDataSource(todoLists: todoLists)
+        self.todoLists = todoLists
         self.bottomInset = bottomInset
         super.init(nibName: nil, bundle: nil)
-        self.dataSource.cellDelegate = self
     }
 
     required init?(coder: NSCoder) {
@@ -60,18 +57,25 @@ class TodoListViewController: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             tableView.topAnchor.constraint(equalTo: view.topAnchor)
         ])
+        tableView.delegate = self
+        tableView.dataSource = dataSource
+        tableView.dragDelegate = self
+        tableView.dropDelegate = self
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: self.bottomInset, right: 0)
+        dataSource.applySnapshot(animatingDifferences: false)
     }
+
 
     // MARK: - Public Functions
 
     func updateTodoLists(_ lists: [TodoList]) {
         dataSource.todoLists = lists
-        tableView.reloadData()
+        dataSource.applySnapshot()
     }
-    
+
     func addNewTodoList(with name: String) {
         dataSource.todoLists.insert(.init(classification: .created, name: name), at: 0)
-        tableView.insertSections(IndexSet(arrayLiteral: 0), with: .automatic)
+        dataSource.applySnapshot()
     }
 }
 
@@ -79,16 +83,16 @@ class TodoListViewController: UIViewController {
 
 extension TodoListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let list = dataSource.todoLists[indexPath.section]
+        let list =  dataSource.todoLists[indexPath.section]
         let todo = list.visible[indexPath.row]
 
         let delete = UIContextualAction(style: .destructive, title: "Delete") { (_, _, completion) in
             list.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .automatic)
+            self.dataSource.applySnapshot() // TODO: DELETE
             Undo.shared.show(title: "Undo Delete", completion: { undo in
                 if undo {
                     list.reinsert(todo: Todo(text: todo.text), destination: list, index: indexPath.row)
-                    tableView.insertRows(at: [indexPath], with: .automatic)
+                    self.dataSource.applySnapshot()
                 }
             })
             completion(true)
@@ -100,9 +104,9 @@ extension TodoListViewController: UITableViewDelegate {
             let result = list.toggleCompleted(index: indexPath.row)
             switch result {
             case .delete:
-                tableView.deleteRows(at: [indexPath], with: .automatic)
+                self.dataSource.delete(todo)
             case .reload:
-                tableView.reloadRows(at: [indexPath], with: .automatic)
+                self.dataSource.reload(todo)
             }
             Undo.shared.show(title: "Undo Toggle Complete") { undo in
                 if undo {
@@ -176,7 +180,7 @@ extension TodoListViewController: AddTodoCellDelegate {
             return
         }
         dataSource.todoLists[indexPath.section].add(todo: Todo(text: text))
-        tableView.insertRows(at: [indexPath], with: .automatic)
+        dataSource.applySnapshot()
     }
 }
 
@@ -200,7 +204,7 @@ extension TodoListViewController: TodoCellDelegate {
                 list.incomplete[indexPath.row].text = text
             }
         }
-        tableView.reloadRows(at: [indexPath], with: .none)
+        dataSource.applySnapshot()
     }
 }
 
@@ -213,7 +217,7 @@ extension TodoListViewController: TodoListSectionHeaderViewDelegate {
             presenter: self,
             completion: { _ in
                 self.dataSource.todoLists[section].showCompleted.toggle()
-                self.tableView.reloadSections(IndexSet(arrayLiteral: section), with: .automatic)
+                self.dataSource.applySnapshot()
         })
     }
 }
@@ -230,14 +234,14 @@ extension TodoListViewController {
         switch firstResult {
         case .delete:
             list.toggleCompleted(index: indexPath.row, onCompleted: true)
-            self.tableView.insertRows(at: [indexPath], with: .automatic)
+            self.dataSource.applySnapshot()
         case .reload:
             let undoResult = list.toggleCompleted(index: indexPath.row)
             switch undoResult {
             case .delete:
-                self.tableView.deleteRows(at: [indexPath], with: .automatic)
+                self.dataSource.delete(todo)
             case .reload:
-                self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                self.dataSource.reload(todo)
             }
         }
     }
