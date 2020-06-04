@@ -37,6 +37,7 @@ extension TodoList {
         return todo
     }
 
+    @discardableResult
     func reinsert(todo: Todo, destination: TodoList, index: Int) -> MoveResult? {
         var result: MoveResult?
         if destination.showCompleted {
@@ -88,7 +89,7 @@ extension TodoList {
         var rIndex = index + 1
         var left: Todo?
         var right: Todo?
-        while left == nil && right == nil {
+        while left == nil && right == nil && (lIndex >= 0 || rIndex < destination.todos.count) {
             if lIndex >= 0, !destination.todos[lIndex].completed {
                 left = destination.todos[lIndex]
             }
@@ -102,7 +103,7 @@ extension TodoList {
         if let r = right, let i = destination.todos.firstIndex(where: { $0 === r }) {
             destination.incomplete.insert(todo, at: max(i - 1, 0))
         } else if let l = left, let i = destination.todos.firstIndex(where: { $0 === l }) {
-            destination.incomplete.insert(todo, at: i + 1)
+            destination.incomplete.insert(todo, at: min(i + 1, destination.incomplete.count))
         } else {
             destination.incomplete.append(todo)
         }
@@ -115,7 +116,12 @@ extension TodoList {
 
     @discardableResult
     func toggleCompleted(index: Int) -> ToggleCompletedResult {
-        if showCompleted {
+        return toggleCompleted(index: index, onCompleted: self.showCompleted)
+    }
+
+    @discardableResult
+    func toggleCompleted(index: Int, onCompleted: Bool) -> ToggleCompletedResult {
+        if onCompleted {
             todos[index].completed.toggle()
             if todos[index].completed,
                 let index = incomplete.firstIndex(where: { $0 === todos[index] })  {

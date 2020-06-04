@@ -34,6 +34,9 @@
 		52567EBF23EBBC91000332EA /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52567EBE23EBBC91000332EA /* Date+Extensions.swift */; };
 		525A8B92242FDD0B002DCDD0 /* Bundle+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525A8B91242FDD0B002DCDD0 /* Bundle+Extensions.swift */; };
 		525A8B94242FE2E2002DCDD0 /* UIEdgeInsets+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525A8B93242FE2E2002DCDD0 /* UIEdgeInsets+Extensions.swift */; };
+		52662AB8248584150072626B /* Undo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52662AB7248584150072626B /* Undo.swift */; };
+		52662ABA2485841B0072626B /* UndoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52662AB92485841B0072626B /* UndoItem.swift */; };
+		52662ABC2485C4D40072626B /* UndoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52662ABB2485C4D40072626B /* UndoView.swift */; };
 		5295A219246B158E00B502CA /* TodoList+ModelUpdates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5295A218246B158E00B502CA /* TodoList+ModelUpdates.swift */; };
 		52AABC2F23FA061D000FA700 /* TodoListSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AABC2E23FA061D000FA700 /* TodoListSectionHeaderView.swift */; };
 		52F492AD2481BA9F001DA434 /* TodoListTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F492AC2481BA9F001DA434 /* TodoListTableViewDataSource.swift */; };
@@ -82,6 +85,9 @@
 		52567EBE23EBBC91000332EA /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		525A8B91242FDD0B002DCDD0 /* Bundle+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extensions.swift"; sourceTree = "<group>"; };
 		525A8B93242FE2E2002DCDD0 /* UIEdgeInsets+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIEdgeInsets+Extensions.swift"; sourceTree = "<group>"; };
+		52662AB7248584150072626B /* Undo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Undo.swift; sourceTree = "<group>"; };
+		52662AB92485841B0072626B /* UndoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndoItem.swift; sourceTree = "<group>"; };
+		52662ABB2485C4D40072626B /* UndoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndoView.swift; sourceTree = "<group>"; };
 		5295A218246B158E00B502CA /* TodoList+ModelUpdates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TodoList+ModelUpdates.swift"; sourceTree = "<group>"; };
 		52AABC2E23FA061D000FA700 /* TodoListSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListSectionHeaderView.swift; sourceTree = "<group>"; };
 		52F492AC2481BA9F001DA434 /* TodoListTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListTableViewDataSource.swift; sourceTree = "<group>"; };
@@ -200,11 +206,22 @@
 			children = (
 				52CD9C1624632AD20018A303 /* Cells */,
 				52CD9C1924632AEC0018A303 /* Models */,
+				52662AB6248577910072626B /* Undo */,
 				52CD9C1824632AE60018A303 /* Utility */,
 				52CD9C1524632AC50018A303 /* View Controllers */,
 				52CD9C1724632AD90018A303 /* Views */,
 			);
 			path = Classes;
+			sourceTree = "<group>";
+		};
+		52662AB6248577910072626B /* Undo */ = {
+			isa = PBXGroup;
+			children = (
+				52662AB7248584150072626B /* Undo.swift */,
+				52662AB92485841B0072626B /* UndoItem.swift */,
+				52662ABB2485C4D40072626B /* UndoView.swift */,
+			);
+			path = Undo;
 			sourceTree = "<group>";
 		};
 		52CD9C1524632AC50018A303 /* View Controllers */ = {
@@ -421,6 +438,7 @@
 			files = (
 				52567EBB23DE907B000332EA /* TodoViewData.swift in Sources */,
 				52567EB723DE9060000332EA /* TodoList.swift in Sources */,
+				52662ABC2485C4D40072626B /* UndoView.swift in Sources */,
 				5295A219246B158E00B502CA /* TodoList+ModelUpdates.swift in Sources */,
 				52013987240369890030DD3D /* UIViewController+ChildControllers.swift in Sources */,
 				52F492AD2481BA9F001DA434 /* TodoListTableViewDataSource.swift in Sources */,
@@ -431,9 +449,11 @@
 				52013985240363070030DD3D /* TodoListViewController.swift in Sources */,
 				524D269023F8995B00EC46CC /* DateFormatters.swift in Sources */,
 				524D268E23F8993F00EC46CC /* TodoListViewData.swift in Sources */,
+				52662ABA2485841B0072626B /* UndoItem.swift in Sources */,
 				525A8B94242FE2E2002DCDD0 /* UIEdgeInsets+Extensions.swift in Sources */,
 				52567EB523DE8D5F000332EA /* AddTodoCell.swift in Sources */,
 				0A424A6B2384B29D00E1FC34 /* TodoCell.swift in Sources */,
+				52662AB8248584150072626B /* Undo.swift in Sources */,
 				525A8B92242FDD0B002DCDD0 /* Bundle+Extensions.swift in Sources */,
 				5244F90923F8C67B00B4DAEB /* UIAlertController+Extensions.swift in Sources */,
 				0A424A732384B3C200E1FC34 /* UITableView+Extensions.swift in Sources */,

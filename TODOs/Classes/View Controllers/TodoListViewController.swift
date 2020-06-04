@@ -12,8 +12,8 @@ class TodoListViewController: UIViewController {
 
     // MARK: - Properties
 
-    private var bottomInset: CGFloat
     private (set)var dataSource: TodoListTableViewDataSource
+    private var bottomInset: CGFloat
 
     private lazy var tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .plain)
@@ -80,19 +80,39 @@ class TodoListViewController: UIViewController {
 extension TodoListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let list = dataSource.todoLists[indexPath.section]
+        let todo = list.visible[indexPath.row]
+
         let delete = UIContextualAction(style: .destructive, title: "Delete") { (_, _, completion) in
             list.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
+            Undo.shared.show(title: "Undo Delete", completion: { undo in
+                if undo {
+                    list.reinsert(todo: Todo(text: todo.text), destination: list, index: indexPath.row)
+                    tableView.insertRows(at: [indexPath], with: .automatic)
+                }
+            })
             completion(true)
         }
-        let title = list.visible[indexPath.row].completed ? "Not Complete" : "Completed"
-        let complete = UIContextualAction(style: .normal, title: title) {  (_, _, completion) in
+        let complete = UIContextualAction(
+            style: .normal,
+            title: todo.completed ? "Not Complete" : "Completed"
+        ) {  (_, _, completion) in
             let result = list.toggleCompleted(index: indexPath.row)
             switch result {
             case .delete:
                 tableView.deleteRows(at: [indexPath], with: .automatic)
             case .reload:
                 tableView.reloadRows(at: [indexPath], with: .automatic)
+            }
+            Undo.shared.show(title: "Undo Toggle Complete") { undo in
+                if undo {
+                    self.undoToggleCompletedTodo(
+                        firstResult: result,
+                        list: list,
+                        todo: todo,
+                        indexPath: indexPath
+                    )
+                }
             }
             completion(true)
         }
@@ -195,5 +215,30 @@ extension TodoListViewController: TodoListSectionHeaderViewDelegate {
                 self.dataSource.todoLists[section].showCompleted.toggle()
                 self.tableView.reloadSections(IndexSet(arrayLiteral: section), with: .automatic)
         })
+    }
+}
+
+// MARK: - Undo
+
+extension TodoListViewController {
+    func undoToggleCompletedTodo(
+        firstResult: TodoList.ToggleCompletedResult,
+        list: TodoList,
+        todo: Todo,
+        indexPath: IndexPath
+    ) {
+        switch firstResult {
+        case .delete:
+            list.toggleCompleted(index: indexPath.row, onCompleted: true)
+            self.tableView.insertRows(at: [indexPath], with: .automatic)
+        case .reload:
+            let undoResult = list.toggleCompleted(index: indexPath.row)
+            switch undoResult {
+            case .delete:
+                self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            case .reload:
+                self.tableView.reloadRows(at: [indexPath], with: .automatic)
+            }
+        }
     }
 }
