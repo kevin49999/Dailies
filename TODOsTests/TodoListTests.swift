@@ -222,7 +222,7 @@ class TodoListTests: XCTestCase {
                 .init(text: "1"),
                 .init(text: "3")
             ]
-        )O
+        )
     }
 
     func testToggleCompletedSingleItemList() {
