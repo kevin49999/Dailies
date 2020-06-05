@@ -155,20 +155,30 @@ extension TodoList {
     @discardableResult
     func toggleCompleted(index: Int) -> ToggleCompletedResult {
         if showCompleted {
-            todos[index].completed.toggle()
-            if todos[index].completed,
-                let index = incomplete.firstIndex(where: { $0 === todos[index] })  {
-                incomplete.remove(at: index)
-            } else {
-                incompleteComplementaryInsert(todo: todos[index], index: index, destination: self)
-            }
-            return .reload
+            return toggleCompletedAll(index: index)
         } else {
-            assert(!incomplete[index].completed)
-            incomplete[index].completed.toggle()
-            incomplete.remove(at: index)
-            return .delete
+            return toggleCompletedIncomplete(index: index)
         }
+    }
+
+    @discardableResult
+    func toggleCompletedAll(index: Int) -> ToggleCompletedResult {
+        todos[index].completed.toggle()
+        if todos[index].completed,
+            let index = incomplete.firstIndex(where: { $0 === todos[index] })  {
+            incomplete.remove(at: index)
+        } else {
+            incompleteComplementaryInsert(todo: todos[index], index: index)
+        }
+        return .reload
+    }
+
+    @discardableResult
+    func toggleCompletedIncomplete(index: Int) -> ToggleCompletedResult {
+        assert(!incomplete[index].completed)
+        incomplete[index].completed.toggle()
+        incomplete.remove(at: index)
+        return .delete
     }
 }
 

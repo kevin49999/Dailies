@@ -108,16 +108,6 @@ extension TodoListViewController: UITableViewDelegate {
             case .reload:
                 self.dataSource.reload(todo)
             }
-            Undo.shared.show(title: "Undo Toggle Complete") { undo in
-                if undo {
-                    self.undoToggleCompletedTodo(
-                        firstResult: result,
-                        list: list,
-                        todo: todo,
-                        indexPath: indexPath
-                    )
-                }
-            }
             completion(true)
         }
         complete.backgroundColor = .systemGreen
@@ -218,30 +208,5 @@ extension TodoListViewController: TodoListSectionHeaderViewDelegate {
                 self.dataSource.todoLists[section].showCompleted.toggle()
                 self.dataSource.applySnapshot()
         })
-    }
-}
-
-// MARK: - Undo
-
-extension TodoListViewController {
-    func undoToggleCompletedTodo(
-        firstResult: TodoList.ToggleCompletedResult,
-        list: TodoList,
-        todo: Todo,
-        indexPath: IndexPath
-    ) {
-        switch firstResult {
-        case .delete:
-            list.incompleteComplementaryInsert(todo: Todo(text: todo.text), index: indexPath.row, destination: list)
-            self.dataSource.applySnapshot()
-        case .reload:
-            let undoResult = list.toggleCompleted(index: indexPath.row)
-            switch undoResult {
-            case .delete:
-                self.dataSource.delete(todo)
-            case .reload:
-                self.dataSource.reload(todo)
-            }
-        }
     }
 }
