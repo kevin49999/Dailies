@@ -195,24 +195,16 @@ extension TodoList {
 
 extension Array where Element: AnyObject {
     mutating func insert(_ element: Element, after: Element, reference: Array) {
-        var index: Int?
         if let i = reference.firstIndex(where: { $0 === after }) {
-            index = i + 1
-        }
-        if let i = index {
-            safelyInsert(element, at: i)
+            safelyInsert(element, at: i + 1)
         } else {
             append(element)
         }
     }
 
     mutating func insert(_ element: Element, before: Element, reference: Array) {
-        var index: Int?
         if let i = reference.firstIndex(where: { $0 === before }) {
-            index = i - 1
-        }
-        if let i = index {
-            safelyInsert(element, at: i)
+            safelyInsert(element, at: i - 1)
         } else {
             append(element)
         }

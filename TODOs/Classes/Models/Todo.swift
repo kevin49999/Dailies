@@ -20,7 +20,6 @@ class Todo: Codable {
 
 extension Todo: Hashable {
     func hash(into hasher: inout Hasher) {
-        // TODO: prob need dateCreated too.. or rand id
         hasher.combine(text)
         hasher.combine(completed)
     }
