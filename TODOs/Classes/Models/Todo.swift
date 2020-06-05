@@ -18,7 +18,12 @@ class Todo: Codable {
     }
 }
 
-extension Todo: Equatable {
+extension Todo: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(text)
+        hasher.combine(completed)
+    }
+
     static func == (lhs: Todo, rhs: Todo) -> Bool {
         return lhs.text == rhs.text && lhs.completed == rhs.completed
     }

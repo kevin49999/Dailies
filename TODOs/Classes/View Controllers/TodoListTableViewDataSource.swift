@@ -10,55 +10,50 @@ import UIKit
 
 typealias TodoListCellsDelegate = AddTodoCellDelegate & TodoCellDelegate
 
-class TodoListTableViewDataSource: NSObject, UITableViewDataSource {
+class TodoListTableViewDataSource: UITableViewDiffableDataSource<TodoList, Todo> {
 
+    typealias Snapshot = NSDiffableDataSourceSnapshot<TodoList, Todo>
     weak var cellDelegate: TodoListCellsDelegate?
-    var todoLists: [TodoList]
-
-    init(todoLists: [TodoList], cellDelegate: TodoListCellsDelegate? = nil) {
+    var todoLists: [TodoList] = []
+    
+    convenience init(
+        tableView: UITableView,
+        todoLists: [TodoList],
+        cellDelegate: TodoListCellsDelegate? = nil
+    ) {
+        self.init(tableView: tableView, cellProvider: { tableView, indexPath, todo in
+            if todo.text == "AddTodoCellHacky" {
+                let cell: AddTodoCell = tableView.dequeueReusableCell(for: indexPath)
+                if indexPath.section == todoLists.count - 1 {
+                    cell.separatorInset = .hideSeparator // hide last
+                }
+                cell.delegate = cellDelegate
+                return cell
+            }
+            let cell: TodoCell = tableView.dequeueReusableCell(for: indexPath)
+            cell.delegate = cellDelegate
+            cell.configure(data: todo)
+            return cell
+        })
         self.todoLists = todoLists
         self.cellDelegate = cellDelegate
     }
 
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return todoLists.count
-    }
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return todoLists[section].visible.count + 1 // for AddTodoCell
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let list = todoLists[indexPath.section]
-        if list.visible.count == indexPath.row {
-            let cell: AddTodoCell = tableView.dequeueReusableCell(for: indexPath)
-            if indexPath.section == todoLists.count - 1 {
-                cell.separatorInset = .hideSeparator // hide last
-            }
-            cell.delegate = cellDelegate
-            return cell
-        }
-        let cell: TodoCell = tableView.dequeueReusableCell(for: indexPath)
-        cell.delegate = cellDelegate
-        cell.configure(data: list.visible[indexPath.row])
-        return cell
-    }
-
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         if todoLists[indexPath.section].visible.count == indexPath.row {
             return false // AddTodoCell
         }
         return true
     }
 
-    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         if todoLists[indexPath.section].visible.count == indexPath.row {
             return false // AddTodoCell
         }
         return true
     }
 
-    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         let result = todoLists[sourceIndexPath.section].move(
             sIndex: sourceIndexPath.row,
             destination: todoLists[destinationIndexPath.section],
@@ -68,12 +63,52 @@ class TodoListTableViewDataSource: NSObject, UITableViewDataSource {
         case .completedMovedToShowComplete?:
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
                 self.todoLists[destinationIndexPath.section].incomplete.remove(at: destinationIndexPath.row)
-                tableView.deleteRows(at: [destinationIndexPath], with: .automatic)
+                self.applySnapshot()
             })
         default:
             break
         }
         todoLists[destinationIndexPath.section].todos.prettyPrint()
         todoLists[destinationIndexPath.section].incomplete.prettyPrint()
+        applySnapshot(animatingDifferences: false)
+    }
+}
+
+extension TodoListTableViewDataSource {
+    func applySnapshot(animatingDifferences: Bool = true) {
+        var snapshot = Snapshot()
+        for list in todoLists {
+            snapshot.appendSections([list])
+            var items = list.visible
+            items.append(.init(text: "AddTodoCellHacky"))
+            snapshot.appendItems(items, toSection: list)
+        }
+        apply(snapshot, animatingDifferences: animatingDifferences)
+    }
+
+    func addNewTodoList(with name: String) {
+        let before = todoLists.first
+        let list = TodoList(classification: .created, name: name)
+        todoLists.insert(list, at: 0)
+        var current = snapshot()
+        if let b = before {
+            current.insertSections([list], beforeSection: b)
+        } else {
+            current.appendSections([list])
+        }
+        current.appendItems([.init(text: "AddTodoCellHacky")], toSection: list)
+        apply(current, animatingDifferences: true)
+    }
+
+    func reload(_ todo: Todo) {
+        var current = snapshot()
+        current.reloadItems([todo])
+        apply(current, animatingDifferences: true)
+    }
+
+    func delete(_ todo: Todo) {
+        var current = snapshot()
+        current.deleteItems([todo])
+        apply(current, animatingDifferences: true)
     }
 }

@@ -61,7 +61,12 @@ class TodoList: Codable {
     }
 }
 
-extension TodoList: Equatable {
+extension TodoList: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(name)
+        hasher.combine(dateCreated)
+    }
+
     static func == (lhs: TodoList, rhs: TodoList) -> Bool {
         return lhs.dateCreated == rhs.dateCreated && lhs.name == rhs.name
     }

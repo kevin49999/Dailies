@@ -21,8 +21,8 @@ class TodoListTests: XCTestCase {
         list.add(todo: .init(text: "4"))
         list.toggleCompleted(index: 1)
         list.toggleCompleted(index: 2)
-        list.move(sIndex: 3, destination: list, dIndex: 0) // 4 to top
-        list.move(sIndex: 1, destination: list, dIndex: 3) // 1 to bottom
+        list.move(sIndex: 3, dIndex: 0) // 4 to top
+        list.move(sIndex: 1, dIndex: 3) // 1 to bottom
 
         XCTAssertEqual(
             list.todos, [
@@ -48,9 +48,9 @@ class TodoListTests: XCTestCase {
         list.add(todo: .init(text: "3"))
         list.add(todo: .init(text: "4"))
 
-        list.move(sIndex: 3, destination: list, dIndex: 0)
-        list.move(sIndex: 3, destination: list, dIndex: 1)
-        list.move(sIndex: 3, destination: list, dIndex: 2)
+        list.move(sIndex: 3, dIndex: 0)
+        list.move(sIndex: 3, dIndex: 1)
+        list.move(sIndex: 3, dIndex: 2)
 
         XCTAssertEqual(
             list.todos, [
@@ -69,9 +69,9 @@ class TodoListTests: XCTestCase {
             ]
         )
 
-        list.move(sIndex: 3, destination: list, dIndex: 0)
-        list.move(sIndex: 3, destination: list, dIndex: 1)
-        list.move(sIndex: 3, destination: list, dIndex: 2)
+        list.move(sIndex: 3, dIndex: 0)
+        list.move(sIndex: 3, dIndex: 1)
+        list.move(sIndex: 3, dIndex: 2)
 
         XCTAssertEqual(
             list.todos, [
@@ -97,7 +97,7 @@ class TodoListTests: XCTestCase {
         list.add(todo: .init(text: "1"))
         list.add(todo: .init(text: "2"))
 
-        list.move(sIndex: 1, destination: list, dIndex: 0)
+        list.move(sIndex: 1, dIndex: 0)
 
         XCTAssertEqual(
             list.todos, [
@@ -112,7 +112,7 @@ class TodoListTests: XCTestCase {
             ]
         )
 
-        list.move(sIndex: 0, destination: list, dIndex: 1)
+        list.move(sIndex: 0, dIndex: 1)
 
         XCTAssertEqual(
             list.todos, [
@@ -206,7 +206,7 @@ class TodoListTests: XCTestCase {
         list.add(todo: .init(text: "2"))
         list.add(todo: .init(text: "3"))
         list.toggleCompleted(index: 1)
-        list.move(sIndex: 1, destination: list, dIndex: 0)
+        list.move(sIndex: 1, dIndex: 0)
         list.toggleCompleted(index: 0)
 
         XCTAssertEqual(
