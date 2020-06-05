@@ -74,8 +74,7 @@ class TodoListViewController: UIViewController {
     }
 
     func addNewTodoList(with name: String) {
-        dataSource.todoLists.insert(.init(classification: .created, name: name), at: 0)
-        dataSource.applySnapshot()
+        dataSource.addNewTodoList(with: name)
     }
 }
 
@@ -88,8 +87,8 @@ extension TodoListViewController: UITableViewDelegate {
 
         let delete = UIContextualAction(style: .destructive, title: "Delete") { (_, _, completion) in
             list.remove(at: indexPath.row)
-            self.dataSource.applySnapshot() // TODO: DELETE
-            Undo.shared.show(title: "Undo Delete", completion: { undo in
+            self.dataSource.delete(todo)
+            Undo.shared.show(title: "Undo Delete \"\(todo.text)\"", completion: { undo in
                 if undo {
                     list.reinsert(todo: Todo(text: todo.text), index: indexPath.row)
                     self.dataSource.applySnapshot()

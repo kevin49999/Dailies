@@ -22,7 +22,7 @@ class TodoListTableViewDataSource: UITableViewDiffableDataSource<TodoList, Todo>
         cellDelegate: TodoListCellsDelegate? = nil
     ) {
         self.init(tableView: tableView, cellProvider: { tableView, indexPath, todo in
-            if todoLists[indexPath.section].visible.count == indexPath.row {
+            if todo.text == "AddTodoCellHacky" {
                 let cell: AddTodoCell = tableView.dequeueReusableCell(for: indexPath)
                 if indexPath.section == todoLists.count - 1 {
                     cell.separatorInset = .hideSeparator // hide last
@@ -70,7 +70,7 @@ class TodoListTableViewDataSource: UITableViewDiffableDataSource<TodoList, Todo>
         }
         todoLists[destinationIndexPath.section].todos.prettyPrint()
         todoLists[destinationIndexPath.section].incomplete.prettyPrint()
-        applySnapshot(animatingDifferences: false)  // TODO: still not great
+        applySnapshot(animatingDifferences: false)
     }
 }
 
@@ -84,6 +84,20 @@ extension TodoListTableViewDataSource {
             snapshot.appendItems(items, toSection: list)
         }
         apply(snapshot, animatingDifferences: animatingDifferences)
+    }
+
+    func addNewTodoList(with name: String) {
+        let before = todoLists.first
+        let list = TodoList(classification: .created, name: name)
+        todoLists.insert(list, at: 0)
+        var current = snapshot()
+        if let b = before {
+            current.insertSections([list], beforeSection: b)
+        } else {
+            current.appendSections([list])
+        }
+        current.appendItems([.init(text: "AddTodoCellHacky")], toSection: list)
+        apply(current, animatingDifferences: true)
     }
 
     func reload(_ todo: Todo) {
