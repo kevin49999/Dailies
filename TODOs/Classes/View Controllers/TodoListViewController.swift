@@ -91,7 +91,7 @@ extension TodoListViewController: UITableViewDelegate {
             self.dataSource.applySnapshot() // TODO: DELETE
             Undo.shared.show(title: "Undo Delete", completion: { undo in
                 if undo {
-                    list.reinsert(todo: Todo(text: todo.text), destination: list, index: indexPath.row)
+                    list.reinsert(todo: Todo(text: todo.text), index: indexPath.row)
                     self.dataSource.applySnapshot()
                 }
             })
@@ -204,7 +204,6 @@ extension TodoListViewController: TodoCellDelegate {
                 list.incomplete[indexPath.row].text = text
             }
         }
-        dataSource.applySnapshot()
     }
 }
 
@@ -233,7 +232,7 @@ extension TodoListViewController {
     ) {
         switch firstResult {
         case .delete:
-            list.toggleCompleted(index: indexPath.row, onCompleted: true)
+            list.incompleteComplementaryInsert(todo: Todo(text: todo.text), index: indexPath.row, destination: list)
             self.dataSource.applySnapshot()
         case .reload:
             let undoResult = list.toggleCompleted(index: indexPath.row)

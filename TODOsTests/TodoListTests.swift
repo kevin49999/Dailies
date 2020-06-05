@@ -206,7 +206,7 @@ class TodoListTests: XCTestCase {
         list.add(todo: .init(text: "2"))
         list.add(todo: .init(text: "3"))
         list.toggleCompleted(index: 1)
-        list.move(sIndex: 1, destination: list, dIndex: 0)
+        list.move(sIndex: 1, dIndex: 0)
         list.toggleCompleted(index: 0)
 
         XCTAssertEqual(

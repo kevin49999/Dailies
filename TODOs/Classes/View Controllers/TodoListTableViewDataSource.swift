@@ -80,7 +80,6 @@ extension TodoListTableViewDataSource {
         for list in todoLists {
             snapshot.appendSections([list])
             var items = list.visible
-            if items.count > 0 { items.prettyPrint() }
             items.append(.init(text: "AddTodoCellHacky"))
             snapshot.appendItems(items, toSection: list)
         }
