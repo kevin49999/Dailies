@@ -90,7 +90,7 @@ extension TodoListViewController: UITableViewDelegate {
             self.dataSource.delete(todo)
             Undo.shared.show(title: "Undo Delete \"\(todo.text)\"", completion: { undo in
                 if undo {
-                    list.reinsert(todo: Todo(text: todo.text), index: indexPath.row)
+                    list.insert(todo: Todo(text: todo.text), index: indexPath.row)
                     self.dataSource.applySnapshot()
                 }
             })
@@ -110,7 +110,16 @@ extension TodoListViewController: UITableViewDelegate {
             completion(true)
         }
         complete.backgroundColor = .systemGreen
-        return UISwipeActionsConfiguration(actions: [delete, complete])
+        let duplicate = UIContextualAction(
+            style: .normal,
+            title: "Duplicate"
+        ) {  (_, _, completion) in
+            let duplicate = list.duplicate(at: indexPath.row)
+            self.dataSource.insert(duplicate, after: todo)
+            completion(true)
+        }
+        duplicate.backgroundColor = .systemIndigo
+        return UISwipeActionsConfiguration(actions: [delete, complete, duplicate])
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

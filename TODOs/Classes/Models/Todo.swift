@@ -16,6 +16,10 @@ class Todo: Codable {
         self.text = text
         self.completed = completed
     }
+
+    func duplicate() -> Todo {
+        return .init(text: self.text, completed: self.completed)
+    }
 }
 
 extension Todo: Hashable {

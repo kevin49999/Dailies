@@ -24,7 +24,7 @@ extension TodoList {
     @discardableResult
     func move(sIndex: Int, destination: TodoList, dIndex: Int) -> MoveResult? {
         let todo = remove(at: sIndex)
-        return reinsert(todo: todo, destination: destination, index: dIndex)
+        return insert(todo: todo, destination: destination, index: dIndex)
     }
 }
 
@@ -55,12 +55,12 @@ extension TodoList {
 extension TodoList {
 
     @discardableResult
-    func reinsert(todo: Todo, index: Int) -> MoveResult? {
-        reinsert(todo: todo, destination: self, index: index)
+    func insert(todo: Todo, index: Int) -> MoveResult? {
+        insert(todo: todo, destination: self, index: index)
     }
 
     @discardableResult
-    func reinsert(todo: Todo, destination: TodoList, index: Int) -> MoveResult? {
+    func insert(todo: Todo, destination: TodoList, index: Int) -> MoveResult? {
         var result: MoveResult?
         if destination.showCompleted {
             destination.todos.insert(todo, at: index)
@@ -191,10 +191,21 @@ extension TodoList {
     }
 }
 
+// MARK: - Duplicate
+
+extension TodoList {
+    @discardableResult
+    func duplicate(at index: Int) -> Todo {
+        let duplicate = visible[index].duplicate()
+        insert(todo: duplicate, index: index + 1)
+        return duplicate
+    }
+}
+
 // MARK: - General
 
 extension Array where Element: AnyObject {
-    mutating func insert(_ element: Element, after: Element, reference: Array) {
+    fileprivate mutating func insert(_ element: Element, after: Element, reference: Array) {
         if let i = reference.firstIndex(where: { $0 === after }) {
             safelyInsert(element, at: i + 1)
         } else {
@@ -202,7 +213,7 @@ extension Array where Element: AnyObject {
         }
     }
 
-    mutating func insert(_ element: Element, before: Element, reference: Array) {
+    fileprivate mutating func insert(_ element: Element, before: Element, reference: Array) {
         if let i = reference.firstIndex(where: { $0 === before }) {
             safelyInsert(element, at: i - 1)
         } else {
@@ -210,7 +221,7 @@ extension Array where Element: AnyObject {
         }
     }
 
-    mutating func safelyInsert(_ element: Element, at index: Index) {
+    fileprivate mutating func safelyInsert(_ element: Element, at index: Index) {
         var mIndex = index
         if mIndex < 0 { mIndex = 0 }
         if mIndex > count { mIndex = count }

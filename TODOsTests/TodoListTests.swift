@@ -244,4 +244,38 @@ class TodoListTests: XCTestCase {
             ]
         )
     }
+
+    func testDuplicate() {
+        let list = TodoList(classification: .created, name: "Fun")
+        _ = list.incomplete // ""
+        let todo = Todo(text: "1")
+        list.add(todo: todo)
+        XCTAssertEqual(
+            list.incomplete, [
+                .init(text: "1")
+            ]
+        )
+        list.duplicate(at: 0)
+
+        XCTAssertEqual(
+            list.incomplete, [
+                .init(text: "1"),
+                .init(text: "1")
+            ]
+        )
+        XCTAssertTrue(list.todos[0] === todo)
+
+        list.toggleCompleted(index: 0)
+        list.toggleCompleted(index: 0)
+        list.showCompleted = true
+        list.duplicate(at: 1)
+
+        XCTAssertEqual(
+            list.todos, [
+                .init(text: "1", completed: true),
+                .init(text: "1", completed: true),
+                .init(text: "1", completed: true)
+            ]
+        )
+    }
 }
