@@ -96,9 +96,18 @@ extension TodoListViewController: UITableViewDelegate {
             })
             completion(true)
         }
+        let duplicate = UIContextualAction(
+            style: .normal,
+            title: "Duplicate"
+        ) {  (_, _, completion) in
+            let duplicate = list.duplicate(at: indexPath.row)
+            self.dataSource.insert(duplicate, after: todo)
+            completion(true)
+        }
+        duplicate.backgroundColor = .systemIndigo
         let complete = UIContextualAction(
             style: .normal,
-            title: todo.completed ? "Not Complete" : "Completed"
+            title: todo.completed ? "Not Complete" : "Complete"
         ) {  (_, _, completion) in
             let result = list.toggleCompleted(index: indexPath.row)
             switch result {
@@ -110,16 +119,7 @@ extension TodoListViewController: UITableViewDelegate {
             completion(true)
         }
         complete.backgroundColor = .systemGreen
-        let duplicate = UIContextualAction(
-            style: .normal,
-            title: "Duplicate"
-        ) {  (_, _, completion) in
-            let duplicate = list.duplicate(at: indexPath.row)
-            self.dataSource.insert(duplicate, after: todo)
-            completion(true)
-        }
-        duplicate.backgroundColor = .systemIndigo
-        return UISwipeActionsConfiguration(actions: [delete, complete, duplicate])
+        return UISwipeActionsConfiguration(actions: [delete, duplicate, complete])
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
