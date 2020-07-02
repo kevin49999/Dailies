@@ -11,7 +11,7 @@ import Foundation
 struct DateFormatters {
     static let daysOfWeekNameDayMonth: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "EEEE M/dd"
+        formatter.setLocalizedDateFormatFromTemplate("EEEE M/dd")
         return formatter
     }()
 }
