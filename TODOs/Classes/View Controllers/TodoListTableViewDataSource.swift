@@ -106,6 +106,12 @@ extension TodoListTableViewDataSource {
         apply(current, animatingDifferences: true)
     }
 
+    func insert(_ todo: Todo, after: Todo) {
+        var current = snapshot()
+        current.insertItems([todo], afterItem: after)
+        apply(current, animatingDifferences: true)
+    }
+
     func delete(_ todo: Todo) {
         var current = snapshot()
         current.deleteItems([todo])
