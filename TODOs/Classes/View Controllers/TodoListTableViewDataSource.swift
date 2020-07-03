@@ -22,7 +22,7 @@ class TodoListTableViewDataSource: UITableViewDiffableDataSource<TodoList, Todo>
         cellDelegate: TodoListCellsDelegate? = nil
     ) {
         self.init(tableView: tableView, cellProvider: { tableView, indexPath, todo in
-            if todo.text == "AddTodoCellHacky" {
+            if todo.text == "AddTodoCellHack" {
                 let cell: AddTodoCell = tableView.dequeueReusableCell(for: indexPath)
                 if indexPath.section == todoLists.count - 1 {
                     cell.separatorInset = .hideSeparator // hide last
@@ -76,14 +76,20 @@ class TodoListTableViewDataSource: UITableViewDiffableDataSource<TodoList, Todo>
 
 extension TodoListTableViewDataSource {
     func applySnapshot(animatingDifferences: Bool = true) {
-        var snapshot = Snapshot()
+        var new = Snapshot()
         for list in todoLists {
-            snapshot.appendSections([list])
+            new.appendSections([list])
             var items = list.visible
-            items.append(.init(text: "AddTodoCellHacky"))
-            snapshot.appendItems(items, toSection: list)
+            // TODO: Fix, bad hack >:[
+            if let add = snapshot().itemIdentifiers(inSection: list)
+                .first(where: { $0.text == "AddTodoCellHack" }) {
+                items.append(add)
+            } else {
+                items.append(.init(text: "AddTodoCellHack", completed: false))
+            }
+            new.appendItems(items, toSection: list)
         }
-        apply(snapshot, animatingDifferences: animatingDifferences)
+        apply(new, animatingDifferences: animatingDifferences)
     }
 
     func addNewTodoList(with name: String) {
@@ -96,7 +102,7 @@ extension TodoListTableViewDataSource {
         } else {
             current.appendSections([list])
         }
-        current.appendItems([.init(text: "AddTodoCellHacky")], toSection: list)
+        current.appendItems([.init(text: "AddTodoCellHack")], toSection: list)
         apply(current, animatingDifferences: true)
     }
 
