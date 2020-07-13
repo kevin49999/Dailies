@@ -87,9 +87,6 @@ extension TodoListsViewController: UITableViewDataSource {
         let cell: TodoCell = tableView.dequeueReusableCell(for: indexPath)
         cell.configure(data: todoLists[indexPath.row])
         cell.delegate = self
-        if indexPath.row == todoLists.count - 1 {
-            cell.separatorInset = .hideSeparator // hide last
-        }
         return cell
     }
 
