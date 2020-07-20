@@ -73,7 +73,7 @@ class TodoListSectionHeaderView: UIView {
         NSLayoutConstraint.activate([
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.0),
             stackView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.0),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12.0),
             actionButton.heightAnchor.constraint(equalToConstant: 34),
             actionButton.widthAnchor.constraint(equalToConstant: 34)
         ])

@@ -22,9 +22,9 @@ class TodoListViewController: UIViewController {
         table.register(cell: TodoCell.self)
         table.register(cell: AddTodoCell.self)
         table.rowHeight = UITableView.automaticDimension
-        table.estimatedRowHeight = 92
+        table.estimatedRowHeight = 108
         table.sectionHeaderHeight = UITableView.automaticDimension
-        table.estimatedSectionHeaderHeight = 44
+        table.estimatedSectionHeaderHeight = 92
         table.tableFooterView = UIView(frame: .zero)
         table.clipsToBounds = true
         table.translatesAutoresizingMaskIntoConstraints = false

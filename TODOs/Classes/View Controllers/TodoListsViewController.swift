@@ -26,7 +26,7 @@ class TodoListsViewController: UIViewController {
         table.dragDelegate = self
         table.dropDelegate = self
         table.rowHeight = UITableView.automaticDimension
-        table.estimatedRowHeight = 92
+        table.estimatedRowHeight = 108
         table.tableFooterView = UIView(frame: .zero)
         table.clipsToBounds = true
         table.register(cell: TodoCell.self)
