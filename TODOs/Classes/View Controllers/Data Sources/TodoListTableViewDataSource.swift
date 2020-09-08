@@ -21,7 +21,7 @@ class TodoListTableViewDataSource: UITableViewDiffableDataSource<TodoList, Todo>
         todoLists: [TodoList],
         cellDelegate: TodoListCellsDelegate? = nil
     ) {
-        self.init(tableView: tableView, cellProvider: { tableView, indexPath, todo in
+        self.init(tableView: tableView, cellProvider: { [weak cellDelegate] tableView, indexPath, todo in
             if todo.text == "AddTodoCellHack" {
                 let cell: AddTodoCell = tableView.dequeueReusableCell(for: indexPath)
                 if indexPath.section == todoLists.count - 1 {

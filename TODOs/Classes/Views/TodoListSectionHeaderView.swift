@@ -26,13 +26,13 @@ class TodoListSectionHeaderView: UIView {
     }()
 
     private let actionButton: UIButton = {
-        let trashImage = UIImage(
+        let ellipsis = UIImage(
             systemName: "ellipsis",
             withConfiguration: UIImage.SymbolConfiguration(scale: .medium)
         )
         let button = UIButton()
         button.contentMode = .scaleAspectFit
-        button.setImage(trashImage, for: .normal)
+        button.setImage(ellipsis, for: .normal)
         return button
     }()
 

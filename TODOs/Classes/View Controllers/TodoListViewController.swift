@@ -65,7 +65,6 @@ class TodoListViewController: UIViewController {
         dataSource.applySnapshot(animatingDifferences: false)
     }
 
-
     // MARK: - Public Functions
 
     func updateTodoLists(_ lists: [TodoList]) {

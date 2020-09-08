@@ -39,6 +39,10 @@
 		52662ABC2485C4D40072626B /* UndoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52662ABB2485C4D40072626B /* UndoView.swift */; };
 		5295A219246B158E00B502CA /* TodoList+ModelUpdates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5295A218246B158E00B502CA /* TodoList+ModelUpdates.swift */; };
 		52AABC2F23FA061D000FA700 /* TodoListSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AABC2E23FA061D000FA700 /* TodoListSectionHeaderView.swift */; };
+		52AE14352507E0D00089DFC8 /* SettingsTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AE14342507E0D00089DFC8 /* SettingsTableViewDataSource.swift */; };
+		52C863F82507D52600BD5615 /* RecurringTodoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C863F72507D52600BD5615 /* RecurringTodoCell.swift */; };
+		52C863FA2507D56800BD5615 /* RecurringTodoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52C863F92507D56800BD5615 /* RecurringTodoCell.xib */; };
+		52D35B172502C1A700CFD370 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D35B162502C1A700CFD370 /* SettingsViewController.swift */; };
 		52F492AD2481BA9F001DA434 /* TodoListTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F492AC2481BA9F001DA434 /* TodoListTableViewDataSource.swift */; };
 		8E5AF95E70BC5E84D73B15E2 /* Pods_TODOs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBA28BFD00B4E8629E893D07 /* Pods_TODOs.framework */; };
 /* End PBXBuildFile section */
@@ -90,6 +94,10 @@
 		52662ABB2485C4D40072626B /* UndoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndoView.swift; sourceTree = "<group>"; };
 		5295A218246B158E00B502CA /* TodoList+ModelUpdates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TodoList+ModelUpdates.swift"; sourceTree = "<group>"; };
 		52AABC2E23FA061D000FA700 /* TodoListSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListSectionHeaderView.swift; sourceTree = "<group>"; };
+		52AE14342507E0D00089DFC8 /* SettingsTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewDataSource.swift; sourceTree = "<group>"; };
+		52C863F72507D52600BD5615 /* RecurringTodoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurringTodoCell.swift; sourceTree = "<group>"; };
+		52C863F92507D56800BD5615 /* RecurringTodoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecurringTodoCell.xib; sourceTree = "<group>"; };
+		52D35B162502C1A700CFD370 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		52F492AC2481BA9F001DA434 /* TodoListTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListTableViewDataSource.swift; sourceTree = "<group>"; };
 		66D8774C318B0F45B9358625 /* Pods-TODOs.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TODOs.debug.xcconfig"; path = "Target Support Files/Pods-TODOs/Pods-TODOs.debug.xcconfig"; sourceTree = "<group>"; };
 		CBA28BFD00B4E8629E893D07 /* Pods_TODOs.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TODOs.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -224,11 +232,21 @@
 			path = Undo;
 			sourceTree = "<group>";
 		};
+		52C863FB2507D96000BD5615 /* Data Sources */ = {
+			isa = PBXGroup;
+			children = (
+				52AE14342507E0D00089DFC8 /* SettingsTableViewDataSource.swift */,
+				52F492AC2481BA9F001DA434 /* TodoListTableViewDataSource.swift */,
+			);
+			path = "Data Sources";
+			sourceTree = "<group>";
+		};
 		52CD9C1524632AC50018A303 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				52C863FB2507D96000BD5615 /* Data Sources */,
+				52D35B162502C1A700CFD370 /* SettingsViewController.swift */,
 				5201398A24218FB80030DD3D /* TodoListsViewController.swift */,
-				52F492AC2481BA9F001DA434 /* TodoListTableViewDataSource.swift */,
 				52013984240363070030DD3D /* TodoListViewController.swift */,
 				0A424A482384B0FC00E1FC34 /* TodosContainerViewController.swift */,
 			);
@@ -240,6 +258,8 @@
 			children = (
 				52567EB423DE8D5F000332EA /* AddTodoCell.swift */,
 				52567EB223DE8D3E000332EA /* AddTodoCell.xib */,
+				52C863F72507D52600BD5615 /* RecurringTodoCell.swift */,
+				52C863F92507D56800BD5615 /* RecurringTodoCell.xib */,
 				0A424A6A2384B29D00E1FC34 /* TodoCell.swift */,
 				0A424A6C2384B2B100E1FC34 /* TodoCell.xib */,
 			);
@@ -373,6 +393,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				52567EB323DE8D3E000332EA /* AddTodoCell.xib in Resources */,
+				52C863FA2507D56800BD5615 /* RecurringTodoCell.xib in Resources */,
 				0A424A512384B0FF00E1FC34 /* LaunchScreen.storyboard in Resources */,
 				0A424A4E2384B0FF00E1FC34 /* Assets.xcassets in Resources */,
 				0A424A4C2384B0FC00E1FC34 /* Main.storyboard in Resources */,
@@ -449,6 +470,7 @@
 				52013985240363070030DD3D /* TodoListViewController.swift in Sources */,
 				524D269023F8995B00EC46CC /* DateFormatters.swift in Sources */,
 				524D268E23F8993F00EC46CC /* TodoListViewData.swift in Sources */,
+				52AE14352507E0D00089DFC8 /* SettingsTableViewDataSource.swift in Sources */,
 				52662ABA2485841B0072626B /* UndoItem.swift in Sources */,
 				525A8B94242FE2E2002DCDD0 /* UIEdgeInsets+Extensions.swift in Sources */,
 				52567EB523DE8D5F000332EA /* AddTodoCell.swift in Sources */,
@@ -458,7 +480,9 @@
 				5244F90923F8C67B00B4DAEB /* UIAlertController+Extensions.swift in Sources */,
 				0A424A732384B3C200E1FC34 /* UITableView+Extensions.swift in Sources */,
 				0A424A712384B34B00E1FC34 /* UIFont+Extensions.swift in Sources */,
+				52C863F82507D52600BD5615 /* RecurringTodoCell.swift in Sources */,
 				52AABC2F23FA061D000FA700 /* TodoListSectionHeaderView.swift in Sources */,
+				52D35B172502C1A700CFD370 /* SettingsViewController.swift in Sources */,
 				0A424A6F2384B32E00E1FC34 /* StoryboardIdentifiable.swift in Sources */,
 				5201398B24218FB80030DD3D /* TodoListsViewController.swift in Sources */,
 				52567EBD23E74B11000332EA /* Cache.swift in Sources */,
@@ -633,7 +657,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "Kevin-Johnson.TODOs";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -652,7 +676,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "Kevin-Johnson.TODOs";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
