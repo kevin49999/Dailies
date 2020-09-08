@@ -55,6 +55,13 @@ class SettingsTableViewDataSource: UITableViewDiffableDataSource<SettingsViewCon
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "Recurring"
     }
+
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        let setting = self.settings.remove(at: indexPath.row)
+        var current = snapshot()
+        current.deleteItems([setting])
+        apply(current, animatingDifferences: true)
+    }
 }
 
 // MARK: - Helper

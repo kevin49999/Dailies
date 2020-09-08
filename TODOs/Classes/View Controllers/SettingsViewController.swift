@@ -15,19 +15,32 @@ class SettingsViewController: UITableViewController {
     }
 
     struct Setting: Codable, Hashable {
-        enum Frequency: String, Codable {
-            case sundays
+        enum Frequency: Int, Codable, CaseIterable {
+            case sundays = 0
             case mondays
             case tuesdays
             case wednesdays
             case thursdays
             case fridays
             case saturdays
-            case weekends
+            case weekends = 100
             case everyday
 
             var description: String {
-                return "Mon."
+                switch self {
+                case .sundays,
+                     .mondays,
+                     .tuesdays,
+                     .wednesdays,
+                     .thursdays,
+                     .fridays,
+                     .saturdays:
+                    return Calendar.current.shortWeekdaySymbols[self.rawValue]
+                case .weekends:
+                    return NSLocalizedString("Weekends", comment: "")
+                case .everyday:
+                    return NSLocalizedString("Everday", comment: "")
+                }
             }
         }
         var name: String
@@ -37,11 +50,20 @@ class SettingsViewController: UITableViewController {
             self.name = name
             self.frequency = frequency
         }
+
+        func hash(into hasher: inout Hasher) {
+            hasher.combine(name)
+            hasher.combine(frequency)
+        }
+
+        static func == (lhs: Setting, rhs: Setting) -> Bool {
+            return lhs.name == rhs.name && lhs.frequency == rhs.frequency
+        }
     }
 
     // MARK: - Properties
 
-    lazy var dataSource: SettingsTableViewDataSource = {
+    private lazy var dataSource: SettingsTableViewDataSource = {
         do {
             let settings: [Setting] = try Cache.read(path: "settings")
             return SettingsTableViewDataSource(
@@ -57,11 +79,12 @@ class SettingsViewController: UITableViewController {
             )
         }
     }()
+    private var changingFreqIndex: Int?
 
     // MARK: - Deinit
 
     deinit {
-        // TODO: Update current weekly TODOs!
+        // TODO: Update current weekly TODOs! ++ WHEN GENERATING NEW DAYS, do actual logic for the recurring todo!!
         try? Cache.save(dataSource.settings, path: "settings")
     }
 
@@ -112,9 +135,53 @@ extension SettingsViewController: RecurringTodoCellDelegate {
             assertionFailure()
             return
         }
-        let freq = dataSource.settings[indexPath.row].frequency
-        print(freq)
+        self.changingFreqIndex = indexPath.row
+        let picker = UIPickerView()
+        picker.dataSource = self
+        picker.delegate = self
+        let dummy = UITextField(frame: .zero)
+        dummy.delegate = self
+        view.addSubview(dummy)
+        dummy.inputView = picker
+        dummy.becomeFirstResponder()
+    }
+}
 
-        // TODO: Present picker for freq..
+// MARK: - Picker
+
+extension SettingsViewController: UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return Setting.Frequency.allCases.count
+    }
+
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        guard let index = changingFreqIndex else { preconditionFailure() }
+
+        /// calced every row slow
+        var mFrequencies = SettingsViewController.Setting.Frequency.allCases
+        let initial = self.dataSource.settings[index].frequency
+        mFrequencies.removeAll(where: { $0 == initial })
+        mFrequencies.insert(initial, at: 0)
+        return mFrequencies[row].description
+    }
+
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        guard let index = changingFreqIndex else { preconditionFailure() }
+
+        /// calced every row slow
+        var mFrequencies = SettingsViewController.Setting.Frequency.allCases
+        let initial = self.dataSource.settings[index].frequency
+        mFrequencies.removeAll(where: { $0 == initial })
+        mFrequencies.insert(initial, at: 0)
+
+        self.dataSource.settings[index].frequency = mFrequencies[row]
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        self.dataSource.applySnapshot(animatingDifferences: false)
     }
 }
