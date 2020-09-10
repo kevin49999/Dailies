@@ -14,78 +14,22 @@ class SettingsViewController: UITableViewController {
         case recurring
     }
 
-    struct Setting: Codable, Hashable {
-        enum Frequency: Int, Codable, CaseIterable {
-            case sundays = 0
-            case mondays
-            case tuesdays
-            case wednesdays
-            case thursdays
-            case fridays
-            case saturdays
-            case weekends = 100
-            case everyday
-
-            var description: String {
-                switch self {
-                case .sundays,
-                     .mondays,
-                     .tuesdays,
-                     .wednesdays,
-                     .thursdays,
-                     .fridays,
-                     .saturdays:
-                    return Calendar.current.shortWeekdaySymbols[self.rawValue]
-                case .weekends:
-                    return NSLocalizedString("Weekends", comment: "")
-                case .everyday:
-                    return NSLocalizedString("Everday", comment: "")
-                }
-            }
-        }
-        var name: String
-        var frequency: Frequency
-
-        init(name: String, frequency: Frequency = .mondays) {
-            self.name = name
-            self.frequency = frequency
-        }
-
-        func hash(into hasher: inout Hasher) {
-            hasher.combine(name)
-            hasher.combine(frequency)
-        }
-
-        static func == (lhs: Setting, rhs: Setting) -> Bool {
-            return lhs.name == rhs.name && lhs.frequency == rhs.frequency
-        }
-    }
-
     // MARK: - Properties
 
     private lazy var dataSource: SettingsTableViewDataSource = {
-        do {
-            let settings: [Setting] = try Cache.read(path: "settings")
-            return SettingsTableViewDataSource(
-                tableView: self.tableView,
-                settings: settings,
-                cellDelegate: self
-            )
-        } catch {
-            return SettingsTableViewDataSource(
-                tableView: self.tableView,
-                settings: [],
-                cellDelegate: self
-            )
-        }
+        return SettingsTableViewDataSource(
+            tableView: self.tableView,
+            settings: Setting.saved(),
+            cellDelegate: self
+        )
     }()
     private var changingFreqIndex: Int?
 
     // MARK: - Deinit
 
     deinit {
-        // TODO: Update current weekly TODOs! ++ WHEN GENERATING NEW DAYS, do actual logic for the recurring todo!!
         try? Cache.save(dataSource.settings, path: "settings")
+        NotificationCenter.default.post(name: .init(rawValue: "SettingsChanged"), object: nil)
     }
 
     // MARK: - View Lifecycle
@@ -161,8 +105,8 @@ extension SettingsViewController: UIPickerViewDataSource, UIPickerViewDelegate, 
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         guard let index = changingFreqIndex else { preconditionFailure() }
 
-        /// calced every row slow
-        var mFrequencies = SettingsViewController.Setting.Frequency.allCases
+        // TODO: calced every row slow
+        var mFrequencies = Setting.Frequency.allCases
         let initial = self.dataSource.settings[index].frequency
         mFrequencies.removeAll(where: { $0 == initial })
         mFrequencies.insert(initial, at: 0)
@@ -172,8 +116,8 @@ extension SettingsViewController: UIPickerViewDataSource, UIPickerViewDelegate, 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         guard let index = changingFreqIndex else { preconditionFailure() }
 
-        /// calced every row slow
-        var mFrequencies = SettingsViewController.Setting.Frequency.allCases
+        // TODO: ""
+        var mFrequencies = Setting.Frequency.allCases
         let initial = self.dataSource.settings[index].frequency
         mFrequencies.removeAll(where: { $0 == initial })
         mFrequencies.insert(initial, at: 0)

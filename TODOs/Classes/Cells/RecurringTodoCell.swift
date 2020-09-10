@@ -25,7 +25,7 @@ class RecurringTodoCell: UITableViewCell {
         setup()
     }
 
-    func configure(data: SettingsViewController.Setting) {
+    func configure(data: Setting) {
         textView.text = data.name
         frequencyButton.setTitle(data.frequency.description, for: .normal)
     }

@@ -22,6 +22,8 @@
 		52013985240363070030DD3D /* TodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52013984240363070030DD3D /* TodoListViewController.swift */; };
 		52013987240369890030DD3D /* UIViewController+ChildControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52013986240369890030DD3D /* UIViewController+ChildControllers.swift */; };
 		5201398B24218FB80030DD3D /* TodoListsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5201398A24218FB80030DD3D /* TodoListsViewController.swift */; };
+		521E3DC6250AB8100098E05A /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521E3DC5250AB8100098E05A /* Setting.swift */; };
+		521E3DC8250AC5250098E05A /* SettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521E3DC7250AC5250098E05A /* SettingsTests.swift */; };
 		5244F90923F8C67B00B4DAEB /* UIAlertController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5244F90823F8C67B00B4DAEB /* UIAlertController+Extensions.swift */; };
 		524D268E23F8993F00EC46CC /* TodoListViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524D268D23F8993F00EC46CC /* TodoListViewData.swift */; };
 		524D269023F8995B00EC46CC /* DateFormatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524D268F23F8995B00EC46CC /* DateFormatters.swift */; };
@@ -77,6 +79,8 @@
 		52013984240363070030DD3D /* TodoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewController.swift; sourceTree = "<group>"; };
 		52013986240369890030DD3D /* UIViewController+ChildControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ChildControllers.swift"; sourceTree = "<group>"; };
 		5201398A24218FB80030DD3D /* TodoListsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListsViewController.swift; sourceTree = "<group>"; };
+		521E3DC5250AB8100098E05A /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
+		521E3DC7250AC5250098E05A /* SettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTests.swift; sourceTree = "<group>"; };
 		5244F90823F8C67B00B4DAEB /* UIAlertController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extensions.swift"; sourceTree = "<group>"; };
 		524D268D23F8993F00EC46CC /* TodoListViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewData.swift; sourceTree = "<group>"; };
 		524D268F23F8995B00EC46CC /* DateFormatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatters.swift; sourceTree = "<group>"; };
@@ -183,8 +187,9 @@
 		0A424A5A2384B0FF00E1FC34 /* TODOsTests */ = {
 			isa = PBXGroup;
 			children = (
-				0A424A5B2384B0FF00E1FC34 /* TodoListTests.swift */,
 				0A424A5D2384B0FF00E1FC34 /* Info.plist */,
+				521E3DC7250AC5250098E05A /* SettingsTests.swift */,
+				0A424A5B2384B0FF00E1FC34 /* TodoListTests.swift */,
 			);
 			path = TODOsTests;
 			sourceTree = "<group>";
@@ -285,6 +290,7 @@
 		52CD9C1924632AEC0018A303 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				521E3DC5250AB8100098E05A /* Setting.swift */,
 				52567EB823DE9069000332EA /* Todo.swift */,
 				52567EB623DE9060000332EA /* TodoList.swift */,
 				5295A218246B158E00B502CA /* TodoList+ModelUpdates.swift */,
@@ -462,6 +468,7 @@
 				52662ABC2485C4D40072626B /* UndoView.swift in Sources */,
 				5295A219246B158E00B502CA /* TodoList+ModelUpdates.swift in Sources */,
 				52013987240369890030DD3D /* UIViewController+ChildControllers.swift in Sources */,
+				521E3DC6250AB8100098E05A /* Setting.swift in Sources */,
 				52F492AD2481BA9F001DA434 /* TodoListTableViewDataSource.swift in Sources */,
 				0A424A492384B0FC00E1FC34 /* TodosContainerViewController.swift in Sources */,
 				52567EBF23EBBC91000332EA /* Date+Extensions.swift in Sources */,
@@ -494,6 +501,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				521E3DC8250AC5250098E05A /* SettingsTests.swift in Sources */,
 				0A424A5C2384B0FF00E1FC34 /* TodoListTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -10,10 +10,9 @@ import UIKit
 
 typealias SettingsCellsDelegate = AddTodoCellDelegate & RecurringTodoCellDelegate
 
-class SettingsTableViewDataSource: UITableViewDiffableDataSource<SettingsViewController.Section, SettingsViewController.Setting> {
+class SettingsTableViewDataSource: UITableViewDiffableDataSource<SettingsViewController.Section, Setting> {
 
     typealias Section = SettingsViewController.Section
-    typealias Setting = SettingsViewController.Setting
     typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Setting>
 
     var settings: [Setting] = []
@@ -57,7 +56,8 @@ class SettingsTableViewDataSource: UITableViewDiffableDataSource<SettingsViewCon
     }
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        let setting = self.settings.remove(at: indexPath.row)
+        // TODO: Delete if currently present in lists, or let it stay created?
+        let setting = settings.remove(at: indexPath.row)
         var current = snapshot()
         current.deleteItems([setting])
         apply(current, animatingDifferences: true)

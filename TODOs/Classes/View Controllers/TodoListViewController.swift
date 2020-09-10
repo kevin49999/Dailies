@@ -31,7 +31,7 @@ class TodoListViewController: UIViewController {
         return table
     }()
     private var bottomInset: CGFloat
-    private var todoLists: [TodoList]
+    private var todoLists: [TodoList] // only used during init
 
     // MARK: - Init
 

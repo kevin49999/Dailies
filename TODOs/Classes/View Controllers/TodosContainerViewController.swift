@@ -128,6 +128,12 @@ extension TodosContainerViewController {
             name: UIApplication.willEnterForegroundNotification,
             object: nil
         )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(settingsChanged),
+            name: .init(rawValue: "SettingsChanged"),
+            object: nil
+        )
     }
 
     @objc func willResignActive() {
@@ -142,6 +148,12 @@ extension TodosContainerViewController {
         if Date.todayYearMonthDay() > firstDay.dateCreated {
             daysOfWeekTodoController.updateTodoLists(TodoList.daysOfWeekTodoLists())
         }
+    }
+
+    @objc func settingsChanged() {
+        let lists = daysOfWeekTodoController.dataSource.todoLists
+        lists.applySettings(Setting.saved())
+        daysOfWeekTodoController.updateTodoLists(lists)
     }
 }
 
