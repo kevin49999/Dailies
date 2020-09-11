@@ -81,8 +81,9 @@ extension TodoListTableViewDataSource {
             new.appendSections([list])
             var items = list.visible
             // TODO: Fix, bad hack >:[
-            if let add = snapshot().itemIdentifiers(inSection: list)
-                .first(where: { $0.text == "AddTodoCellHack" }) {
+            let current = snapshot()
+            if current.indexOfSection(list) != nil,
+               let add = current.itemIdentifiers(inSection: list).first(where: { $0.text == "AddTodoCellHack" }) {
                 items.append(add)
             } else {
                 items.append(.init(text: "AddTodoCellHack", completed: false))

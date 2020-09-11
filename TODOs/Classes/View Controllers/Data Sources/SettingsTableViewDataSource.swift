@@ -74,8 +74,9 @@ extension SettingsTableViewDataSource {
         new.appendSections([.recurring])
         var items = settings
         // TODO: Repeated hack from TodoListTableViewDataSource
-        if let add = snapshot().itemIdentifiers(inSection: .recurring)
-            .first(where: { $0.name == "AddTodoCellHack" }) {
+        let current = snapshot()
+        if current.indexOfSection(.recurring) != nil,
+           let add = current.itemIdentifiers(inSection: .recurring).first(where: { $0.name == "AddTodoCellHack" }) {
             items.append(add)
         } else {
             items.append(.init(name: "AddTodoCellHack", frequency: .mondays))
