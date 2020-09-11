@@ -52,11 +52,11 @@ class SettingsTableViewDataSource: UITableViewDiffableDataSource<SettingsViewCon
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Recurring"
+        return "Recurring 🔁"
     }
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        // TODO: Delete if currently present in lists, or let it stay created?
+        // not currently deleting from lists that may have added these recurring todos at some point
         let setting = settings.remove(at: indexPath.row)
         var current = snapshot()
         current.deleteItems([setting])
@@ -71,7 +71,7 @@ extension SettingsTableViewDataSource {
         var new = Snapshot()
         new.appendSections([.recurring])
         var items = settings
-        // TODO: Repeated hack
+        // TODO: Repeated hack from TodoListTableViewDataSource
         if let add = snapshot().itemIdentifiers(inSection: .recurring)
             .first(where: { $0.name == "AddTodoCellHack" }) {
             items.append(add)

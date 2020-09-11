@@ -107,7 +107,7 @@ extension TodoList {
         return new
     }
 
-    private static func newDaysOfWeekTodoLists(
+    static func newDaysOfWeekTodoLists(
         calendar: Calendar = .current,
         today: Date = .todayYearMonthDay()
     ) -> [TodoList] {
@@ -157,6 +157,10 @@ fileprivate func currentDaysOfWeek(starting date: Date = Date(), calendar: Calen
 // MARK: - Settings
 
 extension Array where Element == TodoList {
+    func applySetting(_ setting: Setting, calendar: Calendar = .current) {
+        applySettings([setting], calendar: calendar)
+    }
+    
     func applySettings(_ settings: [Setting], calendar: Calendar = .current) {
         for setting in settings {
             switch setting.frequency {
@@ -171,9 +175,9 @@ extension Array where Element == TodoList {
             case .weekends:
                addSettingForDays(setting, [0, 6])
             case .weekdays:
-                addSettingForDays(setting, [1, 2, 3, 4, 5])
+                addSettingForDays(setting, [Int](1...5))
             case .everyday:
-                addSettingForDays(setting, [0, 1, 2, 3, 4, 5, 6])
+                addSettingForDays(setting, [Int](0...6))
             }
         }
     }
@@ -188,7 +192,7 @@ extension Array where Element == TodoList {
             !self[index].incomplete.contains(incomplete), !self[index].todos.contains(complete)
         {
             self[index].insert(todo: incomplete, index: 0)
-            // self[index].add(todo: .init(text: "Test")) - crash?
+            // self[index].add(todo: .init(text: "Test")) - crash
         }
     }
 }

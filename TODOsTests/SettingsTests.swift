@@ -7,29 +7,81 @@
 //
 
 import XCTest
+@testable import TODOs
 
 class SettingsTests: XCTestCase {
 
-    // TODO:
-    
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
+    func testApplyOneDaySetting() throws {
+        let calendar = Calendar.current
+        let days = TodoList.newDaysOfWeekTodoLists()
+        let setting = Setting(name: "Monday", frequency: .mondays)
+        days.applySetting(setting)
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+        for list in days {
+            if list.name == calendar.weekdaySymbols[setting.frequency.rawValue] {
+                XCTAssertEqual(list.todos, [.init(text: "Monday")])
+            } else {
+                XCTAssertEqual(list.todos, [])
+            }
         }
     }
 
+    func testApplyWeekendSetting() throws {
+        let calendar = Calendar.current
+        let days = TodoList.newDaysOfWeekTodoLists()
+        let setting = Setting(name: "Weekend", frequency: .weekends)
+        days.applySetting(setting)
+
+        for list in days {
+            switch list.name {
+            case calendar.weekdaySymbols[0],
+                 calendar.weekdaySymbols[6]:
+                XCTAssertEqual(list.todos, [.init(text: "Weekend")])
+            default:
+                XCTAssertEqual(list.todos, [])
+            }
+        }
+    }
+
+    func testApplyWeekdaySetting() throws {
+        let calendar = Calendar.current
+        let days = TodoList.newDaysOfWeekTodoLists()
+        let setting = Setting(name: "Weekdays", frequency: .weekdays)
+        days.applySetting(setting)
+
+        for list in days {
+            switch list.name {
+            case calendar.weekdaySymbols[1],
+                 calendar.weekdaySymbols[2],
+                 calendar.weekdaySymbols[3],
+                 calendar.weekdaySymbols[4],
+                 calendar.weekdaySymbols[5]:
+                XCTAssertEqual(list.todos, [.init(text: "Weekdays")])
+            default:
+                XCTAssertEqual(list.todos, [])
+            }
+        }
+    }
+
+    func testApplyEverydaySetting() throws {
+        let calendar = Calendar.current
+        let days = TodoList.newDaysOfWeekTodoLists()
+        let setting = Setting(name: "Everyday", frequency: .everyday)
+        days.applySetting(setting)
+
+        for list in days {
+            switch list.name {
+            case calendar.weekdaySymbols[0],
+                 calendar.weekdaySymbols[1],
+                 calendar.weekdaySymbols[2],
+                 calendar.weekdaySymbols[3],
+                 calendar.weekdaySymbols[4],
+                 calendar.weekdaySymbols[5],
+                 calendar.weekdaySymbols[6]:
+                XCTAssertEqual(list.todos, [.init(text: "Everyday")])
+            default:
+                XCTAssertEqual(list.todos, [])
+            }
+        }
+    }
 }

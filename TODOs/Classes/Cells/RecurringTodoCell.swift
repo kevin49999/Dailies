@@ -46,7 +46,6 @@ class RecurringTodoCell: UITableViewCell {
         textView.resignFirstResponder()
     }
 
-
     @IBAction private func didTapFreqButton(_ sender: UIButton) {
         delegate?.recurringTodoCellDidTapFreq(self)
     }

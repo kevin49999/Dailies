@@ -39,7 +39,9 @@ class SettingsViewController: UITableViewController {
 
         tableView.register(cell: RecurringTodoCell.self)
         tableView.register(cell: AddTodoCell.self)
-        tableView.dataSource = dataSource
+        tableView.estimatedRowHeight = 140
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 130
         dataSource.applySnapshot(animatingDifferences: false)
     }
 }
