@@ -24,6 +24,7 @@ class SettingsViewController: UITableViewController {
         )
     }()
     private var changingFreqIndex: Int?
+    private var changingFrequencies: [Setting.Frequency] = []
 
     // MARK: - Deinit
 
@@ -82,6 +83,11 @@ extension SettingsViewController: RecurringTodoCellDelegate {
             return
         }
         self.changingFreqIndex = indexPath.row
+        var mFrequencies = Setting.Frequency.allCases
+        let initial = self.dataSource.settings[indexPath.row].frequency
+        mFrequencies.removeAll(where: { $0 == initial })
+        mFrequencies.insert(initial, at: 0)
+        self.changingFrequencies = mFrequencies
         let picker = UIPickerView()
         picker.dataSource = self
         picker.delegate = self
@@ -105,29 +111,18 @@ extension SettingsViewController: UIPickerViewDataSource, UIPickerViewDelegate, 
     }
 
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        guard let index = changingFreqIndex else { preconditionFailure() }
-
-        // TODO: calced every row slow
-        var mFrequencies = Setting.Frequency.allCases
-        let initial = self.dataSource.settings[index].frequency
-        mFrequencies.removeAll(where: { $0 == initial })
-        mFrequencies.insert(initial, at: 0)
-        return mFrequencies[row].description
+        guard changingFreqIndex != nil else { preconditionFailure() }
+        return changingFrequencies[row].description
     }
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         guard let index = changingFreqIndex else { preconditionFailure() }
-
-        // TODO: ""
-        var mFrequencies = Setting.Frequency.allCases
-        let initial = self.dataSource.settings[index].frequency
-        mFrequencies.removeAll(where: { $0 == initial })
-        mFrequencies.insert(initial, at: 0)
-
-        self.dataSource.settings[index].frequency = mFrequencies[row]
+        self.dataSource.settings[index].frequency = changingFrequencies[row]
     }
 
     func textFieldDidEndEditing(_ textField: UITextField) {
+        self.changingFreqIndex = nil
+        self.changingFrequencies = []
         self.dataSource.applySnapshot(animatingDifferences: false)
     }
 }

@@ -45,6 +45,7 @@ class SettingsTableViewDataSource: UITableViewDiffableDataSource<SettingsViewCon
     }
 
     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        // TODO: Could enable, and update lists based on order in settings 🤔
         if settings.count == indexPath.row {
             return false // AddTodoCell
         }
@@ -56,6 +57,7 @@ class SettingsTableViewDataSource: UITableViewDiffableDataSource<SettingsViewCon
     }
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        // TODO: Next up possibly:
         // not currently deleting from lists that may have added these recurring todos at some point
         let setting = settings.remove(at: indexPath.row)
         var current = snapshot()

@@ -38,7 +38,7 @@ class RecurringTodoCell: UITableViewCell {
         ).scaledFontforTextStyle(.body)
         textView.adjustsFontForContentSizeCategory = true
         frequencyButton.setTitleColor(.systemGreen, for: .normal)
-        frequencyButton.backgroundColor = UIColor.systemGreen.withAlphaComponent(0.5)
+        frequencyButton.backgroundColor = UIColor.systemGreen.withAlphaComponent(0.20)
         frequencyButton.layer.cornerRadius = 6.0
     }
 
