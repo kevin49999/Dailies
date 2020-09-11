@@ -12,22 +12,11 @@ class TodosContainerViewController: UIViewController {
 
     // MARK: - Properties
 
+    typealias State = TodoList.Classification
     private let defaults: UserDefaults = .standard
-    private var state: TodoList.Classification = .created {
+    private var state: State = .created {
         didSet {
-            switch state {
-            case .created:
-                daysOfWeekTodoController.remove()
-                add(createdTodoViewController, to: contentView)
-                navigationItem.rightBarButtonItem?.isEnabled = true
-                navigationItem.leftBarButtonItem?.isEnabled = true
-            case .daysOfWeek:
-                createdTodoViewController.remove()
-                add(daysOfWeekTodoController, to: contentView)
-                navigationItem.rightBarButtonItem?.isEnabled = false
-                navigationItem.leftBarButtonItem?.isEnabled = false
-            }
-            listsSegmentedControl.selectedSegmentIndex = state.rawValue
+            configure(for: state)
         }
     }
 
@@ -48,15 +37,40 @@ class TodosContainerViewController: UIViewController {
     @IBOutlet weak private var contentView: UIView!
     @IBOutlet weak private var listsSegmentedControl: UISegmentedControl!
     @IBOutlet weak private var toolBar: UIToolbar!
+    @IBOutlet weak private var settingsBarButtonItem: UIBarButtonItem!
 
     // MARK: - View Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         let state = defaults.integer(forKey: "state")
-        self.state = TodoList.Classification(int: state) ?? .created
+        self.state = State(int: state) ?? .created
 
         observeNotifications()
+
+        let gearImage = UIImage(
+            systemName: "gear",
+            withConfiguration: UIImage.SymbolConfiguration(scale: .medium)
+        )
+        settingsBarButtonItem.image = gearImage
+    }
+
+    // MARK: - Functions
+
+    private func configure(for: State) {
+        switch state {
+        case .created:
+            daysOfWeekTodoController.remove()
+            add(createdTodoViewController, to: contentView)
+            navigationItem.rightBarButtonItems?[1].isEnabled = true
+            navigationItem.leftBarButtonItem?.isEnabled = true
+        case .daysOfWeek:
+            createdTodoViewController.remove()
+            add(daysOfWeekTodoController, to: contentView)
+            navigationItem.rightBarButtonItems?[1].isEnabled = false
+            navigationItem.leftBarButtonItem?.isEnabled = false
+        }
+        listsSegmentedControl.selectedSegmentIndex = state.rawValue
     }
 
     // MARK: - IBAction
@@ -75,6 +89,14 @@ class TodosContainerViewController: UIViewController {
         UIAlertController.addTodoListAlert(presenter: self, completion: { name in
             self.createdTodoViewController.addNewTodoList(with: name)
         })
+    }
+
+    @IBAction func tappedSettingsBarButtonItem(_ sender: UIBarButtonItem) {
+        let settings = UIStoryboard(
+            name: "Main",
+            bundle: nil
+        ).instantiateViewController(identifier: "SettingsViewController") as! SettingsViewController
+        navigationController?.pushViewController(settings, animated: true)
     }
 
     @IBAction func listSegmentedControlChanged(_ sender: UISegmentedControl) {
@@ -106,6 +128,12 @@ extension TodosContainerViewController {
             name: UIApplication.willEnterForegroundNotification,
             object: nil
         )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(settingsChanged),
+            name: .init(rawValue: "SettingsChanged"),
+            object: nil
+        )
     }
 
     @objc func willResignActive() {
@@ -120,6 +148,12 @@ extension TodosContainerViewController {
         if Date.todayYearMonthDay() > firstDay.dateCreated {
             daysOfWeekTodoController.updateTodoLists(TodoList.daysOfWeekTodoLists())
         }
+    }
+
+    @objc func settingsChanged() {
+        let lists = daysOfWeekTodoController.dataSource.todoLists
+        lists.applySettings(Setting.saved())
+        daysOfWeekTodoController.updateTodoLists(lists)
     }
 }
 

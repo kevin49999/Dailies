@@ -21,7 +21,7 @@ class TodoListTableViewDataSource: UITableViewDiffableDataSource<TodoList, Todo>
         todoLists: [TodoList],
         cellDelegate: TodoListCellsDelegate? = nil
     ) {
-        self.init(tableView: tableView, cellProvider: { tableView, indexPath, todo in
+        self.init(tableView: tableView, cellProvider: { [weak cellDelegate] tableView, indexPath, todo in
             if todo.text == "AddTodoCellHack" {
                 let cell: AddTodoCell = tableView.dequeueReusableCell(for: indexPath)
                 if indexPath.section == todoLists.count - 1 {
@@ -81,8 +81,9 @@ extension TodoListTableViewDataSource {
             new.appendSections([list])
             var items = list.visible
             // TODO: Fix, bad hack >:[
-            if let add = snapshot().itemIdentifiers(inSection: list)
-                .first(where: { $0.text == "AddTodoCellHack" }) {
+            let current = snapshot()
+            if current.indexOfSection(list) != nil,
+               let add = current.itemIdentifiers(inSection: list).first(where: { $0.text == "AddTodoCellHack" }) {
                 items.append(add)
             } else {
                 items.append(.init(text: "AddTodoCellHack", completed: false))

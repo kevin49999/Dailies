@@ -61,6 +61,8 @@ class TodoList: Codable {
     }
 }
 
+// MARK: - Hashable
+
 extension TodoList: Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(name)
@@ -85,10 +87,13 @@ extension TodoList {
 
     static func daysOfWeekTodoLists(
         calendar: Calendar = .current,
-        today: Date = .todayYearMonthDay()
+        today: Date = .todayYearMonthDay(),
+        settings: [Setting] = Setting.saved()
     ) -> [TodoList] {
         guard let saved = try? getDaysOfWeek(), !saved.isEmpty else {
-            return newDaysOfWeekTodoLists()
+            let new = newDaysOfWeekTodoLists()
+            new.applySettings(settings)
+            return new
         }
 
         let new = newDaysOfWeekTodoLists()
@@ -98,10 +103,11 @@ extension TodoList {
                 list.todos = match.todos
             }
         }
+        new.applySettings(settings)
         return new
     }
 
-    private static func newDaysOfWeekTodoLists(
+    static func newDaysOfWeekTodoLists(
         calendar: Calendar = .current,
         today: Date = .todayYearMonthDay()
     ) -> [TodoList] {
@@ -135,6 +141,8 @@ extension TodoList {
     }
 }
 
+// MARK: - Helper
+
 fileprivate func currentDaysOfWeek(starting date: Date = Date(), calendar: Calendar = .current) -> [String] {
     let current = calendar.component(.weekday, from: date)
     let days = [1, 2, 3, 4, 5, 6, 7]
@@ -144,4 +152,47 @@ fileprivate func currentDaysOfWeek(starting date: Date = Date(), calendar: Calen
         .flatMap { $0 }
     rearrangedDays.insert(current, at: 0)
     return rearrangedDays.map { calendar.weekdaySymbols[$0 - 1] }
+}
+
+// MARK: - Settings
+
+extension Array where Element == TodoList {
+    func applySetting(_ setting: Setting, calendar: Calendar = .current) {
+        applySettings([setting], calendar: calendar)
+    }
+    
+    func applySettings(_ settings: [Setting], calendar: Calendar = .current) {
+        for setting in settings {
+            switch setting.frequency {
+            case .sundays,
+                 .mondays,
+                 .tuesdays,
+                 .wednesdays,
+                 .thursdays,
+                 .fridays,
+                 .saturdays:
+                addSettingForDay(setting, setting.frequency.rawValue)
+            case .weekends:
+               addSettingForDays(setting, [0, 6])
+            case .weekdays:
+                addSettingForDays(setting, [Int](1...5))
+            case .everyday:
+                addSettingForDays(setting, [Int](0...6))
+            }
+        }
+    }
+
+    func addSettingForDays(_ setting: Setting, _ days: [Int]) {
+        days.forEach { addSettingForDay(setting, $0) }
+    }
+
+    func addSettingForDay(_ setting: Setting, _ day: Int, calendar: Calendar = .current) {
+        let (incomplete, complete) = (Todo(text: setting.name, completed: false), Todo(text: setting.name, completed: true))
+        if let index = firstIndex(where: { $0.name == calendar.weekdaySymbols[day] }),
+            !self[index].incomplete.contains(incomplete), !self[index].todos.contains(complete)
+        {
+            self[index].insert(todo: incomplete, index: 0)
+            // self[index].add(todo: .init(text: "Test")) - crash
+        }
+    }
 }

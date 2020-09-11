@@ -12,10 +12,7 @@ class TodoListViewController: UIViewController {
 
     // MARK: - Properties
 
-    lazy var dataSource: TodoListTableViewDataSource = {
-        return .init(tableView: tableView, todoLists: todoLists, cellDelegate: self)
-    }()
-
+    private(set) var dataSource: TodoListTableViewDataSource!
     private let tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .plain)
         table.dragInteractionEnabled = true
@@ -31,14 +28,13 @@ class TodoListViewController: UIViewController {
         return table
     }()
     private var bottomInset: CGFloat
-    private var todoLists: [TodoList]
 
     // MARK: - Init
 
     init(todoLists: [TodoList], bottomInset: CGFloat) {
-        self.todoLists = todoLists
         self.bottomInset = bottomInset
         super.init(nibName: nil, bundle: nil)
+        self.dataSource = .init(tableView: tableView, todoLists: todoLists, cellDelegate: self)
     }
 
     required init?(coder: NSCoder) {
@@ -64,7 +60,6 @@ class TodoListViewController: UIViewController {
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: self.bottomInset, right: 0)
         dataSource.applySnapshot(animatingDifferences: false)
     }
-
 
     // MARK: - Public Functions
 
