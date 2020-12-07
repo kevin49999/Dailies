@@ -1,6 +1,6 @@
 //
 //  TodoList+Extensions.swift
-//  Pods
+//  TODOs
 //
 //  Created by Kevin Johnson on 12/6/20.
 //
@@ -56,6 +56,9 @@ extension TodoList {
 
 // MARK: - Caching
 
+///
+import WidgetKit
+
 extension TodoList {
     static func saveCreated(_ lists: [TodoList]) throws {
         try Cache.save(lists, path: "created")
@@ -63,12 +66,18 @@ extension TodoList {
 
     static func saveDaysOfWeek(_ lists: [TodoList]) throws {
         try Cache.save(lists, path: "week")
+        /// TODO: Move elsewhere!
         /// save in AppGroup for widget
         /// should be saving this as you update during the day
         /// could just save the current day.. but.. day could change, need the week
-        let url = AppGroup.todos.containerURL.appendingPathComponent("week")
+        guard let url = AppGroup.todos.containerURL?.appendingPathComponent("week") else {
+            /// missing
+            return
+        }
         let data = try JSONEncoder().encode(lists)
         try data.write(to: url)
+        // Reload single widget
+        WidgetCenter.shared.reloadTimelines(ofKind: "TODOsWidget")
     }
 
     private static func getCreated() throws -> [TodoList] {

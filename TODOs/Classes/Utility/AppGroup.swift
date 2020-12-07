@@ -11,12 +11,12 @@ import Foundation
 enum AppGroup: String {
   case todos = "group.com.FRR.freetime"
 
-    var containerURL: URL {
+    var containerURL: URL? {
         switch self {
         case .todos:
             return FileManager.default.containerURL(
                 forSecurityApplicationGroupIdentifier: rawValue
-            )!
+            ) /// crashed on first run?
         }
     }
 }
