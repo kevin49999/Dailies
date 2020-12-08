@@ -16,7 +16,6 @@ struct Provider: IntentTimelineProvider {
     }
 
     func getSnapshot(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (TodayEntry) -> ()) {
-        // wot..
         let entry = TodayEntry(date: Date(), today: TodoList(classification: .daysOfWeek, name: "Monday"), configuration: configuration)
         completion(entry)
     }
@@ -45,7 +44,6 @@ struct Provider: IntentTimelineProvider {
         let url = AppGroup.todos.containerURL.appendingPathComponent("week")
         let data = try Data(contentsOf: url)
         let week = try JSONDecoder().decode([TodoList].self, from: data)
-        week.forEach { print($0.name) }
         return week
     }
 }
@@ -74,12 +72,16 @@ struct TODOsWidgetEntryView : View {
     var entry: Provider.Entry
 
     var body: some View {
-        Text(entry.today.name)
-        VStack(alignment: .leading) {
+        Text("Today")
+        VStack(alignment: .leading, spacing: 4.0) {
             ForEach(entry.today.todos, id: \.self) { todo in
-                Text(todo.text)
+                todo.completed ? Text("- \(todo.text)")
+                    .strikethrough(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/, color: .secondary)
+                    .foregroundColor(.secondary) :
+                    Text("- \(todo.text)")
             }
         }
+        .padding(.all)
     }
 }
 
