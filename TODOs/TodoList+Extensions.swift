@@ -70,10 +70,7 @@ extension TodoList {
         /// save in AppGroup for widget
         /// should be saving this as you update during the day
         /// could just save the current day.. but.. day could change, need the week
-        guard let url = AppGroup.todos.containerURL?.appendingPathComponent("week") else {
-            /// missing
-            return
-        }
+        let url = AppGroup.todos.containerURL.appendingPathComponent("week")
         let data = try JSONEncoder().encode(lists)
         try data.write(to: url)
         // Reload single widget

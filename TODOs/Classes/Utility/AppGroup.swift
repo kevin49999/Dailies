@@ -9,14 +9,14 @@ import Foundation
 
 // https://useyourloaf.com/blog/sharing-data-with-a-widget/
 enum AppGroup: String {
-  case todos = "group.com.FRR.freetime"
+  case todos = "group.com.frr.todos"
 
-    var containerURL: URL? {
+    var containerURL: URL {
         switch self {
         case .todos:
             return FileManager.default.containerURL(
                 forSecurityApplicationGroupIdentifier: rawValue
-            ) /// crashed on first run?
+            )!
         }
     }
 }

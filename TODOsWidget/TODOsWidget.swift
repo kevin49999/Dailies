@@ -42,11 +42,7 @@ struct Provider: IntentTimelineProvider {
     // MARK: - Helper
 
     private func loadCurrentWeek() throws -> [TodoList] {
-        guard let url = AppGroup.todos.containerURL?.appendingPathComponent("week") else {
-            print("Missing app group url")
-            return []
-        }
-        
+        let url = AppGroup.todos.containerURL.appendingPathComponent("week")
         let data = try Data(contentsOf: url)
         let week = try JSONDecoder().decode([TodoList].self, from: data)
         week.forEach { print($0.name) }
