@@ -56,7 +56,6 @@ extension TodoList {
 
 // MARK: - Caching
 
-///
 import WidgetKit
 
 extension TodoList {
@@ -66,14 +65,12 @@ extension TodoList {
 
     static func saveDaysOfWeek(_ lists: [TodoList]) throws {
         try Cache.save(lists, path: "week")
-        /// TODO: Move elsewhere!
         /// save in AppGroup for widget
-        /// should be saving this as you update during the day
-        /// could just save the current day.. but.. day could change, need the week
+        /// may not be the best place to put this - SRP
         let url = AppGroup.todos.containerURL.appendingPathComponent("week")
         let data = try JSONEncoder().encode(lists)
         try data.write(to: url)
-        // Reload single widget
+        /// Reload single widget
         WidgetCenter.shared.reloadTimelines(ofKind: "TODOsWidget")
     }
 
