@@ -70,22 +70,24 @@ struct TodayEntry: TimelineEntry {
 
 struct TODOsWidgetEntryView : View {
     var entry: Provider.Entry
+    let prefix: Int = 3
 
     var body: some View {
         if entry.today.incomplete.isEmpty {
-            Text("Done for today ✅")
+            Text("Done ✅").bold()
         } else {
             VStack(alignment: .leading, spacing: 4.0) {
-                Text(entry.today.name).bold()
-                ForEach(entry.today.visible.prefix(3)
+                Text(entry.today.name)
+                    .bold()
+                ForEach(entry.today.todos.filter { !$0.completed }.prefix(prefix)
                         , id: \.self) { todo in
                     todo.completed ? Text("- \(todo.text)")
                         .strikethrough(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/, color: .secondary)
                         .foregroundColor(.secondary) :
                         Text("- \(todo.text)")
                 }
-                entry.today.visible.count > 3 ?
-                    Text("\(entry.today.incomplete.count - 3) more todo").fontWeight(.semibold) : nil
+                entry.today.visible.count > prefix ?
+                    Text("\(entry.today.todos.filter { !$0.completed }.count - prefix) more todo").fontWeight(.semibold) : nil
                 Spacer()
             }
             .padding()
@@ -122,7 +124,6 @@ struct TODOsWidget_Previews: PreviewProvider {
                     todos: [
                         .init(text: "Go run"),
                         .init(text: "Study for your test next Friday"),
-                        .init(text: "Take out the trash", completed: false),
                     ]
                 ),
                 configuration: ConfigurationIntent()
