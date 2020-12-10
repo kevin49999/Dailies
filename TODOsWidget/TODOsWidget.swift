@@ -72,20 +72,24 @@ struct TODOsWidgetEntryView : View {
     var entry: Provider.Entry
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 4.0) {
-            Text(entry.today.name).bold()
-            ForEach(entry.today.visible.prefix(3)
-                    , id: \.self) { todo in
-                todo.completed ? Text("- \(todo.text)")
-                    .strikethrough(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/, color: .secondary)
-                    .foregroundColor(.secondary) :
-                    Text("- \(todo.text)")
+        if entry.today.incomplete.isEmpty {
+            Text("Done for today ✅")
+        } else {
+            VStack(alignment: .leading, spacing: 4.0) {
+                Text(entry.today.name).bold()
+                ForEach(entry.today.visible.prefix(3)
+                        , id: \.self) { todo in
+                    todo.completed ? Text("- \(todo.text)")
+                        .strikethrough(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/, color: .secondary)
+                        .foregroundColor(.secondary) :
+                        Text("- \(todo.text)")
+                }
+                entry.today.visible.count > 3 ?
+                    Text("\(entry.today.incomplete.count - 3) more todo").fontWeight(.semibold) : nil
+                Spacer()
             }
-            entry.today.visible.count > 3 ?
-                Text("\(entry.today.incomplete.count - 3) more todo").fontWeight(.semibold) : nil
-            Spacer()
+            .padding()
         }
-        .padding()
     }
 }
 
