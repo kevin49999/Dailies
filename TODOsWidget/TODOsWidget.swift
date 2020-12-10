@@ -72,16 +72,18 @@ struct TODOsWidgetEntryView : View {
     var entry: Provider.Entry
 
     var body: some View {
-        Text("Today")
         VStack(alignment: .leading, spacing: 4.0) {
-            ForEach(entry.today.todos, id: \.self) { todo in
+            Text(entry.today.name).bold()
+            ForEach(entry.today.visible
+                    , id: \.self) { todo in
                 todo.completed ? Text("- \(todo.text)")
                     .strikethrough(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/, color: .secondary)
                     .foregroundColor(.secondary) :
                     Text("- \(todo.text)")
             }
+            Spacer()
         }
-        .padding(.all)
+        .padding()
     }
 }
 
@@ -108,7 +110,15 @@ struct TODOsWidget_Previews: PreviewProvider {
         TODOsWidgetEntryView(
             entry: TodayEntry(
                 date: Date(),
-                today: TodoList(classification: .daysOfWeek, name: "Monday"),
+                today: TodoList(
+                    classification: .daysOfWeek,
+                    name: "Monday",
+                    todos: [
+                        .init(text: "Go run"),
+                        .init(text: "Study for your test next Friday"),
+                        .init(text: "Take out the trash", completed: false),
+                    ]
+                ),
                 configuration: ConfigurationIntent()
             )
         )
