@@ -66,6 +66,7 @@ class TodoListViewController: UIViewController {
     func updateTodoLists(_ lists: [TodoList]) {
         dataSource.todoLists = lists
         dataSource.applySnapshot()
+        tableView.reloadData() // hacky, just want to reload section headers for title changes
     }
 
     func addNewTodoList(with name: String) {
