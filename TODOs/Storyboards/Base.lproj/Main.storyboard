@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9Vt-fV-Urb">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9Vt-fV-Urb">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -34,7 +35,7 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O0a-i7-UuF">
                                 <rect key="frame" x="0.0" y="140" width="414" height="756"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vK1-ab-dA8">
                                 <rect key="frame" x="0.0" y="813" width="414" height="49"/>
@@ -44,8 +45,8 @@
                                             <rect key="frame" x="20" y="10.5" width="374" height="33"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <segments>
-                                                <segment title="Custom"/>
                                                 <segment title="Weekdays"/>
+                                                <segment title="Custom"/>
                                             </segments>
                                             <connections>
                                                 <action selector="listSegmentedControlChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="fok-5O-O5N"/>
@@ -55,7 +56,8 @@
                                 </items>
                             </toolbar>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="vK1-ab-dA8" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="3Cg-0G-cnZ"/>
                             <constraint firstItem="O0a-i7-UuF" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="5Cy-jS-Ehg"/>
@@ -65,7 +67,6 @@
                             <constraint firstItem="vK1-ab-dA8" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailing" id="ncw-ah-kdd"/>
                             <constraint firstItem="vK1-ab-dA8" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="tvM-qV-wGR"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" title="TODOs" largeTitleDisplayMode="always" id="uzk-y5-BPN">
                         <barButtonItem key="backBarButtonItem" title=" " id="DUX-QX-NP8"/>
@@ -123,4 +124,9 @@
             <point key="canvasLocation" x="1248" y="104"/>
         </scene>
     </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

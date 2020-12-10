@@ -57,7 +57,7 @@ class TodosContainerViewController: UIViewController {
 
     // MARK: - Functions
 
-    private func configure(for: State) {
+    private func configure(for state: State) {
         switch state {
         case .created:
             daysOfWeekTodoController.remove()
@@ -70,7 +70,7 @@ class TodosContainerViewController: UIViewController {
             navigationItem.rightBarButtonItems?[1].isEnabled = false
             navigationItem.leftBarButtonItem?.isEnabled = false
         }
-        listsSegmentedControl.selectedSegmentIndex = state.rawValue
+        listsSegmentedControl.selectedSegmentIndex = (state == .created) ? 1 : 0
     }
 
     // MARK: - IBAction
@@ -100,12 +100,14 @@ class TodosContainerViewController: UIViewController {
     }
 
     @IBAction func listSegmentedControlChanged(_ sender: UISegmentedControl) {
-        defaults.set(sender.selectedSegmentIndex, forKey: "state")
+        /// rawValue of enum no longer matches w/ selectedSegmentIndex
+        defaults.set(sender.selectedSegmentIndex == 0 ? 1 : 0, forKey: "state")
         switch sender.selectedSegmentIndex {
         case 0:
-            self.state = .created
-        case 1:
             self.state = .daysOfWeek
+        case 1:
+            self.state = .created
+
         default:
             fatalError()
         }
