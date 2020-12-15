@@ -70,7 +70,7 @@ struct TodayEntry: TimelineEntry {
 
 struct TODOsWidgetEntryView : View {
     var entry: Provider.Entry
-    let prefix: Int = 3
+    let prefix: Int = 4
 
     var body: some View {
         if entry.today.incomplete.isEmpty {
@@ -78,7 +78,7 @@ struct TODOsWidgetEntryView : View {
         } else {
             VStack(alignment: .leading, spacing: 4.0) {
                 Text(entry.today.name)
-                    .bold()
+                    .font(.headline)
                 ForEach(entry.today.todos.filter { !$0.completed }.prefix(prefix)
                         , id: \.self) { todo in
                     todo.completed ? Text("- \(todo.text)")
@@ -87,10 +87,19 @@ struct TODOsWidgetEntryView : View {
                         Text("- \(todo.text)")
                 }
                 entry.today.visible.count > prefix ?
-                    Text("\(entry.today.todos.filter { !$0.completed }.count - prefix) more todo").fontWeight(.semibold) : nil
+                    Text("\(entry.today.todos.filter { !$0.completed }.count - prefix) more todo")
+                    .font(.callout): nil
                 Spacer()
             }
-            .padding()
+            .frame(
+                minWidth: 0,
+                maxWidth: .infinity,
+                minHeight: 0,
+                maxHeight: .infinity,
+                alignment: .topLeading
+            )
+            .padding(.horizontal)
+            .padding(.top)
         }
     }
 }
@@ -123,7 +132,11 @@ struct TODOsWidget_Previews: PreviewProvider {
                     name: "Monday",
                     todos: [
                         .init(text: "Go run"),
-                        .init(text: "Study for your test next Friday"),
+                        .init(text: "Derp"),
+                        .init(text: "Study"),
+                        .init(text: "Plerp"),
+                        .init(text: "Movie"),
+                        .init(text: "😇"),
                     ]
                 ),
                 configuration: ConfigurationIntent()
