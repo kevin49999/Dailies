@@ -4,7 +4,13 @@ Daily TODOs with lists for each day of the week (and custom made lists, recurrin
 
 No user accounts, no data collection.
 
+## Screenshots
+
 ![animated](photos/animated.gif)
+
+### Widget
+
+![animated](photos/widget.png)
 
 ## App Store
 
