@@ -4,11 +4,11 @@ Daily TODOs with lists for each day of the week (and custom made lists, recurrin
 
 No user accounts, no data collection.
 
-## Screenshots
+## Sample
 
 ![animated](photos/animated.gif)
 
-### Widget
+### Home Screen Widget
 
 ![animated](photos/widget.png)
 
