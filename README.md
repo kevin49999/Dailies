@@ -10,7 +10,7 @@ No user accounts, no data collection.
 
 ### Home Screen Widget
 
-![widget](screenshot/widget.png)
+![widget](screenshots/widget.png)
 
 ## App Store
 
