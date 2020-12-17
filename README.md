@@ -1,9 +1,17 @@
 # TODOs
 
-Daily TODOs in my preferred style: separate lists for each day of the week and custom made lists. I used to fill a page of a notebook each day writing and crossing out completed items, completed days, etc. This works much better in an App: days automatically update, no need to re-write items that weren't completed on a given day, etc. I'm also using much less paper than I was with a notebook :recycle:
+Daily TODOs with lists for each day of the week (and custom lists, recurring TODOs, show/hide completed). If you are filling up legal pads or notebooks everyday, writing and crossing out over and over, this App is for you.
+
+No user accounts, no data collection.
+
+## Sample
 
 ![animated](photos/animated.gif)
 
+### Home Screen Widget
+
+![animated](photos/widget.png)
+
 ## App Store
 
-Please feel free to copy and use any of the code in this project. Just don't upload this straight to the App Store.
+Please feel free to copy and use any of the code in this project. Just don't upload this straight to the App Store
