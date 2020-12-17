@@ -6,11 +6,11 @@ No user accounts, no data collection.
 
 ## Sample
 
-![animated](photos/animated.gif)
+![gif](screenshots/animated.gif)
 
 ### Home Screen Widget
 
-![animated](photos/widget.png)
+![widget](screenshot/widget.png)
 
 ## App Store
 
