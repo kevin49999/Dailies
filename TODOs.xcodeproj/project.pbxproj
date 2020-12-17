@@ -141,6 +141,7 @@
 		52662AB7248584150072626B /* Undo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Undo.swift; sourceTree = "<group>"; };
 		52662AB92485841B0072626B /* UndoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndoItem.swift; sourceTree = "<group>"; };
 		52662ABB2485C4D40072626B /* UndoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndoView.swift; sourceTree = "<group>"; };
+		52936E0B258B023B00D42105 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		5295A218246B158E00B502CA /* TodoList+ModelUpdates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TodoList+ModelUpdates.swift"; sourceTree = "<group>"; };
 		52AABC2E23FA061D000FA700 /* TodoListSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListSectionHeaderView.swift; sourceTree = "<group>"; };
 		52AE14342507E0D00089DFC8 /* SettingsTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewDataSource.swift; sourceTree = "<group>"; };
@@ -207,6 +208,7 @@
 		0A424A382384B0FC00E1FC34 = {
 			isa = PBXGroup;
 			children = (
+				52936E0B258B023B00D42105 /* README.md */,
 				520F6E55257DD9E5002154D2 /* TODOsWidgetExtension.entitlements */,
 				0A424A432384B0FC00E1FC34 /* TODOs */,
 				0A424A5A2384B0FF00E1FC34 /* TODOsTests */,

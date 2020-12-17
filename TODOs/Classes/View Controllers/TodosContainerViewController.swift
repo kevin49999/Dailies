@@ -43,9 +43,11 @@ class TodosContainerViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let state = defaults.integer(forKey: "state")
-        self.state = State(int: state) ?? .created
-
+        if let state = defaults.value(forKey: "state") as? Int {
+            self.state = State(int: state)
+        } else {
+            self.state = .daysOfWeek
+        }
         observeNotifications()
 
         let gearImage = UIImage(

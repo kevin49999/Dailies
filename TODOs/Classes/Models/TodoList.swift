@@ -13,14 +13,15 @@ class TodoList: Codable {
         case created = 0
         case daysOfWeek
 
-        init?(int: Int) {
+        init(int: Int) {
             switch int {
             case 0:
                 self = .created
             case 1:
                 self = .daysOfWeek
             default:
-                return nil
+                /// default value
+                self = .daysOfWeek
             }
         }
     }
