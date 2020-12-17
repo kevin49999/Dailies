@@ -10,6 +10,5 @@ jobs:
     runs-on: macOS-latest
 
     steps:
-    - uses: actions/checkout@master
-    - name: Start xcodebuild test
+    - name: Xcodebuild test
       run: xcodebuild clean test -project TODOs.xcodeproj -scheme TODOs -destination "platform=iOS Simulator,name=iPhone X"
