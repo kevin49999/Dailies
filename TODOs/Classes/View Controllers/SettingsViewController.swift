@@ -55,8 +55,25 @@ extension SettingsViewController: AddTodoCellDelegate {
     }
 
     func addTodoCell(_ cell: AddTodoCell, didEndEditing text: String) {
-        dataSource.settings.append(.init(name: text))
-        dataSource.applySnapshot()
+        let setting = Setting(name: text)
+        if !dataSource.settings.contains(setting) {
+            dataSource.settings.append(setting)
+            dataSource.applySnapshot()
+        } else {
+            presentSettingAlreadyExists()
+        }
+    }
+
+    private func presentSettingAlreadyExists() {
+        let alertController = UIAlertController(
+            title: "Error",
+            message: "This setting already exists!",
+            preferredStyle: .alert
+        )
+        alertController.addActions([
+            UIAlertAction.ok()
+        ])
+        present(alertController, animated: true)
     }
 }
 
@@ -73,7 +90,7 @@ extension SettingsViewController: RecurringTodoCellDelegate {
             return
         }
         if !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            dataSource.settings[indexPath.row].name = text // TODO: Doesn't update current curring TODOs
+            dataSource.settings[indexPath.row].name = text // TODO: Doesn't update current recurring TODOs
         }
     }
 

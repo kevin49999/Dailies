@@ -9,6 +9,12 @@
 import Foundation
 
 struct Setting: Codable {
+    enum CodingKeys: CodingKey {
+        case uuid
+        case name
+        case frequency
+    }
+
     enum Frequency: Int, Codable, CaseIterable {
         case sundays = 0
         case mondays
@@ -40,14 +46,33 @@ struct Setting: Codable {
             }
         }
     }
+    // MARK: - Properties
+
+    var uuid: UUID
     var name: String
     var frequency: Frequency
 
-    init(name: String, frequency: Frequency = .mondays) {
+    init(
+        uuid: UUID = UUID(),
+        name: String,
+        frequency: Frequency = .mondays
+    ) {
+        self.uuid = uuid
         self.name = name
         self.frequency = frequency
     }
 
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        if let id = try? values.decode(UUID.self, forKey: .uuid) {
+            uuid = id
+        } else {
+            /// new property as of 12/23 so need the fallback for decoding old TODOs
+            uuid = UUID()
+        }
+        name = try values.decode(String.self, forKey: .name)
+        frequency = try values.decode(Frequency.self, forKey: .frequency)
+    }
 
     static func saved() -> [Setting] {
         do {

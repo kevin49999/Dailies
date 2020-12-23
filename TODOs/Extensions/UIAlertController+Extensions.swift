@@ -18,6 +18,10 @@ extension UIAlertAction {
     static func delete(_ handler: ((UIAlertAction) -> Void)? = nil) -> UIAlertAction{
         return UIAlertAction(title: "Delete", style: .destructive, handler: handler)
     }
+
+    static func ok(_ handler: ((UIAlertAction) -> Void)? = nil) -> UIAlertAction{
+        return UIAlertAction(title: "OK", style: .default, handler: handler)
+    }
 }
 
 // MARK: - Utility

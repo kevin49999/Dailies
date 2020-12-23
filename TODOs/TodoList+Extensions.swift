@@ -129,12 +129,14 @@ extension Array where Element == TodoList {
     }
 
     func addSettingForDay(_ setting: Setting, _ day: Int, calendar: Calendar = .current) {
-        let (incomplete, complete) = (Todo(text: setting.name, completed: false), Todo(text: setting.name, completed: true))
-        if let index = firstIndex(where: { $0.name == calendar.weekdaySymbols[day] }),
-            !self[index].incomplete.contains(incomplete), !self[index].todos.contains(complete)
-        {
-            self[index].insert(todo: incomplete, index: 0)
-            // self[index].add(todo: .init(text: "Test")) - crash
+        guard let index = firstIndex(where: { $0.name == calendar.weekdaySymbols[day] }) else {
+            assertionFailure("Could not match setting name (a day) to weekday")
+            return
+        }
+
+        let settingUUID = setting.uuid.uuidString
+        if !self[index].todos.contains(where: { $0.settingUUID == settingUUID }) {
+            self[index].add(todo: .init(text: setting.name, settingUUID: settingUUID))
         }
     }
 }
