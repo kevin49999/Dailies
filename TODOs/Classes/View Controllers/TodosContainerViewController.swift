@@ -156,7 +156,14 @@ extension TodosContainerViewController {
 
     @objc func settingsChanged() {
         let lists = daysOfWeekTodoController.dataSource.todoLists
-        lists.applySettings(Setting.saved())
+        let settings = Setting.saved()
+        lists.applySettings(settings)
+        /// clean up todos that don't exist in settings anymore
+        for list in lists {
+            for (i, todo) in list.todos.enumerated() where todo.settingUUID != nil && !settings.contains(where: { $0.id.uuidString == todo.settingUUID }) {
+                list.remove(at: i)
+            }
+        }
         daysOfWeekTodoController.updateTodoLists(lists)
     }
 }

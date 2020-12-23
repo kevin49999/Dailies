@@ -130,11 +130,11 @@ extension Array where Element == TodoList {
 
     func addSettingForDay(_ setting: Setting, _ day: Int, calendar: Calendar = .current) {
         guard let index = firstIndex(where: { $0.name == calendar.weekdaySymbols[day] }) else {
-            assertionFailure("Could not match setting name (a day) to weekday")
+            assertionFailure("Could not weekday name to day integer")
             return
         }
 
-        let settingUUID = setting.uuid.uuidString
+        let settingUUID = setting.id.uuidString
         if !self[index].todos.contains(where: { $0.settingUUID == settingUUID }) {
             self[index].add(todo: .init(text: setting.name, settingUUID: settingUUID))
         }

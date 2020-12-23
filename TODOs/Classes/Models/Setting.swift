@@ -8,9 +8,9 @@
 
 import Foundation
 
-struct Setting: Codable {
+struct Setting: Codable, Identifiable, Hashable {
     enum CodingKeys: CodingKey {
-        case uuid
+        case id
         case name
         case frequency
     }
@@ -48,27 +48,27 @@ struct Setting: Codable {
     }
     // MARK: - Properties
 
-    var uuid: UUID
+    var id: UUID
     var name: String
     var frequency: Frequency
 
     init(
-        uuid: UUID = UUID(),
+        id: UUID = UUID(),
         name: String,
         frequency: Frequency = .mondays
     ) {
-        self.uuid = uuid
+        self.id = id
         self.name = name
         self.frequency = frequency
     }
 
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        if let id = try? values.decode(UUID.self, forKey: .uuid) {
-            uuid = id
+        if let id = try? values.decode(UUID.self, forKey: .id) {
+            self.id = id
         } else {
             /// new property as of 12/23 so need the fallback for decoding old TODOs
-            uuid = UUID()
+            id = UUID()
         }
         name = try values.decode(String.self, forKey: .name)
         frequency = try values.decode(Frequency.self, forKey: .frequency)
@@ -80,16 +80,5 @@ struct Setting: Codable {
         } catch {
             return []
         }
-    }
-}
-
-extension Setting: Hashable {
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(name)
-        hasher.combine(frequency)
-    }
-
-    static func == (lhs: Setting, rhs: Setting) -> Bool {
-        return lhs.name == rhs.name && lhs.frequency == rhs.frequency
     }
 }
