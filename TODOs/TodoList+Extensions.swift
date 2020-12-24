@@ -34,6 +34,7 @@ extension TodoList {
             let match = saved.first(where: { $0.name == list.name })!
             if match.dateCreated >= today {
                 list.todos = match.todos
+                list.showCompleted = match.showCompleted
             }
         }
         new.applySettings(settings)
