@@ -13,7 +13,7 @@ typealias SettingsCellsDelegate = AddTodoCellDelegate & RecurringTodoCellDelegat
 class SettingsTableViewDataSource: UITableViewDiffableDataSource<SettingsViewController.Section, Setting> {
 
     typealias Section = SettingsViewController.Section
-    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Setting>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Setting> // TODO: re-lookup, want to do different models per section?
 
     var settings: [Setting] = []
 
