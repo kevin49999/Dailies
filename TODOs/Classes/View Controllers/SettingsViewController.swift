@@ -133,7 +133,7 @@ extension SettingsViewController: UIPickerViewDataSource, UIPickerViewDelegate, 
     }
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        guard let index = changingFreqIndex else { preconditionFailure() }
+        guard let index = changingFreqIndex else { return }
         self.dataSource.settings[index].frequency = changingFrequencies[row] // TODO: ""
     }
 
