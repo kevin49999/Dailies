@@ -30,7 +30,7 @@ class TodoList: Codable {
     let dateCreated: Date
     var name: String
     var todos: [Todo]
-    var showCompleted: Bool // TODO: doesn't save preference for list
+    var showCompleted: Bool
     lazy var incomplete: [Todo] = {
         return todos.filter { !$0.completed }
     }()
