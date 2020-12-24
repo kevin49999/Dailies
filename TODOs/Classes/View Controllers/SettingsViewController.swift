@@ -117,7 +117,7 @@ extension SettingsViewController: UIPickerViewDataSource, UIPickerViewDelegate, 
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         guard let index = changingFreqIndex else { return }
-        self.dataSource.settings[index].frequency = changingFrequencies[row] // TODO: ""
+        self.dataSource.settings[index].frequency = changingFrequencies[row] // TODO: don't allow the duplicate if it makes it duplicate
     }
 
     func textFieldDidEndEditing(_ textField: UITextField) {

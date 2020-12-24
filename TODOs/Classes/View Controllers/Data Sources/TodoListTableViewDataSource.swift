@@ -80,7 +80,7 @@ extension TodoListTableViewDataSource {
         for list in todoLists {
             new.appendSections([list])
             var items = list.visible
-            // TODO: Fix, bad hack >:[
+            // TODO: Fix, bad hack >:[ or is it good?
             let current = snapshot()
             if current.indexOfSection(list) != nil,
                let add = current.itemIdentifiers(inSection: list).first(where: { $0.text == "AddTodoCellHack" }) {
