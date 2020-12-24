@@ -35,9 +35,51 @@ extension TodoList {
             if match.dateCreated >= today {
                 list.todos = match.todos
                 list.showCompleted = match.showCompleted
+            } else {
+                for setting in settings {
+                    switch setting.frequency {
+                    case .sundays:
+                        if list.name == "Sunday" {
+                            list.addTodoFor(setting: setting)
+                        }
+                    case .mondays:
+                        if list.name == "Monday" {
+                            list.addTodoFor(setting: setting)
+                        }
+                    case .tuesdays:
+                        if list.name == "Tuesday" {
+                            list.addTodoFor(setting: setting)
+                        }
+                    case .wednesdays:
+                        if list.name == "Wednesday" {
+                            list.addTodoFor(setting: setting)
+                        }
+                    case .thursdays:
+                        if list.name == "Thursday" {
+                            list.addTodoFor(setting: setting)
+                        }
+                    case .fridays:
+                        if list.name == "Friday" {
+                            list.addTodoFor(setting: setting)
+                        }
+                    case .saturdays:
+                        if list.name == "Saturday" {
+                            list.addTodoFor(setting: setting)
+                        }
+                    case .weekends:
+                        if list.name == "Sunday" || list.name == "Saturday" {
+                            list.addTodoFor(setting: setting)
+                        }
+                    case .weekdays:
+                        if list.name != "Sunday" && list.name != "Saturday" {
+                            list.addTodoFor(setting: setting)
+                        }
+                    case .everyday:
+                        list.addTodoFor(setting: setting)
+                    }
+                }
             }
         }
-        new.applySettings(settings)
         return new
     }
 
@@ -116,7 +158,7 @@ extension Array where Element == TodoList {
                  .saturdays:
                 addSettingForDay(setting, setting.frequency.rawValue)
             case .weekends:
-               addSettingForDays(setting, [0, 6])
+                addSettingForDays(setting, [0, 6])
             case .weekdays:
                 addSettingForDays(setting, [Int](1...5))
             case .everyday:
@@ -129,15 +171,19 @@ extension Array where Element == TodoList {
         days.forEach { addSettingForDay(setting, $0) }
     }
 
-    func addSettingForDay(_ setting: Setting, _ day: Int, calendar: Calendar = .current) {
+    private func addSettingForDay(_ setting: Setting, _ day: Int, calendar: Calendar = .current) {
         guard let index = firstIndex(where: { $0.name == calendar.weekdaySymbols[day] }) else {
             assertionFailure("Could not match weekday name to day integer")
             return
         }
+        self[index].addTodoFor(setting: setting)
+    }
+}
 
-        let settingUUID = setting.id.uuidString
-        if !self[index].todos.contains(where: { $0.settingUUID == settingUUID || $0.text == setting.name }) {
-            self[index].add(todo: .init(text: setting.name, settingUUID: settingUUID))
+extension TodoList {
+    func addTodoFor(setting: Setting) {
+        if !todos.contains(where: { $0.settingUUID == setting.id.uuidString }) {
+            add(todo: .init(text: setting.name, settingUUID: setting.id.uuidString))
         }
     }
 }
