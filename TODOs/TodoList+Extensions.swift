@@ -135,7 +135,7 @@ extension Array where Element == TodoList {
         }
 
         let settingUUID = setting.id.uuidString
-        if !self[index].todos.contains(where: { $0.settingUUID == settingUUID }) {
+        if !self[index].todos.contains(where: { $0.settingUUID == settingUUID || $0.text == setting.name }) {
             self[index].add(todo: .init(text: setting.name, settingUUID: settingUUID))
         }
     }
