@@ -55,25 +55,8 @@ extension SettingsViewController: AddTodoCellDelegate {
     }
 
     func addTodoCell(_ cell: AddTodoCell, didEndEditing text: String) {
-        let setting = Setting(name: text)
-        if !dataSource.settings.contains(setting) {
-            dataSource.settings.append(setting)
-            dataSource.applySnapshot()
-        } else {
-            presentSettingAlreadyExists()
-        }
-    }
-
-    private func presentSettingAlreadyExists() {
-        let alertController = UIAlertController(
-            title: "Error",
-            message: "This setting already exists!",
-            preferredStyle: .alert
-        )
-        alertController.addActions([
-            UIAlertAction.ok()
-        ])
-        present(alertController, animated: true)
+        dataSource.settings.append(setting)
+        dataSource.applySnapshot()
     }
 }
 
