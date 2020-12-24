@@ -13,7 +13,7 @@ typealias SettingsCellsDelegate = AddTodoCellDelegate & RecurringTodoCellDelegat
 class SettingsTableViewDataSource: UITableViewDiffableDataSource<SettingsViewController.Section, Setting> {
 
     typealias Section = SettingsViewController.Section
-    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Setting>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Setting> // TODO: re-lookup, want to do different models per section?
 
     var settings: [Setting] = []
 
@@ -57,8 +57,6 @@ class SettingsTableViewDataSource: UITableViewDiffableDataSource<SettingsViewCon
     }
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        // TODO: Next up possibly:
-        // not currently deleting from lists that may have added these recurring todos at some point
         let setting = settings.remove(at: indexPath.row)
         var current = snapshot()
         current.deleteItems([setting])
@@ -73,7 +71,7 @@ extension SettingsTableViewDataSource {
         var new = Snapshot()
         new.appendSections([.recurring])
         var items = settings
-        // TODO: Repeated hack from TodoListTableViewDataSource
+        /// Repeated hack from TodoListTableViewDataSource
         let current = snapshot()
         if current.indexOfSection(.recurring) != nil,
            let add = current.itemIdentifiers(inSection: .recurring).first(where: { $0.name == "AddTodoCellHack" }) {

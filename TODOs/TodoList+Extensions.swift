@@ -34,6 +34,7 @@ extension TodoList {
             let match = saved.first(where: { $0.name == list.name })!
             if match.dateCreated >= today {
                 list.todos = match.todos
+                list.showCompleted = match.showCompleted
             }
         }
         new.applySettings(settings)
@@ -129,12 +130,14 @@ extension Array where Element == TodoList {
     }
 
     func addSettingForDay(_ setting: Setting, _ day: Int, calendar: Calendar = .current) {
-        let (incomplete, complete) = (Todo(text: setting.name, completed: false), Todo(text: setting.name, completed: true))
-        if let index = firstIndex(where: { $0.name == calendar.weekdaySymbols[day] }),
-            !self[index].incomplete.contains(incomplete), !self[index].todos.contains(complete)
-        {
-            self[index].insert(todo: incomplete, index: 0)
-            // self[index].add(todo: .init(text: "Test")) - crash
+        guard let index = firstIndex(where: { $0.name == calendar.weekdaySymbols[day] }) else {
+            assertionFailure("Could not weekday name to day integer")
+            return
+        }
+
+        let settingUUID = setting.id.uuidString
+        if !self[index].todos.contains(where: { $0.settingUUID == settingUUID || $0.text == setting.name }) {
+            self[index].add(todo: .init(text: setting.name, settingUUID: settingUUID))
         }
     }
 }

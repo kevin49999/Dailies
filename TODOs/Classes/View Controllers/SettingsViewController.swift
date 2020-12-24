@@ -73,7 +73,7 @@ extension SettingsViewController: RecurringTodoCellDelegate {
             return
         }
         if !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            dataSource.settings[indexPath.row].name = text // TODO: Doesn't update current curring TODOs
+            dataSource.settings[indexPath.row].name = text // TODO: Doesn't update current recurring TODOs
         }
     }
 
@@ -116,8 +116,8 @@ extension SettingsViewController: UIPickerViewDataSource, UIPickerViewDelegate, 
     }
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        guard let index = changingFreqIndex else { preconditionFailure() }
-        self.dataSource.settings[index].frequency = changingFrequencies[row] // TODO: ""
+        guard let index = changingFreqIndex else { return }
+        self.dataSource.settings[index].frequency = changingFrequencies[row] // TODO: don't allow the duplicate if it makes it duplicate
     }
 
     func textFieldDidEndEditing(_ textField: UITextField) {

@@ -8,7 +8,13 @@
 
 import Foundation
 
-struct Setting: Codable {
+struct Setting: Codable, Identifiable, Hashable {
+    enum CodingKeys: CodingKey {
+        case id
+        case name
+        case frequency
+    }
+
     enum Frequency: Int, Codable, CaseIterable {
         case sundays = 0
         case mondays
@@ -40,14 +46,33 @@ struct Setting: Codable {
             }
         }
     }
+    // MARK: - Properties
+
+    var id: UUID
     var name: String
     var frequency: Frequency
 
-    init(name: String, frequency: Frequency = .mondays) {
+    init(
+        id: UUID = UUID(),
+        name: String,
+        frequency: Frequency = .mondays
+    ) {
+        self.id = id
         self.name = name
         self.frequency = frequency
     }
 
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        if let id = try? values.decode(UUID.self, forKey: .id) {
+            self.id = id
+        } else {
+            /// new property as of 12/23 so need the fallback for decoding old TODOs
+            id = UUID()
+        }
+        name = try values.decode(String.self, forKey: .name)
+        frequency = try values.decode(Frequency.self, forKey: .frequency)
+    }
 
     static func saved() -> [Setting] {
         do {
@@ -55,16 +80,5 @@ struct Setting: Codable {
         } catch {
             return []
         }
-    }
-}
-
-extension Setting: Hashable {
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(name)
-        hasher.combine(frequency)
-    }
-
-    static func == (lhs: Setting, rhs: Setting) -> Bool {
-        return lhs.name == rhs.name && lhs.frequency == rhs.frequency
     }
 }
