@@ -55,9 +55,17 @@ extension AddTodoCell: UITextViewDelegate {
         }
     }
 
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n", !textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty  {
+            delegate?.addTodoCell(self, didEndEditing: textView.text)
+            reset()
+            return false
+        }
+        return true
+    }
+
     func textViewDidEndEditing(_ textView: UITextView) {
-        let text = textView.text.trimmingCharacters(in: .whitespacesAndNewlines)
-        if !text.isEmpty {
+        if !textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             delegate?.addTodoCell(self, didEndEditing: textView.text)
             reset()
         }
