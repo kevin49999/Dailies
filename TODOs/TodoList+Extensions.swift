@@ -41,7 +41,7 @@ extension TodoList {
                     dateCreated: newDay,
                     name: current[lists.count] // will be +1 when added
                 )
-                // TODO: add setting to list
+                /// add setting to list potentially
                 lists.append(newList)
                 mDay = newDay
             } else {
