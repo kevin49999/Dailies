@@ -31,7 +31,7 @@ extension TodoList {
 
         let current = currentDaysOfWeek()
         var i = 0
-        var mDay = today
+        var mDay = lists.last!.dateCreated // force-unwrapping
         while i < 7 {
             if lists[i].dateCreated < today {
                 lists.remove(at: i)
