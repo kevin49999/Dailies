@@ -55,6 +55,8 @@ class TodosContainerViewController: UIViewController {
             withConfiguration: UIImage.SymbolConfiguration(scale: .medium)
         )
         settingsBarButtonItem.image = gearImage
+        /// inefficient but fine for now, come back and find fast way to apply settings
+        settingsChanged()
     }
 
     // MARK: - Functions
@@ -156,14 +158,7 @@ extension TodosContainerViewController {
 
     @objc func settingsChanged() {
         let lists = daysOfWeekTodoController.dataSource.todoLists
-        let settings = Setting.saved()
-        lists.applySettings(settings)
-        /// clean up todos that don't exist in settings anymore
-        for list in lists {
-            for (i, todo) in list.todos.enumerated() where todo.settingUUID != nil && !settings.contains(where: { $0.id.uuidString == todo.settingUUID }) {
-                list.remove(at: i)
-            }
-        }
+        lists.applySettings(Setting.saved())
         daysOfWeekTodoController.updateTodoLists(lists)
     }
 }

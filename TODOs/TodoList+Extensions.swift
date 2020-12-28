@@ -23,64 +23,32 @@ extension TodoList {
         today: Date = .todayYearMonthDay(),
         settings: [Setting] = Setting.saved()
     ) -> [TodoList] {
-        guard let saved = try? getDaysOfWeek(), !saved.isEmpty else {
-            let new = newDaysOfWeekTodoLists()
-            new.applySettings(settings)
-            return new
+        guard var lists = try? getDaysOfWeek(), !lists.isEmpty else {
+            let l = newDaysOfWeekTodoLists()
+            l.applySettings(settings)
+            return l
         }
 
-        let new = newDaysOfWeekTodoLists()
-        for list in new {
-            let match = saved.first(where: { $0.name == list.name })!
-            if match.dateCreated >= today {
-                list.todos = match.todos
-                list.showCompleted = match.showCompleted
+        let current = currentDaysOfWeek()
+        var i = 0
+        var mDay = today
+        while i < 7 {
+            if lists[i].dateCreated < today {
+                lists.remove(at: i)
+                let newDay = mDay.byAddingDays(1)
+                let newList = TodoList(
+                    classification: .daysOfWeek,
+                    dateCreated: newDay,
+                    name: current[lists.count] // will be +1 when added
+                )
+                // TODO: add setting to list
+                lists.append(newList)
+                mDay = newDay
             } else {
-                for setting in settings {
-                    switch setting.frequency {
-                    case .sundays:
-                        if list.name == "Sunday" {
-                            list.addTodoFor(setting: setting)
-                        }
-                    case .mondays:
-                        if list.name == "Monday" {
-                            list.addTodoFor(setting: setting)
-                        }
-                    case .tuesdays:
-                        if list.name == "Tuesday" {
-                            list.addTodoFor(setting: setting)
-                        }
-                    case .wednesdays:
-                        if list.name == "Wednesday" {
-                            list.addTodoFor(setting: setting)
-                        }
-                    case .thursdays:
-                        if list.name == "Thursday" {
-                            list.addTodoFor(setting: setting)
-                        }
-                    case .fridays:
-                        if list.name == "Friday" {
-                            list.addTodoFor(setting: setting)
-                        }
-                    case .saturdays:
-                        if list.name == "Saturday" {
-                            list.addTodoFor(setting: setting)
-                        }
-                    case .weekends:
-                        if list.name == "Sunday" || list.name == "Saturday" {
-                            list.addTodoFor(setting: setting)
-                        }
-                    case .weekdays:
-                        if list.name != "Sunday" && list.name != "Saturday" {
-                            list.addTodoFor(setting: setting)
-                        }
-                    case .everyday:
-                        list.addTodoFor(setting: setting)
-                    }
-                }
+                i += 1
             }
         }
-        return new
+        return lists
     }
 
     static func newDaysOfWeekTodoLists(

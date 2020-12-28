@@ -28,4 +28,11 @@ extension Date {
             day: calendar.component(.day, from: today)
         )
     }
+
+    func byAddingDays(_ day: Int, calendar: Calendar = .current) -> Date {
+        guard let n = Calendar.current.date(byAdding: .day, value: day, to: self) else {
+            preconditionFailure()
+        }
+        return n
+    }
 }
