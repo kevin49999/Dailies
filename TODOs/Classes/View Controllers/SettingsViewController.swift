@@ -19,18 +19,21 @@ class SettingsViewController: UITableViewController {
     private lazy var dataSource: SettingsTableViewDataSource = {
         return SettingsTableViewDataSource(
             tableView: self.tableView,
-            settings: Setting.saved(),
+            settings: initial,
             cellDelegate: self
         )
     }()
+    private var initial = Setting.saved()
     private var changingFreqIndex: Int?
     private var changingFrequencies: [Setting.Frequency] = []
 
     // MARK: - Deinit
 
     deinit {
-        try? Cache.save(dataSource.settings, path: "settings")
-        NotificationCenter.default.post(name: .init(rawValue: "SettingsChanged"), object: nil)
+        if initial != dataSource.settings {
+            try? Cache.save(dataSource.settings, path: "settings")
+            NotificationCenter.default.post(name: .init(rawValue: "SettingsChanged"), object: nil)
+        }
     }
 
     // MARK: - View Lifecycle
