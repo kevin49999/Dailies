@@ -9,6 +9,12 @@
 import Foundation
 
 class Todo: Codable {
+    enum CodingKeys: CodingKey {
+        case text
+        case completed
+        case settingUUID
+    }
+
     var text: String
     var completed: Bool
     var settingUUID: String?
@@ -23,6 +29,18 @@ class Todo: Codable {
         self.settingUUID = settingUUID
     }
 
+    required init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        text = try values.decode(String.self, forKey: .text)
+        completed = try values.decode(Bool.self, forKey: .completed)
+        if let id = try? values.decode(String.self, forKey: .settingUUID) {
+            settingUUID = id
+        } else {
+            /// new property as of 12/23 so need the fallback for decoding old TODOs
+            settingUUID = nil
+        }
+    }
+    
     func duplicate() -> Todo {
         return .init(text: self.text, completed: self.completed)
     }

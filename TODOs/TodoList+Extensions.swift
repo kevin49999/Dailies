@@ -113,7 +113,7 @@ extension Array where Element == TodoList {
     func applySetting(_ setting: Setting, calendar: Calendar = .current) {
         applySettings([setting], calendar: calendar)
     }
-
+    
     func applySettings(_ settings: [Setting], calendar: Calendar = .current) {
         for setting in settings {
             switch setting.frequency {
