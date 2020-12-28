@@ -31,15 +31,15 @@ extension TodoList {
 
         let current = currentDaysOfWeek()
         var i = 0
-        var mDay = lists.last!.dateCreated // force-unwrapping
-        while i < 7 {
+        var mDay = lists.last!.dateCreated
+        while i < current.count {
             if lists[i].dateCreated < today {
                 lists.remove(at: i)
                 let newDay = mDay.byAddingDays(1)
                 let newList = TodoList(
                     classification: .daysOfWeek,
                     dateCreated: newDay,
-                    name: current[lists.count] // will be +1 when added
+                    name: current[lists.count]
                 )
                 /// add setting to list potentially
                 lists.append(newList)
@@ -58,7 +58,7 @@ extension TodoList {
         return currentDaysOfWeek().enumerated().map { offset, day in
             TodoList(
                 classification: .daysOfWeek,
-                dateCreated: calendar.date(byAdding: DateComponents(day: offset), to: today)!,
+                dateCreated: today.byAddingDays(offset),
                 name: day
             )
         }
