@@ -8,22 +8,26 @@
 
 import Foundation
 
-class Todo: Codable {
+class Todo: Codable, Identifiable {
     enum CodingKeys: CodingKey {
+        case id
         case text
         case completed
         case settingUUID
     }
 
+    var id: UUID
     var text: String
     var completed: Bool
     var settingUUID: String?
 
     init(
+        id: UUID = UUID(),
         text: String,
         completed: Bool = false,
         settingUUID: String? = nil
     ) {
+        self.id = id
         self.text = text
         self.completed = completed
         self.settingUUID = settingUUID
@@ -31,12 +35,16 @@ class Todo: Codable {
 
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
+        if let id = try? values.decode(UUID.self, forKey: .settingUUID) {
+            self.id = id
+        } else {
+            id = UUID()
+        }
         text = try values.decode(String.self, forKey: .text)
         completed = try values.decode(Bool.self, forKey: .completed)
-        if let id = try? values.decode(String.self, forKey: .settingUUID) {
-            settingUUID = id
+        if let settingUUID = try? values.decode(String.self, forKey: .settingUUID) {
+            self.settingUUID = settingUUID
         } else {
-            /// new property as of 12/23 so need the fallback for decoding old TODOs
             settingUUID = nil
         }
     }
@@ -48,11 +56,10 @@ class Todo: Codable {
 
 extension Todo: Hashable {
     func hash(into hasher: inout Hasher) {
-        hasher.combine(text)
-        hasher.combine(completed)
+        hasher.combine(id)
     }
 
     static func == (lhs: Todo, rhs: Todo) -> Bool {
-        return lhs.text == rhs.text && lhs.completed == rhs.completed
+        return lhs.id == rhs.id
     }
 }

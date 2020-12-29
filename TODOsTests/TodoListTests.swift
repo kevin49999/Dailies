@@ -25,18 +25,16 @@ class TodoListTests: XCTestCase {
         list.move(sIndex: 1, dIndex: 3) // 1 to bottom
 
         XCTAssertEqual(
-            list.todos, [
-                .init(text: "4"),
-                .init(text: "2", completed: true),
-                .init(text: "3", completed: true),
-                .init(text: "1")
-            ]
+            list.todos.map { $0.text },
+            ["4", "2", "3", "1"]
         )
         XCTAssertEqual(
-            list.incomplete, [
-                .init(text: "4"),
-                .init(text: "1")
-            ]
+            list.todos.map { $0.completed },
+            [false, true, true, false]
+        )
+        XCTAssertEqual(
+            list.incomplete.map { $0.text },
+            ["4", "1"]
         )
     }
 
@@ -53,20 +51,12 @@ class TodoListTests: XCTestCase {
         list.move(sIndex: 3, dIndex: 2)
 
         XCTAssertEqual(
-            list.todos, [
-                .init(text: "4"),
-                .init(text: "3"),
-                .init(text: "2"),
-                .init(text: "1")
-            ]
+            list.todos.map { $0.text },
+            ["4", "3", "2", "1"]
         )
         XCTAssertEqual(
-            list.incomplete, [
-                .init(text: "4"),
-                .init(text: "3"),
-                .init(text: "2"),
-                .init(text: "1")
-            ]
+            list.incomplete.map { $0.text },
+            ["4", "3", "2", "1"]
         )
 
         list.move(sIndex: 3, dIndex: 0)
@@ -74,20 +64,12 @@ class TodoListTests: XCTestCase {
         list.move(sIndex: 3, dIndex: 2)
 
         XCTAssertEqual(
-            list.todos, [
-                .init(text: "1"),
-                .init(text: "2"),
-                .init(text: "3"),
-                .init(text: "4")
-            ]
+            list.todos.map { $0.text },
+            ["1", "2", "3", "4"]
         )
         XCTAssertEqual(
-            list.incomplete, [
-                .init(text: "1"),
-                .init(text: "2"),
-                .init(text: "3"),
-                .init(text: "4")
-            ]
+            list.incomplete.map { $0.text },
+            ["1", "2", "3", "4"]
         )
     }
 
@@ -100,31 +82,23 @@ class TodoListTests: XCTestCase {
         list.move(sIndex: 1, dIndex: 0)
 
         XCTAssertEqual(
-            list.todos, [
-                .init(text: "2"),
-                .init(text: "1")
-            ]
+            list.todos.map { $0.text },
+            ["2", "1"]
         )
         XCTAssertEqual(
-            list.incomplete, [
-                .init(text: "2"),
-                .init(text: "1")
-            ]
+            list.incomplete.map { $0.text },
+            ["2", "1"]
         )
 
         list.move(sIndex: 0, dIndex: 1)
 
         XCTAssertEqual(
-            list.todos, [
-                .init(text: "1"),
-                .init(text: "2")
-            ]
+            list.todos.map { $0.text },
+            ["1", "2"]
         )
         XCTAssertEqual(
-            list.incomplete, [
-                .init(text: "1"),
-                .init(text: "2")
-            ]
+            list.incomplete.map { $0.text },
+            ["1", "2"]
         )
     }
 
@@ -137,29 +111,31 @@ class TodoListTests: XCTestCase {
         list.toggleCompleted(index: 1)
 
         XCTAssertEqual(
-            list.todos, [
-                .init(text: "1"),
-                .init(text: "2", completed: true)
-            ]
+            list.todos.map { $0.text },
+            ["1", "2"]
         )
         XCTAssertEqual(
-            list.incomplete, [
-                .init(text: "1"),
-            ]
+            list.todos.map { $0.completed },
+            [false, true]
+        )
+        XCTAssertEqual(
+            list.incomplete.map { $0.text },
+            ["1"]
         )
 
         list.move(sIndex: 1, destination: list, dIndex: 0)
 
         XCTAssertEqual(
-            list.todos, [
-                .init(text: "2", completed: true),
-                .init(text: "1")
-            ]
+            list.todos.map { $0.text },
+            ["2", "1"]
         )
         XCTAssertEqual(
-            list.incomplete, [
-                .init(text: "1"),
-            ]
+            list.todos.map { $0.completed },
+            [true, false]
+        )
+        XCTAssertEqual(
+            list.incomplete.map { $0.text },
+            ["1"]
         )
     }
 
@@ -183,18 +159,12 @@ class TodoListTests: XCTestCase {
             list.incomplete, []
         )
         XCTAssertEqual(
-            list2.todos, [
-                .init(text: "1"),
-                .init(text: "2"),
-                .init(text: "3")
-            ]
+            list2.todos.map { $0.text },
+            ["1", "2", "3"]
         )
         XCTAssertEqual(
-            list2.incomplete, [
-                .init(text: "1"),
-                .init(text: "2"),
-                .init(text: "3")
-            ]
+            list2.incomplete.map { $0.text },
+            ["1", "2", "3"]
         )
     }
 
@@ -210,18 +180,12 @@ class TodoListTests: XCTestCase {
         list.toggleCompleted(index: 0)
 
         XCTAssertEqual(
-            list.todos, [
-                .init(text: "2"),
-                .init(text: "1"),
-                .init(text: "3")
-            ]
+            list.todos.map { $0.text },
+            ["2", "1", "3"]
         )
         XCTAssertEqual(
-            list.incomplete, [
-                .init(text: "2"),
-                .init(text: "1"),
-                .init(text: "3")
-            ]
+            list.incomplete.map { $0.text },
+            ["2", "1", "3"]
         )
     }
 
@@ -234,14 +198,12 @@ class TodoListTests: XCTestCase {
         list.toggleCompleted(index: 0)
 
         XCTAssertEqual(
-            list.todos, [
-                .init(text: "1")
-            ]
+            list.todos.map { $0.text },
+            ["1"]
         )
         XCTAssertEqual(
-            list.incomplete, [
-                .init(text: "1")
-            ]
+            list.incomplete.map { $0.text },
+            ["1"]
         )
     }
 
@@ -251,17 +213,14 @@ class TodoListTests: XCTestCase {
         let todo = Todo(text: "1")
         list.add(todo: todo)
         XCTAssertEqual(
-            list.incomplete, [
-                .init(text: "1")
-            ]
+            list.incomplete.map { $0.text },
+            ["1"]
         )
         list.duplicate(at: 0)
 
         XCTAssertEqual(
-            list.incomplete, [
-                .init(text: "1"),
-                .init(text: "1")
-            ]
+            list.incomplete.map { $0.text },
+            ["1", "1"]
         )
         XCTAssertTrue(list.todos[0] === todo)
 
@@ -271,11 +230,12 @@ class TodoListTests: XCTestCase {
         list.duplicate(at: 1)
 
         XCTAssertEqual(
-            list.todos, [
-                .init(text: "1", completed: true),
-                .init(text: "1", completed: true),
-                .init(text: "1", completed: true)
-            ]
+            list.todos.map { $0.text },
+            ["1", "1", "1"]
+        )
+        XCTAssertEqual(
+            list.todos.map { $0.completed },
+            [true, true, true]
         )
     }
 }
