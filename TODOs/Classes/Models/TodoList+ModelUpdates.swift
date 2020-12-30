@@ -231,7 +231,7 @@ extension Array where Element: AnyObject {
 
 extension Array where Element == Todo {
     func prettyPrint() {
-        forEach { print($0.text, "completed:", $0.completed) }
+        forEach { print($0.text, "completed:", $0.completed, $0.id) }
         print("---")
     }
 }
