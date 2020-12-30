@@ -10,7 +10,8 @@ import UIKit
 
 class SettingsViewController: UITableViewController {
 
-    enum Section {
+    enum Section: Int {
+        case toggles = 0
         case recurring
     }
 
@@ -43,6 +44,7 @@ class SettingsViewController: UITableViewController {
 
         tableView.register(cell: RecurringTodoCell.self)
         tableView.register(cell: AddTodoCell.self)
+        tableView.register(cell: SettingCell.self)
         tableView.estimatedRowHeight = 140
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 130
@@ -99,6 +101,15 @@ extension SettingsViewController: RecurringTodoCellDelegate {
         view.addSubview(dummy)
         dummy.inputView = picker
         dummy.becomeFirstResponder()
+    }
+}
+
+// MARK: - SettingsCellsDelegate
+
+extension SettingsViewController: SettingCellDelegate {
+    func settingCell(_ cell: SettingCell, didToggle on: Bool) {
+        // TODO: update user defaults..
+        print(on)
     }
 }
 
