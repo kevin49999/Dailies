@@ -79,7 +79,7 @@ struct TODOsWidgetEntryView : View {
             VStack(alignment: .leading, spacing: 4.0) {
                 Text(entry.today.name)
                     .font(.headline)
-                ForEach(entry.today.todos.filter { !$0.completed }.prefix(prefix)
+                ForEach(entry.today.visible.prefix(prefix)
                         , id: \.self) { todo in
                     todo.completed ? Text("- \(todo.text)")
                         .strikethrough(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/, color: .secondary)
@@ -87,7 +87,7 @@ struct TODOsWidgetEntryView : View {
                         Text("- \(todo.text)")
                 }
                 entry.today.visible.count > prefix ?
-                    Text("\(entry.today.todos.filter { !$0.completed }.count - prefix) more todo")
+                    Text("\(entry.today.incomplete.count - entry.today.visible.prefix(prefix).filter { !$0.completed }.count) more todo")
                     .font(.callout): nil
                 Spacer()
             }
