@@ -27,22 +27,9 @@ extension TodoList: TodoListViewData {
         case .created:
             return name
         case .daysOfWeek:
-            let isToday = dateCreated == .todayYearMonthDay()
-            var dateString = DateFormatters.daysOfWeekNameDayMonth.string(
+            return DateFormatters.daysOfWeekNameDayMonth.string(
                 from: dateCreated
             )
-
-            // can be cleaner
-            if isWeekend || isToday {
-                dateString.insert(" ", at: dateString.startIndex)
-            }
-            if isWeekend {
-                dateString.insert("🏝", at: dateString.startIndex)
-            }
-            if isToday {
-                dateString.insert("🌠", at: dateString.startIndex)
-            }
-            return dateString
         }
     }
 }

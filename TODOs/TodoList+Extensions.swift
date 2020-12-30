@@ -23,22 +23,32 @@ extension TodoList {
         today: Date = .todayYearMonthDay(),
         settings: [Setting] = Setting.saved()
     ) -> [TodoList] {
-        guard let saved = try? getDaysOfWeek(), !saved.isEmpty else {
-            let new = newDaysOfWeekTodoLists()
-            new.applySettings(settings)
-            return new
+        guard var lists = try? getDaysOfWeek(), !lists.isEmpty else {
+            let l = newDaysOfWeekTodoLists()
+            l.applySettings(settings)
+            return l
         }
 
-        let new = newDaysOfWeekTodoLists()
-        for list in new {
-            let match = saved.first(where: { $0.name == list.name })!
-            if match.dateCreated >= today {
-                list.todos = match.todos
-                list.showCompleted = match.showCompleted
+        let current = currentDaysOfWeek()
+        var i = 0
+        var mDay = lists.last!.dateCreated
+        while i < current.count {
+            if lists[i].dateCreated < today {
+                lists.remove(at: i)
+                let newDay = mDay.byAddingDays(1)
+                let newList = TodoList(
+                    classification: .daysOfWeek,
+                    dateCreated: newDay,
+                    name: current[lists.count]
+                )
+                /// add setting to list potentially
+                lists.append(newList)
+                mDay = newDay
+            } else {
+                i += 1
             }
         }
-        new.applySettings(settings)
-        return new
+        return lists
     }
 
     static func newDaysOfWeekTodoLists(
@@ -48,7 +58,7 @@ extension TodoList {
         return currentDaysOfWeek().enumerated().map { offset, day in
             TodoList(
                 classification: .daysOfWeek,
-                dateCreated: calendar.date(byAdding: DateComponents(day: offset), to: today)!,
+                dateCreated: today.byAddingDays(offset),
                 name: day
             )
         }
@@ -103,7 +113,7 @@ extension Array where Element == TodoList {
     func applySetting(_ setting: Setting, calendar: Calendar = .current) {
         applySettings([setting], calendar: calendar)
     }
-
+    
     func applySettings(_ settings: [Setting], calendar: Calendar = .current) {
         for setting in settings {
             switch setting.frequency {
@@ -116,7 +126,7 @@ extension Array where Element == TodoList {
                  .saturdays:
                 addSettingForDay(setting, setting.frequency.rawValue)
             case .weekends:
-               addSettingForDays(setting, [0, 6])
+                addSettingForDays(setting, [0, 6])
             case .weekdays:
                 addSettingForDays(setting, [Int](1...5))
             case .everyday:
@@ -129,15 +139,19 @@ extension Array where Element == TodoList {
         days.forEach { addSettingForDay(setting, $0) }
     }
 
-    func addSettingForDay(_ setting: Setting, _ day: Int, calendar: Calendar = .current) {
+    private func addSettingForDay(_ setting: Setting, _ day: Int, calendar: Calendar = .current) {
         guard let index = firstIndex(where: { $0.name == calendar.weekdaySymbols[day] }) else {
             assertionFailure("Could not match weekday name to day integer")
             return
         }
+        self[index].addTodoFor(setting: setting)
+    }
+}
 
-        let settingUUID = setting.id.uuidString
-        if !self[index].todos.contains(where: { $0.settingUUID == settingUUID || $0.text == setting.name }) {
-            self[index].add(todo: .init(text: setting.name, settingUUID: settingUUID))
+extension TodoList {
+    func addTodoFor(setting: Setting) {
+        if !todos.contains(where: { $0.settingUUID == setting.id.uuidString }) {
+            add(todo: .init(text: setting.name, settingUUID: setting.id.uuidString))
         }
     }
 }

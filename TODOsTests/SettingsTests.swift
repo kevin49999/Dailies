@@ -19,7 +19,7 @@ class SettingsTests: XCTestCase {
 
         for list in days {
             if list.name == calendar.weekdaySymbols[setting.frequency.rawValue] {
-                XCTAssertEqual(list.todos, [.init(text: "Monday")])
+                XCTAssertEqual(list.todos.map { $0 .text }, ["Monday"])
             } else {
                 XCTAssertEqual(list.todos, [])
             }
@@ -36,7 +36,7 @@ class SettingsTests: XCTestCase {
             switch list.name {
             case calendar.weekdaySymbols[0],
                  calendar.weekdaySymbols[6]:
-                XCTAssertEqual(list.todos, [.init(text: "Weekend")])
+                XCTAssertEqual(list.todos.map { $0 .text }, ["Weekend"])
             default:
                 XCTAssertEqual(list.todos, [])
             }
@@ -56,7 +56,7 @@ class SettingsTests: XCTestCase {
                  calendar.weekdaySymbols[3],
                  calendar.weekdaySymbols[4],
                  calendar.weekdaySymbols[5]:
-                XCTAssertEqual(list.todos, [.init(text: "Weekdays")])
+                XCTAssertEqual(list.todos.map { $0 .text }, ["Weekdays"])
             default:
                 XCTAssertEqual(list.todos, [])
             }
@@ -78,7 +78,7 @@ class SettingsTests: XCTestCase {
                  calendar.weekdaySymbols[4],
                  calendar.weekdaySymbols[5],
                  calendar.weekdaySymbols[6]:
-                XCTAssertEqual(list.todos, [.init(text: "Everyday")])
+                XCTAssertEqual(list.todos.map { $0 .text }, ["Everyday"])
             default:
                 XCTAssertEqual(list.todos, [])
             }
