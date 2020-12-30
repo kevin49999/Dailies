@@ -20,13 +20,10 @@ extension TodoList {
 
     static func daysOfWeekTodoLists(
         calendar: Calendar = .current,
-        today: Date = .todayYearMonthDay(),
-        settings: [Setting] = Setting.saved()
+        today: Date = .todayYearMonthDay()
     ) -> [TodoList] {
         guard var lists = try? getDaysOfWeek(), !lists.isEmpty else {
-            let l = newDaysOfWeekTodoLists()
-            l.applySettings(settings)
-            return l
+            return newDaysOfWeekTodoLists()
         }
 
         let current = currentDaysOfWeek()
@@ -41,7 +38,6 @@ extension TodoList {
                     dateCreated: newDay,
                     name: current[lists.count]
                 )
-                /// add setting to list potentially
                 lists.append(newList)
                 mDay = newDay
             } else {
@@ -150,8 +146,13 @@ extension Array where Element == TodoList {
 
 extension TodoList {
     func addTodoFor(setting: Setting) {
-        if !todos.contains(where: { $0.settingUUID == setting.id.uuidString }) {
-            add(todo: .init(text: setting.name, settingUUID: setting.id.uuidString))
+        let todo = Todo(
+            text: setting.name,
+            settingUUID: setting.id.uuidString
+        )
+        /// somehow generated can have same UUID as existing? checking that too
+        if !todos.contains(where: { $0.settingUUID == setting.id.uuidString }) && !todos.contains(todo) {
+            add(todo: todo)
         }
     }
 }
