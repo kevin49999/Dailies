@@ -21,6 +21,7 @@ extension SKStoreReviewController {
             UserDefaults.standard.set(added + 1, forKey: reviewCutoffKey)
         }
     }
+    
     class func requestReviewInWindow() {
         if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
             SKStoreReviewController.requestReview(in: scene)
