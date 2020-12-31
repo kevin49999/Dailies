@@ -40,9 +40,13 @@
 		5217798C25941B8300D92EAA /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5217798B25941B8300D92EAA /* SettingCell.swift */; };
 		521E3DC6250AB8100098E05A /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521E3DC5250AB8100098E05A /* Setting.swift */; };
 		521E3DC8250AC5250098E05A /* SettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521E3DC7250AC5250098E05A /* SettingsTests.swift */; };
+		523029BF259D68AD002D1725 /* GeneralSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523029BE259D68AD002D1725 /* GeneralSettings.swift */; };
+		523029C4259D68E5002D1725 /* ToggleSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523029C3259D68E5002D1725 /* ToggleSetting.swift */; };
+		523029CB259D6952002D1725 /* GeneralSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523029BE259D68AD002D1725 /* GeneralSettings.swift */; };
 		5244F90923F8C67B00B4DAEB /* UIAlertController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5244F90823F8C67B00B4DAEB /* UIAlertController+Extensions.swift */; };
 		524D268E23F8993F00EC46CC /* TodoListViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524D268D23F8993F00EC46CC /* TodoListViewData.swift */; };
 		524D269023F8995B00EC46CC /* DateFormatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524D268F23F8995B00EC46CC /* DateFormatters.swift */; };
+		525197FF259D91D600256BA6 /* SKStoreReviewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525197FE259D91D600256BA6 /* SKStoreReviewController+Extensions.swift */; };
 		52567EB323DE8D3E000332EA /* AddTodoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52567EB223DE8D3E000332EA /* AddTodoCell.xib */; };
 		52567EB523DE8D5F000332EA /* AddTodoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52567EB423DE8D5F000332EA /* AddTodoCell.swift */; };
 		52567EB723DE9060000332EA /* TodoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52567EB623DE9060000332EA /* TodoList.swift */; };
@@ -130,9 +134,12 @@
 		5217798B25941B8300D92EAA /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		521E3DC5250AB8100098E05A /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
 		521E3DC7250AC5250098E05A /* SettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTests.swift; sourceTree = "<group>"; };
+		523029BE259D68AD002D1725 /* GeneralSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettings.swift; sourceTree = "<group>"; };
+		523029C3259D68E5002D1725 /* ToggleSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleSetting.swift; sourceTree = "<group>"; };
 		5244F90823F8C67B00B4DAEB /* UIAlertController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extensions.swift"; sourceTree = "<group>"; };
 		524D268D23F8993F00EC46CC /* TodoListViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewData.swift; sourceTree = "<group>"; };
 		524D268F23F8995B00EC46CC /* DateFormatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatters.swift; sourceTree = "<group>"; };
+		525197FE259D91D600256BA6 /* SKStoreReviewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SKStoreReviewController+Extensions.swift"; sourceTree = "<group>"; };
 		52567EB223DE8D3E000332EA /* AddTodoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddTodoCell.xib; sourceTree = "<group>"; };
 		52567EB423DE8D5F000332EA /* AddTodoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTodoCell.swift; sourceTree = "<group>"; };
 		52567EB623DE9060000332EA /* TodoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoList.swift; sourceTree = "<group>"; };
@@ -195,6 +202,7 @@
 				0A424A702384B34B00E1FC34 /* UIFont+Extensions.swift */,
 				0A424A722384B3C200E1FC34 /* UITableView+Extensions.swift */,
 				52013986240369890030DD3D /* UIViewController+ChildControllers.swift */,
+				525197FE259D91D600256BA6 /* SKStoreReviewController+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -358,6 +366,7 @@
 			children = (
 				520F6E93257DDEE1002154D2 /* AppGroup.swift */,
 				52567EBC23E74B11000332EA /* Cache.swift */,
+				523029BE259D68AD002D1725 /* GeneralSettings.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -370,6 +379,7 @@
 				52567EB623DE9060000332EA /* TodoList.swift */,
 				520F6E86257DDDC9002154D2 /* TodoList+Extensions.swift */,
 				5295A218246B158E00B502CA /* TodoList+ModelUpdates.swift */,
+				523029C3259D68E5002D1725 /* ToggleSetting.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -532,6 +542,7 @@
 				5295A219246B158E00B502CA /* TodoList+ModelUpdates.swift in Sources */,
 				52013987240369890030DD3D /* UIViewController+ChildControllers.swift in Sources */,
 				521E3DC6250AB8100098E05A /* Setting.swift in Sources */,
+				523029C4259D68E5002D1725 /* ToggleSetting.swift in Sources */,
 				52F492AD2481BA9F001DA434 /* TodoListTableViewDataSource.swift in Sources */,
 				0A424A492384B0FC00E1FC34 /* TodosContainerViewController.swift in Sources */,
 				52567EBF23EBBC91000332EA /* Date+Extensions.swift in Sources */,
@@ -556,7 +567,9 @@
 				0A424A712384B34B00E1FC34 /* UIFont+Extensions.swift in Sources */,
 				52C863F82507D52600BD5615 /* RecurringTodoCell.swift in Sources */,
 				52AABC2F23FA061D000FA700 /* TodoListSectionHeaderView.swift in Sources */,
+				525197FF259D91D600256BA6 /* SKStoreReviewController+Extensions.swift in Sources */,
 				52D35B172502C1A700CFD370 /* SettingsViewController.swift in Sources */,
+				523029BF259D68AD002D1725 /* GeneralSettings.swift in Sources */,
 				0A424A6F2384B32E00E1FC34 /* StoryboardIdentifiable.swift in Sources */,
 				5201398B24218FB80030DD3D /* TodoListsViewController.swift in Sources */,
 				52567EBD23E74B11000332EA /* Cache.swift in Sources */,
@@ -582,6 +595,7 @@
 				520F6E95257DDEE1002154D2 /* AppGroup.swift in Sources */,
 				520F6E76257DDBC2002154D2 /* TodoList.swift in Sources */,
 				520F6E7A257DDBC7002154D2 /* Todo.swift in Sources */,
+				523029CB259D6952002D1725 /* GeneralSettings.swift in Sources */,
 				520F6E7E257DDC54002154D2 /* Date+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -833,7 +847,7 @@
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_ENTITLEMENTS = TODOsWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = X6XFU66KA9;
 				INFOPLIST_FILE = TODOsWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
@@ -859,7 +873,7 @@
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_ENTITLEMENTS = TODOsWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = X6XFU66KA9;
 				INFOPLIST_FILE = TODOsWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.2;

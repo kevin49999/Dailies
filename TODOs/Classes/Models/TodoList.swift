@@ -52,7 +52,7 @@ class TodoList: Codable {
         dateCreated: Date = .todayYearMonthDay(),
         name: String,
         todos: [Todo] = [],
-        showCompleted: Bool = false
+        showCompleted: Bool = !GeneralSettings.shared.hideCompleted
     ) {
         self.classification = classification
         self.dateCreated = dateCreated
