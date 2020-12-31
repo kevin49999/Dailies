@@ -50,10 +50,18 @@ class SettingsTableViewDataSource: UITableViewDiffableDataSource<SettingsViewCon
     }
 
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        if settings.count == indexPath.row {
-            return false // AddTodoCell
+        guard let s = Section(rawValue: indexPath.section) else {
+            preconditionFailure()
         }
-        return true
+        switch s {
+        case .toggles:
+            return false
+        case .recurring:
+            if settings.count == indexPath.row {
+                return false // AddTodoCell
+            }
+            return true
+        }
     }
 
     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
@@ -68,7 +76,6 @@ class SettingsTableViewDataSource: UITableViewDiffableDataSource<SettingsViewCon
         guard let s = Section(rawValue: section) else {
             preconditionFailure()
         }
-
         switch s {
         case .toggles:
             return "General"
