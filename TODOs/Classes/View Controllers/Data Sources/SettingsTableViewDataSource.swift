@@ -98,7 +98,7 @@ class SettingsTableViewDataSource: UITableViewDiffableDataSource<SettingsViewCon
         case .toggles:
             return "General"
         case .recurring:
-            return "Recurring 🔁"
+            return "Recurring"
         }
     }
 
@@ -117,7 +117,7 @@ extension SettingsTableViewDataSource {
         var new = Snapshot()
         new.appendSections([.toggles])
         new.appendItems(
-            [.toggle(.init(name: "Hide Completed Items", isOn: GeneralSettings.shared.hideCompleted)),
+            [.toggle(.init(name: "New Lists Hide Completed", isOn: GeneralSettings.shared.hideCompleted)),
              .toggle(.init(name: "Rollover Incomplete to Next Day", isOn: GeneralSettings.shared.rollover))
             ],
             toSection: .toggles

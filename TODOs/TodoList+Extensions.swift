@@ -20,7 +20,8 @@ extension TodoList {
 
     static func daysOfWeekTodoLists(
         calendar: Calendar = .current,
-        today: Date = .todayYearMonthDay()
+        today: Date = .todayYearMonthDay(),
+        settings: GeneralSettings = .shared
     ) -> [TodoList] {
         guard var lists = try? getDaysOfWeek(), !lists.isEmpty else {
             return newDaysOfWeekTodoLists()
@@ -31,7 +32,7 @@ extension TodoList {
         var mDay = lists.last!.dateCreated
         while i < current.count {
             if lists[i].dateCreated < today {
-                lists.remove(at: i)
+                let removed = lists.remove(at: i)
                 let newDay = mDay.byAddingDays(1)
                 let newList = TodoList(
                     classification: .daysOfWeek,
@@ -40,6 +41,11 @@ extension TodoList {
                 )
                 lists.append(newList)
                 mDay = newDay
+                // check if day before for rollover items
+                if settings.rollover, calendar.dateComponents([.day], from: removed.dateCreated, to: today).day == -1 {
+                    print(removed.todos)
+                    lists[i + 1].todos.append(contentsOf: removed.todos)
+                }
             } else {
                 i += 1
             }
