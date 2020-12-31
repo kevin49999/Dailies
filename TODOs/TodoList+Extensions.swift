@@ -44,7 +44,6 @@ extension TodoList {
                 // check if day before for rollover items
                 if settings.rollover, calendar.dateComponents([.day], from: removed.dateCreated, to: today).day == 1 {
                     let prev = removed.todos.filter { !$0.completed && !$0.isSetting }
-                    prev.prettyPrint()
                     lists[i].todos.append(contentsOf: prev)
                 }
             } else {
