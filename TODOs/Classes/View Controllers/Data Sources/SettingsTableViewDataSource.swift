@@ -8,41 +8,16 @@
 
 import UIKit
 
-/// move in data source and rename Model
-enum SettingModel: Hashable {
-    case toggle(ToggleSetting)
-    case recurring(Setting)
-}
-
-///
-class ToggleSetting: Hashable {
-    let name: String
-    var isOn: Bool
-
-    init(name: String, isOn: Bool) {
-        self.name = name
-        self.isOn = isOn
-    }
-}
-
-///
-extension ToggleSetting {
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(name)
-        hasher.combine(isOn)
-    }
-
-    static func == (lhs: ToggleSetting, rhs: ToggleSetting) -> Bool {
-        return lhs.name == rhs.name && lhs.isOn == rhs.isOn
-    }
-}
-
 typealias SettingsCellsDelegate = AddTodoCellDelegate & RecurringTodoCellDelegate & SettingCellDelegate
 
-class SettingsTableViewDataSource: UITableViewDiffableDataSource<SettingsViewController.Section, SettingModel> {
+class SettingsTableViewDataSource: UITableViewDiffableDataSource<SettingsViewController.Section, SettingsTableViewDataSource.Model> {
+    enum Model: Hashable {
+        case toggle(ToggleSetting)
+        case recurring(Setting)
+    }
 
     typealias Section = SettingsViewController.Section
-    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, SettingModel>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Model>
 
     var settings: [Setting] = []
 
@@ -123,7 +98,7 @@ extension SettingsTableViewDataSource {
             toSection: .toggles
         )
         new.appendSections([.recurring])
-        var items = settings.map { SettingModel.recurring($0) }
+        var items = settings.map { Model.recurring($0) }
         /// Repeated hack from TodoListTableViewDataSource
         let current = snapshot()
         if current.indexOfSection(.recurring) != nil,
@@ -137,7 +112,7 @@ extension SettingsTableViewDataSource {
            }) {
             items.append(add)
         } else {
-            items.append(SettingModel.recurring(.init(name: "AddTodoCellHack", frequency: .mondays)))
+            items.append(Model.recurring(.init(name: "AddTodoCellHack", frequency: .mondays)))
         }
         new.appendItems(items, toSection: .recurring)
         apply(new, animatingDifferences: animatingDifferences)
