@@ -8,8 +8,8 @@
 
 import StoreKit
 
-let reviewCutoff = 25
-let reviewCutoffKey = "review-cutoff"
+fileprivate let reviewCutoff = 25
+fileprivate let reviewCutoffKey = "review-cutoff"
 
 extension SKStoreReviewController {
     class func incrementReviewAction(defaults: UserDefaults = .standard) {
@@ -21,7 +21,7 @@ extension SKStoreReviewController {
             UserDefaults.standard.set(added + 1, forKey: reviewCutoffKey)
         }
     }
-    
+
     class func requestReviewInWindow() {
         if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
             SKStoreReviewController.requestReview(in: scene)
