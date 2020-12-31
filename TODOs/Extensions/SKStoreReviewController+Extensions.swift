@@ -14,7 +14,6 @@ let reviewCutoffKey = "review-cutoff"
 extension SKStoreReviewController {
     class func incrementReviewAction(defaults: UserDefaults = .standard) {
         let added = defaults.integer(forKey: reviewCutoffKey)
-        print(added)
         if added + 1 == reviewCutoff {
             SKStoreReviewController.requestReviewInWindow()
             UserDefaults.standard.set(0, forKey: reviewCutoffKey)
