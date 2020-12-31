@@ -20,6 +20,7 @@ class Todo: Codable, Identifiable {
     var text: String
     var completed: Bool
     var settingUUID: String?
+    var isSetting: Bool { settingUUID != nil }
 
     init(
         id: UUID = UUID(),

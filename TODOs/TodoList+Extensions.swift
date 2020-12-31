@@ -43,7 +43,7 @@ extension TodoList {
                 mDay = newDay
                 // check if day before for rollover items
                 if settings.rollover, calendar.dateComponents([.day], from: removed.dateCreated, to: today).day == -1 {
-                    let prev = removed.todos.filter { $0.settingUUID == nil }
+                    let prev = removed.todos.filter { !$0.isSetting }
                     print(prev)
                     lists[i + 1].todos.append(contentsOf: prev)
                 }
