@@ -108,8 +108,14 @@ extension SettingsViewController: RecurringTodoCellDelegate {
 
 extension SettingsViewController: SettingCellDelegate {
     func settingCell(_ cell: SettingCell, didToggle on: Bool) {
-        // TODO: update user defaults..
-        print(on)
+        switch tableView.indexPath(for: cell)?.row {
+        case 0:
+            GeneralSettings.shared.toggleHideCompleted(on: on)
+        case 1:
+            GeneralSettings.shared.toggleRollover(on: on)
+        default:
+            preconditionFailure()
+        }
     }
 }
 

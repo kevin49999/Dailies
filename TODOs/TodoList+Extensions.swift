@@ -135,7 +135,10 @@ extension Array where Element == TodoList {
         days.forEach { addSettingForDay(setting, $0) }
     }
 
-    private func addSettingForDay(_ setting: Setting, _ day: Int, calendar: Calendar = .current) {
+    private func addSettingForDay(_ setting: Setting, _ day: Int, calendar: Calendar = .current) {        print(setting)
+        print(calendar.weekdaySymbols[day])
+        print("!!!")
+        forEach { print($0.name) }
         guard let index = firstIndex(where: { $0.name == calendar.weekdaySymbols[day] }) else {
             assertionFailure("Could not match weekday name to day integer")
             return

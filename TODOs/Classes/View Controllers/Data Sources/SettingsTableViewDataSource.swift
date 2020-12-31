@@ -117,8 +117,8 @@ extension SettingsTableViewDataSource {
         var new = Snapshot()
         new.appendSections([.toggles])
         new.appendItems(
-            [.toggle(.init(name: "Hide Completed Items", isOn: true)), // TODO: grab from defaults
-             .toggle(.init(name: "Rollover Incomplete to Next Day", isOn: true)) // TODO: grab from defaults
+            [.toggle(.init(name: "Hide Completed Items", isOn: GeneralSettings.shared.hideCompleted)),
+             .toggle(.init(name: "Rollover Incomplete to Next Day", isOn: GeneralSettings.shared.rollover))
             ],
             toSection: .toggles
         )
@@ -141,13 +141,5 @@ extension SettingsTableViewDataSource {
         }
         new.appendItems(items, toSection: .recurring)
         apply(new, animatingDifferences: animatingDifferences)
-    }
-}
-
-// MARK: - SettingCellDelegate
-
-extension SettingsTableViewDataSource: SettingCellDelegate {
-    func settingCell(_ cell: SettingCell, didToggle on: Bool) {
-        print(on)
     }
 }
