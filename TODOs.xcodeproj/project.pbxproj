@@ -46,6 +46,7 @@
 		5244F90923F8C67B00B4DAEB /* UIAlertController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5244F90823F8C67B00B4DAEB /* UIAlertController+Extensions.swift */; };
 		524D268E23F8993F00EC46CC /* TodoListViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524D268D23F8993F00EC46CC /* TodoListViewData.swift */; };
 		524D269023F8995B00EC46CC /* DateFormatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524D268F23F8995B00EC46CC /* DateFormatters.swift */; };
+		525197FF259D91D600256BA6 /* SKStoreReviewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525197FE259D91D600256BA6 /* SKStoreReviewController+Extensions.swift */; };
 		52567EB323DE8D3E000332EA /* AddTodoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52567EB223DE8D3E000332EA /* AddTodoCell.xib */; };
 		52567EB523DE8D5F000332EA /* AddTodoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52567EB423DE8D5F000332EA /* AddTodoCell.swift */; };
 		52567EB723DE9060000332EA /* TodoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52567EB623DE9060000332EA /* TodoList.swift */; };
@@ -138,6 +139,7 @@
 		5244F90823F8C67B00B4DAEB /* UIAlertController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extensions.swift"; sourceTree = "<group>"; };
 		524D268D23F8993F00EC46CC /* TodoListViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewData.swift; sourceTree = "<group>"; };
 		524D268F23F8995B00EC46CC /* DateFormatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatters.swift; sourceTree = "<group>"; };
+		525197FE259D91D600256BA6 /* SKStoreReviewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SKStoreReviewController+Extensions.swift"; sourceTree = "<group>"; };
 		52567EB223DE8D3E000332EA /* AddTodoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddTodoCell.xib; sourceTree = "<group>"; };
 		52567EB423DE8D5F000332EA /* AddTodoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTodoCell.swift; sourceTree = "<group>"; };
 		52567EB623DE9060000332EA /* TodoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoList.swift; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 				0A424A702384B34B00E1FC34 /* UIFont+Extensions.swift */,
 				0A424A722384B3C200E1FC34 /* UITableView+Extensions.swift */,
 				52013986240369890030DD3D /* UIViewController+ChildControllers.swift */,
+				525197FE259D91D600256BA6 /* SKStoreReviewController+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -564,6 +567,7 @@
 				0A424A712384B34B00E1FC34 /* UIFont+Extensions.swift in Sources */,
 				52C863F82507D52600BD5615 /* RecurringTodoCell.swift in Sources */,
 				52AABC2F23FA061D000FA700 /* TodoListSectionHeaderView.swift in Sources */,
+				525197FF259D91D600256BA6 /* SKStoreReviewController+Extensions.swift in Sources */,
 				52D35B172502C1A700CFD370 /* SettingsViewController.swift in Sources */,
 				523029BF259D68AD002D1725 /* GeneralSettings.swift in Sources */,
 				0A424A6F2384B32E00E1FC34 /* StoryboardIdentifiable.swift in Sources */,
