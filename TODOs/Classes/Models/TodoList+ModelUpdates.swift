@@ -135,9 +135,9 @@ extension TodoList {
         }
 
         if let r = right {
-            destination.incomplete.insert(todo, before: r, reference: destination.todos)
+            destination.incomplete.insert(todo, before: r, reference: destination.incomplete)
         } else if let l = left {
-            destination.incomplete.insert(todo, after: l, reference: destination.todos)
+            destination.incomplete.insert(todo, after: l, reference: destination.incomplete)
         } else {
             destination.incomplete.append(todo)
         }
