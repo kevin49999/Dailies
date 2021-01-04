@@ -99,9 +99,9 @@ extension TodoList {
         }
 
         if let r = right {
-            destination.todos.insert(todo, before: r, reference: destination.incomplete)
+            destination.todos.insert(todo, before: r)
         } else if let l = left {
-            destination.todos.insert(todo, after: l, reference: destination.incomplete)
+            destination.todos.insert(todo, after: l)
         } else {
             destination.todos.append(todo)
         }
@@ -135,9 +135,9 @@ extension TodoList {
         }
 
         if let r = right {
-            destination.incomplete.insert(todo, before: r, reference: destination.incomplete)
+            destination.incomplete.insert(todo, before: r)
         } else if let l = left {
-            destination.incomplete.insert(todo, after: l, reference: destination.incomplete)
+            destination.incomplete.insert(todo, after: l)
         } else {
             destination.incomplete.append(todo)
         }
@@ -205,17 +205,17 @@ extension TodoList {
 // MARK: - General
 
 extension Array where Element: AnyObject {
-    fileprivate mutating func insert(_ element: Element, after: Element, reference: Array) {
-        if let i = reference.firstIndex(where: { $0 === after }) {
+    fileprivate mutating func insert(_ element: Element, after: Element) {
+        if let i = self.firstIndex(where: { $0 === after }) {
             safelyInsert(element, at: i + 1)
         } else {
             append(element)
         }
     }
 
-    fileprivate mutating func insert(_ element: Element, before: Element, reference: Array) {
-        if let i = reference.firstIndex(where: { $0 === before }) {
-            safelyInsert(element, at: i - 1)
+    fileprivate mutating func insert(_ element: Element, before: Element) {
+        if let i = self.firstIndex(where: { $0 === before }) {
+            safelyInsert(element, at: i)
         } else {
             append(element)
         }
