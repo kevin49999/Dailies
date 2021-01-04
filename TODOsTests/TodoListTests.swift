@@ -238,4 +238,32 @@ class TodoListTests: XCTestCase {
             [true, true, true]
         )
     }
+
+    func testShowHideFromCompleted() {
+        let list = TodoList(classification: .created, name: "Bug 1/4")
+        _ = list.incomplete // ""
+        list.add(todo: .init(text: "1"))
+        list.add(todo: .init(text: "2"))
+        list.add(todo: .init(text: "3"))
+        list.add(todo: .init(text: "4"))
+        list.add(todo: .init(text: "5"))
+        list.showCompleted = true
+        list.toggleCompleted(index: 1)
+        list.toggleCompleted(index: 3)
+
+        list.showCompleted = false
+        XCTAssertEqual(
+            list.visible.map { $0.text },
+            ["1", "3", "5"]
+        )
+
+        list.toggleCompleted(index: 0)
+        list.showCompleted = true
+        list.toggleCompleted(index: 0)
+        list.showCompleted = false
+        XCTAssertEqual(
+            list.visible.map { $0.text },
+            ["1", "3", "5"]
+        )
+    }
 }
