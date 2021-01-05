@@ -29,12 +29,12 @@ class AddTodoCell: UITableViewCell {
         textView.adjustsFontForContentSizeCategory = true
         textView.font = UIFont.systemFont(
             ofSize: 16,
-            weight: .semibold
+            weight: .medium
         ).scaledFontforTextStyle(.body)
         placeholderTextView.adjustsFontForContentSizeCategory = true
         placeholderTextView.font = UIFont.systemFont(
             ofSize: 16,
-            weight: .semibold
+            weight: .medium
         ).scaledFontforTextStyle(.body)
     }
 

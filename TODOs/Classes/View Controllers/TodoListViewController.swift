@@ -15,7 +15,7 @@ class TodoListViewController: UIViewController {
 
     private(set) var dataSource: TodoListTableViewDataSource!
     private let tableView: UITableView = {
-        let table = UITableView(frame: .zero, style: .plain)
+        let table = UITableView(frame: .zero, style: .insetGrouped)
         table.dragInteractionEnabled = true
         table.register(cell: TodoCell.self)
         table.register(cell: AddTodoCell.self)

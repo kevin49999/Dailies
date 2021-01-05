@@ -21,7 +21,7 @@ class TodoListSectionHeaderView: UIView {
         let label = UILabel()
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 16, weight: .semibold).scaledFontforTextStyle(.body)
+        label.font = UIFont.systemFont(ofSize: 14, weight: .semibold).scaledFontforTextStyle(.body)
         return label
     }()
 
@@ -31,6 +31,7 @@ class TodoListSectionHeaderView: UIView {
             withConfiguration: UIImage.SymbolConfiguration(scale: .medium)
         )
         let button = UIButton()
+        button.tintColor = .systemPurple
         button.contentMode = .scaleAspectFit
         button.setImage(ellipsis, for: .normal)
         return button
@@ -57,7 +58,7 @@ class TodoListSectionHeaderView: UIView {
     }
 
     private func setup() {
-        backgroundColor = .tertiarySystemGroupedBackground
+        backgroundColor = .systemGroupedBackground
         actionButton.addTarget(self, action: #selector(tappedAction(_:)), for: .touchUpInside)
 
         if traitCollection.preferredContentSizeCategory.isAccessibilityCategory {
@@ -77,7 +78,7 @@ class TodoListSectionHeaderView: UIView {
             actionButton.heightAnchor.constraint(equalToConstant: 34),
             actionButton.widthAnchor.constraint(equalToConstant: 34)
         ])
-        let bottom = stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16.0)
+        let bottom = stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8.0)
         bottom.priority = UILayoutPriority(rawValue: 999)
         bottom.isActive = true
     }

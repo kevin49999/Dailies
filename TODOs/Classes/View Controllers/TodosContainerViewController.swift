@@ -55,7 +55,7 @@ class TodosContainerViewController: UIViewController {
             withConfiguration: UIImage.SymbolConfiguration(scale: .medium)
         )
         settingsBarButtonItem.image = gearImage
-        /// inefficient but fine for now, come back and find fast way to apply settings
+        /// inefficient but fine for now, come back and find fast way to apply settings, also causing TableView layout warning 
         settingsChanged()
     }
 

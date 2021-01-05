@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -16,24 +17,24 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="add.." selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yXq-ZE-BCb" userLabel="Placeholder View">
-                        <rect key="frame" x="20" y="20" width="374" height="33"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
-                        <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <rect key="frame" x="20" y="12" width="374" height="33"/>
+                        <color key="backgroundColor" systemColor="tableCellGroupedBackgroundColor"/>
+                        <color key="textColor" systemColor="systemGrayColor"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     </textView>
                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vSe-M8-qq9">
-                        <rect key="frame" x="20" y="20" width="374" height="33"/>
+                        <rect key="frame" x="20" y="12" width="374" height="33"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" systemColor="labelColor"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     </textView>
                 </subviews>
-                <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                <color key="backgroundColor" systemColor="tableCellGroupedBackgroundColor"/>
                 <constraints>
-                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="vSe-M8-qq9" secondAttribute="bottom" priority="999" constant="20" symbolic="YES" id="4hz-Zg-vWH"/>
-                    <constraint firstItem="vSe-M8-qq9" firstAttribute="top" secondItem="2ef-kx-Dj8" secondAttribute="top" constant="20" symbolic="YES" id="8or-vK-nOw"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="vSe-M8-qq9" secondAttribute="bottom" priority="999" constant="12" id="4hz-Zg-vWH"/>
+                    <constraint firstItem="vSe-M8-qq9" firstAttribute="top" secondItem="2ef-kx-Dj8" secondAttribute="top" constant="12" id="8or-vK-nOw"/>
                     <constraint firstItem="yXq-ZE-BCb" firstAttribute="top" secondItem="vSe-M8-qq9" secondAttribute="top" id="9oE-SB-75t"/>
                     <constraint firstItem="yXq-ZE-BCb" firstAttribute="trailing" secondItem="vSe-M8-qq9" secondAttribute="trailing" id="CdB-B8-LcW"/>
                     <constraint firstItem="yXq-ZE-BCb" firstAttribute="leading" secondItem="vSe-M8-qq9" secondAttribute="leading" id="VX9-Xh-q0E"/>
@@ -42,7 +43,7 @@
                     <constraint firstItem="vSe-M8-qq9" firstAttribute="leading" secondItem="2ef-kx-Dj8" secondAttribute="leading" constant="20" symbolic="YES" id="wgW-K8-kdb"/>
                 </constraints>
             </tableViewCellContentView>
-            <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+            <color key="backgroundColor" systemColor="tableCellGroupedBackgroundColor"/>
             <connections>
                 <outlet property="placeholderTextView" destination="yXq-ZE-BCb" id="CLg-ML-Ehx"/>
                 <outlet property="textView" destination="vSe-M8-qq9" id="eQ5-VS-fty"/>
@@ -50,4 +51,15 @@
             <point key="canvasLocation" x="-39.130434782608695" y="67.633928571428569"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGrayColor">
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="tableCellGroupedBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>
