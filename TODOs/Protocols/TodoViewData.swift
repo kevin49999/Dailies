@@ -17,7 +17,7 @@ extension Todo: TodoViewData {
     var attributedText: NSAttributedString? {
         let font = UIFont.systemFont(
             ofSize: 16,
-            weight: .semibold
+            weight: .regular
         ).scaledFontforTextStyle(.body)
         if completed {
             let attributes: [NSAttributedString.Key : Any] = [
