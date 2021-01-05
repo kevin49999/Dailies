@@ -55,6 +55,7 @@ class TodosContainerViewController: UIViewController {
             withConfiguration: UIImage.SymbolConfiguration(scale: .medium)
         )
         settingsBarButtonItem.image = gearImage
+        settingsBarButtonItem.tintColor = .systemPurple
         /// inefficient but fine for now, come back and find fast way to apply settings
         settingsChanged()
     }
