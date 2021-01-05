@@ -34,7 +34,7 @@ class RecurringTodoCell: UITableViewCell {
         textView.delegate = self
         textView.font = UIFont.systemFont(
             ofSize: 16,
-            weight: .semibold
+            weight: .regular
         ).scaledFontforTextStyle(.body)
         textView.adjustsFontForContentSizeCategory = true
         frequencyButton.setTitleColor(.systemGreen, for: .normal)

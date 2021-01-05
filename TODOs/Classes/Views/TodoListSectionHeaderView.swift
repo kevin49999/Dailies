@@ -21,7 +21,7 @@ class TodoListSectionHeaderView: UIView {
         let label = UILabel()
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 14, weight: .medium).scaledFontforTextStyle(.body)
+        label.font = UIFont.systemFont(ofSize: 14, weight: .semibold).scaledFontforTextStyle(.body)
         return label
     }()
 

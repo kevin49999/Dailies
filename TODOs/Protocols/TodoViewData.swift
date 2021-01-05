@@ -41,7 +41,7 @@ extension TodoList: TodoViewData {
     var attributedText: NSAttributedString? {
         let font = UIFont.systemFont(
             ofSize: 16,
-            weight: .semibold
+            weight: .regular
         ).scaledFontforTextStyle(.body)
         let attributes: [NSAttributedString.Key : Any] = [
             NSAttributedString.Key.font: font,
