@@ -65,6 +65,63 @@
 		52C863F82507D52600BD5615 /* RecurringTodoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C863F72507D52600BD5615 /* RecurringTodoCell.swift */; };
 		52C863FA2507D56800BD5615 /* RecurringTodoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52C863F92507D56800BD5615 /* RecurringTodoCell.xib */; };
 		52D35B172502C1A700CFD370 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D35B162502C1A700CFD370 /* SettingsViewController.swift */; };
+		52E226E025B296B30083D6D8 /* TodoViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52567EBA23DE907B000332EA /* TodoViewData.swift */; };
+		52E226E125B296B30083D6D8 /* TodoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52567EB623DE9060000332EA /* TodoList.swift */; };
+		52E226E225B296B30083D6D8 /* UndoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52662ABB2485C4D40072626B /* UndoView.swift */; };
+		52E226E325B296B30083D6D8 /* TodoList+ModelUpdates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5295A218246B158E00B502CA /* TodoList+ModelUpdates.swift */; };
+		52E226E425B296B30083D6D8 /* UIViewController+ChildControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52013986240369890030DD3D /* UIViewController+ChildControllers.swift */; };
+		52E226E525B296B30083D6D8 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521E3DC5250AB8100098E05A /* Setting.swift */; };
+		52E226E625B296B30083D6D8 /* ToggleSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523029C3259D68E5002D1725 /* ToggleSetting.swift */; };
+		52E226E725B296B30083D6D8 /* TodoListTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F492AC2481BA9F001DA434 /* TodoListTableViewDataSource.swift */; };
+		52E226E825B296B30083D6D8 /* TodosContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A424A482384B0FC00E1FC34 /* TodosContainerViewController.swift */; };
+		52E226E925B296B30083D6D8 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52567EBE23EBBC91000332EA /* Date+Extensions.swift */; };
+		52E226EA25B296B30083D6D8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A424A442384B0FC00E1FC34 /* AppDelegate.swift */; };
+		52E226EB25B296B30083D6D8 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520F6E93257DDEE1002154D2 /* AppGroup.swift */; };
+		52E226EC25B296B30083D6D8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A424A462384B0FC00E1FC34 /* SceneDelegate.swift */; };
+		52E226ED25B296B30083D6D8 /* TodoList+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520F6E86257DDDC9002154D2 /* TodoList+Extensions.swift */; };
+		52E226EE25B296B30083D6D8 /* TodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52013984240363070030DD3D /* TodoListViewController.swift */; };
+		52E226EF25B296B30083D6D8 /* DateFormatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524D268F23F8995B00EC46CC /* DateFormatters.swift */; };
+		52E226F025B296B30083D6D8 /* TodoListViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524D268D23F8993F00EC46CC /* TodoListViewData.swift */; };
+		52E226F125B296B30083D6D8 /* SettingsTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AE14342507E0D00089DFC8 /* SettingsTableViewDataSource.swift */; };
+		52E226F225B296B30083D6D8 /* UndoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52662AB92485841B0072626B /* UndoItem.swift */; };
+		52E226F325B296B30083D6D8 /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5217798B25941B8300D92EAA /* SettingCell.swift */; };
+		52E226F425B296B30083D6D8 /* UIEdgeInsets+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525A8B93242FE2E2002DCDD0 /* UIEdgeInsets+Extensions.swift */; };
+		52E226F525B296B30083D6D8 /* AddTodoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52567EB423DE8D5F000332EA /* AddTodoCell.swift */; };
+		52E226F625B296B30083D6D8 /* TODOsWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 520F6E41257DD58B002154D2 /* TODOsWidget.intentdefinition */; };
+		52E226F725B296B30083D6D8 /* TodoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A424A6A2384B29D00E1FC34 /* TodoCell.swift */; };
+		52E226F825B296B30083D6D8 /* Undo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52662AB7248584150072626B /* Undo.swift */; };
+		52E226F925B296B30083D6D8 /* Bundle+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525A8B91242FDD0B002DCDD0 /* Bundle+Extensions.swift */; };
+		52E226FA25B296B30083D6D8 /* UIAlertController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5244F90823F8C67B00B4DAEB /* UIAlertController+Extensions.swift */; };
+		52E226FB25B296B30083D6D8 /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A424A722384B3C200E1FC34 /* UITableView+Extensions.swift */; };
+		52E226FC25B296B30083D6D8 /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A424A702384B34B00E1FC34 /* UIFont+Extensions.swift */; };
+		52E226FD25B296B30083D6D8 /* RecurringTodoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C863F72507D52600BD5615 /* RecurringTodoCell.swift */; };
+		52E226FE25B296B30083D6D8 /* TodoListSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AABC2E23FA061D000FA700 /* TodoListSectionHeaderView.swift */; };
+		52E226FF25B296B30083D6D8 /* SKStoreReviewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525197FE259D91D600256BA6 /* SKStoreReviewController+Extensions.swift */; };
+		52E2270025B296B30083D6D8 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D35B162502C1A700CFD370 /* SettingsViewController.swift */; };
+		52E2270125B296B30083D6D8 /* GeneralSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523029BE259D68AD002D1725 /* GeneralSettings.swift */; };
+		52E2270225B296B30083D6D8 /* StoryboardIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A424A6E2384B32E00E1FC34 /* StoryboardIdentifiable.swift */; };
+		52E2270325B296B30083D6D8 /* TodoListsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5201398A24218FB80030DD3D /* TodoListsViewController.swift */; };
+		52E2270425B296B30083D6D8 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52567EBC23E74B11000332EA /* Cache.swift */; };
+		52E2270525B296B30083D6D8 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52567EB823DE9069000332EA /* Todo.swift */; };
+		52E2270725B296B30083D6D8 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 52E226DD25B296B30083D6D8 /* IQKeyboardManagerSwift */; };
+		52E2270925B296B30083D6D8 /* AddTodoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52567EB223DE8D3E000332EA /* AddTodoCell.xib */; };
+		52E2270A25B296B30083D6D8 /* RecurringTodoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52C863F92507D56800BD5615 /* RecurringTodoCell.xib */; };
+		52E2270B25B296B30083D6D8 /* SettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5217798625941B7200D92EAA /* SettingCell.xib */; };
+		52E2270C25B296B30083D6D8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A424A4F2384B0FF00E1FC34 /* LaunchScreen.storyboard */; };
+		52E2270D25B296B30083D6D8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A424A4D2384B0FF00E1FC34 /* Assets.xcassets */; };
+		52E2270E25B296B30083D6D8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A424A4A2384B0FC00E1FC34 /* Main.storyboard */; };
+		52E2270F25B296B30083D6D8 /* TodoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A424A6C2384B2B100E1FC34 /* TodoCell.xib */; };
+		52E2272525B299FF0083D6D8 /* TODOsWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 520F6E41257DD58B002154D2 /* TODOsWidget.intentdefinition */; };
+		52E2272625B299FF0083D6D8 /* TODOsWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520F6E3F257DD58B002154D2 /* TODOsWidget.swift */; };
+		52E2272725B299FF0083D6D8 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520F6E93257DDEE1002154D2 /* AppGroup.swift */; };
+		52E2272825B299FF0083D6D8 /* TodoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52567EB623DE9060000332EA /* TodoList.swift */; };
+		52E2272925B299FF0083D6D8 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52567EB823DE9069000332EA /* Todo.swift */; };
+		52E2272A25B299FF0083D6D8 /* GeneralSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523029BE259D68AD002D1725 /* GeneralSettings.swift */; };
+		52E2272B25B299FF0083D6D8 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52567EBE23EBBC91000332EA /* Date+Extensions.swift */; };
+		52E2272D25B299FF0083D6D8 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 520F6E3C257DD58B002154D2 /* SwiftUI.framework */; };
+		52E2272E25B299FF0083D6D8 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 520F6E3A257DD58B002154D2 /* WidgetKit.framework */; };
+		52E2273025B299FF0083D6D8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 520F6E42257DD58C002154D2 /* Assets.xcassets */; };
+		52E2274A25B29B770083D6D8 /* [DEV] TODOsWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 52E2273425B299FF0083D6D8 /* [DEV] TODOsWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		52F492AD2481BA9F001DA434 /* TodoListTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F492AC2481BA9F001DA434 /* TodoListTableViewDataSource.swift */; };
 /* End PBXBuildFile section */
 
@@ -83,6 +140,13 @@
 			remoteGlobalIDString = 520F6E38257DD58B002154D2;
 			remoteInfo = TODOsWidgetExtension;
 		};
+		52E2274B25B29B770083D6D8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0A424A392384B0FC00E1FC34 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 52E2272325B299FF0083D6D8;
+			remoteInfo = "[DEV] TODOsWidgetExtension";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -93,6 +157,17 @@
 			dstSubfolderSpec = 13;
 			files = (
 				520F6E49257DD58C002154D2 /* TODOsWidgetExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		52E2271025B296B30083D6D8 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				52E2274A25B29B770083D6D8 /* [DEV] TODOsWidgetExtension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -159,6 +234,10 @@
 		52C863F72507D52600BD5615 /* RecurringTodoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurringTodoCell.swift; sourceTree = "<group>"; };
 		52C863F92507D56800BD5615 /* RecurringTodoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecurringTodoCell.xib; sourceTree = "<group>"; };
 		52D35B162502C1A700CFD370 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		52E2271525B296B30083D6D8 /* [DEV] TODOs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "[DEV] TODOs.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		52E2271625B296B30083D6D8 /* TODOs copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "TODOs copy-Info.plist"; path = "/Users/kevinjohnson/Desktop/Projects/TODOs/TODOs copy-Info.plist"; sourceTree = "<absolute>"; };
+		52E2273425B299FF0083D6D8 /* [DEV] TODOsWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "[DEV] TODOsWidgetExtension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		52E2273525B299FF0083D6D8 /* [DEV] TODOsWidgetExtension.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "[DEV] TODOsWidgetExtension.plist"; path = "/Users/kevinjohnson/Desktop/Projects/TODOs/[DEV] TODOsWidgetExtension.plist"; sourceTree = "<absolute>"; };
 		52F492AC2481BA9F001DA434 /* TodoListTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListTableViewDataSource.swift; sourceTree = "<group>"; };
 		CBA28BFD00B4E8629E893D07 /* Pods_TODOs.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TODOs.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -185,6 +264,23 @@
 			files = (
 				520F6E3D257DD58B002154D2 /* SwiftUI.framework in Frameworks */,
 				520F6E3B257DD58B002154D2 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		52E2270625B296B30083D6D8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52E2270725B296B30083D6D8 /* IQKeyboardManagerSwift in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		52E2272C25B299FF0083D6D8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52E2272D25B299FF0083D6D8 /* SwiftUI.framework in Frameworks */,
+				52E2272E25B299FF0083D6D8 /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -227,6 +323,8 @@
 				520F6E3E257DD58B002154D2 /* TODOsWidget */,
 				0A424A422384B0FC00E1FC34 /* Products */,
 				67DEAABA7C96DADD24DACAA8 /* Frameworks */,
+				52E2271625B296B30083D6D8 /* TODOs copy-Info.plist */,
+				52E2273525B299FF0083D6D8 /* [DEV] TODOsWidgetExtension.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -236,6 +334,8 @@
 				0A424A412384B0FC00E1FC34 /* TODOs.app */,
 				0A424A572384B0FF00E1FC34 /* TODOsTests.xctest */,
 				520F6E39257DD58B002154D2 /* TODOsWidgetExtension.appex */,
+				52E2271525B296B30083D6D8 /* [DEV] TODOs.app */,
+				52E2273425B299FF0083D6D8 /* [DEV] TODOsWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -454,6 +554,45 @@
 			productReference = 520F6E39257DD58B002154D2 /* TODOsWidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		52E226DA25B296B30083D6D8 /* [DEV] TODOs */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 52E2271225B296B30083D6D8 /* Build configuration list for PBXNativeTarget "[DEV] TODOs" */;
+			buildPhases = (
+				52E226DF25B296B30083D6D8 /* Sources */,
+				52E2270625B296B30083D6D8 /* Frameworks */,
+				52E2270825B296B30083D6D8 /* Resources */,
+				52E2271025B296B30083D6D8 /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				52E2274C25B29B770083D6D8 /* PBXTargetDependency */,
+			);
+			name = "[DEV] TODOs";
+			packageProductDependencies = (
+				52E226DD25B296B30083D6D8 /* IQKeyboardManagerSwift */,
+			);
+			productName = TODOs;
+			productReference = 52E2271525B296B30083D6D8 /* [DEV] TODOs.app */;
+			productType = "com.apple.product-type.application";
+		};
+		52E2272325B299FF0083D6D8 /* [DEV] TODOsWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 52E2273125B299FF0083D6D8 /* Build configuration list for PBXNativeTarget "[DEV] TODOsWidgetExtension" */;
+			buildPhases = (
+				52E2272425B299FF0083D6D8 /* Sources */,
+				52E2272C25B299FF0083D6D8 /* Frameworks */,
+				52E2272F25B299FF0083D6D8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "[DEV] TODOsWidgetExtension";
+			productName = TODOsWidgetExtension;
+			productReference = 52E2273425B299FF0083D6D8 /* [DEV] TODOsWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -495,6 +634,8 @@
 				0A424A402384B0FC00E1FC34 /* TODOs */,
 				0A424A562384B0FF00E1FC34 /* TODOsTests */,
 				520F6E38257DD58B002154D2 /* TODOsWidgetExtension */,
+				52E226DA25B296B30083D6D8 /* [DEV] TODOs */,
+				52E2272325B299FF0083D6D8 /* [DEV] TODOsWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -526,6 +667,28 @@
 			buildActionMask = 2147483647;
 			files = (
 				520F6E43257DD58C002154D2 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		52E2270825B296B30083D6D8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52E2270925B296B30083D6D8 /* AddTodoCell.xib in Resources */,
+				52E2270A25B296B30083D6D8 /* RecurringTodoCell.xib in Resources */,
+				52E2270B25B296B30083D6D8 /* SettingCell.xib in Resources */,
+				52E2270C25B296B30083D6D8 /* LaunchScreen.storyboard in Resources */,
+				52E2270D25B296B30083D6D8 /* Assets.xcassets in Resources */,
+				52E2270E25B296B30083D6D8 /* Main.storyboard in Resources */,
+				52E2270F25B296B30083D6D8 /* TodoCell.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		52E2272F25B299FF0083D6D8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52E2273025B299FF0083D6D8 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -600,6 +763,65 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		52E226DF25B296B30083D6D8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52E226E025B296B30083D6D8 /* TodoViewData.swift in Sources */,
+				52E226E125B296B30083D6D8 /* TodoList.swift in Sources */,
+				52E226E225B296B30083D6D8 /* UndoView.swift in Sources */,
+				52E226E325B296B30083D6D8 /* TodoList+ModelUpdates.swift in Sources */,
+				52E226E425B296B30083D6D8 /* UIViewController+ChildControllers.swift in Sources */,
+				52E226E525B296B30083D6D8 /* Setting.swift in Sources */,
+				52E226E625B296B30083D6D8 /* ToggleSetting.swift in Sources */,
+				52E226E725B296B30083D6D8 /* TodoListTableViewDataSource.swift in Sources */,
+				52E226E825B296B30083D6D8 /* TodosContainerViewController.swift in Sources */,
+				52E226E925B296B30083D6D8 /* Date+Extensions.swift in Sources */,
+				52E226EA25B296B30083D6D8 /* AppDelegate.swift in Sources */,
+				52E226EB25B296B30083D6D8 /* AppGroup.swift in Sources */,
+				52E226EC25B296B30083D6D8 /* SceneDelegate.swift in Sources */,
+				52E226ED25B296B30083D6D8 /* TodoList+Extensions.swift in Sources */,
+				52E226EE25B296B30083D6D8 /* TodoListViewController.swift in Sources */,
+				52E226EF25B296B30083D6D8 /* DateFormatters.swift in Sources */,
+				52E226F025B296B30083D6D8 /* TodoListViewData.swift in Sources */,
+				52E226F125B296B30083D6D8 /* SettingsTableViewDataSource.swift in Sources */,
+				52E226F225B296B30083D6D8 /* UndoItem.swift in Sources */,
+				52E226F325B296B30083D6D8 /* SettingCell.swift in Sources */,
+				52E226F425B296B30083D6D8 /* UIEdgeInsets+Extensions.swift in Sources */,
+				52E226F525B296B30083D6D8 /* AddTodoCell.swift in Sources */,
+				52E226F625B296B30083D6D8 /* TODOsWidget.intentdefinition in Sources */,
+				52E226F725B296B30083D6D8 /* TodoCell.swift in Sources */,
+				52E226F825B296B30083D6D8 /* Undo.swift in Sources */,
+				52E226F925B296B30083D6D8 /* Bundle+Extensions.swift in Sources */,
+				52E226FA25B296B30083D6D8 /* UIAlertController+Extensions.swift in Sources */,
+				52E226FB25B296B30083D6D8 /* UITableView+Extensions.swift in Sources */,
+				52E226FC25B296B30083D6D8 /* UIFont+Extensions.swift in Sources */,
+				52E226FD25B296B30083D6D8 /* RecurringTodoCell.swift in Sources */,
+				52E226FE25B296B30083D6D8 /* TodoListSectionHeaderView.swift in Sources */,
+				52E226FF25B296B30083D6D8 /* SKStoreReviewController+Extensions.swift in Sources */,
+				52E2270025B296B30083D6D8 /* SettingsViewController.swift in Sources */,
+				52E2270125B296B30083D6D8 /* GeneralSettings.swift in Sources */,
+				52E2270225B296B30083D6D8 /* StoryboardIdentifiable.swift in Sources */,
+				52E2270325B296B30083D6D8 /* TodoListsViewController.swift in Sources */,
+				52E2270425B296B30083D6D8 /* Cache.swift in Sources */,
+				52E2270525B296B30083D6D8 /* Todo.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		52E2272425B299FF0083D6D8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52E2272525B299FF0083D6D8 /* TODOsWidget.intentdefinition in Sources */,
+				52E2272625B299FF0083D6D8 /* TODOsWidget.swift in Sources */,
+				52E2272725B299FF0083D6D8 /* AppGroup.swift in Sources */,
+				52E2272825B299FF0083D6D8 /* TodoList.swift in Sources */,
+				52E2272925B299FF0083D6D8 /* Todo.swift in Sources */,
+				52E2272A25B299FF0083D6D8 /* GeneralSettings.swift in Sources */,
+				52E2272B25B299FF0083D6D8 /* Date+Extensions.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -612,6 +834,11 @@
 			isa = PBXTargetDependency;
 			target = 520F6E38257DD58B002154D2 /* TODOsWidgetExtension */;
 			targetProxy = 520F6E47257DD58C002154D2 /* PBXContainerItemProxy */;
+		};
+		52E2274C25B29B770083D6D8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 52E2272325B299FF0083D6D8 /* [DEV] TODOsWidgetExtension */;
+			targetProxy = 52E2274B25B29B770083D6D8 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -891,6 +1118,102 @@
 			};
 			name = Release;
 		};
+		52E2271325B296B30083D6D8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = TODOs/TODOs.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 8;
+				DEVELOPMENT_TEAM = X6XFU66KA9;
+				INFOPLIST_FILE = "TODOs copy-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Kevin-Johnson.TODOs.dev";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		52E2271425B296B30083D6D8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = TODOs/TODOs.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 8;
+				DEVELOPMENT_TEAM = X6XFU66KA9;
+				INFOPLIST_FILE = "TODOs copy-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Kevin-Johnson.TODOs.dev";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		52E2273225B299FF0083D6D8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_ENTITLEMENTS = TODOsWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 8;
+				DEVELOPMENT_TEAM = X6XFU66KA9;
+				INFOPLIST_FILE = "[DEV] TODOsWidgetExtension.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Kevin-Johnson.TODOs.dev.TODOsWidget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		52E2273325B299FF0083D6D8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_ENTITLEMENTS = TODOsWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 8;
+				DEVELOPMENT_TEAM = X6XFU66KA9;
+				INFOPLIST_FILE = "[DEV] TODOsWidgetExtension.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Kevin-Johnson.TODOs.dev.TODOsWidget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -930,10 +1253,36 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		52E2271225B296B30083D6D8 /* Build configuration list for PBXNativeTarget "[DEV] TODOs" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				52E2271325B296B30083D6D8 /* Debug */,
+				52E2271425B296B30083D6D8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		52E2273125B299FF0083D6D8 /* Build configuration list for PBXNativeTarget "[DEV] TODOsWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				52E2273225B299FF0083D6D8 /* Debug */,
+				52E2273325B299FF0083D6D8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
 		520F6EA7257DE367002154D2 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.5.6;
+			};
+		};
+		52E226DE25B296B30083D6D8 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager";
 			requirement = {
@@ -947,6 +1296,11 @@
 		520F6EA8257DE367002154D2 /* IQKeyboardManagerSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 520F6EA7257DE367002154D2 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
+		};
+		52E226DD25B296B30083D6D8 /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 52E226DE25B296B30083D6D8 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
 			productName = IQKeyboardManagerSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
