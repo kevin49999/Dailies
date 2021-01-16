@@ -56,7 +56,7 @@ struct TodayEntry: TimelineEntry {
     let configuration: ConfigurationIntent
 
     init(
-        date: Date = Date.todayYearMonthDay(),
+        date: Date = Date(),
         today: TodoList,
         configuration: ConfigurationIntent
     ) {

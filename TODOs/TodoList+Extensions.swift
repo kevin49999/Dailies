@@ -20,18 +20,18 @@ extension TodoList {
 
     static func daysOfWeekTodoLists(
         calendar: Calendar = .current,
-        today: Date = .todayYearMonthDay(),
         settings: GeneralSettings = .shared
     ) -> [TodoList] {
         guard var lists = try? getDaysOfWeek(), !lists.isEmpty else {
             return newDaysOfWeekTodoLists()
         }
-
+        let today = Date()
         let current = currentDaysOfWeek()
         var i = 0
         var mDay = lists.last!.dateCreated
+
         while i < current.count {
-            if lists[i].dateCreated < today {
+            if lists[i].dateCreated.isBefore(today) {
                 let removed = lists.remove(at: i)
                 let newDay = mDay.byAddingDays(1)
                 let newList = TodoList(
@@ -44,6 +44,7 @@ extension TodoList {
                 // check if day before for rollover items
                 if settings.rollover, calendar.dateComponents([.day], from: removed.dateCreated, to: today).day == 1 {
                     let prev = removed.todos.filter { !$0.completed && !$0.isSetting }
+                    // could have setting to rollover settings
                     lists[i].todos.append(contentsOf: prev)
                 }
             } else {
@@ -55,7 +56,7 @@ extension TodoList {
 
     static func newDaysOfWeekTodoLists(
         calendar: Calendar = .current,
-        today: Date = .todayYearMonthDay()
+        today: Date = Date()
     ) -> [TodoList] {
         return currentDaysOfWeek().enumerated().map { offset, day in
             TodoList(
