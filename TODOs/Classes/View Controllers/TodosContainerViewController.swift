@@ -143,7 +143,7 @@ extension TodosContainerViewController {
     }
 
     @objc func willResignActive() {
-//        try? TodoList.saveCreated(createdTodoViewController.dataSource.todoLists)
+        try? TodoList.saveCreated(createdTodoViewController.dataSource.todoLists)
         try? TodoList.saveDaysOfWeek(daysOfWeekTodoController.dataSource.todoLists)
     }
 

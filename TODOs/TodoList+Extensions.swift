@@ -77,11 +77,6 @@ extension TodoList {
     }
 
     static func saveDaysOfWeek(_ lists: [TodoList]) throws {
-        print("SAVE!")
-        print(lists.forEach {
-                $0.todos.prettyPrint()
-            print($0.dateCreated)
-        })
         try Cache.save(lists, path: "week")
         /// save in AppGroup for widget
         /// may not be the best place to put this - SRP
