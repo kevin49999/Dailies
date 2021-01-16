@@ -23,14 +23,16 @@ class TodosContainerViewController: UIViewController {
     private lazy var createdTodoViewController: TodoListViewController = {
         TodoListViewController(
             todoLists: TodoList.createdTodoLists(),
-            bottomInset: self.toolBar.frame.height
+            bottomInset: self.toolBar.frame.height,
+            emptyString: "No custom lists added.. yet!"
         )
     }()
 
     private lazy var daysOfWeekTodoController: TodoListViewController = {
         TodoListViewController(
             todoLists: TodoList.daysOfWeekTodoLists(),
-            bottomInset: self.toolBar.frame.height
+            bottomInset: self.toolBar.frame.height,
+            emptyString: nil
         )
     }()
 
