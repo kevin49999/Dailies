@@ -25,11 +25,12 @@ extension TodoList {
         guard var lists = try? getDaysOfWeek(), !lists.isEmpty else {
             return newDaysOfWeekTodoLists()
         }
+        let today = Date()
         let current = currentDaysOfWeek()
         var i = 0
         var mDay = lists.last!.dateCreated
+
         while i < current.count {
-            let today = Date()
             if lists[i].dateCreated.isBefore(today) {
                 let removed = lists.remove(at: i)
                 let newDay = mDay.byAddingDays(1)
