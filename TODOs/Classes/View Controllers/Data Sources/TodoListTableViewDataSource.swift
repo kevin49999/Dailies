@@ -68,9 +68,7 @@ class TodoListTableViewDataSource: UITableViewDiffableDataSource<TodoList, Todo>
         default:
             break
         }
-        todoLists[destinationIndexPath.section].todos.prettyPrint()
-        todoLists[destinationIndexPath.section].incomplete.prettyPrint()
-        applySnapshot(animatingDifferences: false)
+        applySnapshot()
     }
 }
 
