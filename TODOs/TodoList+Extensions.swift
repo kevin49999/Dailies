@@ -20,7 +20,6 @@ extension TodoList {
 
     static func daysOfWeekTodoLists(
         calendar: Calendar = .current,
-        today: Date = .todayYearMonthDay(),
         settings: GeneralSettings = .shared
     ) -> [TodoList] {
         guard var lists = try? getDaysOfWeek(), !lists.isEmpty else {
@@ -29,11 +28,9 @@ extension TodoList {
         let current = currentDaysOfWeek()
         var i = 0
         var mDay = lists.last!.dateCreated
-
         while i < current.count {
-            let result = calendar.compare(lists[i].dateCreated, to: today, toGranularity: .day)
-            switch result {
-            case .orderedAscending:
+            let today = Date()
+            if lists[i].dateCreated.isBefore(today) {
                 let removed = lists.remove(at: i)
                 let newDay = mDay.byAddingDays(1)
                 let newList = TodoList(
@@ -49,7 +46,7 @@ extension TodoList {
                     // could have setting to rollover settings
                     lists[i].todos.append(contentsOf: prev)
                 }
-            case .orderedDescending, .orderedSame:
+            } else {
                 i += 1
             }
         }
@@ -58,7 +55,7 @@ extension TodoList {
 
     static func newDaysOfWeekTodoLists(
         calendar: Calendar = .current,
-        today: Date = .todayYearMonthDay()
+        today: Date = Date()
     ) -> [TodoList] {
         return currentDaysOfWeek().enumerated().map { offset, day in
             TodoList(
@@ -80,6 +77,11 @@ extension TodoList {
     }
 
     static func saveDaysOfWeek(_ lists: [TodoList]) throws {
+        print("SAVE!")
+        print(lists.forEach {
+                $0.todos.prettyPrint()
+            print($0.dateCreated)
+        })
         try Cache.save(lists, path: "week")
         /// save in AppGroup for widget
         /// may not be the best place to put this - SRP

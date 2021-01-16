@@ -143,7 +143,7 @@ extension TodosContainerViewController {
     }
 
     @objc func willResignActive() {
-        try? TodoList.saveCreated(createdTodoViewController.dataSource.todoLists)
+//        try? TodoList.saveCreated(createdTodoViewController.dataSource.todoLists)
         try? TodoList.saveDaysOfWeek(daysOfWeekTodoController.dataSource.todoLists)
     }
 
@@ -151,7 +151,7 @@ extension TodosContainerViewController {
         guard let firstDay = daysOfWeekTodoController.dataSource.todoLists.first else {
             fatalError("First day should be set")
         }
-        if Date.todayYearMonthDay() > firstDay.dateCreated {
+        if firstDay.dateCreated.isBefore(Date()) {
             daysOfWeekTodoController.updateTodoLists(TodoList.daysOfWeekTodoLists())
         }
     }

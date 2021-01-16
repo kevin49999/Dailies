@@ -9,13 +9,33 @@
 import Foundation
 
 extension Date {
-    static func todayYearMonthDay(calendar: Calendar = .current) -> Date {
-        let today = Date()
-        return Date.from(
-            year: calendar.component(.year, from: today),
-            month: calendar.component(.month, from: today),
-            day: calendar.component(.day, from: today)
-        )
+    /// calendar.compare.toGranularity(.day) should work, and is working in playground but still not getting what I want with below date objs
+    /// " today2021-01-16 08:00:00 +0000"
+    /// "created 2021-01-16 05:00:00 +0000" - still got .orderedAscending
+    func isBefore(_ before: Date, calendar: Calendar = .current) -> Bool {
+        let dMonth = calendar.component(.month, from: self)
+        let dDay = calendar.component(.day, from: self)
+        let dYear = calendar.component(.year, from: self)
+        let tMonth = calendar.component(.month, from: before)
+        let tDay = calendar.component(.day, from: before)
+        let tYear = calendar.component(.year, from: before)
+        /// year check
+        if dYear < tYear {
+            return true
+        } else if dYear > tYear {
+            return false
+        }
+        /// month, days in same year established
+        if dMonth < tMonth {
+            return true
+        } else if dMonth > tMonth {
+            return false
+        }
+        /// day, days in same month established
+        if dDay < tDay {
+            return true
+        }
+        return false
     }
 
     func byAddingDays(_ day: Int, calendar: Calendar = .current) -> Date {
@@ -23,16 +43,5 @@ extension Date {
             preconditionFailure()
         }
         return n
-    }
-
-    private static func from(year: Int, month: Int, day: Int, calendar: Calendar = .current) -> Date {
-        var components = DateComponents()
-        components.year = year
-        components.month = month
-        components.day = day
-        guard let date = calendar.date(from: components) else {
-            preconditionFailure("Invalid Date")
-        }
-        return date
     }
 }
