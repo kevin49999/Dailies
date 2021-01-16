@@ -20,9 +20,9 @@ class TodoListViewController: UIViewController {
         table.register(cell: TodoCell.self)
         table.register(cell: AddTodoCell.self)
         table.rowHeight = UITableView.automaticDimension
-        table.estimatedRowHeight = 108
+        table.estimatedRowHeight = 65
         table.sectionHeaderHeight = UITableView.automaticDimension
-        table.estimatedSectionHeaderHeight = 92
+        table.estimatedSectionHeaderHeight = 44
         table.tableFooterView = UIView(frame: .zero)
         table.clipsToBounds = true
         table.translatesAutoresizingMaskIntoConstraints = false
@@ -56,7 +56,6 @@ class TodoListViewController: UIViewController {
         ])
         tableView.delegate = self
         tableView.dataSource = dataSource
-        tableView.dragDelegate = self
         tableView.dropDelegate = self
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: self.bottomInset, right: 0)
         dataSource.applySnapshot(animatingDifferences: false)
@@ -141,14 +140,6 @@ extension TodoListViewController: UITableViewDelegate {
             return IndexPath(row: proposedRow - 1, section: proposedSection)
         }
         return proposedDestinationIndexPath
-    }
-}
-
-// MARK: - UITableViewDragDelegate
-
-extension TodoListViewController: UITableViewDragDelegate {
-    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-        return []
     }
 }
 

@@ -23,10 +23,9 @@ class TodoListsViewController: UIViewController {
         table.delegate = self
         table.dataSource = self
         table.dragInteractionEnabled = true
-        table.dragDelegate = self
         table.dropDelegate = self
         table.rowHeight = UITableView.automaticDimension
-        table.estimatedRowHeight = 108
+        table.estimatedRowHeight = 65
         table.tableFooterView = UIView(frame: .zero)
         table.clipsToBounds = true
         table.register(cell: TodoCell.self)
@@ -115,14 +114,6 @@ extension TodoListsViewController: UITableViewDataSource {
             self.todoLists.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
         }
-    }
-}
-
-// MARK: - UITableViewDragDelegate
-
-extension TodoListsViewController: UITableViewDragDelegate {
-    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-        return []
     }
 }
 
