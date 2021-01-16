@@ -26,12 +26,14 @@ extension TodoList {
         guard var lists = try? getDaysOfWeek(), !lists.isEmpty else {
             return newDaysOfWeekTodoLists()
         }
-
         let current = currentDaysOfWeek()
         var i = 0
         var mDay = lists.last!.dateCreated
+
         while i < current.count {
-            if lists[i].dateCreated < today {
+            let result = calendar.compare(lists[i].dateCreated, to: today, toGranularity: .day)
+            switch result {
+            case .orderedAscending:
                 let removed = lists.remove(at: i)
                 let newDay = mDay.byAddingDays(1)
                 let newList = TodoList(
@@ -44,9 +46,10 @@ extension TodoList {
                 // check if day before for rollover items
                 if settings.rollover, calendar.dateComponents([.day], from: removed.dateCreated, to: today).day == 1 {
                     let prev = removed.todos.filter { !$0.completed && !$0.isSetting }
+                    // could have setting to rollover settings
                     lists[i].todos.append(contentsOf: prev)
                 }
-            } else {
+            case .orderedDescending, .orderedSame:
                 i += 1
             }
         }
