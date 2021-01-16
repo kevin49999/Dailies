@@ -18,6 +18,13 @@ extension Date {
         )
     }
 
+    func byAddingDays(_ day: Int, calendar: Calendar = .current) -> Date {
+        guard let n = Calendar.current.date(byAdding: .day, value: day, to: self) else {
+            preconditionFailure()
+        }
+        return n
+    }
+
     private static func from(year: Int, month: Int, day: Int, calendar: Calendar = .current) -> Date {
         var components = DateComponents()
         components.year = year
@@ -27,12 +34,5 @@ extension Date {
             preconditionFailure("Invalid Date")
         }
         return date
-    }
-
-    func byAddingDays(_ day: Int, calendar: Calendar = .current) -> Date {
-        guard let n = Calendar.current.date(byAdding: .day, value: day, to: self) else {
-            preconditionFailure()
-        }
-        return n
     }
 }
