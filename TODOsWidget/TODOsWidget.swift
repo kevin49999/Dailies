@@ -34,7 +34,7 @@ struct Provider: IntentTimelineProvider {
             )
             completion(timeline)
         } catch {
-            print(error)
+            assertionFailure(error.localizedDescription)
         }
     }
 
