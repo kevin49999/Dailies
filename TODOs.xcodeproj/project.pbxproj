@@ -235,7 +235,7 @@
 		52C863F92507D56800BD5615 /* RecurringTodoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecurringTodoCell.xib; sourceTree = "<group>"; };
 		52D35B162502C1A700CFD370 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		52E2271525B296B30083D6D8 /* [DEV] TODOs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "[DEV] TODOs.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		52E2271625B296B30083D6D8 /* TODOs copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "TODOs copy-Info.plist"; path = "/Users/kevinjohnson/Desktop/Projects/TODOs/TODOs copy-Info.plist"; sourceTree = "<absolute>"; };
+		52E2271625B296B30083D6D8 /* [DEV] Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "[DEV] Info.plist"; path = "/Users/kevinjohnson/Desktop/Projects/TODOs/[DEV] Info.plist"; sourceTree = "<absolute>"; };
 		52E2273425B299FF0083D6D8 /* [DEV] TODOsWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "[DEV] TODOsWidgetExtension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		52E2273525B299FF0083D6D8 /* [DEV] TODOsWidgetExtension.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "[DEV] TODOsWidgetExtension.plist"; path = "/Users/kevinjohnson/Desktop/Projects/TODOs/[DEV] TODOsWidgetExtension.plist"; sourceTree = "<absolute>"; };
 		52F492AC2481BA9F001DA434 /* TodoListTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListTableViewDataSource.swift; sourceTree = "<group>"; };
@@ -323,7 +323,6 @@
 				520F6E3E257DD58B002154D2 /* TODOsWidget */,
 				0A424A422384B0FC00E1FC34 /* Products */,
 				67DEAABA7C96DADD24DACAA8 /* Frameworks */,
-				52E2271625B296B30083D6D8 /* TODOs copy-Info.plist */,
 				52E2273525B299FF0083D6D8 /* [DEV] TODOsWidgetExtension.plist */,
 			);
 			sourceTree = "<group>";
@@ -378,6 +377,7 @@
 				0A424A442384B0FC00E1FC34 /* AppDelegate.swift */,
 				0A424A4D2384B0FF00E1FC34 /* Assets.xcassets */,
 				0A424A522384B0FF00E1FC34 /* Info.plist */,
+				52E2271625B296B30083D6D8 /* [DEV] Info.plist */,
 				0A424A462384B0FC00E1FC34 /* SceneDelegate.swift */,
 			);
 			path = "Supporting Files";
@@ -1127,7 +1127,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = X6XFU66KA9;
-				INFOPLIST_FILE = "TODOs copy-Info.plist";
+				INFOPLIST_FILE = "TODOs/Supporting Files/[DEV] Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1149,7 +1149,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = X6XFU66KA9;
-				INFOPLIST_FILE = "TODOs copy-Info.plist";
+				INFOPLIST_FILE = "TODOs/Supporting Files/[DEV] Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
