@@ -16,19 +16,30 @@
                 <rect key="frame" x="0.0" y="0.0" width="378" height="121"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="TODO Item" translatesAutoresizingMaskIntoConstraints="NO" id="TSm-JL-ifc">
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="TODO Item" translatesAutoresizingMaskIntoConstraints="NO" id="TSm-JL-ifc">
                         <rect key="frame" x="20" y="12" width="338" height="33"/>
                         <color key="backgroundColor" systemColor="tableCellGroupedBackgroundColor"/>
                         <color key="textColor" systemColor="labelColor"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" shipmentTrackingNumber="YES" flightNumber="YES"/>
                     </textView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pO9-vd-aT5" userLabel="Text View Button">
+                        <rect key="frame" x="20" y="12" width="338" height="33"/>
+                        <connections>
+                            <action selector="didTapTextView:" destination="h2z-I3-zh6" eventType="touchUpInside" id="g9d-WU-VZQ"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="TSm-JL-ifc" secondAttribute="bottom" priority="999" constant="12" id="3az-dy-u1z"/>
+                    <constraint firstItem="TSm-JL-ifc" firstAttribute="leading" secondItem="pO9-vd-aT5" secondAttribute="leading" id="MHr-vg-HsK"/>
+                    <constraint firstItem="TSm-JL-ifc" firstAttribute="bottom" secondItem="pO9-vd-aT5" secondAttribute="bottom" id="cVC-XI-VJH"/>
                     <constraint firstItem="TSm-JL-ifc" firstAttribute="top" secondItem="Zws-an-4WZ" secondAttribute="top" constant="12" id="gWy-T6-4NE"/>
+                    <constraint firstItem="TSm-JL-ifc" firstAttribute="trailing" secondItem="pO9-vd-aT5" secondAttribute="trailing" id="hdH-7m-lL8"/>
                     <constraint firstItem="TSm-JL-ifc" firstAttribute="leading" secondItem="Zws-an-4WZ" secondAttribute="leading" constant="20" symbolic="YES" id="tHI-2v-Mro"/>
                     <constraint firstAttribute="trailing" secondItem="TSm-JL-ifc" secondAttribute="trailing" constant="20" symbolic="YES" id="x5G-wN-F01"/>
+                    <constraint firstItem="pO9-vd-aT5" firstAttribute="top" secondItem="TSm-JL-ifc" secondAttribute="top" id="ysg-rq-2hf"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" systemColor="tableCellGroupedBackgroundColor"/>

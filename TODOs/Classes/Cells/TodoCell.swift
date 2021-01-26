@@ -28,13 +28,23 @@ class TodoCell: UITableViewCell {
     }
     
     private func setup() {
+        textView.isEditable = false
         textView.delegate = self
         textView.adjustsFontForContentSizeCategory = true
     }
 
     private func reset() {
+        textView.isEditable = false
         textView.resignFirstResponder()
     }
+
+    @IBAction private func didTapTextView(_ sender: UIButton) {
+        if !textView.isEditable {
+            textView.isEditable = true
+            textView.becomeFirstResponder()
+        }
+    }
+
 }
 
 // MARK: - UITextViewDelegate
