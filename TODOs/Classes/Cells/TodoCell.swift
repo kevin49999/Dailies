@@ -16,7 +16,7 @@ protocol TodoCellDelegate: class {
 class TodoCell: UITableViewCell {
 
     weak var delegate: TodoCellDelegate?
-    @IBOutlet weak private var textView: UITextView!
+    @IBOutlet weak private var textView: DataTextView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -28,7 +28,7 @@ class TodoCell: UITableViewCell {
     }
     
     private func setup() {
-        textView.isEditable = true
+        textView.isEditable = false
         textView.delegate = self
         textView.isSelectable = true
         textView.adjustsFontForContentSizeCategory = true
@@ -45,38 +45,39 @@ extension TodoCell: UITextViewDelegate {
     }
 
     func textViewDidEndEditing(_ textView: UITextView) {
+        textView.isEditable = false
         delegate?.todoCell(self, didEndEditing: textView.text)
     }
 }
 
-// - https://stackoverflow.com/a/65721757, want to use for solution with data detection + editing
-// not working yet
+// MARK: - DataTextView
+
+/// based on: https://stackoverflow.com/a/65721757
 class DataTextView: UITextView {
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
-
         guard let touchPoint = touches.first?.location(in: self) else { fatalError() }
+        let characterIndex = layoutManager.characterIndex(
+            for: touchPoint,
+            in: textContainer,
+            fractionOfDistanceBetweenInsertionPoints: nil
+        )
 
-        let glyphIndex = self.layoutManager.glyphIndex(for: touchPoint, in: self.textContainer)
-        let glyphRect = self.layoutManager.boundingRect(forGlyphRange: NSRange(location: glyphIndex, length: 1), in: self.textContainer)
-
-        if glyphIndex < self.textStorage.length,
-           glyphRect.contains(touchPoint),
-           self.textStorage.attribute(NSAttributedString.Key.link, at: glyphIndex, effectiveRange: nil) != nil {
-            // Then touchEnded on url
+        /// return for link if link at range or is last character
+        if characterIndex < text.count - 1, textStorage.attribute(
+            NSAttributedString.Key.link,
+            at: characterIndex,
+            effectiveRange: nil
+        ) != nil {
+            /// have to reset
+            selectedTextRange = nil
             return
         } else {
-            self.isEditable = true
-
-            // Retreive the insert point from touch.
-            guard let position = self.closestPosition(to: touchPoint) else { fatalError() }
-            guard let range: UITextRange = self.textRange(from: position, to: position) else { fatalError() }
-
-            // You will want to make the text view enter editing mode by one tap, not two.
-            self.becomeFirstResponder()
-
-            // Set the insert point.
-            self.selectedTextRange = range
+            isEditable = true
+            guard let position = closestPosition(to: touchPoint) else { fatalError() }
+            guard let range: UITextRange = textRange(from: position, to: position) else { fatalError() }
+            becomeFirstResponder()
+            selectedTextRange = range
         }
     }
 }
