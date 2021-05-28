@@ -18,8 +18,8 @@ class SettingsTests: XCTestCase {
         days.applySetting(setting)
 
         for list in days {
-            if list.name == calendar.weekdaySymbols[setting.frequency.rawValue] {
-                XCTAssertEqual(list.todos.map { $0 .text }, ["Monday"])
+            if list.day == calendar.weekdaySymbols[setting.frequency.rawValue] {
+                XCTAssertEqual(list.todos.map { $0.text }, ["Monday"])
             } else {
                 XCTAssertEqual(list.todos, [])
             }
@@ -33,10 +33,10 @@ class SettingsTests: XCTestCase {
         days.applySetting(setting)
 
         for list in days {
-            switch list.name {
+            switch list.day {
             case calendar.weekdaySymbols[0],
                  calendar.weekdaySymbols[6]:
-                XCTAssertEqual(list.todos.map { $0 .text }, ["Weekend"])
+                XCTAssertEqual(list.todos.map { $0.text }, ["Weekend"])
             default:
                 XCTAssertEqual(list.todos, [])
             }
@@ -50,13 +50,13 @@ class SettingsTests: XCTestCase {
         days.applySetting(setting)
 
         for list in days {
-            switch list.name {
+            switch list.day {
             case calendar.weekdaySymbols[1],
                  calendar.weekdaySymbols[2],
                  calendar.weekdaySymbols[3],
                  calendar.weekdaySymbols[4],
                  calendar.weekdaySymbols[5]:
-                XCTAssertEqual(list.todos.map { $0 .text }, ["Weekdays"])
+                XCTAssertEqual(list.todos.map { $0.text }, ["Weekdays"])
             default:
                 XCTAssertEqual(list.todos, [])
             }
@@ -70,7 +70,7 @@ class SettingsTests: XCTestCase {
         days.applySetting(setting)
 
         for list in days {
-            switch list.name {
+            switch list.day {
             case calendar.weekdaySymbols[0],
                  calendar.weekdaySymbols[1],
                  calendar.weekdaySymbols[2],
@@ -78,7 +78,7 @@ class SettingsTests: XCTestCase {
                  calendar.weekdaySymbols[4],
                  calendar.weekdaySymbols[5],
                  calendar.weekdaySymbols[6]:
-                XCTAssertEqual(list.todos.map { $0 .text }, ["Everyday"])
+                XCTAssertEqual(list.todos.map { $0.text }, ["Everyday"])
             default:
                 XCTAssertEqual(list.todos, [])
             }
