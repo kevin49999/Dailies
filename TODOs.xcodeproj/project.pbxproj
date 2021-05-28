@@ -62,6 +62,8 @@
 		5295A219246B158E00B502CA /* TodoList+ModelUpdates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5295A218246B158E00B502CA /* TodoList+ModelUpdates.swift */; };
 		52AABC2F23FA061D000FA700 /* TodoListSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AABC2E23FA061D000FA700 /* TodoListSectionHeaderView.swift */; };
 		52AE14352507E0D00089DFC8 /* SettingsTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AE14342507E0D00089DFC8 /* SettingsTableViewDataSource.swift */; };
+		52C16B7426618455005D986D /* DateFormatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524D268F23F8995B00EC46CC /* DateFormatters.swift */; };
+		52C16B7A26618456005D986D /* DateFormatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524D268F23F8995B00EC46CC /* DateFormatters.swift */; };
 		52C863F82507D52600BD5615 /* RecurringTodoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C863F72507D52600BD5615 /* RecurringTodoCell.swift */; };
 		52C863FA2507D56800BD5615 /* RecurringTodoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52C863F92507D56800BD5615 /* RecurringTodoCell.xib */; };
 		52D35B172502C1A700CFD370 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D35B162502C1A700CFD370 /* SettingsViewController.swift */; };
@@ -757,6 +759,7 @@
 				520F6E40257DD58B002154D2 /* TODOsWidget.swift in Sources */,
 				520F6E95257DDEE1002154D2 /* AppGroup.swift in Sources */,
 				520F6E76257DDBC2002154D2 /* TodoList.swift in Sources */,
+				52C16B7426618455005D986D /* DateFormatters.swift in Sources */,
 				520F6E7A257DDBC7002154D2 /* Todo.swift in Sources */,
 				523029CB259D6952002D1725 /* GeneralSettings.swift in Sources */,
 				520F6E7E257DDC54002154D2 /* Date+Extensions.swift in Sources */,
@@ -816,6 +819,7 @@
 				52E2272625B299FF0083D6D8 /* TODOsWidget.swift in Sources */,
 				52E2272725B299FF0083D6D8 /* AppGroup.swift in Sources */,
 				52E2272825B299FF0083D6D8 /* TodoList.swift in Sources */,
+				52C16B7A26618456005D986D /* DateFormatters.swift in Sources */,
 				52E2272925B299FF0083D6D8 /* Todo.swift in Sources */,
 				52E2272A25B299FF0083D6D8 /* GeneralSettings.swift in Sources */,
 				52E2272B25B299FF0083D6D8 /* Date+Extensions.swift in Sources */,

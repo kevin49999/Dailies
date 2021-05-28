@@ -17,4 +17,10 @@ struct DateFormatters {
         formatter.setLocalizedDateFormatFromTemplate("EEEE M/dd")
         return formatter
     }()
+
+    static let dayOfWeek: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.setLocalizedDateFormatFromTemplate("EEEE")
+        return formatter
+    }()
 }

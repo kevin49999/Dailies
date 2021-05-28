@@ -36,8 +36,7 @@ extension TodoList {
                 let newDay = mDay.byAddingDays(1)
                 let newList = TodoList(
                     classification: .daysOfWeek,
-                    dateCreated: newDay,
-                    name: current[lists.count]
+                    dateCreated: newDay
                 )
                 lists.append(newList)
                 mDay = newDay
@@ -51,6 +50,7 @@ extension TodoList {
                 i += 1
             }
         }
+        lists.forEach { print($0.day) }
         return lists
     }
 
@@ -61,8 +61,7 @@ extension TodoList {
         return currentDaysOfWeek().enumerated().map { offset, day in
             TodoList(
                 classification: .daysOfWeek,
-                dateCreated: today.byAddingDays(offset),
-                name: day
+                dateCreated: today.byAddingDays(offset)
             )
         }
     }
@@ -143,8 +142,9 @@ extension Array where Element == TodoList {
     }
 
     private func addSettingForDay(_ setting: Setting, _ day: Int, calendar: Calendar = .current) {
-        guard let index = firstIndex(where: { $0.name == calendar.weekdaySymbols[day] }) else {
-            assertionFailure("Could not match weekday name to day integer")
+        /// for days of week, should never rely on name, always the dateCreated which creates the day
+        guard let index = firstIndex(where: { $0.day == calendar.weekdaySymbols[day] }) else {
+            assertionFailure("Could not weekday to day integer")
             return
         }
         self[index].addTodoFor(setting: setting)

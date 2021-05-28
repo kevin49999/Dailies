@@ -113,7 +113,7 @@ extension SettingsTableViewDataSource {
             switch $0 {
             case .recurring(let setting):
                 return setting.name == "AddTodoCellHack"
-            case .toggle(_):
+            case .toggle:
                 return false // not doing in section
             }
            }) {

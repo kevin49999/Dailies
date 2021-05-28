@@ -37,7 +37,14 @@ extension Todo: TodoViewData {
 }
 
 extension TodoList: TodoViewData {
-    var text: String { name }
+    var text: String {
+        switch classification {
+        case .created:
+            return name
+        case .daysOfWeek:
+            return day
+        }
+    }
     var attributedText: NSAttributedString? {
         let font = UIFont.systemFont(
             ofSize: 16,

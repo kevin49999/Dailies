@@ -28,7 +28,10 @@ class TodoList: Codable {
 
     let classification: Classification
     let dateCreated: Date
+    /// bad, but only only use for custom lists
     var name: String
+    /// not great either
+    var day: String { return DateFormatters.dayOfWeek.string(from: dateCreated) }
     var todos: [Todo]
     var showCompleted: Bool
     lazy var incomplete: [Todo] = {
@@ -37,20 +40,11 @@ class TodoList: Codable {
     var visible: [Todo] {
         return showCompleted ? todos : incomplete
     }
-    var isWeekend: Bool {
-        switch classification {
-        case .daysOfWeek where name == "Sunday",
-             .daysOfWeek where name == "Saturday":
-            return true
-        default:
-            return false
-        }
-    }
     
     init(
         classification: Classification,
         dateCreated: Date = Date(),
-        name: String,
+        name: String = "",
         todos: [Todo] = [],
         showCompleted: Bool = !GeneralSettings.shared.hideCompleted
     ) {

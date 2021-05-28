@@ -12,11 +12,11 @@ import Intents
 
 struct Provider: IntentTimelineProvider {
     func placeholder(in context: Context) -> TodayEntry {
-        TodayEntry(date: Date(), today: TodoList(classification: .daysOfWeek, name: "Monday"), configuration: ConfigurationIntent())
+        TodayEntry(date: Date(), today: TodoList(classification: .daysOfWeek), configuration: ConfigurationIntent())
     }
 
     func getSnapshot(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (TodayEntry) -> ()) {
-        let entry = TodayEntry(date: Date(), today: TodoList(classification: .daysOfWeek, name: "Monday"), configuration: configuration)
+        let entry = TodayEntry(date: Date(), today: TodoList(classification: .daysOfWeek), configuration: configuration)
         completion(entry)
     }
 
@@ -77,7 +77,7 @@ struct TODOsWidgetEntryView : View {
             Text("Done ✅").bold()
         } else {
             VStack(alignment: .leading, spacing: 4.0) {
-                Text(entry.today.name)
+                Text(entry.today.day)
                     .font(.headline)
                 ForEach(entry.today.visible.prefix(prefix)
                         , id: \.self) { todo in
@@ -129,7 +129,6 @@ struct TODOsWidget_Previews: PreviewProvider {
                 date: Date(),
                 today: TodoList(
                     classification: .daysOfWeek,
-                    name: "Monday",
                     todos: [
                         .init(text: "Go run"),
                         .init(text: "Derp"),

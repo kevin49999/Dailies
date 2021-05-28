@@ -86,7 +86,11 @@ extension TodoListTableViewDataSource {
             } else {
                 items.append(.init(text: "AddTodoCellHack", completed: false))
             }
-            new.appendItems(items, toSection: list)
+            // TODO: hacky again
+            // new.appendItems(items, toSection: list)
+            for item in items where new.sectionIdentifier(containingItem: item) == nil {
+                new.appendItems([item], toSection: list)
+            }
         }
         apply(new, animatingDifferences: animatingDifferences)
     }
