@@ -34,7 +34,7 @@ extension TodoList {
         var mCurrentLists = currentLists
         var i = 0
         while i < days.count {
-            if currentLists[i].dateCreated.isBefore(today) {
+            if mCurrentLists[i].dateCreated.isBefore(today) {
                 let removed = mCurrentLists.remove(at: i)
                 let newDay = mDay.byAddingDays(1)
                 let newList = TodoList(

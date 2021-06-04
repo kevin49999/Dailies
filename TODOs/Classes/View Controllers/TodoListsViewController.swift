@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol TodoListsViewControllerDelegate: class {
+protocol TodoListsViewControllerDelegate: AnyObject {
     func todoListsViewController(_ controller: TodoListsViewController, finishedEditing lists: [TodoList])
 }
 
