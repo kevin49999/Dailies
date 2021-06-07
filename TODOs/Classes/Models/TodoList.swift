@@ -33,7 +33,8 @@ class TodoList: Codable {
     var todos: [Todo]
     var showCompleted: Bool
     var visible: [Todo] { showCompleted ? todos : incomplete }
-    var day: String { DateFormatters.dayOfWeek.string(from: dateCreated) }
+    /// test if this gets set once, cached, then bad
+    lazy var day: String = DateFormatters.dayOfWeek.string(from: dateCreated)
     lazy var incomplete: [Todo] = {
         return todos.filter { !$0.completed }
     }()

@@ -30,10 +30,9 @@ extension TodoList {
             return newDaysOfWeekTodoLists()
         }
 
-        let days = currentDaysOfWeek()
         var mCurrentLists = currentLists
         var i = 0
-        while i < days.count {
+        while i < 7 {
             if mCurrentLists[i].dateCreated.isBefore(today) {
                 let removed = mCurrentLists.remove(at: i)
                 let newDay = mDay.byAddingDays(1)
