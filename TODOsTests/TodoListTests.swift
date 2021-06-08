@@ -291,4 +291,24 @@ class TodoListTests: XCTestCase {
             [Bool](repeating: false, count: 5)
         )
     }
+
+    // MARK: - Staying in Sync
+
+    func testGeneratingNewListAfterMonthsBreak() {
+        let comp = DateComponents(year: 2021, month: 3, day: 1)
+        let marchFirst = Calendar.current.date(from: comp)!
+        let lists: [TodoList] = [
+            .init(classification: .daysOfWeek, dateCreated: marchFirst),
+            .init(classification: .daysOfWeek, dateCreated: marchFirst.byAddingDays(1)),
+            .init(classification: .daysOfWeek, dateCreated: marchFirst.byAddingDays(2)),
+            .init(classification: .daysOfWeek, dateCreated: marchFirst.byAddingDays(3)),
+            .init(classification: .daysOfWeek, dateCreated: marchFirst.byAddingDays(4)),
+            .init(classification: .daysOfWeek, dateCreated: marchFirst.byAddingDays(5)),
+            .init(classification: .daysOfWeek, dateCreated: marchFirst.byAddingDays(6)),
+        ]
+        // should throw out the old current in favor of generating a new list
+        let current = TodoList.daysOfWeekTodoLists(currentLists: lists)
+        let new = TodoList.newDaysOfWeekTodoLists()
+        XCTAssertEqual(current, new)
+    }
 }

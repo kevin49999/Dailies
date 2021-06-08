@@ -20,43 +20,44 @@ extension TodoList {
 
     static func daysOfWeekTodoLists(
         calendar: Calendar = .current,
-        settings: GeneralSettings = .shared
+        settings: GeneralSettings = .shared,
+        currentLists: [TodoList] = getCurrentDaysOfWeekList()
     ) -> [TodoList] {
-        guard var lists = try? getDaysOfWeek(), !lists.isEmpty else {
+        /// if last day is beforeToday, generate new list
+        var mDay = currentLists.last!.dateCreated
+        let today = Date()
+        if mDay.isBefore(today) {
             return newDaysOfWeekTodoLists()
         }
-        let today = Date()
-        let current = currentDaysOfWeek()
-        var i = 0
-        var mDay = lists.last!.dateCreated
 
-        while i < current.count {
-            if lists[i].dateCreated.isBefore(today) {
-                let removed = lists.remove(at: i)
+        var mCurrentLists = currentLists
+        var i = 0
+        while i < 7 {
+            if mCurrentLists[i].dateCreated.isBefore(today) {
+                let removed = mCurrentLists.remove(at: i)
                 let newDay = mDay.byAddingDays(1)
                 let newList = TodoList(
                     classification: .daysOfWeek,
                     dateCreated: newDay
                 )
-                lists.append(newList)
+                mCurrentLists.append(newList)
                 mDay = newDay
                 // check if day before for rollover items
                 if settings.rollover, calendar.dateComponents([.day], from: removed.dateCreated, to: today).day == 1 {
                     let prev = removed.todos.filter { !$0.completed && !$0.isSetting }
                     // could have setting to rollover settings
-                    lists[i].todos.append(contentsOf: prev)
+                    mCurrentLists[i].todos.append(contentsOf: prev)
                 }
             } else {
                 i += 1
             }
         }
-        lists.forEach { print($0.day) }
-        return lists
+        return mCurrentLists
     }
 
     static func newDaysOfWeekTodoLists(
         calendar: Calendar = .current,
-        today: Date = Date()
+        today: Date = Date.todayMonthDayYear()
     ) -> [TodoList] {
         return currentDaysOfWeek().enumerated().map { offset, day in
             TodoList(
@@ -64,6 +65,13 @@ extension TodoList {
                 dateCreated: today.byAddingDays(offset)
             )
         }
+    }
+
+    private static func getCurrentDaysOfWeekList() -> [TodoList] {
+        guard let lists = try? getDaysOfWeek(), !lists.isEmpty else {
+            return newDaysOfWeekTodoLists()
+        }
+        return lists
     }
 }
 
@@ -79,7 +87,7 @@ extension TodoList {
     static func saveDaysOfWeek(_ lists: [TodoList]) throws {
         try Cache.save(lists, path: "week")
         /// save in AppGroup for widget
-        /// may not be the best place to put this - SRP
+        /// may not be the best place to put this
         let url = AppGroup.todos.containerURL.appendingPathComponent("week")
         let data = try JSONEncoder().encode(lists)
         try data.write(to: url)

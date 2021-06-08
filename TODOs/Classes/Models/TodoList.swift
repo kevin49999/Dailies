@@ -30,16 +30,13 @@ class TodoList: Codable {
     let dateCreated: Date
     /// bad, but only only use for custom lists
     var name: String
-    /// not great either
-    var day: String { return DateFormatters.dayOfWeek.string(from: dateCreated) }
     var todos: [Todo]
     var showCompleted: Bool
+    var visible: [Todo] { showCompleted ? todos : incomplete }
+    lazy var day: String = DateFormatters.dayOfWeek.string(from: dateCreated)
     lazy var incomplete: [Todo] = {
         return todos.filter { !$0.completed }
     }()
-    var visible: [Todo] {
-        return showCompleted ? todos : incomplete
-    }
     
     init(
         classification: Classification,
