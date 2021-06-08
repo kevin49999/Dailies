@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol AddTodoCellDelegate: class {
+protocol AddTodoCellDelegate: AnyObject {
     func addTodoCell(_ cell: AddTodoCell, isEditing textView: UITextView)
     func addTodoCell(_ cell: AddTodoCell, didEndEditing text: String)
 }

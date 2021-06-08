@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol SettingCellDelegate: class {
+protocol SettingCellDelegate: AnyObject {
     func settingCell(_ cell: SettingCell, didToggle on: Bool)
 }
 

@@ -44,4 +44,14 @@ extension Date {
         }
         return n
     }
+
+    static func todayMonthDayYear(calendar: Calendar = .current) -> Date {
+        let comp = calendar.dateComponents([.year, .month, .day], from: Date())
+        return monthDayYearDate(month: comp.month!, day: comp.day!, year: comp.year!)
+    }
+
+    private static func monthDayYearDate(month: Int, day: Int, year: Int, calendar: Calendar = .current) -> Date {
+        let comp = DateComponents(year: year, month: month, day: day)
+        return calendar.date(from: comp)!
+    }
 }
