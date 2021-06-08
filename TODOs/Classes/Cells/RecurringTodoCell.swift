@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol RecurringTodoCellDelegate: class {
+protocol RecurringTodoCellDelegate: AnyObject {
     func recurringTodoCell(_ cell: RecurringTodoCell, isEditing textView: UITextView)
     func recurringTodoCell(_ cell: RecurringTodoCell, didEndEditing text: String)
     func recurringTodoCellDidTapFreq(_ cell: RecurringTodoCell)

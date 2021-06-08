@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol TodoListSectionHeaderViewDelegate: class {
+protocol TodoListSectionHeaderViewDelegate: AnyObject {
     func todoListSectionHeaderView(_ view: TodoListSectionHeaderView, tappedAction section: Int)
 }
 

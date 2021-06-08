@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol UndoViewDelegate: class {
+protocol UndoViewDelegate: AnyObject {
     func undoViewDidTapUndo(_ view: UndoView)
     func undoViewDidTapCancel(_ view: UndoView)
 }
