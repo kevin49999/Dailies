@@ -205,7 +205,7 @@
 		520F6E44257DD58C002154D2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		520F6E51257DD861002154D2 /* TODOs.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TODOs.entitlements; sourceTree = "<group>"; };
 		520F6E55257DD9E5002154D2 /* TODOsWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TODOsWidgetExtension.entitlements; sourceTree = "<group>"; };
-		520F6E86257DDDC9002154D2 /* TodoList+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "TodoList+Extensions.swift"; path = "../../TodoList+Extensions.swift"; sourceTree = "<group>"; };
+		520F6E86257DDDC9002154D2 /* TodoList+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TodoList+Extensions.swift"; sourceTree = "<group>"; };
 		520F6E93257DDEE1002154D2 /* AppGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppGroup.swift; sourceTree = "<group>"; };
 		5217798625941B7200D92EAA /* SettingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingCell.xib; sourceTree = "<group>"; };
 		5217798B25941B8300D92EAA /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
