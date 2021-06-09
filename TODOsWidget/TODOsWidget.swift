@@ -12,39 +12,49 @@ import Intents
 
 struct Provider: IntentTimelineProvider {
     func placeholder(in context: Context) -> TodayEntry {
-        TodayEntry(date: Date(), today: TodoList(classification: .daysOfWeek), configuration: ConfigurationIntent())
+        TodayEntry(
+            date: Date.todayMonthDayYear(),
+            today: TodoList(classification: .daysOfWeek),
+            configuration: ConfigurationIntent()
+        )
     }
 
     func getSnapshot(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (TodayEntry) -> ()) {
-        let entry = TodayEntry(date: Date(), today: TodoList(classification: .daysOfWeek), configuration: configuration)
+        let entry = TodayEntry(
+            date: Date.todayMonthDayYear(),
+            today: TodoList(classification: .daysOfWeek),
+            configuration: configuration
+        )
         completion(entry)
     }
 
     func getTimeline(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-        do {
-            let week = try loadCurrentWeek()
-            let entries: [TodayEntry] = week.map { .init(
-                date: $0.dateCreated,
-                today: $0,
-                configuration: ConfigurationIntent()
-            )}
-            let timeline = Timeline(
-                entries: entries,
-                policy: .atEnd
-            )
-            completion(timeline)
-        } catch {
-            assertionFailure(error.localizedDescription)
-        }
+        let week = loadCurrentWeek()
+        let entries: [TodayEntry] = week.map { .init(
+            date: $0.dateCreated,
+            today: $0,
+            configuration: ConfigurationIntent()
+        )}
+        let timeline = Timeline(
+            entries: entries,
+            policy: .atEnd
+        )
+        completion(timeline)
     }
 
     // MARK: - Helper
 
-    private func loadCurrentWeek() throws -> [TodoList] {
+    private func loadCurrentWeek() -> [TodoList] {
         let url = AppGroup.todos.containerURL.appendingPathComponent("week")
-        let data = try Data(contentsOf: url)
-        let week = try JSONDecoder().decode([TodoList].self, from: data)
-        return week
+        do {
+            let data = try Data(contentsOf: url)
+            let week = try JSONDecoder().decode([TodoList].self, from: data)
+            return week
+        } catch {
+            print("couldn't load current week:", error)
+            print("could just not be cached yet, so return new")
+            return TodoList.newDaysOfWeekTodoLists()
+        }
     }
 }
 
@@ -56,7 +66,7 @@ struct TodayEntry: TimelineEntry {
     let configuration: ConfigurationIntent
 
     init(
-        date: Date = Date(),
+        date: Date = Date.todayMonthDayYear(),
         today: TodoList,
         configuration: ConfigurationIntent
     ) {
@@ -126,7 +136,7 @@ struct TODOsWidget_Previews: PreviewProvider {
     static var previews: some View {
         TODOsWidgetEntryView(
             entry: TodayEntry(
-                date: Date(),
+                date: Date.todayMonthDayYear(),
                 today: TodoList(
                     classification: .daysOfWeek,
                     todos: [
