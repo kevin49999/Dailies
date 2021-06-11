@@ -25,7 +25,7 @@ extension TodoList {
     ) -> [TodoList] {
         /// if last day is beforeToday, generate new list
         var mDay = currentLists.last!.dateCreated
-        let today = Date()
+        let today = Date.todayMonthDayYear()
         if mDay.isBefore(today) {
             return newDaysOfWeekTodoLists()
         }
