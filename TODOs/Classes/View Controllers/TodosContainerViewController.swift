@@ -155,6 +155,8 @@ extension TodosContainerViewController {
         }
         if firstDay.dateCreated.isBefore(Date()) {
             daysOfWeekTodoController.updateTodoLists(TodoList.daysOfWeekTodoLists())
+            /// add settings to new days that get it dated
+            settingsChanged()
         }
     }
 
