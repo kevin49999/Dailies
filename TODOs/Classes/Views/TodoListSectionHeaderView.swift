@@ -31,7 +31,6 @@ class TodoListSectionHeaderView: UIView {
             withConfiguration: UIImage.SymbolConfiguration(scale: .medium)
         )
         let button = UIButton()
-        button.tintColor = .systemPurple
         button.contentMode = .scaleAspectFit
         button.setImage(ellipsis, for: .normal)
         return button

@@ -87,6 +87,8 @@ class TodosContainerViewController: UIViewController {
             todoLists: createdTodoViewController.dataSource.todoLists
         )
         let nav = UINavigationController(rootViewController: controller)
+        nav.navigationBar.isTranslucent = false
+        nav.toolbar.isTranslucent = false
         present(nav, animated: true)
     }
 

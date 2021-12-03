@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9Vt-fV-Urb">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9Vt-fV-Urb">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -71,20 +72,17 @@
                     <navigationItem key="navigationItem" title="TODOs" largeTitleDisplayMode="always" id="uzk-y5-BPN">
                         <barButtonItem key="backBarButtonItem" title=" " id="DUX-QX-NP8"/>
                         <barButtonItem key="leftBarButtonItem" title="Lists" id="iEN-Rb-D4j">
-                            <color key="tintColor" systemColor="systemPurpleColor"/>
                             <connections>
                                 <action selector="tappedListsBarButtonItem:" destination="BYZ-38-t0r" id="z4b-Gy-nWj"/>
                             </connections>
                         </barButtonItem>
                         <rightBarButtonItems>
                             <barButtonItem title="Item" id="LYx-IW-y0e">
-                                <color key="tintColor" systemColor="systemPurpleColor"/>
                                 <connections>
                                     <action selector="tappedSettingsBarButtonItem:" destination="BYZ-38-t0r" id="ePK-F5-Vyp"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem systemItem="add" id="B08-ZY-5WR">
-                                <color key="tintColor" systemColor="systemPurpleColor"/>
                                 <connections>
                                     <action selector="tappedActionBarButtonItem:" destination="BYZ-38-t0r" id="I8i-Po-meE"/>
                                 </connections>
@@ -133,9 +131,6 @@
         </systemColor>
         <systemColor name="systemGroupedBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemPurpleColor">
-            <color red="0.68627450980392157" green="0.32156862745098042" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
