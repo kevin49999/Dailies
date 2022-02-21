@@ -40,7 +40,7 @@ class TodoList: Codable {
     
     init(
         classification: Classification,
-        dateCreated: Date = Date(),
+        dateCreated: Date = Date.todayMonthDayYear(),
         name: String = "",
         todos: [Todo] = [],
         showCompleted: Bool = !GeneralSettings.shared.hideCompleted
@@ -59,9 +59,10 @@ extension TodoList: Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(name)
         hasher.combine(dateCreated)
+        hasher.combine(todos)
     }
 
     static func == (lhs: TodoList, rhs: TodoList) -> Bool {
-        return lhs.dateCreated == rhs.dateCreated && lhs.name == rhs.name
+        return lhs.dateCreated == rhs.dateCreated && lhs.name == rhs.name && lhs.todos == rhs.todos
     }
 }

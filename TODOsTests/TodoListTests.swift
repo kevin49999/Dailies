@@ -295,8 +295,7 @@ class TodoListTests: XCTestCase {
     // MARK: - Staying in Sync
 
     func testGeneratingNewListAfterMonthsBreak() {
-        let comp = DateComponents(year: 2021, month: 3, day: 1)
-        let marchFirst = Calendar.current.date(from: comp)!
+        let marchFirst = Date.monthDayYearDate(month: 3, day: 1, year: 2021)
         let lists: [TodoList] = [
             .init(classification: .daysOfWeek, dateCreated: marchFirst),
             .init(classification: .daysOfWeek, dateCreated: marchFirst.byAddingDays(1)),
@@ -310,5 +309,21 @@ class TodoListTests: XCTestCase {
         let current = TodoList.daysOfWeekTodoLists(currentLists: lists)
         let new = TodoList.newDaysOfWeekTodoLists()
         XCTAssertEqual(current, new)
+    }
+
+    func testTimeZoneSwitch() {
+        let today = Date() // keeps the timezone..
+        print(today)
+        let lists: [TodoList] = [
+            .init(classification: .daysOfWeek, dateCreated: today, todos: [.init(text: "1")]),
+            .init(classification: .daysOfWeek, dateCreated: today.byAddingDays(1), todos: [.init(text: "2")]),
+            .init(classification: .daysOfWeek, dateCreated: today.byAddingDays(2), todos: [.init(text: "3")]),
+            .init(classification: .daysOfWeek, dateCreated: today.byAddingDays(3)),
+            .init(classification: .daysOfWeek, dateCreated: today.byAddingDays(4)),
+            .init(classification: .daysOfWeek, dateCreated: today.byAddingDays(5)),
+            .init(classification: .daysOfWeek, dateCreated: today.byAddingDays(6)),
+        ]
+        let current = TodoList.daysOfWeekTodoLists(currentLists: lists)
+        XCTAssertEqual(current, lists)
     }
 }
