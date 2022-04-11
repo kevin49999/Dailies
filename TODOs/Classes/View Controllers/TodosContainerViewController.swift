@@ -86,9 +86,12 @@ class TodosContainerViewController: UIViewController {
             delegate: self,
             todoLists: createdTodoViewController.dataSource.todoLists
         )
+
         let nav = UINavigationController(rootViewController: controller)
-        nav.navigationBar.isTranslucent = false
-        nav.toolbar.isTranslucent = false
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        nav.navigationBar.standardAppearance = appearance
+        nav.navigationBar.scrollEdgeAppearance = nav.navigationBar.standardAppearance
         present(nav, animated: true)
     }
 
