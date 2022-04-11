@@ -131,7 +131,10 @@ extension SettingsViewController: UIPickerViewDataSource, UIPickerViewDelegate, 
     }
 
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        guard changingFreqIndex != nil else { preconditionFailure() }
+        guard changingFreqIndex != nil else {
+            assertionFailure()
+            return nil
+        }
         return changingFrequencies[row].description
     }
 
