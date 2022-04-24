@@ -44,7 +44,7 @@ class UndoView: UIView {
         b.contentMode = .scaleAspectFit
         b.setImage(image, for: .normal)
         b.translatesAutoresizingMaskIntoConstraints = false
-        b.addTarget(UndoView.self, action: #selector(onTapUndo(_:)), for: .touchUpInside)
+        b.addTarget(self, action: #selector(onTapUndo(_:)), for: .touchUpInside)
         b.tintColor = .systemBackground
         return b
     }()
@@ -58,7 +58,7 @@ class UndoView: UIView {
         b.contentMode = .scaleAspectFit
         b.setImage(image, for: .normal)
         b.translatesAutoresizingMaskIntoConstraints = false
-        b.addTarget(UndoView.self, action: #selector(onTapCancel(_:)), for: .touchUpInside)
+        b.addTarget(self, action: #selector(onTapCancel(_:)), for: .touchUpInside)
         b.tintColor = .systemBackground
         return b
     }()

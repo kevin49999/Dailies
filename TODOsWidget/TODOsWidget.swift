@@ -83,33 +83,38 @@ struct TODOsWidgetEntryView : View {
     let prefix: Int = 4
 
     var body: some View {
-        if entry.today.incomplete.isEmpty {
-            Text("Done ✅").bold()
-        } else {
-            VStack(alignment: .leading, spacing: 4.0) {
-                Text(entry.today.day)
-                    .font(.headline)
-                ForEach(entry.today.visible.prefix(prefix)
-                        , id: \.self) { todo in
-                    todo.completed ? Text("- \(todo.text)")
-                        .strikethrough(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/, color: .secondary)
-                        .foregroundColor(.secondary) :
+        ZStack {
+            Color(.secondarySystemGroupedBackground)
+                .ignoresSafeArea()
+            if entry.today.incomplete.isEmpty {
+                Text("Done ✅").bold()
+            } else {
+                VStack(alignment: .leading, spacing: 4.0) {
+                    Text(entry.today.day)
+                        .font(.caption)
+                        .bold()
+                    ForEach(entry.today.visible.prefix(prefix)
+                            , id: \.self) { todo in
+                        todo.completed ? Text("- \(todo.text)")
+                            .strikethrough(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/, color: .secondary)
+                            .foregroundColor(.secondary) :
                         Text("- \(todo.text)")
-                }
-                entry.today.visible.count > prefix ?
+                            .font(.caption)
+                    }
+                    entry.today.visible.count > prefix ?
                     Text("\(entry.today.incomplete.count - entry.today.visible.prefix(prefix).filter { !$0.completed }.count) more todo")
-                    .font(.callout): nil
-                Spacer()
+                        .font(.caption2).bold() : nil
+                }
+                .frame(
+                    minWidth: 0,
+                    maxWidth: .infinity,
+                    minHeight: 0,
+                    maxHeight: .infinity,
+                    alignment: .topLeading
+                )
+                .padding(.horizontal)
+                .padding(.top)
             }
-            .frame(
-                minWidth: 0,
-                maxWidth: .infinity,
-                minHeight: 0,
-                maxHeight: .infinity,
-                alignment: .topLeading
-            )
-            .padding(.horizontal)
-            .padding(.top)
         }
     }
 }
