@@ -97,7 +97,8 @@ struct TODOsWidgetEntryView : View {
                             , id: \.self) { todo in
                         todo.completed ? Text("- \(todo.text)")
                             .strikethrough(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/, color: .secondary)
-                            .foregroundColor(.secondary) :
+                            .foregroundColor(.secondary)
+                            .font(.caption) :
                         Text("- \(todo.text)")
                             .font(.caption)
                     }
