@@ -80,7 +80,7 @@ struct TodayEntry: TimelineEntry {
 
 struct TODOsWidgetEntryView : View {
     var entry: Provider.Entry
-    let prefix: Int = 4
+    let prefix: Int = 3
 
     var body: some View {
         ZStack {
@@ -91,20 +91,22 @@ struct TODOsWidgetEntryView : View {
             } else {
                 VStack(alignment: .leading, spacing: 4.0) {
                     Text(entry.today.day)
-                        .font(.caption)
+                        .font(.body)
                         .bold()
                     ForEach(entry.today.visible.prefix(prefix)
                             , id: \.self) { todo in
                         todo.completed ? Text("- \(todo.text)")
                             .strikethrough(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/, color: .secondary)
                             .foregroundColor(.secondary)
-                            .font(.caption) :
+                            .font(.body)
+                            .lineLimit(2):
                         Text("- \(todo.text)")
-                            .font(.caption)
+                            .font(.body)
+                            .lineLimit(2)
                     }
                     entry.today.visible.count > prefix ?
                     Text("\(entry.today.incomplete.count - entry.today.visible.prefix(prefix).filter { !$0.completed }.count) more todo")
-                        .font(.caption2).bold() : nil
+                        .font(.callout).bold() : nil
                 }
                 .frame(
                     minWidth: 0,
