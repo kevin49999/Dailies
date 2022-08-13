@@ -20,12 +20,12 @@ extension TodoList {
 
     static func daysOfWeekTodoLists(
         calendar: Calendar = .current,
+        today: Date = Date.todayMonthDayYear(),
         settings: GeneralSettings = .shared,
         currentLists: [TodoList] = getCurrentDaysOfWeekList()
     ) -> [TodoList] {
         /// if last day is beforeToday, generate new list
         var mDay = currentLists.last!.dateCreated
-        let today = Date.todayMonthDayYear()
         if mDay.isBefore(today) {
             return newDaysOfWeekTodoLists()
         }

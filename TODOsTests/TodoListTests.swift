@@ -312,8 +312,7 @@ class TodoListTests: XCTestCase {
     }
 
     func testTimeZoneSwitch() {
-        let today = Date() // keeps the timezone..
-        print(today)
+        let today = Date() // keeps the timezone
         let lists: [TodoList] = [
             .init(classification: .daysOfWeek, dateCreated: today, todos: [.init(text: "1")]),
             .init(classification: .daysOfWeek, dateCreated: today.byAddingDays(1), todos: [.init(text: "2")]),
@@ -325,5 +324,32 @@ class TodoListTests: XCTestCase {
         ]
         let current = TodoList.daysOfWeekTodoLists(currentLists: lists)
         XCTAssertEqual(current, lists)
+    }
+
+    func testRollover() {
+        let marchFirst = Date.monthDayYearDate(month: 3, day: 1, year: 2021)
+        let lists: [TodoList] = [
+            .init(classification: .daysOfWeek, dateCreated: marchFirst, todos: [.init(text: "1")]),
+            .init(classification: .daysOfWeek, dateCreated: marchFirst.byAddingDays(1)),
+            .init(classification: .daysOfWeek, dateCreated: marchFirst.byAddingDays(2)),
+            .init(classification: .daysOfWeek, dateCreated: marchFirst.byAddingDays(3)),
+            .init(classification: .daysOfWeek, dateCreated: marchFirst.byAddingDays(4)),
+            .init(classification: .daysOfWeek, dateCreated: marchFirst.byAddingDays(5)),
+            .init(classification: .daysOfWeek, dateCreated: marchFirst.byAddingDays(6)),
+        ]
+
+        let settings = GeneralSettings()
+        settings.toggleRollover(on: true)
+        let marchFirstLists = TodoList.daysOfWeekTodoLists(today: marchFirst, settings: settings, currentLists: lists)
+
+        marchFirstLists.forEach { $0.todos.prettyPrint() }
+
+        let marchSecond = Date.monthDayYearDate(month: 3, day: 2, year: 2021)
+        let marchSecondLists = TodoList.daysOfWeekTodoLists(today: marchSecond, settings: settings, currentLists: lists)
+
+        marchSecondLists.forEach { $0.todos.prettyPrint () }
+
+        // 1 should now be on the first day! which is the day after
+        XCTAssertEqual(marchSecondLists[0].todos[0].text, "1")
     }
 }

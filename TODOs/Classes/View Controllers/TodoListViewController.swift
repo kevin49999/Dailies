@@ -9,6 +9,7 @@
 import StoreKit
 import UIKit
 
+// TODO: drag to merge cells with / separator in between
 class TodoListViewController: UIViewController {
 
     // MARK: - Properties
@@ -28,22 +29,12 @@ class TodoListViewController: UIViewController {
         table.translatesAutoresizingMaskIntoConstraints = false
         return table
     }()
-    private lazy var emptyLabel: UILabel = {
-        let label = UILabel()
-        label.text = self.emptyString
-        label.font = UIFont.preferredFont(forTextStyle: .callout)
-        label.numberOfLines = 0
-        label.textAlignment = .center
-        return label
-    }()
     private var bottomInset: CGFloat
-    private var emptyString: String?
 
     // MARK: - Init
 
-    init(todoLists: [TodoList], bottomInset: CGFloat, emptyString: String?) {
+    init(todoLists: [TodoList], bottomInset: CGFloat) {
         self.bottomInset = bottomInset
-        self.emptyString = emptyString
         super.init(nibName: nil, bundle: nil)
         self.dataSource = .init(tableView: tableView, todoLists: todoLists, cellDelegate: self)
     }
@@ -69,7 +60,6 @@ class TodoListViewController: UIViewController {
         tableView.dropDelegate = self
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: self.bottomInset, right: 0)
         dataSource.applySnapshot(animatingDifferences: false)
-        determineShowEmpty()
     }
 
     // MARK: - Public Functions
@@ -78,24 +68,10 @@ class TodoListViewController: UIViewController {
         dataSource.todoLists = lists
         dataSource.applySnapshot()
         tableView.reloadData() // hacky, just want to reload section headers for title changes
-        determineShowEmpty()
     }
 
     func addNewTodoList(with name: String) {
         dataSource.addNewTodoList(with: name)
-        determineShowEmpty()
-    }
-
-    // MARK: - Private Functions
-
-    private func determineShowEmpty() {
-        if emptyString != nil {
-            if dataSource.todoLists.isEmpty {
-                tableView.backgroundView = emptyLabel
-            } else {
-                tableView.backgroundView = nil
-            }
-        }
     }
 }
 

@@ -136,7 +136,7 @@ extension UIAlertController {
     ) {
         let alertController = UIAlertController(
             title: "Are you sure you want to delete \"\(listName)?\" 🚮",
-            message: "Support hasn't been added yet to undo 😝",
+            message: "This cannot be undone",
             preferredStyle: .alert
         )
 

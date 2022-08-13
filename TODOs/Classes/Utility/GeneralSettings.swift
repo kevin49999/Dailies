@@ -19,7 +19,7 @@ class GeneralSettings {
 
     private let defaults: UserDefaults = .standard
 
-    private init() { }
+    init() { }
 
     var hideCompleted: Bool {
         if let hide = defaults.value(forKey: Settings.toggleHideCompleted.rawValue) as? Bool {
