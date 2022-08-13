@@ -19,12 +19,13 @@ class TodosContainerViewController: UIViewController {
             configure(for: state)
         }
     }
+    private var createListAlert: UIAlertController?
 
     private lazy var createdTodoViewController: TodoListViewController = {
         TodoListViewController(
             todoLists: TodoList.createdTodoLists(),
             bottomInset: self.toolBar.frame.height,
-            emptyString: "No custom lists added.. yet!"
+            emptyString: "No custom lists added"
         )
     }()
 
@@ -97,7 +98,7 @@ class TodosContainerViewController: UIViewController {
 
     @IBAction func tappedActionBarButtonItem(_ sender: UIBarButtonItem) {
         assert(state == .created)
-        UIAlertController.addTodoListAlert(presenter: self, completion: { name in
+        self.createListAlert = UIAlertController.addTodoListAlert(presenter: self, textFieldDelegate: self, completion: { name in
             self.createdTodoViewController.addNewTodoList(with: name)
         })
     }
@@ -177,5 +178,17 @@ extension TodosContainerViewController {
 extension TodosContainerViewController: TodoListsViewControllerDelegate {
     func todoListsViewController(_ controller: TodoListsViewController, finishedEditing lists: [TodoList]) {
         createdTodoViewController.updateTodoLists(lists)
+    }
+}
+
+// MARK: - UITextFieldDelegate
+
+extension TodosContainerViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if let text = textField.text, !text.isEmpty {
+            createListAlert?.dismiss(animated: true)
+            createdTodoViewController.addNewTodoList(with: text)
+        }
+        return true
     }
 }

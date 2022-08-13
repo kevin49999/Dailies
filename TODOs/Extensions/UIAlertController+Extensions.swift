@@ -39,8 +39,9 @@ extension UIAlertController {
 extension UIAlertController {
     static func addTodoListAlert(
         presenter: UIViewController,
+        textFieldDelegate: UITextFieldDelegate?,
         completion: @escaping (_ name: String) -> Void
-    ) {
+    ) -> UIAlertController {
         let alertController = UIAlertController(
             title: "Create new todo list",
             message: nil,
@@ -52,6 +53,8 @@ extension UIAlertController {
         textField.borderStyle = .roundedRect
         textField.backgroundColor = .clear
         textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.returnKeyType = .done
+        textField.delegate = textFieldDelegate
         alertController.view.addSubview(textField)
         NSLayoutConstraint.activate([
             textField.topAnchor.constraint(equalTo: alertController.view.topAnchor, constant: 64.0),
@@ -78,6 +81,7 @@ extension UIAlertController {
         presenter.present(alertController, animated: true, completion: {
             textField.becomeFirstResponder()
         })
+        return alertController
     }
 
     static func editTodoListAlert(
