@@ -327,29 +327,28 @@ class TodoListTests: XCTestCase {
     }
 
     func testRollover() {
-        let marchFirst = Date.monthDayYearDate(month: 3, day: 1, year: 2021)
+        let yesterday = Date.todayMonthDayYear().byAddingDays(-1)
         let lists: [TodoList] = [
-            .init(classification: .daysOfWeek, dateCreated: marchFirst, todos: [.init(text: "1")]),
-            .init(classification: .daysOfWeek, dateCreated: marchFirst.byAddingDays(1)),
-            .init(classification: .daysOfWeek, dateCreated: marchFirst.byAddingDays(2)),
-            .init(classification: .daysOfWeek, dateCreated: marchFirst.byAddingDays(3)),
-            .init(classification: .daysOfWeek, dateCreated: marchFirst.byAddingDays(4)),
-            .init(classification: .daysOfWeek, dateCreated: marchFirst.byAddingDays(5)),
-            .init(classification: .daysOfWeek, dateCreated: marchFirst.byAddingDays(6)),
+            .init(classification: .daysOfWeek, dateCreated: yesterday, todos: [.init(text: "1")]),
+            .init(classification: .daysOfWeek, dateCreated: yesterday.byAddingDays(1)),
+            .init(classification: .daysOfWeek, dateCreated: yesterday.byAddingDays(2)),
+            .init(classification: .daysOfWeek, dateCreated: yesterday.byAddingDays(3)),
+            .init(classification: .daysOfWeek, dateCreated: yesterday.byAddingDays(4)),
+            .init(classification: .daysOfWeek, dateCreated: yesterday.byAddingDays(5)),
+            .init(classification: .daysOfWeek, dateCreated: yesterday.byAddingDays(6)),
         ]
 
         let settings = GeneralSettings()
         settings.toggleRollover(on: true)
-        let marchFirstLists = TodoList.daysOfWeekTodoLists(today: marchFirst, settings: settings, currentLists: lists)
+        let yesterdayLists = TodoList.daysOfWeekTodoLists(
+            today: yesterday,
+            settings: settings,
+            currentLists: lists
+        )
 
-        marchFirstLists.forEach { $0.todos.prettyPrint() }
-
-        let marchSecond = Date.monthDayYearDate(month: 3, day: 2, year: 2021)
-        let marchSecondLists = TodoList.daysOfWeekTodoLists(today: marchSecond, settings: settings, currentLists: lists)
-
-        marchSecondLists.forEach { $0.todos.prettyPrint () }
+        let todayLists = TodoList.daysOfWeekTodoLists(settings: settings, currentLists: yesterdayLists)
 
         // 1 should now be on the first day! which is the day after
-        XCTAssertEqual(marchSecondLists[0].todos[0].text, "1")
+        XCTAssertEqual(todayLists[0].todos[0].text, "1")
     }
 }
