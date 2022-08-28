@@ -23,8 +23,8 @@
 		52013987240369890030DD3D /* UIViewController+ChildControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52013986240369890030DD3D /* UIViewController+ChildControllers.swift */; };
 		5201398B24218FB80030DD3D /* TodoListsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5201398A24218FB80030DD3D /* TodoListsViewController.swift */; };
 		520AB3BA28BBDA8F00005842 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 520AB3B928BBDA8F00005842 /* CloudKit.framework */; };
-		520AB3BC28BBE20B00005842 /* CloudKit+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520AB3BB28BBE20B00005842 /* CloudKit+Extensions.swift */; };
-		520AB3BD28BBED5A00005842 /* CloudKit+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520AB3BB28BBE20B00005842 /* CloudKit+Extensions.swift */; };
+		520AB3BC28BBE20B00005842 /* CloudDb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520AB3BB28BBE20B00005842 /* CloudDb.swift */; };
+		520AB3BD28BBED5A00005842 /* CloudDb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520AB3BB28BBE20B00005842 /* CloudDb.swift */; };
 		520F6E3B257DD58B002154D2 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 520F6E3A257DD58B002154D2 /* WidgetKit.framework */; };
 		520F6E3D257DD58B002154D2 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 520F6E3C257DD58B002154D2 /* SwiftUI.framework */; };
 		520F6E40257DD58B002154D2 /* TODOsWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520F6E3F257DD58B002154D2 /* TODOsWidget.swift */; };
@@ -208,7 +208,7 @@
 		52013986240369890030DD3D /* UIViewController+ChildControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ChildControllers.swift"; sourceTree = "<group>"; };
 		5201398A24218FB80030DD3D /* TodoListsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListsViewController.swift; sourceTree = "<group>"; };
 		520AB3B928BBDA8F00005842 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
-		520AB3BB28BBE20B00005842 /* CloudKit+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CloudKit+Extensions.swift"; sourceTree = "<group>"; };
+		520AB3BB28BBE20B00005842 /* CloudDb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudDb.swift; sourceTree = "<group>"; };
 		520F6E39257DD58B002154D2 /* TODOsWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TODOsWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		520F6E3A257DD58B002154D2 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		520F6E3C257DD58B002154D2 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -482,7 +482,7 @@
 			children = (
 				520F6E93257DDEE1002154D2 /* AppGroup.swift */,
 				52567EBC23E74B11000332EA /* Cache.swift */,
-				520AB3BB28BBE20B00005842 /* CloudKit+Extensions.swift */,
+				520AB3BB28BBE20B00005842 /* CloudDb.swift */,
 				523029BE259D68AD002D1725 /* GeneralSettings.swift */,
 			);
 			path = Utility;
@@ -718,7 +718,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				52567EBB23DE907B000332EA /* TodoViewData.swift in Sources */,
-				520AB3BC28BBE20B00005842 /* CloudKit+Extensions.swift in Sources */,
+				520AB3BC28BBE20B00005842 /* CloudDb.swift in Sources */,
 				52567EB723DE9060000332EA /* TodoList.swift in Sources */,
 				52662ABC2485C4D40072626B /* UndoView.swift in Sources */,
 				5295A219246B158E00B502CA /* TodoList+ModelUpdates.swift in Sources */,
@@ -792,7 +792,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				52E226E025B296B30083D6D8 /* TodoViewData.swift in Sources */,
-				520AB3BD28BBED5A00005842 /* CloudKit+Extensions.swift in Sources */,
+				520AB3BD28BBED5A00005842 /* CloudDb.swift in Sources */,
 				52E226E125B296B30083D6D8 /* TodoList.swift in Sources */,
 				52E226E225B296B30083D6D8 /* UndoView.swift in Sources */,
 				52E226E325B296B30083D6D8 /* TodoList+ModelUpdates.swift in Sources */,

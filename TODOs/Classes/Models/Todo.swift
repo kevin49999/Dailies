@@ -53,7 +53,8 @@ class Todo: Codable, Identifiable {
     }
 
     init?(record: CKRecord) {
-        guard let id = record["id"] as? UUID,
+        guard let idString = record["id"] as? String,
+              let id = UUID(uuidString: idString),
               let text = record["text"] as? String,
               let completed = record["completed"] as? Bool else { return nil }
 

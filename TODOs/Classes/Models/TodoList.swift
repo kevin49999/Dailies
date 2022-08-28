@@ -52,7 +52,7 @@ class TodoList: Codable {
         self.showCompleted = showCompleted
     }
 
-    init?(record: CKRecord, database: CKDatabase) {
+    init?(record: CKRecord) {
         guard let classificationInt = record["classification"] as? Int,
               let classification = Classification(rawValue: classificationInt),
               let dateCreated = record["dateCreated"] as? Date,
