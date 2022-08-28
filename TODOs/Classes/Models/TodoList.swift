@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CloudKit
 
 class TodoList: Codable {
     enum Classification: Int, Codable {
@@ -32,11 +33,10 @@ class TodoList: Codable {
     var name: String
     var todos: [Todo]
     var showCompleted: Bool
+
     var visible: [Todo] { showCompleted ? todos : incomplete }
     lazy var day: String = DateFormatters.dayOfWeek.string(from: dateCreated)
-    lazy var incomplete: [Todo] = {
-        return todos.filter { !$0.completed }
-    }()
+    lazy var incomplete: [Todo] = { todos.filter { !$0.completed } }()
     
     init(
         classification: Classification,
@@ -49,6 +49,20 @@ class TodoList: Codable {
         self.dateCreated = dateCreated
         self.name = name
         self.todos = todos
+        self.showCompleted = showCompleted
+    }
+
+    init?(record: CKRecord, database: CKDatabase) {
+        guard let classificationInt = record["classification"] as? Int,
+              let classification = Classification(rawValue: classificationInt),
+              let dateCreated = record["dateCreated"] as? Date,
+              let name = record["name"] as? String,
+              let showCompleted = record["showCompleted"] as? Bool else { return nil }
+
+        self.classification = classification
+        self.dateCreated = dateCreated
+        self.name = name
+        self.todos = [] // setting these with separate fetch
         self.showCompleted = showCompleted
     }
 }

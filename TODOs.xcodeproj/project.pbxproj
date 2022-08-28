@@ -22,6 +22,9 @@
 		52013985240363070030DD3D /* TodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52013984240363070030DD3D /* TodoListViewController.swift */; };
 		52013987240369890030DD3D /* UIViewController+ChildControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52013986240369890030DD3D /* UIViewController+ChildControllers.swift */; };
 		5201398B24218FB80030DD3D /* TodoListsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5201398A24218FB80030DD3D /* TodoListsViewController.swift */; };
+		520AB3BA28BBDA8F00005842 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 520AB3B928BBDA8F00005842 /* CloudKit.framework */; };
+		520AB3BC28BBE20B00005842 /* CloudKit+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520AB3BB28BBE20B00005842 /* CloudKit+Extensions.swift */; };
+		520AB3BD28BBED5A00005842 /* CloudKit+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520AB3BB28BBE20B00005842 /* CloudKit+Extensions.swift */; };
 		520F6E3B257DD58B002154D2 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 520F6E3A257DD58B002154D2 /* WidgetKit.framework */; };
 		520F6E3D257DD58B002154D2 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 520F6E3C257DD58B002154D2 /* SwiftUI.framework */; };
 		520F6E40257DD58B002154D2 /* TODOsWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520F6E3F257DD58B002154D2 /* TODOsWidget.swift */; };
@@ -204,6 +207,8 @@
 		52013984240363070030DD3D /* TodoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewController.swift; sourceTree = "<group>"; };
 		52013986240369890030DD3D /* UIViewController+ChildControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ChildControllers.swift"; sourceTree = "<group>"; };
 		5201398A24218FB80030DD3D /* TodoListsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListsViewController.swift; sourceTree = "<group>"; };
+		520AB3B928BBDA8F00005842 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		520AB3BB28BBE20B00005842 /* CloudKit+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CloudKit+Extensions.swift"; sourceTree = "<group>"; };
 		520F6E39257DD58B002154D2 /* TODOsWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TODOsWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		520F6E3A257DD58B002154D2 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		520F6E3C257DD58B002154D2 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -258,6 +263,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				520F6EA9257DE367002154D2 /* IQKeyboardManagerSwift in Frameworks */,
+				520AB3BA28BBDA8F00005842 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -476,6 +482,7 @@
 			children = (
 				520F6E93257DDEE1002154D2 /* AppGroup.swift */,
 				52567EBC23E74B11000332EA /* Cache.swift */,
+				520AB3BB28BBE20B00005842 /* CloudKit+Extensions.swift */,
 				523029BE259D68AD002D1725 /* GeneralSettings.swift */,
 			);
 			path = Utility;
@@ -497,6 +504,7 @@
 		67DEAABA7C96DADD24DACAA8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				520AB3B928BBDA8F00005842 /* CloudKit.framework */,
 				CBA28BFD00B4E8629E893D07 /* Pods_TODOs.framework */,
 				520F6E3A257DD58B002154D2 /* WidgetKit.framework */,
 				520F6E3C257DD58B002154D2 /* SwiftUI.framework */,
@@ -710,6 +718,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				52567EBB23DE907B000332EA /* TodoViewData.swift in Sources */,
+				520AB3BC28BBE20B00005842 /* CloudKit+Extensions.swift in Sources */,
 				52567EB723DE9060000332EA /* TodoList.swift in Sources */,
 				52662ABC2485C4D40072626B /* UndoView.swift in Sources */,
 				5295A219246B158E00B502CA /* TodoList+ModelUpdates.swift in Sources */,
@@ -783,6 +792,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				52E226E025B296B30083D6D8 /* TodoViewData.swift in Sources */,
+				520AB3BD28BBED5A00005842 /* CloudKit+Extensions.swift in Sources */,
 				52E226E125B296B30083D6D8 /* TodoList.swift in Sources */,
 				52E226E225B296B30083D6D8 /* UndoView.swift in Sources */,
 				52E226E325B296B30083D6D8 /* TodoList+ModelUpdates.swift in Sources */,
@@ -933,7 +943,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -988,7 +998,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -1050,7 +1060,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = X6XFU66KA9;
 				INFOPLIST_FILE = TODOsTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1072,7 +1082,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = X6XFU66KA9;
 				INFOPLIST_FILE = TODOsTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1097,7 +1107,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = X6XFU66KA9;
 				INFOPLIST_FILE = TODOsWidget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1123,7 +1133,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = X6XFU66KA9;
 				INFOPLIST_FILE = TODOsWidget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1193,7 +1203,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = X6XFU66KA9;
 				INFOPLIST_FILE = "[DEV] TODOsWidgetExtension.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1219,7 +1229,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = X6XFU66KA9;
 				INFOPLIST_FILE = "[DEV] TODOsWidgetExtension.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

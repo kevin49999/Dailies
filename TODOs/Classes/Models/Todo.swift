@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CloudKit
 
 class Todo: Codable, Identifiable {
     enum CodingKeys: CodingKey {
@@ -20,6 +21,7 @@ class Todo: Codable, Identifiable {
     var text: String
     var completed: Bool
     var settingUUID: String?
+
     var isSetting: Bool { settingUUID != nil }
 
     init(
@@ -49,11 +51,22 @@ class Todo: Codable, Identifiable {
             settingUUID = nil
         }
     }
-    
-    func duplicate() -> Todo {
-        return .init(text: self.text, completed: self.completed)
+
+    init?(record: CKRecord) {
+        guard let id = record["id"] as? UUID,
+              let text = record["text"] as? String,
+              let completed = record["completed"] as? Bool else { return nil }
+
+        self.id = id
+        self.text = text
+        self.completed = completed
+        self.settingUUID = record["settingUUID"] as? String ?? nil
     }
+    
+    func duplicate() -> Todo { .init(text: text, completed: completed) }
 }
+
+// MARK: - Hashable
 
 extension Todo: Hashable {
     func hash(into hasher: inout Hasher) {

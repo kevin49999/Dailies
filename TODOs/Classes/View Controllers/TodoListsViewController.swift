@@ -67,6 +67,17 @@ class TodoListsViewController: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
         ])
+
+        // testingggg
+        Task {
+            do {
+                let lists = try await CloudDB.shared.lists()
+                dump(lists)
+            } catch {
+                print(error)
+            }
+
+        }
     }
 
     @IBAction private func tappedSave(_ sender: UIBarButtonItem) {
