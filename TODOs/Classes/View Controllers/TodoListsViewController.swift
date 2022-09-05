@@ -111,9 +111,9 @@ extension TodoListsViewController: UITableViewDataSource {
             presenter: self
         ) { delete in
             guard delete else { return }
-            self.todoLists.remove(at: indexPath.row)
+            let list = self.todoLists.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
-            // TODO: ON BG, DELETE FROM CLOUDKIT
+            Task { try? await CloudDb.shared.deleteList(list) }
         }
     }
 }

@@ -20,6 +20,8 @@ class CloudDb {
         privateDb = container.privateCloudDatabase
     }
 
+    // TODO: NEXTTTT
+    // TODO: Should/Need to return days of week and created, sorted differently!
     /// fetch if all user lists are empty!
     /// provide popup w/ options to restore with iCloud
     /// could be a simple UIAlert like, "We found lists in ICloud! do you want to restore?"
@@ -38,12 +40,10 @@ class CloudDb {
             }
             // add list
             result.append(list)
-
             // find its todos
             guard let todosReferences = record["todos"] as? [CKRecord.Reference] else {
                 continue
             }
-
             let ids = todosReferences.map { $0.recordID }
             let todoRecords = try await privateDb.records(for: ids)
             list.todos = todoRecords.compactMap {
@@ -59,30 +59,46 @@ class CloudDb {
     func saveLists(_ lists: [TodoList]) async throws {
         var records: [CKRecord] = []
         for list in lists {
-            let record: CKRecord
+            let listRecord: CKRecord
             if let recordName = list.recordName {
-                record = CKRecord(recordType: "TodoList", recordID: .init(recordName: recordName))
+                listRecord = CKRecord(recordType: "TodoList", recordID: .init(recordName: recordName))
             } else {
-                record = CKRecord(recordType: "TodoList")
-                list.recordName = record.recordID.recordName
+                listRecord = CKRecord(recordType: "TodoList")
+                list.recordName = listRecord.recordID.recordName
             }
-            print(record.recordID)
-            record["classification"] = list.classification.rawValue
-            record["dateCreated"] = list.dateCreated
-            record["name"] = list.name
-            // don't save TODOs..?
-            record["showCompleted"] = list.showCompleted
-            records.append(record)
+            listRecord["classification"] = list.classification.rawValue
+            listRecord["dateCreated"] = list.dateCreated
+            listRecord["name"] = list.name
+            for todo in list.todos {
+                let todoRecord: CKRecord
+                if let recordName = todo.recordName {
+                    todoRecord = CKRecord(recordType: "Todo", recordID: .init(recordName: recordName))
+                } else {
+                    todoRecord = CKRecord(recordType: "Todo")
+                    todo.recordName = todoRecord.recordID.recordName
+                }
+                todoRecord["id"] = todo.id.uuidString
+                todoRecord["text"] = todo.text
+                todoRecord["completed"] = todo.completed
+                todoRecord["settingUUID"] = todo.settingUUID
+                records.append(todoRecord)
+            }
+            listRecord["showCompleted"] = list.showCompleted
+            records.append(listRecord)
         }
         _ = try await privateDb.modifyRecords(saving: records, deleting: [])
     }
 
     func deleteList(_ list: TodoList) async throws {
+        var deleting: [CKRecord.ID] = []
         guard let recordName = list.recordName else {
             return
         }
-        try await privateDb.deleteRecord(withID: CKRecord.ID(recordName: recordName))
-
-        // TODO: delete all TODOs with that relationship!
+        deleting.append(.init(recordName: recordName))
+        for todo in list.todos {
+            guard let recordName = todo.recordName else { continue }
+            deleting.append(.init(recordName: recordName))
+        }
+        _ = try await privateDb.modifyRecords(saving: [], deleting: deleting)
     }
 }
