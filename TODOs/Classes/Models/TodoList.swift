@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CloudKit
 
 class TodoList: Codable {
     enum Classification: Int, Codable {
@@ -28,27 +29,45 @@ class TodoList: Codable {
 
     let classification: Classification
     let dateCreated: Date
-    /// bad, but only only use for custom lists
+    /// bad, but only use for custom lists
     var name: String
     var todos: [Todo]
     var showCompleted: Bool
+    /// iCloud Record Name
+    var recordName: String?
+
     var visible: [Todo] { showCompleted ? todos : incomplete }
     lazy var day: String = DateFormatters.dayOfWeek.string(from: dateCreated)
-    lazy var incomplete: [Todo] = {
-        return todos.filter { !$0.completed }
-    }()
+    lazy var incomplete: [Todo] = { todos.filter { !$0.completed } }()
     
     init(
         classification: Classification,
         dateCreated: Date = Date.todayMonthDayYear(),
         name: String = "",
         todos: [Todo] = [],
-        showCompleted: Bool = !GeneralSettings.shared.hideCompleted
+        showCompleted: Bool = !GeneralSettings.shared.hideCompleted,
+        recordName: String? = nil
     ) {
         self.classification = classification
         self.dateCreated = dateCreated
         self.name = name
         self.todos = todos
+        self.showCompleted = showCompleted
+        self.recordName = recordName
+    }
+
+    init?(record: CKRecord) {
+        guard let classificationInt = record["classification"] as? Int,
+              let classification = Classification(rawValue: classificationInt),
+              let dateCreated = record["dateCreated"] as? Date,
+              let name = record["name"] as? String,
+              let showCompleted = record["showCompleted"] as? Bool else { return nil }
+
+        self.recordName = record.recordID.recordName
+        self.classification = classification
+        self.dateCreated = dateCreated
+        self.name = name
+        self.todos = [] // setting these with separate fetch
         self.showCompleted = showCompleted
     }
 }

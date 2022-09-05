@@ -22,6 +22,11 @@
 		52013985240363070030DD3D /* TodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52013984240363070030DD3D /* TodoListViewController.swift */; };
 		52013987240369890030DD3D /* UIViewController+ChildControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52013986240369890030DD3D /* UIViewController+ChildControllers.swift */; };
 		5201398B24218FB80030DD3D /* TodoListsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5201398A24218FB80030DD3D /* TodoListsViewController.swift */; };
+		520AB3BA28BBDA8F00005842 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 520AB3B928BBDA8F00005842 /* CloudKit.framework */; };
+		520AB3BC28BBE20B00005842 /* CloudDb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520AB3BB28BBE20B00005842 /* CloudDb.swift */; };
+		520AB3BD28BBED5A00005842 /* CloudDb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520AB3BB28BBE20B00005842 /* CloudDb.swift */; };
+		520AB3BE28C6608200005842 /* CloudDb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520AB3BB28BBE20B00005842 /* CloudDb.swift */; };
+		520AB3BF28C6608300005842 /* CloudDb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520AB3BB28BBE20B00005842 /* CloudDb.swift */; };
 		520F6E3B257DD58B002154D2 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 520F6E3A257DD58B002154D2 /* WidgetKit.framework */; };
 		520F6E3D257DD58B002154D2 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 520F6E3C257DD58B002154D2 /* SwiftUI.framework */; };
 		520F6E40257DD58B002154D2 /* TODOsWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520F6E3F257DD58B002154D2 /* TODOsWidget.swift */; };
@@ -59,6 +64,8 @@
 		52662AB8248584150072626B /* Undo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52662AB7248584150072626B /* Undo.swift */; };
 		52662ABA2485841B0072626B /* UndoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52662AB92485841B0072626B /* UndoItem.swift */; };
 		52662ABC2485C4D40072626B /* UndoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52662ABB2485C4D40072626B /* UndoView.swift */; };
+		527589BC28C6AE6B003B2DD2 /* RestoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527589BB28C6AE6B003B2DD2 /* RestoreViewController.swift */; };
+		527589BD28C6AE6B003B2DD2 /* RestoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527589BB28C6AE6B003B2DD2 /* RestoreViewController.swift */; };
 		5295A219246B158E00B502CA /* TodoList+ModelUpdates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5295A218246B158E00B502CA /* TodoList+ModelUpdates.swift */; };
 		52AABC2F23FA061D000FA700 /* TodoListSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AABC2E23FA061D000FA700 /* TodoListSectionHeaderView.swift */; };
 		52AE14352507E0D00089DFC8 /* SettingsTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AE14342507E0D00089DFC8 /* SettingsTableViewDataSource.swift */; };
@@ -204,6 +211,8 @@
 		52013984240363070030DD3D /* TodoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewController.swift; sourceTree = "<group>"; };
 		52013986240369890030DD3D /* UIViewController+ChildControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ChildControllers.swift"; sourceTree = "<group>"; };
 		5201398A24218FB80030DD3D /* TodoListsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListsViewController.swift; sourceTree = "<group>"; };
+		520AB3B928BBDA8F00005842 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		520AB3BB28BBE20B00005842 /* CloudDb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudDb.swift; sourceTree = "<group>"; };
 		520F6E39257DD58B002154D2 /* TODOsWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TODOsWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		520F6E3A257DD58B002154D2 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		520F6E3C257DD58B002154D2 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -237,6 +246,7 @@
 		52662AB7248584150072626B /* Undo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Undo.swift; sourceTree = "<group>"; };
 		52662AB92485841B0072626B /* UndoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndoItem.swift; sourceTree = "<group>"; };
 		52662ABB2485C4D40072626B /* UndoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndoView.swift; sourceTree = "<group>"; };
+		527589BB28C6AE6B003B2DD2 /* RestoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreViewController.swift; sourceTree = "<group>"; };
 		52936E0B258B023B00D42105 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		5295A218246B158E00B502CA /* TodoList+ModelUpdates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TodoList+ModelUpdates.swift"; sourceTree = "<group>"; };
 		52AABC2E23FA061D000FA700 /* TodoListSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListSectionHeaderView.swift; sourceTree = "<group>"; };
@@ -258,6 +268,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				520F6EA9257DE367002154D2 /* IQKeyboardManagerSwift in Frameworks */,
+				520AB3BA28BBDA8F00005842 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -440,6 +451,7 @@
 			isa = PBXGroup;
 			children = (
 				52C863FB2507D96000BD5615 /* Data Sources */,
+				527589BB28C6AE6B003B2DD2 /* RestoreViewController.swift */,
 				52D35B162502C1A700CFD370 /* SettingsViewController.swift */,
 				5201398A24218FB80030DD3D /* TodoListsViewController.swift */,
 				52013984240363070030DD3D /* TodoListViewController.swift */,
@@ -476,6 +488,7 @@
 			children = (
 				520F6E93257DDEE1002154D2 /* AppGroup.swift */,
 				52567EBC23E74B11000332EA /* Cache.swift */,
+				520AB3BB28BBE20B00005842 /* CloudDb.swift */,
 				523029BE259D68AD002D1725 /* GeneralSettings.swift */,
 			);
 			path = Utility;
@@ -497,6 +510,7 @@
 		67DEAABA7C96DADD24DACAA8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				520AB3B928BBDA8F00005842 /* CloudKit.framework */,
 				CBA28BFD00B4E8629E893D07 /* Pods_TODOs.framework */,
 				520F6E3A257DD58B002154D2 /* WidgetKit.framework */,
 				520F6E3C257DD58B002154D2 /* SwiftUI.framework */,
@@ -710,6 +724,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				52567EBB23DE907B000332EA /* TodoViewData.swift in Sources */,
+				520AB3BC28BBE20B00005842 /* CloudDb.swift in Sources */,
 				52567EB723DE9060000332EA /* TodoList.swift in Sources */,
 				52662ABC2485C4D40072626B /* UndoView.swift in Sources */,
 				5295A219246B158E00B502CA /* TodoList+ModelUpdates.swift in Sources */,
@@ -717,6 +732,7 @@
 				521E3DC6250AB8100098E05A /* Setting.swift in Sources */,
 				523029C4259D68E5002D1725 /* ToggleSetting.swift in Sources */,
 				52F492AD2481BA9F001DA434 /* TodoListTableViewDataSource.swift in Sources */,
+				527589BC28C6AE6B003B2DD2 /* RestoreViewController.swift in Sources */,
 				0A424A492384B0FC00E1FC34 /* TodosContainerViewController.swift in Sources */,
 				52567EBF23EBBC91000332EA /* Date+Extensions.swift in Sources */,
 				0A424A452384B0FC00E1FC34 /* AppDelegate.swift in Sources */,
@@ -765,6 +781,7 @@
 			files = (
 				52DE33EC267122FE00E1C430 /* Setting.swift in Sources */,
 				520F6E45257DD58C002154D2 /* TODOsWidget.intentdefinition in Sources */,
+				520AB3BE28C6608200005842 /* CloudDb.swift in Sources */,
 				520F6E40257DD58B002154D2 /* TODOsWidget.swift in Sources */,
 				520F6E95257DDEE1002154D2 /* AppGroup.swift in Sources */,
 				52DE33EF2671230300E1C430 /* Cache.swift in Sources */,
@@ -783,6 +800,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				52E226E025B296B30083D6D8 /* TodoViewData.swift in Sources */,
+				520AB3BD28BBED5A00005842 /* CloudDb.swift in Sources */,
 				52E226E125B296B30083D6D8 /* TodoList.swift in Sources */,
 				52E226E225B296B30083D6D8 /* UndoView.swift in Sources */,
 				52E226E325B296B30083D6D8 /* TodoList+ModelUpdates.swift in Sources */,
@@ -790,6 +808,7 @@
 				52E226E525B296B30083D6D8 /* Setting.swift in Sources */,
 				52E226E625B296B30083D6D8 /* ToggleSetting.swift in Sources */,
 				52E226E725B296B30083D6D8 /* TodoListTableViewDataSource.swift in Sources */,
+				527589BD28C6AE6B003B2DD2 /* RestoreViewController.swift in Sources */,
 				52E226E825B296B30083D6D8 /* TodosContainerViewController.swift in Sources */,
 				52E226E925B296B30083D6D8 /* Date+Extensions.swift in Sources */,
 				52E226EA25B296B30083D6D8 /* AppDelegate.swift in Sources */,
@@ -829,6 +848,7 @@
 			files = (
 				52DE33ED267122FF00E1C430 /* Setting.swift in Sources */,
 				52E2272525B299FF0083D6D8 /* TODOsWidget.intentdefinition in Sources */,
+				520AB3BF28C6608300005842 /* CloudDb.swift in Sources */,
 				52E2272625B299FF0083D6D8 /* TODOsWidget.swift in Sources */,
 				52E2272725B299FF0083D6D8 /* AppGroup.swift in Sources */,
 				52DE33EE2671230200E1C430 /* Cache.swift in Sources */,
@@ -933,7 +953,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -988,7 +1008,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -1050,7 +1070,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = X6XFU66KA9;
 				INFOPLIST_FILE = TODOsTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1072,7 +1092,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = X6XFU66KA9;
 				INFOPLIST_FILE = TODOsTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1097,7 +1117,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = X6XFU66KA9;
 				INFOPLIST_FILE = TODOsWidget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1123,7 +1143,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = X6XFU66KA9;
 				INFOPLIST_FILE = TODOsWidget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1193,7 +1213,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = X6XFU66KA9;
 				INFOPLIST_FILE = "[DEV] TODOsWidgetExtension.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1219,7 +1239,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = X6XFU66KA9;
 				INFOPLIST_FILE = "[DEV] TODOsWidgetExtension.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

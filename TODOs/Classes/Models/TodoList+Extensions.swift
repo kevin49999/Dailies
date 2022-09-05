@@ -24,8 +24,11 @@ extension TodoList {
         settings: GeneralSettings = .shared,
         currentLists: [TodoList] = getCurrentDaysOfWeekList()
     ) -> [TodoList] {
-        /// if last day is beforeToday, generate new list
-        var mDay = currentLists.last!.dateCreated
+        // if last day is beforeToday, generate new list
+        // should really assert that currentLists.count == 7
+        guard var mDay = currentLists.last?.dateCreated else {
+            return []
+        }
         if mDay.isBefore(today) {
             return newDaysOfWeekTodoLists()
         }
@@ -81,7 +84,12 @@ import WidgetKit
 
 extension TodoList {
     static func saveCreated(_ lists: [TodoList]) throws {
-        try Cache.save(lists, path: "created")
+        Task {
+            // don't handle the error / is there way to check user has icloud?
+            try? await CloudDb.shared.saveLists(lists)
+            // do second, modifying iCloud record ids above
+            try Cache.save(lists, path: "created")
+        }
     }
 
     static func saveDaysOfWeek(_ lists: [TodoList]) throws {
