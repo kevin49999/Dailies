@@ -113,6 +113,7 @@ extension TodoListsViewController: UITableViewDataSource {
             guard delete else { return }
             self.todoLists.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            // TODO: ON BG, DELETE FROM CLOUDKIT
         }
     }
 }

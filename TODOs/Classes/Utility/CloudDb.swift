@@ -22,6 +22,7 @@ class CloudDb {
 
     /// fetch if all user lists are empty!
     /// provide popup w/ options to restore with iCloud
+    /// could be a simple UIAlert like, "We found lists in ICloud! do you want to restore?"
     func lists() async throws -> [TodoList] {
         let predicate = NSPredicate(value: true)
         let query = CKQuery(recordType: "TodoList", predicate: predicate)
@@ -55,8 +56,23 @@ class CloudDb {
         return result
     }
 
-    // TODO: !
-    func saveLists() {
+    func saveLists(_ lists: [TodoList]) async throws {
+        var records: [CKRecord] = []
+        for list in lists {
+            let record = CKRecord(recordType: "TodoList")
+            record["classification"] = list.classification.rawValue
+            record["dateCreated"] = list.dateCreated
+            record["name"] = list.name
+            //record["todos"] = list.todos
+            record["showCompleted"] = list.showCompleted
+            records.append(record)
+        }
 
+        _ = try await privateDb.modifyRecords(saving: records, deleting: [])
+    }
+
+    func deleteList(_ list: TodoList) async throws {
+        // TODO: do a lookup, have several indexable field!
+        try await privateDb.deleteRecord(withID: CKRecord.ID(recordName: ""))
     }
 }
