@@ -56,8 +56,24 @@ class TodosContainerViewController: UIViewController {
             withConfiguration: UIImage.SymbolConfiguration(scale: .medium)
         )
         settingsBarButtonItem.image = gearImage
-        /// inefficient but fine for now, come back and find fast way to apply settings, also causing TableView layout warning
+        // inefficient but fine for now, come back and find fast way to apply settings, also causing TableView layout warning
         settingsChanged()
+
+        // if everything empty, check cloud
+        var createdEmpty = false
+        if createdTodoViewController.dataSource.todoLists.isEmpty {
+            createdEmpty = true
+        }
+        var daysEmpty = true
+        outer: for list in daysOfWeekTodoController.dataSource.todoLists {
+            if !list.todos.isEmpty {
+                daysEmpty = false
+                break outer
+            }
+        }
+        if createdEmpty, daysEmpty {
+            Task { await checkCloud() }
+        }
     }
 
     // MARK: - Functions
@@ -76,6 +92,49 @@ class TodosContainerViewController: UIViewController {
             navigationItem.leftBarButtonItem?.isEnabled = false
         }
         listsSegmentedControl.selectedSegmentIndex = (state == .created) ? 1 : 0
+    }
+
+    @MainActor
+    // TODO: maybe just check for custom now? doing it for daily requires some thought, since they should always be cycling in / out
+    private func checkCloud() async {
+        do {
+            let (daysOfWeek, created) = try await CloudDb.shared.lists()
+            let currentDaysOfWeek = TodoList.daysOfWeekTodoLists(currentLists: daysOfWeek)
+            var currentDaysEmpty = true
+            outer: for list in currentDaysOfWeek {
+                if !list.todos.isEmpty {
+                    currentDaysEmpty = false
+                    break outer
+                }
+            }
+            // nothing to add
+            if currentDaysEmpty, created.isEmpty {
+                return
+            }
+            let restore = UIStoryboard(
+                name: "Main",
+                bundle: nil
+            ).instantiateViewController(identifier: "RestoreViewController") as! RestoreViewController
+            // FIXME: crashing!
+//            restore.configure(
+//                currentDaysEmpty: currentDaysEmpty,
+//                daysOfWeek: currentDaysOfWeek,
+//                created: created
+//            )
+//            restore.delegate = self
+            dump(created)
+            dump(daysOfWeek)
+            present(restore, animated: true) {
+                restore.configure(
+                    currentDaysEmpty: currentDaysEmpty,
+                    daysOfWeek: currentDaysOfWeek,
+                    created: created
+                )
+                restore.delegate = self
+            }
+        } catch {
+            print(error)
+        }
     }
 
     // MARK: - IBAction
@@ -156,9 +215,9 @@ extension TodosContainerViewController {
         guard let firstDay = daysOfWeekTodoController.dataSource.todoLists.first else {
             fatalError("First day should be set")
         }
-        if firstDay.dateCreated.isBefore(Date()) {
+        if firstDay.dateCreated.isBefore(.todayMonthDayYear()) {
             daysOfWeekTodoController.updateTodoLists(TodoList.daysOfWeekTodoLists())
-            /// add settings to new days that get it dated
+            // add settings to new days that get it dated
             settingsChanged()
         }
     }
@@ -187,5 +246,17 @@ extension TodosContainerViewController: UITextFieldDelegate {
             createdTodoViewController.addNewTodoList(with: text)
         }
         return true
+    }
+}
+
+// MARK: - RestoreViewControllerDelegate
+
+extension TodosContainerViewController: RestoreViewControllerDelegate {
+    func restoreViewControllerDidRestore(daysOfWeek: [TodoList], created: [TodoList]) {
+        if daysOfWeek.count == 7 {
+            daysOfWeekTodoController.updateTodoLists(daysOfWeek)
+            settingsChanged()
+        }
+        createdTodoViewController.updateTodoLists(created)
     }
 }

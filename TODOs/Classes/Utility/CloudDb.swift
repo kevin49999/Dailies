@@ -21,18 +21,13 @@ class CloudDb {
     }
 
     // TODO: NEXTTTT, can update on 1 simulator, then launch on reset/empty simulator (sign into icloud though)
-    // TODO: Should/Need to return days of week and created, sorted differently!
-    // "I FOUND DAILY LISTS WITH TODOS"
-    // "(AND) X CUSTOM LISTS"
-    /// fetch if all user lists are empty!
-    /// provide popup w/ options to restore with iCloud
-    /// could be a simple UIAlert or POPOVER like, "We found lists in ICloud! do you want to restore?"
-    func lists() async throws -> [TodoList] {
+    func lists() async throws -> (daysOfWeek: [TodoList], created: [TodoList]) {
         let predicate = NSPredicate(value: true)
         let query = CKQuery(recordType: "TodoList", predicate: predicate)
         let records = try await privateDb.records(matching: query)
 
-        var result = [TodoList]()
+        var daysOfWeek = [TodoList]()
+        var created = [TodoList]()
         for matchResult in records.matchResults {
             guard case .success(let record) = matchResult.1 else {
                 continue
@@ -40,8 +35,12 @@ class CloudDb {
             guard let list = TodoList(record: record) else {
                 continue
             }
-            // add list
-            result.append(list)
+            switch list.classification {
+            case .created:
+                created.append(list)
+            case .daysOfWeek:
+                daysOfWeek.append(list)
+            }
             // find its todos
             guard let todosReferences = record["todos"] as? [CKRecord.Reference] else {
                 continue
@@ -55,10 +54,13 @@ class CloudDb {
                 return .init(record: record)
             }
         }
-        // TODO: split into days of week / created
         // TODO: days of week will be in order, how to order created
         // TODO: how to order todos on EACH list
-        return result
+
+
+
+
+        return (daysOfWeek, created)
     }
 
     func saveLists(_ lists: [TodoList]) async throws {

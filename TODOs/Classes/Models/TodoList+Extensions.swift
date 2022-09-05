@@ -24,8 +24,11 @@ extension TodoList {
         settings: GeneralSettings = .shared,
         currentLists: [TodoList] = getCurrentDaysOfWeekList()
     ) -> [TodoList] {
-        /// if last day is beforeToday, generate new list
-        var mDay = currentLists.last!.dateCreated
+        // if last day is beforeToday, generate new list
+        // should really assert that currentLists.count == 7
+        guard var mDay = currentLists.last?.dateCreated else {
+            return []
+        }
         if mDay.isBefore(today) {
             return newDaysOfWeekTodoLists()
         }
