@@ -81,7 +81,12 @@ import WidgetKit
 
 extension TodoList {
     static func saveCreated(_ lists: [TodoList]) throws {
-        try Cache.save(lists, path: "created")
+        Task {
+            // don't handle the error / is there way to check user has icloud?
+            try? await CloudDb.shared.saveLists(lists)
+            // do second, modifying iCloud record ids above
+            try Cache.save(lists, path: "created")
+        }
     }
 
     static func saveDaysOfWeek(_ lists: [TodoList]) throws {

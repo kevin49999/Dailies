@@ -25,6 +25,8 @@
 		520AB3BA28BBDA8F00005842 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 520AB3B928BBDA8F00005842 /* CloudKit.framework */; };
 		520AB3BC28BBE20B00005842 /* CloudDb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520AB3BB28BBE20B00005842 /* CloudDb.swift */; };
 		520AB3BD28BBED5A00005842 /* CloudDb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520AB3BB28BBE20B00005842 /* CloudDb.swift */; };
+		520AB3BE28C6608200005842 /* CloudDb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520AB3BB28BBE20B00005842 /* CloudDb.swift */; };
+		520AB3BF28C6608300005842 /* CloudDb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520AB3BB28BBE20B00005842 /* CloudDb.swift */; };
 		520F6E3B257DD58B002154D2 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 520F6E3A257DD58B002154D2 /* WidgetKit.framework */; };
 		520F6E3D257DD58B002154D2 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 520F6E3C257DD58B002154D2 /* SwiftUI.framework */; };
 		520F6E40257DD58B002154D2 /* TODOsWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520F6E3F257DD58B002154D2 /* TODOsWidget.swift */; };
@@ -774,6 +776,7 @@
 			files = (
 				52DE33EC267122FE00E1C430 /* Setting.swift in Sources */,
 				520F6E45257DD58C002154D2 /* TODOsWidget.intentdefinition in Sources */,
+				520AB3BE28C6608200005842 /* CloudDb.swift in Sources */,
 				520F6E40257DD58B002154D2 /* TODOsWidget.swift in Sources */,
 				520F6E95257DDEE1002154D2 /* AppGroup.swift in Sources */,
 				52DE33EF2671230300E1C430 /* Cache.swift in Sources */,
@@ -839,6 +842,7 @@
 			files = (
 				52DE33ED267122FF00E1C430 /* Setting.swift in Sources */,
 				52E2272525B299FF0083D6D8 /* TODOsWidget.intentdefinition in Sources */,
+				520AB3BF28C6608300005842 /* CloudDb.swift in Sources */,
 				52E2272625B299FF0083D6D8 /* TODOsWidget.swift in Sources */,
 				52E2272725B299FF0083D6D8 /* AppGroup.swift in Sources */,
 				52DE33EE2671230200E1C430 /* Cache.swift in Sources */,

@@ -59,20 +59,30 @@ class CloudDb {
     func saveLists(_ lists: [TodoList]) async throws {
         var records: [CKRecord] = []
         for list in lists {
-            let record = CKRecord(recordType: "TodoList")
+            let record: CKRecord
+            if let recordName = list.recordName {
+                record = CKRecord(recordType: "TodoList", recordID: .init(recordName: recordName))
+            } else {
+                record = CKRecord(recordType: "TodoList")
+                list.recordName = record.recordID.recordName
+            }
+            print(record.recordID)
             record["classification"] = list.classification.rawValue
             record["dateCreated"] = list.dateCreated
             record["name"] = list.name
-            //record["todos"] = list.todos
+            // don't save TODOs..?
             record["showCompleted"] = list.showCompleted
             records.append(record)
         }
-
         _ = try await privateDb.modifyRecords(saving: records, deleting: [])
     }
 
     func deleteList(_ list: TodoList) async throws {
-        // TODO: do a lookup, have several indexable field!
-        try await privateDb.deleteRecord(withID: CKRecord.ID(recordName: ""))
+        guard let recordName = list.recordName else {
+            return
+        }
+        try await privateDb.deleteRecord(withID: CKRecord.ID(recordName: recordName))
+
+        // TODO: delete all TODOs with that relationship!
     }
 }
