@@ -67,10 +67,6 @@ class TodoListViewController: UIViewController {
         dataSource.applySnapshot()
         tableView.reloadData() // hacky, just want to reload section headers for title changes
     }
-
-    func addNewTodoList(with name: String) {
-        dataSource.addNewTodoList(with: name)
-    }
 }
 
 // MARK: - UITableViewDelegate
