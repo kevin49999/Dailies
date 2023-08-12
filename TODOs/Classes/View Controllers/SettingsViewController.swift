@@ -47,7 +47,6 @@ class SettingsViewController: UITableViewController {
         tableView.register(cell: SettingCell.self)
         tableView.estimatedRowHeight = 140
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 130
         dataSource.applySnapshot(animatingDifferences: false)
     }
 }

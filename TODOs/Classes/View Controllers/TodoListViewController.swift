@@ -29,12 +29,10 @@ class TodoListViewController: UIViewController {
         table.translatesAutoresizingMaskIntoConstraints = false
         return table
     }()
-    private var bottomInset: CGFloat
 
     // MARK: - Init
 
-    init(todoLists: [TodoList], bottomInset: CGFloat) {
-        self.bottomInset = bottomInset
+    init(todoLists: [TodoList]) {
         super.init(nibName: nil, bundle: nil)
         self.dataSource = .init(tableView: tableView, todoLists: todoLists, cellDelegate: self)
     }
@@ -58,7 +56,7 @@ class TodoListViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = dataSource
         tableView.dropDelegate = self
-        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: self.bottomInset, right: 0)
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         dataSource.applySnapshot(animatingDifferences: false)
     }
 

@@ -10,14 +10,6 @@ import Foundation
 // MARK: - Generated Lists
 
 extension TodoList {
-    static func createdTodoLists() -> [TodoList] {
-        do {
-            return try getCreated()
-        } catch {
-            return []
-        }
-    }
-
     static func daysOfWeekTodoLists(
         calendar: Calendar = .current,
         today: Date = Date.todayMonthDayYear(),
@@ -80,10 +72,6 @@ extension TodoList {
 import WidgetKit
 
 extension TodoList {
-    static func saveCreated(_ lists: [TodoList]) throws {
-        try Cache.save(lists, path: "created")
-    }
-
     static func saveDaysOfWeek(_ lists: [TodoList]) throws {
         try Cache.save(lists, path: "week")
         /// save in AppGroup for widget
@@ -93,10 +81,6 @@ extension TodoList {
         try data.write(to: url)
         /// Reload single widget
         WidgetCenter.shared.reloadTimelines(ofKind: "TODOsWidget")
-    }
-
-    private static func getCreated() throws -> [TodoList] {
-        return try Cache.read(path: "created")
     }
 
     private static func getDaysOfWeek() throws -> [TodoList] {

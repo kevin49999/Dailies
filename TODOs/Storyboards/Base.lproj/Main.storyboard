@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9Vt-fV-Urb">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9Vt-fV-Urb">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -15,7 +15,7 @@
                 <navigationController id="9Vt-fV-Urb" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="3Ya-Eq-OWL"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="vBh-Ag-Igl">
-                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                        <rect key="frame" x="0.0" y="48" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -26,7 +26,7 @@
             </objects>
             <point key="canvasLocation" x="-886" y="104"/>
         </scene>
-        <!--TODOs-->
+        <!--Dailies-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="TodosContainerViewController" customModule="TODOs" customModuleProvider="target" sceneMemberID="viewController">
@@ -35,65 +35,30 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O0a-i7-UuF">
-                                <rect key="frame" x="0.0" y="140" width="414" height="756"/>
+                                <rect key="frame" x="0.0" y="144" width="414" height="752"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vK1-ab-dA8">
-                                <rect key="frame" x="0.0" y="813" width="414" height="49"/>
-                                <items>
-                                    <barButtonItem style="plain" id="PK9-WG-wm8">
-                                        <segmentedControl key="customView" opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="bar" selectedSegmentIndex="0" id="oMw-sv-f92">
-                                            <rect key="frame" x="20" y="10.5" width="374" height="33"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <segments>
-                                                <segment title="Weekdays"/>
-                                                <segment title="Custom"/>
-                                            </segments>
-                                            <connections>
-                                                <action selector="listSegmentedControlChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="fok-5O-O5N"/>
-                                            </connections>
-                                        </segmentedControl>
-                                    </barButtonItem>
-                                </items>
-                            </toolbar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="vK1-ab-dA8" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="3Cg-0G-cnZ"/>
                             <constraint firstItem="O0a-i7-UuF" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="5Cy-jS-Ehg"/>
                             <constraint firstItem="O0a-i7-UuF" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="5Wa-cM-BAX"/>
                             <constraint firstAttribute="bottom" secondItem="O0a-i7-UuF" secondAttribute="bottom" id="KKQ-7G-9qd"/>
                             <constraint firstAttribute="trailing" secondItem="O0a-i7-UuF" secondAttribute="trailing" id="SrJ-Rw-2NG"/>
-                            <constraint firstItem="vK1-ab-dA8" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailing" id="ncw-ah-kdd"/>
-                            <constraint firstItem="vK1-ab-dA8" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="tvM-qV-wGR"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="TODOs" largeTitleDisplayMode="always" id="uzk-y5-BPN">
+                    <navigationItem key="navigationItem" title="Dailies" largeTitleDisplayMode="always" id="uzk-y5-BPN">
                         <barButtonItem key="backBarButtonItem" title=" " id="DUX-QX-NP8"/>
-                        <barButtonItem key="leftBarButtonItem" title="Lists" id="iEN-Rb-D4j">
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="LYx-IW-y0e">
                             <connections>
-                                <action selector="tappedListsBarButtonItem:" destination="BYZ-38-t0r" id="z4b-Gy-nWj"/>
+                                <action selector="tappedSettingsBarButtonItem:" destination="BYZ-38-t0r" id="ePK-F5-Vyp"/>
                             </connections>
                         </barButtonItem>
-                        <rightBarButtonItems>
-                            <barButtonItem title="Item" id="LYx-IW-y0e">
-                                <connections>
-                                    <action selector="tappedSettingsBarButtonItem:" destination="BYZ-38-t0r" id="ePK-F5-Vyp"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem systemItem="add" id="B08-ZY-5WR">
-                                <connections>
-                                    <action selector="tappedActionBarButtonItem:" destination="BYZ-38-t0r" id="I8i-Po-meE"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="contentView" destination="O0a-i7-UuF" id="qUt-lw-V5z"/>
-                        <outlet property="listsSegmentedControl" destination="oMw-sv-f92" id="lB9-fb-wr8"/>
                         <outlet property="settingsBarButtonItem" destination="LYx-IW-y0e" id="Ydo-hH-9Ms"/>
-                        <outlet property="toolBar" destination="vK1-ab-dA8" id="Asc-Fw-omx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -122,7 +87,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ofY-hR-l3w" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1248" y="104"/>
+            <point key="canvasLocation" x="907" y="104"/>
         </scene>
     </scenes>
     <resources>

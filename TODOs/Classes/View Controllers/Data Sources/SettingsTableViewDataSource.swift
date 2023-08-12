@@ -47,6 +47,7 @@ class SettingsTableViewDataSource: UITableViewDiffableDataSource<SettingsViewCon
             }
         })
         self.settings = settings
+        self.defaultRowAnimation = .fade
     }
 
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -99,7 +100,7 @@ extension SettingsTableViewDataSource {
         var new = Snapshot()
         new.appendSections([.toggles])
         new.appendItems(
-            [.toggle(.init(name: "New Lists Hide Completed", isOn: GeneralSettings.shared.hideCompleted)),
+            [.toggle(.init(name: "Default to Hide Completed", isOn: GeneralSettings.shared.hideCompleted)),
              .toggle(.init(name: "Rollover Incomplete to Next Day", isOn: GeneralSettings.shared.rollover))
             ],
             toSection: .toggles

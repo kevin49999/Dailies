@@ -12,94 +12,26 @@ class TodosContainerViewController: UIViewController {
 
     // MARK: - Properties
 
-    typealias State = TodoList.Classification
-    private let defaults: UserDefaults = .standard
-    private var state: State = .created {
-        didSet {
-            configure(for: state)
-        }
-    }
-    private var createListAlert: UIAlertController?
-
-    private lazy var createdTodoViewController: TodoListViewController = {
-        TodoListViewController(
-            todoLists: TodoList.createdTodoLists(),
-            bottomInset: self.toolBar.frame.height
-        )
-    }()
-
     private lazy var daysOfWeekTodoController: TodoListViewController = {
-        TodoListViewController(
-            todoLists: TodoList.daysOfWeekTodoLists(),
-            bottomInset: self.toolBar.frame.height
-        )
+        TodoListViewController(todoLists: TodoList.daysOfWeekTodoLists())
     }()
 
-    @IBOutlet weak private var contentView: UIView!
-    @IBOutlet weak private var listsSegmentedControl: UISegmentedControl!
-    @IBOutlet weak private var toolBar: UIToolbar!
+    @IBOutlet weak private var contentView
+    : UIView!
     @IBOutlet weak private var settingsBarButtonItem: UIBarButtonItem!
 
     // MARK: - View Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let state = defaults.value(forKey: "state") as? Int {
-            self.state = State(int: state)
-        } else {
-            self.state = .daysOfWeek
-        }
         observeNotifications()
-
-        let gearImage = UIImage(
-            systemName: "gear",
-            withConfiguration: UIImage.SymbolConfiguration(scale: .medium)
-        )
+        let gearImage = UIImage(systemName: "gear")
         settingsBarButtonItem.image = gearImage
-        /// inefficient but fine for now, come back and find fast way to apply settings, also causing TableView layout warning 
-        settingsChanged()
-    }
+        add(daysOfWeekTodoController, to: contentView)
 
-    // MARK: - Functions
-
-    private func configure(for state: State) {
-        switch state {
-        case .created:
-            daysOfWeekTodoController.remove()
-            add(createdTodoViewController, to: contentView)
-            navigationItem.rightBarButtonItems?[1].isEnabled = true
-            navigationItem.leftBarButtonItem?.isEnabled = true
-        case .daysOfWeek:
-            createdTodoViewController.remove()
-            add(daysOfWeekTodoController, to: contentView)
-            navigationItem.rightBarButtonItems?[1].isEnabled = false
-            navigationItem.leftBarButtonItem?.isEnabled = false
-        }
-        listsSegmentedControl.selectedSegmentIndex = (state == .created) ? 1 : 0
     }
 
     // MARK: - IBAction
-
-    @IBAction func tappedListsBarButtonItem(_ sender: UIBarButtonItem) {
-        let controller: TodoListsViewController = .init(
-            delegate: self,
-            todoLists: createdTodoViewController.dataSource.todoLists
-        )
-
-        let nav = UINavigationController(rootViewController: controller)
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        nav.navigationBar.standardAppearance = appearance
-        nav.navigationBar.scrollEdgeAppearance = nav.navigationBar.standardAppearance
-        present(nav, animated: true)
-    }
-
-    @IBAction func tappedActionBarButtonItem(_ sender: UIBarButtonItem) {
-        assert(state == .created)
-        self.createListAlert = UIAlertController.addTodoListAlert(presenter: self, textFieldDelegate: self, completion: { name in
-            self.createdTodoViewController.addNewTodoList(with: name)
-        })
-    }
 
     @IBAction func tappedSettingsBarButtonItem(_ sender: UIBarButtonItem) {
         let settings = UIStoryboard(
@@ -107,20 +39,6 @@ class TodosContainerViewController: UIViewController {
             bundle: nil
         ).instantiateViewController(identifier: "SettingsViewController") as! SettingsViewController
         navigationController?.pushViewController(settings, animated: true)
-    }
-
-    @IBAction func listSegmentedControlChanged(_ sender: UISegmentedControl) {
-        /// rawValue of enum no longer matches w/ selectedSegmentIndex
-        defaults.set(sender.selectedSegmentIndex == 0 ? 1 : 0, forKey: "state")
-        switch sender.selectedSegmentIndex {
-        case 0:
-            self.state = .daysOfWeek
-        case 1:
-            self.state = .created
-
-        default:
-            fatalError()
-        }
     }
 }
 
@@ -149,7 +67,6 @@ extension TodosContainerViewController {
     }
 
     @objc func willResignActive() {
-        try? TodoList.saveCreated(createdTodoViewController.dataSource.todoLists)
         try? TodoList.saveDaysOfWeek(daysOfWeekTodoController.dataSource.todoLists)
     }
 
@@ -168,25 +85,5 @@ extension TodosContainerViewController {
         let lists = daysOfWeekTodoController.dataSource.todoLists
         lists.applySettings(Setting.saved())
         daysOfWeekTodoController.updateTodoLists(lists)
-    }
-}
-
-// MARK: - TodoListsViewControllerDelegate
-
-extension TodosContainerViewController: TodoListsViewControllerDelegate {
-    func todoListsViewController(_ controller: TodoListsViewController, finishedEditing lists: [TodoList]) {
-        createdTodoViewController.updateTodoLists(lists)
-    }
-}
-
-// MARK: - UITextFieldDelegate
-
-extension TodosContainerViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if let text = textField.text, !text.isEmpty {
-            createListAlert?.dismiss(animated: true)
-            createdTodoViewController.addNewTodoList(with: text)
-        }
-        return true
     }
 }

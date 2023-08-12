@@ -37,6 +37,7 @@ class TodoListTableViewDataSource: UITableViewDiffableDataSource<TodoList, Todo>
         })
         self.todoLists = todoLists
         self.cellDelegate = cellDelegate
+        self.defaultRowAnimation = .fade
     }
 
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -93,20 +94,6 @@ extension TodoListTableViewDataSource {
             }
         }
         apply(new, animatingDifferences: animatingDifferences)
-    }
-
-    func addNewTodoList(with name: String) {
-        let before = todoLists.first
-        let list = TodoList(classification: .created, name: name)
-        todoLists.insert(list, at: 0)
-        var current = snapshot()
-        if let b = before {
-            current.insertSections([list], beforeSection: b)
-        } else {
-            current.appendSections([list])
-        }
-        current.appendItems([.init(text: "AddTodoCellHack")], toSection: list)
-        apply(current, animatingDifferences: true)
     }
 
     func reload(_ todo: Todo) {

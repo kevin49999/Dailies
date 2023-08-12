@@ -11,19 +11,8 @@ import Foundation
 class TodoList: Codable {
     enum Classification: Int, Codable {
         case created = 0
+        ///  removing
         case daysOfWeek
-
-        init(int: Int) {
-            switch int {
-            case 0:
-                self = .created
-            case 1:
-                self = .daysOfWeek
-            default:
-                /// default value
-                self = .daysOfWeek
-            }
-        }
     }
 
     let classification: Classification

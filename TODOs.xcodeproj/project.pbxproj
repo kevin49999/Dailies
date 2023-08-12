@@ -21,7 +21,6 @@
 		0A424A732384B3C200E1FC34 /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A424A722384B3C200E1FC34 /* UITableView+Extensions.swift */; };
 		52013985240363070030DD3D /* TodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52013984240363070030DD3D /* TodoListViewController.swift */; };
 		52013987240369890030DD3D /* UIViewController+ChildControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52013986240369890030DD3D /* UIViewController+ChildControllers.swift */; };
-		5201398B24218FB80030DD3D /* TodoListsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5201398A24218FB80030DD3D /* TodoListsViewController.swift */; };
 		520F6E3B257DD58B002154D2 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 520F6E3A257DD58B002154D2 /* WidgetKit.framework */; };
 		520F6E3D257DD58B002154D2 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 520F6E3C257DD58B002154D2 /* SwiftUI.framework */; };
 		520F6E40257DD58B002154D2 /* TODOsWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520F6E3F257DD58B002154D2 /* TODOsWidget.swift */; };
@@ -110,7 +109,6 @@
 		52E2270025B296B30083D6D8 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D35B162502C1A700CFD370 /* SettingsViewController.swift */; };
 		52E2270125B296B30083D6D8 /* GeneralSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523029BE259D68AD002D1725 /* GeneralSettings.swift */; };
 		52E2270225B296B30083D6D8 /* StoryboardIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A424A6E2384B32E00E1FC34 /* StoryboardIdentifiable.swift */; };
-		52E2270325B296B30083D6D8 /* TodoListsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5201398A24218FB80030DD3D /* TodoListsViewController.swift */; };
 		52E2270425B296B30083D6D8 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52567EBC23E74B11000332EA /* Cache.swift */; };
 		52E2270525B296B30083D6D8 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52567EB823DE9069000332EA /* Todo.swift */; };
 		52E2270725B296B30083D6D8 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 52E226DD25B296B30083D6D8 /* IQKeyboardManagerSwift */; };
@@ -203,7 +201,6 @@
 		0A424A722384B3C200E1FC34 /* UITableView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
 		52013984240363070030DD3D /* TodoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewController.swift; sourceTree = "<group>"; };
 		52013986240369890030DD3D /* UIViewController+ChildControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ChildControllers.swift"; sourceTree = "<group>"; };
-		5201398A24218FB80030DD3D /* TodoListsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListsViewController.swift; sourceTree = "<group>"; };
 		520F6E39257DD58B002154D2 /* TODOsWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TODOsWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		520F6E3A257DD58B002154D2 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		520F6E3C257DD58B002154D2 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -245,7 +242,6 @@
 		52C863F92507D56800BD5615 /* RecurringTodoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecurringTodoCell.xib; sourceTree = "<group>"; };
 		52D35B162502C1A700CFD370 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		52E2271525B296B30083D6D8 /* [DEV] TODOs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "[DEV] TODOs.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		52E2271625B296B30083D6D8 /* [DEV] Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "[DEV] Info.plist"; path = "/Users/kevinjohnson/Desktop/Projects/TODOs/[DEV] Info.plist"; sourceTree = "<absolute>"; };
 		52E2273425B299FF0083D6D8 /* [DEV] TODOsWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "[DEV] TODOsWidgetExtension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		52E2273525B299FF0083D6D8 /* [DEV] TODOsWidgetExtension.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "[DEV] TODOsWidgetExtension.plist"; path = "/Users/kevinjohnson/Desktop/Projects/TODOs/[DEV] TODOsWidgetExtension.plist"; sourceTree = "<absolute>"; };
 		52F492AC2481BA9F001DA434 /* TodoListTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListTableViewDataSource.swift; sourceTree = "<group>"; };
@@ -387,7 +383,6 @@
 				0A424A442384B0FC00E1FC34 /* AppDelegate.swift */,
 				0A424A4D2384B0FF00E1FC34 /* Assets.xcassets */,
 				0A424A522384B0FF00E1FC34 /* Info.plist */,
-				52E2271625B296B30083D6D8 /* [DEV] Info.plist */,
 				0A424A462384B0FC00E1FC34 /* SceneDelegate.swift */,
 			);
 			path = "Supporting Files";
@@ -441,7 +436,6 @@
 			children = (
 				52C863FB2507D96000BD5615 /* Data Sources */,
 				52D35B162502C1A700CFD370 /* SettingsViewController.swift */,
-				5201398A24218FB80030DD3D /* TodoListsViewController.swift */,
 				52013984240363070030DD3D /* TodoListViewController.swift */,
 				0A424A482384B0FC00E1FC34 /* TodosContainerViewController.swift */,
 			);
@@ -744,7 +738,6 @@
 				52D35B172502C1A700CFD370 /* SettingsViewController.swift in Sources */,
 				523029BF259D68AD002D1725 /* GeneralSettings.swift in Sources */,
 				0A424A6F2384B32E00E1FC34 /* StoryboardIdentifiable.swift in Sources */,
-				5201398B24218FB80030DD3D /* TodoListsViewController.swift in Sources */,
 				52567EBD23E74B11000332EA /* Cache.swift in Sources */,
 				52567EB923DE9069000332EA /* Todo.swift in Sources */,
 			);
@@ -817,7 +810,6 @@
 				52E2270025B296B30083D6D8 /* SettingsViewController.swift in Sources */,
 				52E2270125B296B30083D6D8 /* GeneralSettings.swift in Sources */,
 				52E2270225B296B30083D6D8 /* StoryboardIdentifiable.swift in Sources */,
-				52E2270325B296B30083D6D8 /* TodoListsViewController.swift in Sources */,
 				52E2270425B296B30083D6D8 /* Cache.swift in Sources */,
 				52E2270525B296B30083D6D8 /* Todo.swift in Sources */,
 			);
@@ -1008,6 +1000,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = X6XFU66KA9;
 				INFOPLIST_FILE = "TODOs/Supporting Files/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Dailies;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1030,6 +1023,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = X6XFU66KA9;
 				INFOPLIST_FILE = "TODOs/Supporting Files/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Dailies;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
