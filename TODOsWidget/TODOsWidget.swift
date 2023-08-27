@@ -87,7 +87,7 @@ struct TODOsWidgetEntryView : View {
             Color(.secondarySystemGroupedBackground)
                 .ignoresSafeArea()
             if entry.today.incomplete.isEmpty {
-                Text("Done ✅").bold()
+                Text("Done").bold()
             } else {
                 VStack(alignment: .leading, spacing: 4.0) {
                     Text(entry.today.day)
