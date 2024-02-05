@@ -119,6 +119,8 @@ struct TODOsWidgetEntryView : View {
                 .padding(.top)
             }
         }
+        // https://stackoverflow.com/a/76842922
+        .containerBackground(for: .widget, content: { Color.black })
     }
 }
 
@@ -132,6 +134,7 @@ struct TODOsWidget: Widget {
         IntentConfiguration(kind: kind, intent: ConfigurationIntent.self, provider: Provider()) { entry in
             TODOsWidgetEntryView(entry: entry)
         }
+        .contentMarginsDisabled()
         .configurationDisplayName("TODOs for today")
         .description("Show the list of TODOs for today")
         .supportedFamilies([.systemSmall])
@@ -149,9 +152,9 @@ struct TODOsWidget_Previews: PreviewProvider {
                     classification: .daysOfWeek,
                     todos: [
                         .init(text: "Go run"),
-                        .init(text: "Derp"),
+                        .init(text: "Yeet"),
                         .init(text: "Study"),
-                        .init(text: "Plerp"),
+                        .init(text: "Derp"),
                         .init(text: "Movie"),
                         .init(text: "😇"),
                     ]
