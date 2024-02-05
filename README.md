@@ -1,6 +1,6 @@
 # Dailies
 
-Daily TODOs with lists for each day of the week (and custom lists, recurring TODOs, show/hide completed). If you are filling up legal pads or notebooks everyday, writing and crossing out over and over, this App is for you.
+Daily TODOs with lists for each day of the week. If you're filling up legal pads or notebooks everyday, writing and crossing out over and over, this App is for you.
 
 No user accounts, no data collection.
 
