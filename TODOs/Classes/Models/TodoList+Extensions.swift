@@ -16,7 +16,8 @@ extension TodoList {
         settings: GeneralSettings = .shared,
         currentLists: [TodoList] = getCurrentDaysOfWeekList()
     ) -> [TodoList] {
-        /// if last day is beforeToday, generate new list
+        // if last day is beforeToday, generate new list
+        // this logic is OK, not the issue i've been having with timezones and new days
         var mDay = currentLists.last!.dateCreated
         if mDay.isBefore(today) {
             return newDaysOfWeekTodoLists()

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -27,7 +27,7 @@
 		520F6E43257DD58C002154D2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 520F6E42257DD58C002154D2 /* Assets.xcassets */; };
 		520F6E45257DD58C002154D2 /* TODOsWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 520F6E41257DD58B002154D2 /* TODOsWidget.intentdefinition */; };
 		520F6E46257DD58C002154D2 /* TODOsWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 520F6E41257DD58B002154D2 /* TODOsWidget.intentdefinition */; };
-		520F6E49257DD58C002154D2 /* TODOsWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 520F6E39257DD58B002154D2 /* TODOsWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		520F6E49257DD58C002154D2 /* TODOsWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 520F6E39257DD58B002154D2 /* TODOsWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		520F6E76257DDBC2002154D2 /* TodoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52567EB623DE9060000332EA /* TodoList.swift */; };
 		520F6E7A257DDBC7002154D2 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52567EB823DE9069000332EA /* Todo.swift */; };
 		520F6E7E257DDC54002154D2 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52567EBE23EBBC91000332EA /* Date+Extensions.swift */; };
@@ -129,7 +129,7 @@
 		52E2272D25B299FF0083D6D8 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 520F6E3C257DD58B002154D2 /* SwiftUI.framework */; };
 		52E2272E25B299FF0083D6D8 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 520F6E3A257DD58B002154D2 /* WidgetKit.framework */; };
 		52E2273025B299FF0083D6D8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 520F6E42257DD58C002154D2 /* Assets.xcassets */; };
-		52E2274A25B29B770083D6D8 /* [DEV] TODOsWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 52E2273425B299FF0083D6D8 /* [DEV] TODOsWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		52E2274A25B29B770083D6D8 /* [DEV] TODOsWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 52E2273425B299FF0083D6D8 /* [DEV] TODOsWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		52F492AD2481BA9F001DA434 /* TodoListTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F492AC2481BA9F001DA434 /* TodoListTableViewDataSource.swift */; };
 /* End PBXBuildFile section */
 
@@ -158,26 +158,26 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		520F6E4A257DD58C002154D2 /* Embed App Extensions */ = {
+		520F6E4A257DD58C002154D2 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				520F6E49257DD58C002154D2 /* TODOsWidgetExtension.appex in Embed App Extensions */,
+				520F6E49257DD58C002154D2 /* TODOsWidgetExtension.appex in Embed Foundation Extensions */,
 			);
-			name = "Embed App Extensions";
+			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		52E2271025B296B30083D6D8 /* Embed App Extensions */ = {
+		52E2271025B296B30083D6D8 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				52E2274A25B29B770083D6D8 /* [DEV] TODOsWidgetExtension.appex in Embed App Extensions */,
+				52E2274A25B29B770083D6D8 /* [DEV] TODOsWidgetExtension.appex in Embed Foundation Extensions */,
 			);
-			name = "Embed App Extensions";
+			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -243,7 +243,6 @@
 		52D35B162502C1A700CFD370 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		52E2271525B296B30083D6D8 /* [DEV] TODOs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "[DEV] TODOs.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		52E2273425B299FF0083D6D8 /* [DEV] TODOsWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "[DEV] TODOsWidgetExtension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		52E2273525B299FF0083D6D8 /* [DEV] TODOsWidgetExtension.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "[DEV] TODOsWidgetExtension.plist"; path = "/Users/kevinjohnson/Desktop/Projects/TODOs/[DEV] TODOsWidgetExtension.plist"; sourceTree = "<absolute>"; };
 		52F492AC2481BA9F001DA434 /* TodoListTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListTableViewDataSource.swift; sourceTree = "<group>"; };
 		CBA28BFD00B4E8629E893D07 /* Pods_TODOs.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TODOs.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -329,7 +328,6 @@
 				520F6E3E257DD58B002154D2 /* TODOsWidget */,
 				0A424A422384B0FC00E1FC34 /* Products */,
 				67DEAABA7C96DADD24DACAA8 /* Frameworks */,
-				52E2273525B299FF0083D6D8 /* [DEV] TODOsWidgetExtension.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -508,7 +506,7 @@
 				0A424A3D2384B0FC00E1FC34 /* Sources */,
 				0A424A3E2384B0FC00E1FC34 /* Frameworks */,
 				0A424A3F2384B0FC00E1FC34 /* Resources */,
-				520F6E4A257DD58C002154D2 /* Embed App Extensions */,
+				520F6E4A257DD58C002154D2 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
@@ -565,7 +563,7 @@
 				52E226DF25B296B30083D6D8 /* Sources */,
 				52E2270625B296B30083D6D8 /* Frameworks */,
 				52E2270825B296B30083D6D8 /* Resources */,
-				52E2271025B296B30083D6D8 /* Embed App Extensions */,
+				52E2271025B296B30083D6D8 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
@@ -603,8 +601,9 @@
 		0A424A392384B0FC00E1FC34 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1220;
-				LastUpgradeCheck = 1220;
+				LastUpgradeCheck = 1500;
 				ORGANIZATIONNAME = "Kevin Johnson";
 				TargetAttributes = {
 					0A424A402384B0FC00E1FC34 = {
@@ -878,6 +877,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -911,6 +911,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -939,6 +940,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -972,6 +974,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
