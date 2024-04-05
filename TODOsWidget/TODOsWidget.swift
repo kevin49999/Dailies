@@ -13,16 +13,16 @@ import Intents
 struct Provider: IntentTimelineProvider {
     func placeholder(in context: Context) -> TodayEntry {
         TodayEntry(
-            date: Date.todayMonthDayYear(),
-            today: TodoList(classification: .daysOfWeek),
+            date: Date(),
+            today: TodoList(),
             configuration: ConfigurationIntent()
         )
     }
 
     func getSnapshot(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (TodayEntry) -> ()) {
         let entry = TodayEntry(
-            date: Date.todayMonthDayYear(),
-            today: TodoList(classification: .daysOfWeek),
+            date: Date(),
+            today: TodoList(),
             configuration: configuration
         )
         completion(entry)
@@ -31,7 +31,7 @@ struct Provider: IntentTimelineProvider {
     func getTimeline(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
         let week = loadCurrentWeek()
         let entries: [TodayEntry] = week.map { .init(
-            date: $0.dateCreated,
+            date: Date(),
             today: $0,
             configuration: ConfigurationIntent()
         )}
@@ -66,7 +66,7 @@ struct TodayEntry: TimelineEntry {
     let configuration: ConfigurationIntent
 
     init(
-        date: Date = Date.todayMonthDayYear(),
+        date: Date = Date(),
         today: TodoList,
         configuration: ConfigurationIntent
     ) {
@@ -90,7 +90,7 @@ struct TODOsWidgetEntryView : View {
                 Text("Done").bold()
             } else {
                 VStack(alignment: .leading, spacing: 4.0) {
-                    Text(entry.today.day)
+                    Text(entry.today.weekDay)
                         .font(.body)
                         .bold()
                     ForEach(entry.today.visible.prefix(prefix)
@@ -147,9 +147,8 @@ struct TODOsWidget_Previews: PreviewProvider {
     static var previews: some View {
         TODOsWidgetEntryView(
             entry: TodayEntry(
-                date: Date.todayMonthDayYear(),
+                date: Date(),
                 today: TodoList(
-                    classification: .daysOfWeek,
                     todos: [
                         .init(text: "Go run"),
                         .init(text: "Yeet"),

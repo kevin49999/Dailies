@@ -52,8 +52,8 @@ class TodoListSectionHeaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configure(data: TodoListViewData) {
-        titleLabel.text = data.titleCopy()
+    func configure(data: TodoList) {
+        titleLabel.text = data.nameDayMonth
     }
 
     private func setup() {

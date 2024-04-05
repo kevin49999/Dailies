@@ -9,34 +9,20 @@
 import Foundation
 
 class TodoList: Codable {
-    enum Classification: Int, Codable {
-        case created = 0
-        ///  removing
-        case daysOfWeek
-    }
-
-    let classification: Classification
-    let dateCreated: Date
-    /// bad, but only only use for custom lists
-    var name: String
+    let nameDayMonth: String
+    let weekDay: String
     var todos: [Todo]
     var showCompleted: Bool
     var visible: [Todo] { showCompleted ? todos : incomplete }
-    lazy var day: String = DateFormatters.dayOfWeek.string(from: dateCreated)
-    lazy var incomplete: [Todo] = {
-        return todos.filter { !$0.completed }
-    }()
+    lazy var incomplete: [Todo] = { todos.filter { !$0.completed } }()
     
     init(
-        classification: Classification,
-        dateCreated: Date = Date.todayMonthDayYear(),
-        name: String = "",
+        dateCreated: Date = Date(),
         todos: [Todo] = [],
         showCompleted: Bool = !GeneralSettings.shared.hideCompleted
     ) {
-        self.classification = classification
-        self.dateCreated = dateCreated
-        self.name = name
+        self.nameDayMonth = DateFormatters.daysOfWeekNameDayMonth.string(from: dateCreated)
+        self.weekDay = DateFormatters.dayOfWeek.string(from: dateCreated)
         self.todos = todos
         self.showCompleted = showCompleted
     }
@@ -46,12 +32,16 @@ class TodoList: Codable {
 
 extension TodoList: Hashable {
     func hash(into hasher: inout Hasher) {
-        hasher.combine(name)
-        hasher.combine(dateCreated)
+        hasher.combine(nameDayMonth)
+        hasher.combine(weekDay)
         hasher.combine(todos)
+        hasher.combine(showCompleted)
     }
 
     static func == (lhs: TodoList, rhs: TodoList) -> Bool {
-        return lhs.dateCreated == rhs.dateCreated && lhs.name == rhs.name && lhs.todos == rhs.todos
+        lhs.nameDayMonth == rhs.nameDayMonth &&
+        lhs.weekDay == rhs.weekDay &&
+        lhs.todos == rhs.todos &&
+        lhs.showCompleted == rhs.showCompleted
     }
 }

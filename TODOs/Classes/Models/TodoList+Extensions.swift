@@ -7,56 +7,40 @@
 
 import Foundation
 
-// MARK: - Generated Lists
-
 extension TodoList {
     static func daysOfWeekTodoLists(
-        calendar: Calendar = .current,
-        today: Date = Date.todayMonthDayYear(),
+        calendar: Calendar = .autoupdatingCurrent,
         settings: GeneralSettings = .shared,
         currentLists: [TodoList] = getCurrentDaysOfWeekList()
     ) -> [TodoList] {
-        // if last day is beforeToday, generate new list
-        // this logic is OK, not the issue i've been having with timezones and new days
-        var mDay = currentLists.last!.dateCreated
-        if mDay.isBefore(today) {
-            return newDaysOfWeekTodoLists()
+        var new = newDaysOfWeekTodoLists()
+        var map = [String: ([Todo], showCompleted: Bool)]()
+        for l in currentLists {
+            // only breaks if u wait years, could also write that str to todolist
+            // NO MORE DATES
+            map[l.nameDayMonth] = (l.todos, l.showCompleted)
         }
-
-        var mCurrentLists = currentLists
-        var i = 0
-        while i < 7 {
-            if mCurrentLists[i].dateCreated.isBefore(today) {
-                let removed = mCurrentLists.remove(at: i)
-                let newDay = mDay.byAddingDays(1)
-                let newList = TodoList(
-                    classification: .daysOfWeek,
-                    dateCreated: newDay
-                )
-                mCurrentLists.append(newList)
-                mDay = newDay
-                // check if day before for rollover items
-                if settings.rollover, calendar.isDateInYesterday(removed.dateCreated) {
-                    let prev = removed.todos.filter { !$0.completed && !$0.isSetting }
-                    // could have setting to rollover settings
-                    mCurrentLists[i].todos.append(contentsOf: prev)
-                }
-            } else {
-                i += 1
+        for n in new {
+            if let (todos, showCompleted) = map[n.nameDayMonth] {
+                n.todos = todos
+                n.showCompleted = showCompleted
             }
         }
-        return mCurrentLists
+//                if settings.rollover, calendar.isDateInYesterday(removed.dateCreated) {
+//                    let prev = removed.todos.filter { !$0.completed && !$0.isSetting }
+//                    // could have setting to rollover settings
+//                    mCurrentLists[i].todos.append(contentsOf: prev)
+//                }
+        // always fresh
+        return new
     }
 
     static func newDaysOfWeekTodoLists(
-        calendar: Calendar = .current,
-        today: Date = Date.todayMonthDayYear()
+        calendar: Calendar = .autoupdatingCurrent,
+        today: Date = Date()
     ) -> [TodoList] {
-        return currentDaysOfWeek().enumerated().map { offset, day in
-            TodoList(
-                classification: .daysOfWeek,
-                dateCreated: today.byAddingDays(offset)
-            )
+        currentDaysOfWeek().enumerated().map { offset, day in
+            TodoList(dateCreated: today.byAddingDays(offset))
         }
     }
 
@@ -91,7 +75,7 @@ extension TodoList {
 
 // MARK: - Helper
 
-fileprivate func currentDaysOfWeek(starting date: Date = Date(), calendar: Calendar = .current) -> [String] {
+fileprivate func currentDaysOfWeek(starting date: Date = Date(), calendar: Calendar = .autoupdatingCurrent) -> [String] {
     let current = calendar.component(.weekday, from: date)
     let days = [1, 2, 3, 4, 5, 6, 7]
     var rearrangedDays = days
@@ -105,11 +89,11 @@ fileprivate func currentDaysOfWeek(starting date: Date = Date(), calendar: Calen
 // MARK: - Settings
 
 extension Array where Element == TodoList {
-    func applySetting(_ setting: Setting, calendar: Calendar = .current) {
+    func applySetting(_ setting: Setting, calendar: Calendar = .autoupdatingCurrent) {
         applySettings([setting], calendar: calendar)
     }
     
-    func applySettings(_ settings: [Setting], calendar: Calendar = .current) {
+    func applySettings(_ settings: [Setting], calendar: Calendar = .autoupdatingCurrent) {
         for setting in settings {
             switch setting.frequency {
             case .sundays,
@@ -134,9 +118,12 @@ extension Array where Element == TodoList {
         days.forEach { addSettingForDay(setting, $0) }
     }
 
-    private func addSettingForDay(_ setting: Setting, _ day: Int, calendar: Calendar = .current) {
-        /// for days of week, should never rely on name, always the dateCreated which creates the day
-        guard let index = firstIndex(where: { $0.day == calendar.weekdaySymbols[day] }) else {
+    private func addSettingForDay(
+        _ setting: Setting,
+        _ day: Int,
+        calendar: Calendar = .autoupdatingCurrent
+    ) {
+        guard let index = firstIndex(where: { $0.weekDay == calendar.standaloneWeekdaySymbols[day] }) else {
             assertionFailure("Could not weekday to day integer")
             return
         }
@@ -150,7 +137,7 @@ extension TodoList {
             text: setting.name,
             settingUUID: setting.id.uuidString
         )
-        /// somehow generated can have same UUID as existing? checking that too
+        // somehow generated can have same UUID as existing? checking that too
         if !todos.contains(where: { $0.settingUUID == setting.id.uuidString }) && !todos.contains(todo) {
             add(todo: todo)
         }
