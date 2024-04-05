@@ -9,7 +9,7 @@
 import Foundation
 
 extension Date {
-    func byAddingDays(_ day: Int, calendar: Calendar = .current) -> Date {
+    func byAddingDays(_ day: Int, calendar: Calendar = .autoupdatingCurrent) -> Date {
         guard let n = calendar.date(byAdding: .day, value: day, to: self) else {
             preconditionFailure()
         }

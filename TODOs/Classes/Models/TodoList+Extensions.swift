@@ -13,11 +13,10 @@ extension TodoList {
         settings: GeneralSettings = .shared,
         currentLists: [TodoList] = getCurrentDaysOfWeekList()
     ) -> [TodoList] {
-        var new = newDaysOfWeekTodoLists()
+        let new = newDaysOfWeekTodoLists()
         var map = [String: ([Todo], showCompleted: Bool)]()
         for l in currentLists {
-            // only breaks if u wait years, could also write that str to todolist
-            // NO MORE DATES
+            // only problem if wait a year, could fix
             map[l.nameDayMonth] = (l.todos, l.showCompleted)
         }
         for n in new {
@@ -26,11 +25,14 @@ extension TodoList {
                 n.showCompleted = showCompleted
             }
         }
-//                if settings.rollover, calendar.isDateInYesterday(removed.dateCreated) {
-//                    let prev = removed.todos.filter { !$0.completed && !$0.isSetting }
-//                    // could have setting to rollover settings
-//                    mCurrentLists[i].todos.append(contentsOf: prev)
-//                }
+        if settings.rollover, currentLists[0].nameDayMonth != new[0].nameDayMonth {
+            // only check the first item in the list, the first to be removed
+            // this will rollover whatever was in your last thrown out CURRENT day
+            // so may not be yesterday if a break was taken
+            // that's okay, would be a long rollover
+            let rollover = currentLists[0].todos.filter { !$0.completed && !$0.isSetting }
+            new[0].todos.append(contentsOf: rollover)
+        }
         // always fresh
         return new
     }
