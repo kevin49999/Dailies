@@ -9,38 +9,61 @@ import Foundation
 
 extension TodoList {
     static func daysOfWeekTodoLists(
-        calendar: Calendar = .autoupdatingCurrent,
         settings: GeneralSettings = .shared,
-        currentLists: [TodoList] = getCurrentDaysOfWeekList()
+        current: [TodoList] = getCurrentDaysOfWeekList(),
+        new: [TodoList] = newDaysOfWeekTodoLists()
     ) -> [TodoList] {
-        let new = newDaysOfWeekTodoLists()
-        var map = [String: ([Todo], showCompleted: Bool)]()
-        for l in currentLists {
-            // only problem if wait a year, could fix
-            map[l.nameDayMonth] = (l.todos, l.showCompleted)
+        print("---current:---")
+        current.forEach {
+            print($0.uniqueDay)
+            $0.todos.prettyPrint()
         }
+        if new.first?.uniqueDay == current.first?.uniqueDay {
+            print("return current")
+            return current
+        }
+        var map = [String: ([Todo], showCompleted: Bool)]()
+        print("---new:---")
+        new.forEach {
+            print($0.uniqueDay)
+            $0.todos.prettyPrint()
+        }
+        for l in current {
+            map[l.uniqueDay] = (l.todos, l.showCompleted)
+        }
+        print("map:", map)
         for n in new {
-            if let (todos, showCompleted) = map[n.nameDayMonth] {
+            if let (todos, showCompleted) = map[n.uniqueDay] {
                 n.todos = todos
                 n.showCompleted = showCompleted
             }
         }
-        if settings.rollover, currentLists[0].nameDayMonth != new[0].nameDayMonth {
-            // only check the first item in the list, the first to be removed
-            // this will rollover whatever was in your last thrown out CURRENT day
-            // so may not be yesterday if a break was taken
-            // that's okay, would be a long rollover
-            let rollover = currentLists[0].todos.filter { !$0.completed && !$0.isSetting }
+        if settings.rollover {
+            let rollover = rolloverItems(current: current, new: new)
             new[0].todos.append(contentsOf: rollover)
         }
-        // always fresh
+        print("---final new:---")
+        new.forEach {
+            print($0.nameDayMonth)
+            $0.todos.prettyPrint()
+        }
         return new
     }
+    
+    static func rolloverItems(current: [TodoList], new: [TodoList]) -> [Todo] {
+        var rollover = [Todo]()
+        for list in current {
+            if list.uniqueDay == new.first?.uniqueDay {
+                // you're at the current day, stop accumulating old days
+                return rollover
+            }
+            let items = list.todos.filter { !$0.completed && !$0.isSetting }
+            rollover.append(contentsOf: items)
+        }
+        return rollover
+    }
 
-    static func newDaysOfWeekTodoLists(
-        calendar: Calendar = .autoupdatingCurrent,
-        today: Date = Date()
-    ) -> [TodoList] {
+    static func newDaysOfWeekTodoLists(today: Date = Date()) -> [TodoList] {
         currentDaysOfWeek().enumerated().map { offset, day in
             TodoList(dateCreated: today.byAddingDays(offset))
         }
@@ -77,7 +100,10 @@ extension TodoList {
 
 // MARK: - Helper
 
-fileprivate func currentDaysOfWeek(starting date: Date = Date(), calendar: Calendar = .autoupdatingCurrent) -> [String] {
+fileprivate func currentDaysOfWeek(
+    starting date: Date = Date(),
+    calendar: Calendar = .autoupdatingCurrent
+) -> [String] {
     let current = calendar.component(.weekday, from: date)
     let days = [1, 2, 3, 4, 5, 6, 7]
     var rearrangedDays = days
