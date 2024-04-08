@@ -27,16 +27,13 @@ class TodosContainerViewController: UIViewController {
         let gearImage = UIImage(systemName: "gear")
         settingsBarButtonItem.image = gearImage
         add(daysOfWeekTodoController, to: contentView)
-
     }
 
     // MARK: - IBAction
 
     @IBAction func tappedSettingsBarButtonItem(_ sender: UIBarButtonItem) {
-        let settings = UIStoryboard(
-            name: "Main",
-            bundle: nil
-        ).instantiateViewController(identifier: "SettingsViewController") as! SettingsViewController
+        let settings = UIStoryboard(name: "Main", bundle: nil)
+            .instantiateViewController(identifier: "SettingsViewController") as! SettingsViewController
         navigationController?.pushViewController(settings, animated: true)
     }
 }
@@ -73,9 +70,10 @@ extension TodosContainerViewController {
         guard let firstDay = daysOfWeekTodoController.dataSource.todoLists.first else {
             fatalError("First day should be set")
         }
-        if firstDay.weekDay != DateFormatters.dayOfWeek.string(from: Date()) {
+        
+        if firstDay.uniqueDay != DateFormatters.uniqueDay.string(from: Date()) {
             daysOfWeekTodoController.updateTodoLists(TodoList.daysOfWeekTodoLists())
-            /// add settings to new days that get it dated
+            // add settings to new days that get it dated
             settingsChanged()
         }
     }

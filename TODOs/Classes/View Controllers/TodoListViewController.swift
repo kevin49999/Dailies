@@ -9,7 +9,6 @@
 import StoreKit
 import UIKit
 
-// TODO: drag to merge cells with / separator in between
 class TodoListViewController: UIViewController {
 
     // MARK: - Properties
@@ -75,7 +74,6 @@ extension TodoListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let list =  dataSource.todoLists[indexPath.section]
         let todo = list.visible[indexPath.row]
-
         let delete = UIContextualAction(style: .destructive, title: "Delete") { (_, _, completion) in
             list.remove(at: indexPath.row)
             self.dataSource.delete(todo)
@@ -160,6 +158,7 @@ extension TodoListViewController: AddTodoCellDelegate {
             assertionFailure()
             return
         }
+        
         dataSource.todoLists[indexPath.section].add(todo: Todo(text: text))
         dataSource.applySnapshot()
         // Review action could be anything
@@ -179,6 +178,7 @@ extension TodoListViewController: TodoCellDelegate {
             assertionFailure()
             return
         }
+        
         if !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             let list = dataSource.todoLists[indexPath.section]
             if list.showCompleted {
