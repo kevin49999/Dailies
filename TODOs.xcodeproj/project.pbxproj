@@ -202,7 +202,7 @@
 		520F6E39257DD58B002154D2 /* TODOsWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TODOsWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		520F6E3A257DD58B002154D2 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		520F6E3C257DD58B002154D2 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
-		520F6E3F257DD58B002154D2 /* TODOsWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TODOsWidget.swift; sourceTree = "<group>"; };
+		520F6E3F257DD58B002154D2 /* TODOsWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TODOsWidget.swift; sourceTree = "<group>"; tabWidth = 3; };
 		520F6E41257DD58B002154D2 /* TODOsWidget.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = TODOsWidget.intentdefinition; sourceTree = "<group>"; };
 		520F6E42257DD58C002154D2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		520F6E44257DD58C002154D2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };

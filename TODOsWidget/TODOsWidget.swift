@@ -31,7 +31,7 @@ struct Provider: IntentTimelineProvider {
     func getTimeline(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
         let week = loadCurrentWeek()
         let entries: [TodayEntry] = week.map { .init(
-            date: Date(),
+            date: $0.dateCreated ?? Date(),
             today: $0,
             configuration: ConfigurationIntent()
         )}

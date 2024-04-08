@@ -15,6 +15,8 @@ class TodoList: Codable {
     let weekDay: String
     /// used for comparing w/ out using Date object
     let uniqueDay: String
+    /// only used by widget still, optional because may not be set for testing
+    let dateCreated: Date?
     var todos: [Todo]
     var showCompleted: Bool
     var visible: [Todo] { showCompleted ? todos : incomplete }
@@ -28,6 +30,7 @@ class TodoList: Codable {
         self.nameDayMonth = DateFormatters.daysOfWeekNameDayMonth.string(from: dateCreated)
         self.weekDay = DateFormatters.dayOfWeek.string(from: dateCreated)
         self.uniqueDay = DateFormatters.uniqueDay.string(from: dateCreated)
+        self.dateCreated = dateCreated
         self.todos = todos
         self.showCompleted = showCompleted
     }
@@ -42,6 +45,7 @@ class TodoList: Codable {
         self.nameDayMonth = nameDayMonth
         self.weekDay = weekDay
         self.uniqueDay = uniqueDay
+        self.dateCreated = nil
         self.todos = todos
         self.showCompleted = showCompleted
     }}

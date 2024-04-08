@@ -13,39 +13,26 @@ extension TodoList {
         current: [TodoList] = getCurrentDaysOfWeekList(),
         new: [TodoList] = newDaysOfWeekTodoLists()
     ) -> [TodoList] {
-        print("---current:---")
-        current.forEach {
-            print($0.uniqueDay)
-            $0.todos.prettyPrint()
-        }
-        if new.first?.uniqueDay == current.first?.uniqueDay {
-            print("return current")
+        guard new.first?.uniqueDay != current.first?.uniqueDay else {
+            // same day
             return current
         }
+        
         var map = [String: ([Todo], showCompleted: Bool)]()
-        print("---new:---")
-        new.forEach {
-            print($0.uniqueDay)
-            $0.todos.prettyPrint()
+        for c in current {
+            map[c.uniqueDay] = (c.todos, c.showCompleted)
         }
-        for l in current {
-            map[l.uniqueDay] = (l.todos, l.showCompleted)
-        }
-        print("map:", map)
         for n in new {
             if let (todos, showCompleted) = map[n.uniqueDay] {
                 n.todos = todos
                 n.showCompleted = showCompleted
             }
         }
+        // rollover
         if settings.rollover {
             let rollover = rolloverItems(current: current, new: new)
-            new[0].todos.append(contentsOf: rollover)
-        }
-        print("---final new:---")
-        new.forEach {
-            print($0.nameDayMonth)
-            $0.todos.prettyPrint()
+            // add to first day
+            new.first?.todos.append(contentsOf: rollover)
         }
         return new
     }
@@ -54,7 +41,7 @@ extension TodoList {
         var rollover = [Todo]()
         for list in current {
             if list.uniqueDay == new.first?.uniqueDay {
-                // you're at the current day, stop accumulating old days
+                // you're at the current day, stop accumulating
                 return rollover
             }
             let items = list.todos.filter { !$0.completed && !$0.isSetting }
