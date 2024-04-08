@@ -16,8 +16,7 @@ class TodosContainerViewController: UIViewController {
         TodoListViewController(todoLists: TodoList.daysOfWeekTodoLists())
     }()
 
-    @IBOutlet weak private var contentView
-    : UIView!
+    @IBOutlet weak private var contentView: UIView!
     @IBOutlet weak private var settingsBarButtonItem: UIBarButtonItem!
 
     // MARK: - View Lifecycle
@@ -74,7 +73,7 @@ extension TodosContainerViewController {
         guard let firstDay = daysOfWeekTodoController.dataSource.todoLists.first else {
             fatalError("First day should be set")
         }
-        if firstDay.dateCreated.isBefore(Date()) {
+        if firstDay.weekDay != DateFormatters.dayOfWeek.string(from: Date()) {
             daysOfWeekTodoController.updateTodoLists(TodoList.daysOfWeekTodoLists())
             /// add settings to new days that get it dated
             settingsChanged()

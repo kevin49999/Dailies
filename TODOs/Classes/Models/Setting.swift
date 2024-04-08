@@ -37,7 +37,7 @@ struct Setting: Codable, Identifiable, Hashable {
                  .thursdays,
                  .fridays,
                  .saturdays:
-                return Calendar.current.shortWeekdaySymbols[self.rawValue]
+                return Calendar.autoupdatingCurrent.shortWeekdaySymbols[self.rawValue]
             case .weekends:
                 return NSLocalizedString("Weekends", comment: "")
             case .weekdays:

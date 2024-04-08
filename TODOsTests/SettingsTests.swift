@@ -12,13 +12,13 @@ import XCTest
 class SettingsTests: XCTestCase {
 
     func testApplyOneDaySetting() throws {
-        let calendar = Calendar.current
+        let calendar = Calendar.autoupdatingCurrent
         let days = TodoList.newDaysOfWeekTodoLists()
         let setting = Setting(name: "Monday", frequency: .mondays)
         days.applySetting(setting)
 
         for list in days {
-            if list.day == calendar.weekdaySymbols[setting.frequency.rawValue] {
+            if list.weekDay == calendar.weekdaySymbols[setting.frequency.rawValue] {
                 XCTAssertEqual(list.todos.map { $0.text }, ["Monday"])
             } else {
                 XCTAssertEqual(list.todos, [])
@@ -27,13 +27,13 @@ class SettingsTests: XCTestCase {
     }
 
     func testApplyWeekendSetting() throws {
-        let calendar = Calendar.current
+        let calendar = Calendar.autoupdatingCurrent
         let days = TodoList.newDaysOfWeekTodoLists()
         let setting = Setting(name: "Weekend", frequency: .weekends)
         days.applySetting(setting)
 
         for list in days {
-            switch list.day {
+            switch list.weekDay {
             case calendar.weekdaySymbols[0],
                  calendar.weekdaySymbols[6]:
                 XCTAssertEqual(list.todos.map { $0.text }, ["Weekend"])
@@ -44,13 +44,13 @@ class SettingsTests: XCTestCase {
     }
 
     func testApplyWeekdaySetting() throws {
-        let calendar = Calendar.current
+        let calendar = Calendar.autoupdatingCurrent
         let days = TodoList.newDaysOfWeekTodoLists()
         let setting = Setting(name: "Weekdays", frequency: .weekdays)
         days.applySetting(setting)
 
         for list in days {
-            switch list.day {
+            switch list.weekDay {
             case calendar.weekdaySymbols[1],
                  calendar.weekdaySymbols[2],
                  calendar.weekdaySymbols[3],
@@ -64,13 +64,13 @@ class SettingsTests: XCTestCase {
     }
 
     func testApplyEverydaySetting() throws {
-        let calendar = Calendar.current
+        let calendar = Calendar.autoupdatingCurrent
         let days = TodoList.newDaysOfWeekTodoLists()
         let setting = Setting(name: "Everyday", frequency: .everyday)
         days.applySetting(setting)
 
         for list in days {
-            switch list.day {
+            switch list.weekDay {
             case calendar.weekdaySymbols[0],
                  calendar.weekdaySymbols[1],
                  calendar.weekdaySymbols[2],

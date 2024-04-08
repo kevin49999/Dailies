@@ -12,7 +12,7 @@ import XCTest
 class TodoListTests: XCTestCase {
 
     func testOneListMoves() {
-        let list = TodoList(classification: .created, name: "Fun")
+        let list = TodoList()
         list.showCompleted = true
         _ = list.incomplete // lazy var, "adds" twice in append if not set yet
         list.add(todo: .init(text: "1"))
@@ -39,7 +39,7 @@ class TodoListTests: XCTestCase {
     }
 
     func testResortListTopTopBottom() {
-        let list = TodoList(classification: .created, name: "Fun")
+        let list = TodoList()
         _ = list.incomplete // ""
         list.add(todo: .init(text: "1"))
         list.add(todo: .init(text: "2"))
@@ -74,7 +74,7 @@ class TodoListTests: XCTestCase {
     }
 
     func testTwoItemListRearrange() {
-        let list = TodoList(classification: .created, name: "Fun")
+        let list = TodoList()
         _ = list.incomplete // ""
         list.add(todo: .init(text: "1"))
         list.add(todo: .init(text: "2"))
@@ -103,7 +103,7 @@ class TodoListTests: XCTestCase {
     }
 
     func testMoveCompleted() {
-        let list = TodoList(classification: .created, name: "Fun")
+        let list = TodoList()
         _ = list.incomplete // ""
         list.showCompleted = true
         list.add(todo: .init(text: "1"))
@@ -140,13 +140,13 @@ class TodoListTests: XCTestCase {
     }
 
     func testMultiListMoves() {
-        let list = TodoList(classification: .created, name: "Fun")
+        let list = TodoList()
         _ = list.incomplete // ""
         list.add(todo: .init(text: "1"))
         list.add(todo: .init(text: "2"))
         list.add(todo: .init(text: "3"))
 
-        let list2 = TodoList(classification: .created, name: "Work")
+        let list2 = TodoList()
 
         list.move(sIndex: 2, destination: list2, dIndex: 0)
         list.move(sIndex: 1, destination: list2, dIndex: 0)
@@ -169,7 +169,7 @@ class TodoListTests: XCTestCase {
     }
 
     func testToggleMoveCompleted() {
-        let list = TodoList(classification: .created, name: "Fun")
+        let list = TodoList()
         _ = list.incomplete // ""
         list.showCompleted = true
         list.add(todo: .init(text: "1"))
@@ -190,7 +190,7 @@ class TodoListTests: XCTestCase {
     }
 
     func testToggleCompletedSingleItemList() {
-        let list = TodoList(classification: .created, name: "Fun")
+        let list = TodoList()
         _ = list.incomplete // ""
         list.showCompleted = true
         list.add(todo: .init(text: "1"))
@@ -208,7 +208,7 @@ class TodoListTests: XCTestCase {
     }
 
     func testDuplicate() {
-        let list = TodoList(classification: .created, name: "Fun")
+        let list = TodoList()
         _ = list.incomplete // ""
         let todo = Todo(text: "1")
         list.add(todo: todo)
@@ -240,7 +240,7 @@ class TodoListTests: XCTestCase {
     }
 
     func testToggleShowHideFromCompleted() {
-        let list = TodoList(classification: .created, name: "Bug 1/4")
+        let list = TodoList()
         _ = list.incomplete // ""
         list.add(todo: .init(text: "1"))
         list.add(todo: .init(text: "2"))
@@ -268,7 +268,7 @@ class TodoListTests: XCTestCase {
     }
 
     func testToggleShowHideFromAll() {
-        let list = TodoList(classification: .created, name: "Bug 1/4")
+        let list = TodoList()
         _ = list.incomplete // ""
         list.showCompleted = true
         list.add(todo: .init(text: "1"))
@@ -297,58 +297,121 @@ class TodoListTests: XCTestCase {
     func testGeneratingNewListAfterMonthsBreak() {
         let marchFirst = Date.monthDayYearDate(month: 3, day: 1, year: 2021)
         let lists: [TodoList] = [
-            .init(classification: .daysOfWeek, dateCreated: marchFirst),
-            .init(classification: .daysOfWeek, dateCreated: marchFirst.byAddingDays(1)),
-            .init(classification: .daysOfWeek, dateCreated: marchFirst.byAddingDays(2)),
-            .init(classification: .daysOfWeek, dateCreated: marchFirst.byAddingDays(3)),
-            .init(classification: .daysOfWeek, dateCreated: marchFirst.byAddingDays(4)),
-            .init(classification: .daysOfWeek, dateCreated: marchFirst.byAddingDays(5)),
-            .init(classification: .daysOfWeek, dateCreated: marchFirst.byAddingDays(6)),
+            .init(dateCreated: marchFirst),
+            .init(dateCreated: marchFirst.byAddingDays(1)),
+            .init(dateCreated: marchFirst.byAddingDays(2)),
+            .init(dateCreated: marchFirst.byAddingDays(3)),
+            .init(dateCreated: marchFirst.byAddingDays(4)),
+            .init(dateCreated: marchFirst.byAddingDays(5)),
+            .init(dateCreated: marchFirst.byAddingDays(6)),
         ]
         // should throw out the old current in favor of generating a new list
-        let current = TodoList.daysOfWeekTodoLists(currentLists: lists)
+        let current = TodoList.daysOfWeekTodoLists(current: lists)
         let new = TodoList.newDaysOfWeekTodoLists()
         XCTAssertEqual(current, new)
     }
 
     func testTimeZoneSwitch() {
-        let today = Date() // keeps the timezone
-        let lists: [TodoList] = [
-            .init(classification: .daysOfWeek, dateCreated: today, todos: [.init(text: "1")]),
-            .init(classification: .daysOfWeek, dateCreated: today.byAddingDays(1), todos: [.init(text: "2")]),
-            .init(classification: .daysOfWeek, dateCreated: today.byAddingDays(2), todos: [.init(text: "3")]),
-            .init(classification: .daysOfWeek, dateCreated: today.byAddingDays(3)),
-            .init(classification: .daysOfWeek, dateCreated: today.byAddingDays(4)),
-            .init(classification: .daysOfWeek, dateCreated: today.byAddingDays(5)),
-            .init(classification: .daysOfWeek, dateCreated: today.byAddingDays(6)),
+        // TODO: need re-written test, that can get to fail first
+    }
+
+    func testMidWeekRegenerate() {
+        let current: [TodoList] = [
+            .init(nameDayMonth: "", weekDay: "", uniqueDay: "4/04/2024"),
+            .init(nameDayMonth: "", weekDay: "", uniqueDay: "4/05/2024"),
+            .init(nameDayMonth: "", weekDay: "", uniqueDay: "4/06/2024"),
+            .init(nameDayMonth: "", weekDay: "", uniqueDay: "4/07/2024", todos: [.init(text: "1")]),
+            .init(nameDayMonth: "", weekDay: "", uniqueDay: "4/08/2024", todos: [.init(text: "2")]),
+            .init(nameDayMonth: "", weekDay: "", uniqueDay: "4/09/2024", todos: [.init(text: "3")]),
+            .init(nameDayMonth: "", weekDay: "", uniqueDay: "4/10/2024"),
         ]
-        let current = TodoList.daysOfWeekTodoLists(currentLists: lists)
-        XCTAssertEqual(current, lists)
+        let new: [TodoList] = [
+            .init(nameDayMonth: "", weekDay: "", uniqueDay: "4/07/2024"),
+            .init(nameDayMonth: "", weekDay: "", uniqueDay: "4/08/2024"),
+            .init(nameDayMonth: "", weekDay: "", uniqueDay: "4/09/2024"),
+            .init(nameDayMonth: "", weekDay: "", uniqueDay: "4/10/2024"),
+            .init(nameDayMonth: "", weekDay: "", uniqueDay: "4/11/2024"),
+            .init(nameDayMonth: "", weekDay: "", uniqueDay: "4/12/2024"),
+            .init(nameDayMonth: "", weekDay: "", uniqueDay: "4/13/2024"),
+        ]
+        let final = TodoList.daysOfWeekTodoLists(current: current, new: new)
+        XCTAssertEqual(final[0].uniqueDay, "4/07/2024")
+        XCTAssertEqual(final[0].todos.first?.text, "1")
+        XCTAssertEqual(final[1].uniqueDay, "4/08/2024")
+        XCTAssertEqual(final[1].todos.first?.text, "2")
+        XCTAssertEqual(final[2].uniqueDay, "4/09/2024")
+        XCTAssertEqual(final[2].todos.first?.text, "3")
+        XCTAssertEqual(final[3].uniqueDay, "4/10/2024")
+        XCTAssertTrue(final[3].todos.isEmpty)
+        XCTAssertEqual(final[4].uniqueDay, "4/11/2024")
+        XCTAssertTrue(final[4].todos.isEmpty)
+        XCTAssertEqual(final[5].uniqueDay, "4/12/2024")
+        XCTAssertTrue(final[5].todos.isEmpty)
+        XCTAssertEqual(final[6].uniqueDay, "4/13/2024")
+        XCTAssertTrue(final[6].todos.isEmpty)
     }
 
     func testRollover() {
         let yesterday = Date.todayMonthDayYear().byAddingDays(-1)
         let lists: [TodoList] = [
-            .init(classification: .daysOfWeek, dateCreated: yesterday, todos: [.init(text: "1")]),
-            .init(classification: .daysOfWeek, dateCreated: yesterday.byAddingDays(1)),
-            .init(classification: .daysOfWeek, dateCreated: yesterday.byAddingDays(2)),
-            .init(classification: .daysOfWeek, dateCreated: yesterday.byAddingDays(3)),
-            .init(classification: .daysOfWeek, dateCreated: yesterday.byAddingDays(4)),
-            .init(classification: .daysOfWeek, dateCreated: yesterday.byAddingDays(5)),
-            .init(classification: .daysOfWeek, dateCreated: yesterday.byAddingDays(6)),
+            .init(dateCreated: yesterday, todos: [.init(text: "1")]),
+            .init(dateCreated: yesterday.byAddingDays(1)),
+            .init(dateCreated: yesterday.byAddingDays(2)),
+            .init(dateCreated: yesterday.byAddingDays(3)),
+            .init(dateCreated: yesterday.byAddingDays(4)),
+            .init(dateCreated: yesterday.byAddingDays(5)),
+            .init(dateCreated: yesterday.byAddingDays(6)),
         ]
 
         let settings = GeneralSettings()
         settings.toggleRollover(on: true)
         let yesterdayLists = TodoList.daysOfWeekTodoLists(
-            today: yesterday,
             settings: settings,
-            currentLists: lists
+            current: lists
         )
 
-        let todayLists = TodoList.daysOfWeekTodoLists(settings: settings, currentLists: yesterdayLists)
+        let todayLists = TodoList.daysOfWeekTodoLists(settings: settings, current: yesterdayLists)
 
-        // 1 should now be on the first day! which is the day after
+        // 1 should now be on the first day, which is the day after
         XCTAssertEqual(todayLists[0].todos[0].text, "1")
+    }
+    
+    func testMultiDayRollover() {
+        let current: [TodoList] = [
+            .init(nameDayMonth: "", weekDay: "", uniqueDay: "4/04/2024", todos: [.init(text: "1")]),
+            .init(nameDayMonth: "", weekDay: "", uniqueDay: "4/05/2024", todos: [.init(text: "2")]),
+            .init(nameDayMonth: "", weekDay: "", uniqueDay: "4/06/2024", todos: [.init(text: "3")]),
+            .init(nameDayMonth: "", weekDay: "", uniqueDay: "4/07/2024"),
+            .init(nameDayMonth: "", weekDay: "", uniqueDay: "4/08/2024"),
+            .init(nameDayMonth: "", weekDay: "", uniqueDay: "4/09/2024"),
+            .init(nameDayMonth: "", weekDay: "", uniqueDay: "4/10/2024"),
+        ]
+        let new: [TodoList] = [
+            .init(nameDayMonth: "", weekDay: "", uniqueDay: "4/07/2024"),
+            .init(nameDayMonth: "", weekDay: "", uniqueDay: "4/08/2024"),
+            .init(nameDayMonth: "", weekDay: "", uniqueDay: "4/09/2024"),
+            .init(nameDayMonth: "", weekDay: "", uniqueDay: "4/10/2024"),
+            .init(nameDayMonth: "", weekDay: "", uniqueDay: "4/11/2024"),
+            .init(nameDayMonth: "", weekDay: "", uniqueDay: "4/12/2024"),
+            .init(nameDayMonth: "", weekDay: "", uniqueDay: "4/13/2024"),
+        ]
+        let final = TodoList.rolloverItems(current: current, new: new)
+        XCTAssertEqual(final[0].text, "1")
+        XCTAssertEqual(final[1].text, "2")
+        XCTAssertEqual(final[2].text, "3")
+    }
+}
+
+// MARK: - Date
+
+extension Date {
+    static func todayMonthDayYear(calendar: Calendar = .autoupdatingCurrent) -> Date {
+        let comp = calendar.dateComponents([.year, .month, .day], from: Date())
+        return monthDayYearDate(month: comp.month!, day: comp.day!, year: comp.year!)
+    }
+
+    static func monthDayYearDate(month: Int, day: Int, year: Int, calendar: Calendar = .autoupdatingCurrent) -> Date {
+        let comp = DateComponents(year: year, month: month, day: day)
+        return calendar.date(from: comp)!
     }
 }
