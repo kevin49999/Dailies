@@ -8,7 +8,6 @@
 import Foundation
 
 // https://useyourloaf.com/blog/sharing-data-with-a-widget/
-
 enum AppGroup: String {
   case todos = "group.com.frr.todos"
 

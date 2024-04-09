@@ -13,9 +13,7 @@ protocol SettingCellDelegate: AnyObject {
 }
 
 class SettingCell: UITableViewCell {
-
     weak var delegate: SettingCellDelegate?
-
     @IBOutlet weak private var titleLabel: UILabel!
     @IBOutlet weak private var toggleSwitch: UISwitch!
 

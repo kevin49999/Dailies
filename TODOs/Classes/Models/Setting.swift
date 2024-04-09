@@ -68,7 +68,6 @@ struct Setting: Codable, Identifiable, Hashable {
         if let id = try? values.decode(UUID.self, forKey: .id) {
             self.id = id
         } else {
-            /// new property as of 12/23 so need the fallback for decoding old Settings
             id = UUID()
         }
         name = try values.decode(String.self, forKey: .name)

@@ -14,7 +14,6 @@ protocol AddTodoCellDelegate: AnyObject {
 }
 
 class AddTodoCell: UITableViewCell {
-
     weak var delegate: AddTodoCellDelegate?
     @IBOutlet weak private var textView: UITextView!
     @IBOutlet weak private var placeholderTextView: UITextView!

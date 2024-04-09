@@ -11,7 +11,6 @@ import Foundation
 // MARK: - Move
 
 extension TodoList {
-
     enum MoveResult {
         case completedMovedToShowComplete
     }
@@ -31,7 +30,6 @@ extension TodoList {
 // MARK: - Remove
 
 extension TodoList {
-
     @discardableResult
     func remove(at index: Int) -> Todo {
         let todo: Todo
@@ -53,7 +51,6 @@ extension TodoList {
 // MARK: - Reinsert
 
 extension TodoList {
-
     @discardableResult
     func insert(todo: Todo, index: Int) -> MoveResult? {
         insert(todo: todo, destination: self, index: index)

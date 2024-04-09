@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ToggleSetting: Hashable {
+class ToggleSetting {
     let name: String
     var isOn: Bool
 
@@ -18,7 +18,9 @@ class ToggleSetting: Hashable {
     }
 }
 
-extension ToggleSetting {
+// MARK: - Hashable
+
+extension ToggleSetting: Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(name)
         hasher.combine(isOn)

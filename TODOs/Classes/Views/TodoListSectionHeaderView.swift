@@ -13,7 +13,6 @@ protocol TodoListSectionHeaderViewDelegate: AnyObject {
 }
 
 class TodoListSectionHeaderView: UIView {
-
     weak var delegate: TodoListSectionHeaderViewDelegate?
     var section: Int = 0
 

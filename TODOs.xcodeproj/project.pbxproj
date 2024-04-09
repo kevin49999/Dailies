@@ -295,12 +295,12 @@
 				525A8B91242FDD0B002DCDD0 /* Bundle+Extensions.swift */,
 				52567EBE23EBBC91000332EA /* Date+Extensions.swift */,
 				524D268F23F8995B00EC46CC /* DateFormatters.swift */,
+				525197FE259D91D600256BA6 /* SKStoreReviewController+Extensions.swift */,
 				5244F90823F8C67B00B4DAEB /* UIAlertController+Extensions.swift */,
 				525A8B93242FE2E2002DCDD0 /* UIEdgeInsets+Extensions.swift */,
 				0A424A702384B34B00E1FC34 /* UIFont+Extensions.swift */,
 				0A424A722384B3C200E1FC34 /* UITableView+Extensions.swift */,
 				52013986240369890030DD3D /* UIViewController+ChildControllers.swift */,
-				525197FE259D91D600256BA6 /* SKStoreReviewController+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";

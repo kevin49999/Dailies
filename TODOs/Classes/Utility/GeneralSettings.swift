@@ -9,7 +9,6 @@
 import Foundation
 
 class GeneralSettings {
-
     enum Settings: String {
         case toggleHideCompleted = "toggle_hide_completed"
         case toggleRollover = "toggle_rollover"

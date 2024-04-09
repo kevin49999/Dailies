@@ -55,6 +55,8 @@ class Todo: Codable, Identifiable {
     }
 }
 
+// MARK: - Hashable
+
 extension Todo: Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)

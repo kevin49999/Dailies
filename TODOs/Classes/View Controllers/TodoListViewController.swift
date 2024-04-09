@@ -161,7 +161,7 @@ extension TodoListViewController: AddTodoCellDelegate {
         
         dataSource.todoLists[indexPath.section].add(todo: Todo(text: text))
         dataSource.applySnapshot()
-        // Review action could be anything
+        // review action could be anything
         SKStoreReviewController.incrementReviewAction()
     }
 }

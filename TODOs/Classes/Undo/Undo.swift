@@ -9,9 +9,7 @@
 import UIKit
 
 // s/o https://github.com/GitHawkApp/Squawk 🦅
-
 class Undo {
-
     static let shared = Undo()
 
     private var active: UndoItem?
@@ -33,7 +31,7 @@ class Undo {
     }
 }
 
-extension UIViewController {
+fileprivate extension UIViewController {
     var topMostChild: UIViewController? {
         if let tab = self as? UITabBarController {
             return tab.selectedViewController?.topMostChild

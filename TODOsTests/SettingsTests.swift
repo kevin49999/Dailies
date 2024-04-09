@@ -10,15 +10,13 @@ import XCTest
 @testable import TODOs
 
 class SettingsTests: XCTestCase {
-
     func testApplyOneDaySetting() throws {
-        let calendar = Calendar.autoupdatingCurrent
         let days = TodoList.newDaysOfWeekTodoLists()
         let setting = Setting(name: "Monday", frequency: .mondays)
         days.applySetting(setting)
 
         for list in days {
-            if list.weekDay == calendar.weekdaySymbols[setting.frequency.rawValue] {
+            if list.weekDay == Calendar.autoupdatingCurrent.weekdaySymbols[setting.frequency.rawValue] {
                 XCTAssertEqual(list.todos.map { $0.text }, ["Monday"])
             } else {
                 XCTAssertEqual(list.todos, [])
@@ -27,11 +25,10 @@ class SettingsTests: XCTestCase {
     }
 
     func testApplyWeekendSetting() throws {
-        let calendar = Calendar.autoupdatingCurrent
         let days = TodoList.newDaysOfWeekTodoLists()
         let setting = Setting(name: "Weekend", frequency: .weekends)
         days.applySetting(setting)
-
+        let calendar = Calendar.autoupdatingCurrent
         for list in days {
             switch list.weekDay {
             case calendar.weekdaySymbols[0],
@@ -44,11 +41,10 @@ class SettingsTests: XCTestCase {
     }
 
     func testApplyWeekdaySetting() throws {
-        let calendar = Calendar.autoupdatingCurrent
         let days = TodoList.newDaysOfWeekTodoLists()
         let setting = Setting(name: "Weekdays", frequency: .weekdays)
         days.applySetting(setting)
-
+        let calendar = Calendar.autoupdatingCurrent
         for list in days {
             switch list.weekDay {
             case calendar.weekdaySymbols[1],
@@ -64,11 +60,10 @@ class SettingsTests: XCTestCase {
     }
 
     func testApplyEverydaySetting() throws {
-        let calendar = Calendar.autoupdatingCurrent
         let days = TodoList.newDaysOfWeekTodoLists()
         let setting = Setting(name: "Everyday", frequency: .everyday)
         days.applySetting(setting)
-
+        let calendar = Calendar.autoupdatingCurrent
         for list in days {
             switch list.weekDay {
             case calendar.weekdaySymbols[0],

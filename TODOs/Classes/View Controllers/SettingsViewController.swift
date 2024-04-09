@@ -9,7 +9,6 @@
 import UIKit
 
 class SettingsViewController: UITableViewController {
-
     enum Section: Int {
         case toggles = 0
         case recurring
@@ -139,7 +138,8 @@ extension SettingsViewController: UIPickerViewDataSource, UIPickerViewDelegate, 
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         guard let index = changingFreqIndex else { return }
-        self.dataSource.settings[index].frequency = changingFrequencies[row] // TODO: don't allow the duplicate if it makes it duplicate
+        // TODO: don't allow the duplicate if it makes it duplicate
+        self.dataSource.settings[index].frequency = changingFrequencies[row]
     }
 
     func textFieldDidEndEditing(_ textField: UITextField) {

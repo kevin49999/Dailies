@@ -14,7 +14,6 @@ protocol TodoCellDelegate: AnyObject {
 }
 
 class TodoCell: UITableViewCell {
-
     weak var delegate: TodoCellDelegate?
     @IBOutlet weak private var textView: DataTextView!
     
