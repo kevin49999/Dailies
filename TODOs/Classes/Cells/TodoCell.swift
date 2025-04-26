@@ -15,7 +15,9 @@ protocol TodoCellDelegate: AnyObject {
 
 class TodoCell: UITableViewCell {
     weak var delegate: TodoCellDelegate?
+    
     @IBOutlet weak private var textView: DataTextView!
+    @IBOutlet weak private var isSettingIconView: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -24,6 +26,7 @@ class TodoCell: UITableViewCell {
 
     func configure(data: TodoViewData) {
         textView.attributedText = data.attributedText
+        isSettingIconView.isHidden = !data.isSetting
     }
     
     private func setup() {

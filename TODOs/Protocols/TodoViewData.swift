@@ -11,6 +11,7 @@ import UIKit
 protocol TodoViewData {
     var text: String { get }
     var attributedText: NSAttributedString? { get }
+    var isSetting: Bool { get }
 }
 
 extension Todo: TodoViewData {
@@ -28,21 +29,6 @@ extension Todo: TodoViewData {
             ]
             return NSAttributedString(string: text, attributes: attributes)
         }
-        let attributes: [NSAttributedString.Key : Any] = [
-            NSAttributedString.Key.font: font,
-            NSAttributedString.Key.foregroundColor: UIColor.label
-        ]
-        return NSAttributedString(string: text, attributes: attributes)
-    }
-}
-
-extension TodoList: TodoViewData {
-    var text: String { weekDay }
-    var attributedText: NSAttributedString? {
-        let font = UIFont.systemFont(
-            ofSize: 16,
-            weight: .regular
-        ).scaledFontforTextStyle(.body)
         let attributes: [NSAttributedString.Key : Any] = [
             NSAttributedString.Key.font: font,
             NSAttributedString.Key.foregroundColor: UIColor.label

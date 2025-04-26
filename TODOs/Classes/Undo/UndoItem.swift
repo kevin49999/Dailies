@@ -21,7 +21,7 @@ class UndoItem {
     ) {
         self.completion = completion
         self.view = UndoView(
-            config: .init(title: title, backgroundColor: .systemIndigo),
+            config: .init(title: title, backgroundColor: .systemBlue),
             delegate: self
         )
         view.translatesAutoresizingMaskIntoConstraints = false
