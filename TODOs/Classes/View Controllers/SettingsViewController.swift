@@ -76,7 +76,8 @@ extension SettingsViewController: RecurringTodoCellDelegate {
             return
         }
         if !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            dataSource.settings[indexPath.row].name = text // TODO: Doesn't update current recurring TODOs
+            // TODO: Doesn't update current recurring TODOs
+            dataSource.settings[indexPath.row].name = text
         }
     }
 

@@ -15,8 +15,8 @@ protocol RecurringTodoCellDelegate: AnyObject {
 }
 
 class RecurringTodoCell: UITableViewCell {
-
     weak var delegate: RecurringTodoCellDelegate?
+    
     @IBOutlet weak private var textView: UITextView!
     @IBOutlet weak private var frequencyButton: UIButton!
 

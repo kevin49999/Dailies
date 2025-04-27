@@ -16,9 +16,9 @@ extension SKStoreReviewController {
         let added = defaults.integer(forKey: reviewCutoffKey)
         if added + 1 == reviewCutoff {
             SKStoreReviewController.requestReviewInWindow()
-            UserDefaults.standard.set(0, forKey: reviewCutoffKey)
+            defaults.set(0, forKey: reviewCutoffKey)
         } else {
-            UserDefaults.standard.set(added + 1, forKey: reviewCutoffKey)
+            defaults.set(added + 1, forKey: reviewCutoffKey)
         }
     }
 

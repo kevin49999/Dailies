@@ -311,10 +311,6 @@ class TodoListTests: XCTestCase {
         XCTAssertEqual(current, new)
     }
 
-    func testTimeZoneSwitch() {
-        // TODO: need re-written test, that can get to fail first
-    }
-
     func testMidWeekRegenerate() {
         let current: [TodoList] = [
             .init(nameDayMonth: "", weekDay: "", uniqueDay: "4/04/2024"),

@@ -14,7 +14,7 @@ extension TodoList {
         new: [TodoList] = newDaysOfWeekTodoLists()
     ) -> [TodoList] {
         guard new.first?.uniqueDay != current.first?.uniqueDay else {
-            // same day
+            // lists have same starting day, so return current list
             return current
         }
         
@@ -146,7 +146,7 @@ extension Array where Element == TodoList {
     }
 }
 
-extension TodoList {
+fileprivate extension TodoList {
     func addTodoFor(setting: Setting) {
         let todo = Todo(
             text: setting.name,
