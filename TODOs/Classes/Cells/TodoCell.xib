@@ -30,6 +30,7 @@
                             </textView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="QhS-Hc-H0e">
                                 <rect key="frame" x="318" y="0.5" width="20" height="32"/>
+                                <color key="tintColor" systemColor="systemGray2Color"/>
                                 <imageReference key="image" image="arrow.trianglehead.2.clockwise.rotate.90.circle" catalog="system" symbolScale="medium"/>
                             </imageView>
                         </subviews>
@@ -55,6 +56,9 @@
         <image name="arrow.trianglehead.2.clockwise.rotate.90.circle" catalog="system" width="128" height="123"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray2Color">
+            <color red="0.68235294120000001" green="0.68235294120000001" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="tableCellGroupedBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
