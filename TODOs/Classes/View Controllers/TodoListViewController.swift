@@ -44,7 +44,6 @@ class TodoListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -186,6 +185,11 @@ extension TodoListViewController: TodoCellDelegate {
             } else {
                 list.incomplete[indexPath.row].text = text
             }
+        } else {
+            // kinda nice, delete if text empty, Apple does this in Reminders
+            let list = dataSource.todoLists[indexPath.section]
+            let todo = list.remove(at: indexPath.row)
+            dataSource.delete(todo)
         }
     }
 }

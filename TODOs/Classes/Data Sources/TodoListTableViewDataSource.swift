@@ -11,7 +11,6 @@ import UIKit
 typealias TodoListCellsDelegate = AddTodoCellDelegate & TodoCellDelegate
 
 class TodoListTableViewDataSource: UITableViewDiffableDataSource<TodoList, Todo> {
-
     typealias Snapshot = NSDiffableDataSourceSnapshot<TodoList, Todo>
     weak var cellDelegate: TodoListCellsDelegate?
     var todoLists: [TodoList] = []
