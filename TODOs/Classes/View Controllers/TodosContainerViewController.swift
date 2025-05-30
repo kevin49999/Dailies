@@ -71,10 +71,11 @@ extension TodosContainerViewController {
             fatalError("First day should be set")
         }
         
+        // this != check is also done in TodoList.daysOfWeekTodoLists()
         if firstDay.uniqueDay != DateFormatters.uniqueDay.string(from: Date()) {
-            daysOfWeekTodoController.updateTodoLists(TodoList.daysOfWeekTodoLists())
-            // add settings to new days that get it dated
-            settingsChanged()
+            let newList = TodoList.daysOfWeekTodoLists()
+            newList.applySettings(Setting.saved())
+            daysOfWeekTodoController.updateTodoLists(newList)
         }
     }
 
