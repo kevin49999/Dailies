@@ -194,16 +194,12 @@ extension TodoListViewController: TodoCellDelegate {
     }
 }
 
-// MARK: - TodoListSectionHeaderView
+// MARK: - TodoListSectionHeaderViewDelegate
 
 extension TodoListViewController: TodoListSectionHeaderViewDelegate {
-    func todoListSectionHeaderView(_ view: TodoListSectionHeaderView, tappedAction section: Int) {
-        UIAlertController.todoListActions(
-            dataSource.todoLists[section].showCompleted,
-            presenter: self,
-            completion: { _ in
-                self.dataSource.todoLists[section].showCompleted.toggle()
-                self.dataSource.applySnapshot()
-        })
+    func todoListSectionHeaderView(_ view: TodoListSectionHeaderView, toggledShowComplete section: Int) {
+        dataSource.todoLists[section].showCompleted.toggle()
+        dataSource.applySnapshot()
+        view.configure(data: dataSource.todoLists[section]) // gotta call
     }
 }

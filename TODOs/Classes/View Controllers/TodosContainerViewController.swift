@@ -24,7 +24,7 @@ class TodosContainerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         observeNotifications()
-        let gearImage = UIImage(systemName: "gear")?    .withConfiguration(UIImage.SymbolConfiguration(scale: .medium))
+        let gearImage = UIImage(systemName: "gear")?.withConfiguration(UIImage.SymbolConfiguration(scale: .medium))
         settingsBarButtonItem.image = gearImage
         add(daysOfWeekTodoController, to: contentView)
     }

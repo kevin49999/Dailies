@@ -9,12 +9,14 @@
 import UIKit
 
 protocol TodoListSectionHeaderViewDelegate: AnyObject {
-    func todoListSectionHeaderView(_ view: TodoListSectionHeaderView, tappedAction section: Int)
+    func todoListSectionHeaderView(_ view: TodoListSectionHeaderView, toggledShowComplete section: Int)
 }
 
 class TodoListSectionHeaderView: UIView {
     weak var delegate: TodoListSectionHeaderViewDelegate?
     var section: Int = 0
+    
+    private var showCompleted: Bool = false
 
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -24,15 +26,10 @@ class TodoListSectionHeaderView: UIView {
         return label
     }()
 
-    private let actionButton: UIButton = {
-        let ellipsis = UIImage(
-            systemName: "ellipsis",
-            withConfiguration: UIImage.SymbolConfiguration(scale: .medium)
-        )
-        let button = UIButton()
-        button.contentMode = .scaleAspectFit
-        button.setImage(ellipsis, for: .normal)
-        return button
+    private let toggleCompleteButton: UIButton = {
+        let b = UIButton()
+        b.contentMode = .scaleAspectFit
+        return b
     }()
 
     private let stackView: UIStackView = {
@@ -53,11 +50,17 @@ class TodoListSectionHeaderView: UIView {
 
     func configure(data: TodoList) {
         titleLabel.text = data.nameDayMonth
+        showCompleted = data.showCompleted
+        let toggleIcon = UIImage(
+            systemName: showCompleted ? "text.book.closed.fill" : "text.book.closed",
+            withConfiguration: UIImage.SymbolConfiguration(scale: .medium)
+        )
+        toggleCompleteButton.setImage(toggleIcon, for: .normal)
     }
 
     private func setup() {
         backgroundColor = .systemGroupedBackground
-        actionButton.addTarget(self, action: #selector(tappedAction(_:)), for: .touchUpInside)
+        toggleCompleteButton.addTarget(self, action: #selector(tappedAction(_:)), for: .touchUpInside)
 
         if traitCollection.preferredContentSizeCategory.isAccessibilityCategory {
             stackView.axis = .vertical
@@ -67,14 +70,14 @@ class TodoListSectionHeaderView: UIView {
             stackView.alignment = .fill
         }
         stackView.addArrangedSubview(titleLabel)
-        stackView.addArrangedSubview(actionButton)
+        stackView.addArrangedSubview(toggleCompleteButton)
         addSubview(stackView)
         NSLayoutConstraint.activate([
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.0),
             stackView.centerYAnchor.constraint(equalTo: centerYAnchor),
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12.0),
-            actionButton.heightAnchor.constraint(equalToConstant: 34),
-            actionButton.widthAnchor.constraint(equalToConstant: 34)
+            toggleCompleteButton.heightAnchor.constraint(equalToConstant: 34),
+            toggleCompleteButton.widthAnchor.constraint(equalToConstant: 34)
         ])
         let bottom = stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8.0)
         bottom.priority = UILayoutPriority(rawValue: 999)
@@ -96,6 +99,6 @@ class TodoListSectionHeaderView: UIView {
     }
 
     @IBAction func tappedAction(_ sender: UIButton) {
-        delegate?.todoListSectionHeaderView(self, tappedAction: self.section)
+        delegate?.todoListSectionHeaderView(self, toggledShowComplete: self.section)
     }
 }
