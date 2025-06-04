@@ -58,7 +58,8 @@ extension SettingsViewController: AddTodoCellDelegate {
     }
 
     func addTodoCell(_ cell: AddTodoCell, didEndEditing text: String) {
-        dataSource.settings.append(.init(name: text))
+        let setting = Setting(name: text)
+        dataSource.settings.append(setting)
         dataSource.applySnapshot()
     }
 }

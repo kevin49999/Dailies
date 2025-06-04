@@ -36,11 +36,7 @@ class Todo: Codable, Identifiable {
 
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        if let id = try? values.decode(UUID.self, forKey: .settingUUID) {
-            self.id = id
-        } else {
-            id = UUID()
-        }
+        id = try values.decode(UUID.self, forKey: .id)
         text = try values.decode(String.self, forKey: .text)
         completed = try values.decode(Bool.self, forKey: .completed)
         if let settingUUID = try? values.decode(String.self, forKey: .settingUUID) {
