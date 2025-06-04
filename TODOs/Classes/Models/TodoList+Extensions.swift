@@ -9,9 +9,10 @@ import Foundation
 
 extension TodoList {
     static func daysOfWeekTodoLists(
-        settings: GeneralSettings = .shared,
+        generalSettings: GeneralSettings = .shared,
         current: [TodoList] = getCurrentDaysOfWeekList(),
-        new: [TodoList] = newDaysOfWeekTodoLists()
+        new: [TodoList] = newDaysOfWeekTodoLists(),
+        settings: [Setting] = Setting.saved()
     ) -> [TodoList] {
         guard new.first?.uniqueDay != current.first?.uniqueDay else {
             // lists have same starting day, so return current list
@@ -28,12 +29,12 @@ extension TodoList {
                 n.showCompleted = showCompleted
             }
         }
-        // rollover
-        if settings.rollover {
+        if generalSettings.rollover {
             let rollover = rolloverItems(current: current, new: new)
             // add to first day
             new.first?.todos.append(contentsOf: rollover)
         }
+        new.applySettings(settings)
         return new
     }
     

@@ -362,12 +362,13 @@ class TodoListTests: XCTestCase {
         let settings = GeneralSettings()
         settings.toggleRollover(on: true)
         let yesterdayLists = TodoList.daysOfWeekTodoLists(
-            settings: settings,
+            generalSettings: settings,
             current: lists
         )
-
-        let todayLists = TodoList.daysOfWeekTodoLists(settings: settings, current: yesterdayLists)
-
+        let todayLists = TodoList.daysOfWeekTodoLists(
+            generalSettings: settings,
+            current: yesterdayLists
+        )
         // 1 should now be on the first day, which is the day after
         XCTAssertEqual(todayLists[0].todos[0].text, "1")
     }

@@ -73,9 +73,7 @@ extension TodosContainerViewController {
         
         // this != check is also done in TodoList.daysOfWeekTodoLists()
         if firstDay.uniqueDay != DateFormatters.uniqueDay.string(from: Date()) {
-            let newList = TodoList.daysOfWeekTodoLists()
-            newList.applySettings(Setting.saved())
-            daysOfWeekTodoController.updateTodoLists(newList)
+            daysOfWeekTodoController.updateTodoLists(TodoList.daysOfWeekTodoLists())
         }
     }
 
