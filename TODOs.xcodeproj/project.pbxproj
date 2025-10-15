@@ -21,6 +21,11 @@
 		0A424A732384B3C200E1FC34 /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A424A722384B3C200E1FC34 /* UITableView+Extensions.swift */; };
 		0A8E67602DF27CEE0051CC3D /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8E675F2DF27CEE0051CC3D /* InfoViewController.swift */; };
 		0A8E67612DF27CEE0051CC3D /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8E675F2DF27CEE0051CC3D /* InfoViewController.swift */; };
+		0A9223E62E9F30A60086FBCC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A9223E52E9F30A60086FBCC /* GoogleService-Info.plist */; };
+		0A9223E72E9F30A60086FBCC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A9223E52E9F30A60086FBCC /* GoogleService-Info.plist */; };
+		0A9223EA2E9F30F20086FBCC /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 0A9223E92E9F30F20086FBCC /* FirebaseAnalytics */; };
+		0A9223EC2E9F30F20086FBCC /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 0A9223EB2E9F30F20086FBCC /* FirebaseCore */; };
+		0A9223EE2E9F30F20086FBCC /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 0A9223ED2E9F30F20086FBCC /* FirebaseCrashlytics */; };
 		52013985240363070030DD3D /* TodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52013984240363070030DD3D /* TodoListViewController.swift */; };
 		52013987240369890030DD3D /* UIViewController+ChildControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52013986240369890030DD3D /* UIViewController+ChildControllers.swift */; };
 		520F6E3B257DD58B002154D2 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 520F6E3A257DD58B002154D2 /* WidgetKit.framework */; };
@@ -200,6 +205,7 @@
 		0A424A702384B34B00E1FC34 /* UIFont+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extensions.swift"; sourceTree = "<group>"; };
 		0A424A722384B3C200E1FC34 /* UITableView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
 		0A8E675F2DF27CEE0051CC3D /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
+		0A9223E52E9F30A60086FBCC /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		52013984240363070030DD3D /* TodoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewController.swift; sourceTree = "<group>"; };
 		52013986240369890030DD3D /* UIViewController+ChildControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ChildControllers.swift"; sourceTree = "<group>"; };
 		520F6E39257DD58B002154D2 /* TODOsWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TODOsWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -252,6 +258,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A9223EA2E9F30F20086FBCC /* FirebaseAnalytics in Frameworks */,
+				0A9223EE2E9F30F20086FBCC /* FirebaseCrashlytics in Frameworks */,
+				0A9223EC2E9F30F20086FBCC /* FirebaseCore in Frameworks */,
 				520F6EA9257DE367002154D2 /* IQKeyboardManagerSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -381,6 +390,7 @@
 				0A424A4D2384B0FF00E1FC34 /* Assets.xcassets */,
 				0A424A522384B0FF00E1FC34 /* Info.plist */,
 				0A424A462384B0FC00E1FC34 /* SceneDelegate.swift */,
+				0A9223E52E9F30A60086FBCC /* GoogleService-Info.plist */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -516,6 +526,9 @@
 			name = TODOs;
 			packageProductDependencies = (
 				520F6EA8257DE367002154D2 /* IQKeyboardManagerSwift */,
+				0A9223E92E9F30F20086FBCC /* FirebaseAnalytics */,
+				0A9223EB2E9F30F20086FBCC /* FirebaseCore */,
+				0A9223ED2E9F30F20086FBCC /* FirebaseCrashlytics */,
 			);
 			productName = TODOs;
 			productReference = 0A424A412384B0FC00E1FC34 /* TODOs.app */;
@@ -629,6 +642,7 @@
 			mainGroup = 0A424A382384B0FC00E1FC34;
 			packageReferences = (
 				520F6EA7257DE367002154D2 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
+				0A9223E82E9F30F20086FBCC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 0A424A422384B0FC00E1FC34 /* Products */;
 			projectDirPath = "";
@@ -649,6 +663,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				52567EB323DE8D3E000332EA /* AddTodoCell.xib in Resources */,
+				0A9223E72E9F30A60086FBCC /* GoogleService-Info.plist in Resources */,
 				52C863FA2507D56800BD5615 /* RecurringTodoCell.xib in Resources */,
 				5217798725941B7200D92EAA /* SettingCell.xib in Resources */,
 				0A424A512384B0FF00E1FC34 /* LaunchScreen.storyboard in Resources */,
@@ -678,6 +693,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				52E2270925B296B30083D6D8 /* AddTodoCell.xib in Resources */,
+				0A9223E62E9F30A60086FBCC /* GoogleService-Info.plist in Resources */,
 				52E2270A25B296B30083D6D8 /* RecurringTodoCell.xib in Resources */,
 				52E2270B25B296B30083D6D8 /* SettingCell.xib in Resources */,
 				52E2270C25B296B30083D6D8 /* LaunchScreen.storyboard in Resources */,
@@ -1008,7 +1024,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.1.3;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "Kevin-Johnson.TODOs";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1031,7 +1048,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.1.3;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "Kevin-Johnson.TODOs";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1098,7 +1116,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = "Kevin-Johnson.TODOs.TODOsWidget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1124,7 +1142,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = "Kevin-Johnson.TODOs.TODOsWidget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1289,6 +1307,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		0A9223E82E9F30F20086FBCC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.4.0;
+			};
+		};
 		520F6EA7257DE367002154D2 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager";
@@ -1308,6 +1334,21 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		0A9223E92E9F30F20086FBCC /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0A9223E82E9F30F20086FBCC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		0A9223EB2E9F30F20086FBCC /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0A9223E82E9F30F20086FBCC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+		0A9223ED2E9F30F20086FBCC /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0A9223E82E9F30F20086FBCC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
+		};
 		520F6EA8257DE367002154D2 /* IQKeyboardManagerSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 520F6EA7257DE367002154D2 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
