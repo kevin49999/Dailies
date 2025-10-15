@@ -183,8 +183,12 @@ extension TodoList {
 
 extension TodoList {
     func add(todo: Todo) {
-        todos.append(todo)
+        // very important note: if you append to incomplete second, and it has not been initialized yet
+        // you can create a bug where the lazy var is initialized having the value that was just appended to "todos"
+        // then you append the value again
+        // TODO: stop tracking order of incomplete in a second array, use a backing array for ordering + one array of TODOs
         incomplete.append(todo)
+        todos.append(todo)
     }
 }
 
