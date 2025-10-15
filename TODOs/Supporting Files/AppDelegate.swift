@@ -7,6 +7,10 @@
 //
 
 import UIKit
+
+import FirebaseAnalytics
+import FirebaseCore
+import FirebaseCrashlytics
 import IQKeyboardManagerSwift
 
 @UIApplicationMain
@@ -17,6 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.shared.enable = true
         IQKeyboardManager.shared.previousNextDisplayMode = .alwaysHide
         IQKeyboardManager.shared.shouldResignOnTouchOutside = true
+        
+        FirebaseApp.configure()
         
         return true
     }
