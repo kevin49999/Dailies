@@ -34,9 +34,7 @@ class TodoListTableViewDataSource: UITableViewDiffableDataSource<TodoList, TodoL
                 return cell
             case .add:
                 let cell: AddTodoCell = tableView.dequeueReusableCell(for: indexPath)
-                if indexPath.section == todoLists.count - 1 {
-                    cell.separatorInset = .hideSeparator // hide last
-                }
+                cell.separatorInset = .hideSeparator
                 cell.delegate = cellDelegate
                 return cell
             }
