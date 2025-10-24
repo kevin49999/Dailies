@@ -26,9 +26,11 @@ class InfoViewController: UITableViewController {
 extension InfoViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
-        case 0:
+        case 0: // source code
             tableView.deselectRow(at: indexPath, animated: true)
             UIApplication.shared.open(Self.githubUrl)
+        case 1: // build/version
+            break
         default:
             assertionFailure()
         }
