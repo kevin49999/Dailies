@@ -61,6 +61,17 @@ class TodoListTableViewDataSource: UITableViewDiffableDataSource<TodoList, TodoL
     }
 
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        var current = snapshot()
+        let sourceSectionModels = current.itemIdentifiers(inSection: todoLists[sourceIndexPath.section])
+        let startingTodoModel: TodoListCellModel = sourceSectionModels[sourceIndexPath.row]
+        current.deleteItems([startingTodoModel])
+        
+        let destinationSectionModels = current.itemIdentifiers(inSection: todoLists[destinationIndexPath.section])
+        let destionationModel = destinationSectionModels[destinationIndexPath.row] // could be add or todo!
+        
+        current.insertItems([startingTodoModel], beforeItem: destionationModel)
+        apply(current, animatingDifferences: false)
+        
         let result = todoLists[sourceIndexPath.section].move(
             sIndex: sourceIndexPath.row,
             destination: todoLists[destinationIndexPath.section],
@@ -75,7 +86,7 @@ class TodoListTableViewDataSource: UITableViewDiffableDataSource<TodoList, TodoL
         default:
             break
         }
-        applySnapshot()
+        //applySnapshot()
     }
 }
 
@@ -89,7 +100,9 @@ extension TodoListTableViewDataSource {
             new.appendItems(list.visible.map { .todo($0) }, toSection: list)
             new.appendItems([.add(date: list.uniqueDay)], toSection: list)
         }
-        apply(new, animatingDifferences: animatingDifferences)
+        DispatchQueue.main.async { [weak self] in
+            self?.apply(new, animatingDifferences: animatingDifferences)
+        }
     }
 
     func reload(_ todo: Todo) {

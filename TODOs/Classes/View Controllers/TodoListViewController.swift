@@ -63,7 +63,9 @@ class TodoListViewController: UIViewController {
     func updateTodoLists(_ lists: [TodoList]) {
         dataSource.todoLists = lists
         dataSource.applySnapshot()
-        tableView.reloadData() // hacky, just want to reload section headers for title changes
+        // TODO: hacky, just want to reload section headers for title changes
+        // can I remove now that I fixed the snapshot applying..? (not related to section headers)
+        tableView.reloadData()
     }
 }
 

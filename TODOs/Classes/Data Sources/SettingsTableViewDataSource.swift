@@ -101,13 +101,12 @@ extension SettingsTableViewDataSource {
         new.appendSections([.toggles])
         new.appendItems(
             [.toggle(.init(name: "Default to Hide Completed", isOn: GeneralSettings.shared.hideCompleted)),
-             .toggle(.init(name: "Rollover Incomplete to Next Day", isOn: GeneralSettings.shared.rollover))
-            ],
+             .toggle(.init(name: "Rollover Incomplete to Next Day", isOn: GeneralSettings.shared.rollover))],
             toSection: .toggles
         )
         new.appendSections([.recurring])
         var items = settings.map { Model.recurring($0) }
-        /// Repeated hack from TodoListTableViewDataSource
+        // TODO: remove this hack you have the fix in TodoListTableViewDataSource
         let current = snapshot()
         if current.indexOfSection(.recurring) != nil,
            let add = current.itemIdentifiers(inSection: .recurring).first(where: {
