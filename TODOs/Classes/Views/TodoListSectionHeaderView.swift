@@ -12,7 +12,7 @@ protocol TodoListSectionHeaderViewDelegate: AnyObject {
     func todoListSectionHeaderView(_ view: TodoListSectionHeaderView, toggledShowComplete section: Int)
 }
 
-class TodoListSectionHeaderView: UIView {
+class TodoListSectionHeaderView: UITableViewHeaderFooterView {
     weak var delegate: TodoListSectionHeaderViewDelegate?
     var section: Int = 0
     
@@ -39,8 +39,8 @@ class TodoListSectionHeaderView: UIView {
         return stackView
     }()
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(reuseIdentifier: String?) {
+        super.init(reuseIdentifier: reuseIdentifier)
         setup()
     }
 
@@ -59,7 +59,6 @@ class TodoListSectionHeaderView: UIView {
     }
 
     private func setup() {
-        backgroundColor = .systemGroupedBackground
         toggleCompleteButton.addTarget(self, action: #selector(tappedAction(_:)), for: .touchUpInside)
 
         if traitCollection.preferredContentSizeCategory.isAccessibilityCategory {
@@ -73,9 +72,9 @@ class TodoListSectionHeaderView: UIView {
         stackView.addArrangedSubview(toggleCompleteButton)
         addSubview(stackView)
         NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.0),
+            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32.0),
             stackView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12.0),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -28.0),
             toggleCompleteButton.heightAnchor.constraint(equalToConstant: 34),
             toggleCompleteButton.widthAnchor.constraint(equalToConstant: 34)
         ])
