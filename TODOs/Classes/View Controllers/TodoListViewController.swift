@@ -30,6 +30,7 @@ class TodoListViewController: UIViewController {
         table.tableFooterView = UIView(frame: .zero)
         table.clipsToBounds = true
         table.translatesAutoresizingMaskIntoConstraints = false
+        table.showsVerticalScrollIndicator = false
         return table
     }()
 
