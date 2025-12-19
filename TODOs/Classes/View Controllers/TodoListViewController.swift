@@ -19,6 +19,10 @@ class TodoListViewController: UIViewController {
         table.dragInteractionEnabled = true
         table.register(cell: TodoCell.self)
         table.register(cell: AddTodoCell.self)
+        table.register(
+            TodoListSectionHeaderView.self,
+            forHeaderFooterViewReuseIdentifier: "sectionHeader"
+        )
         table.rowHeight = UITableView.automaticDimension
         table.estimatedRowHeight = 65
         table.sectionHeaderHeight = UITableView.automaticDimension
@@ -63,7 +67,6 @@ class TodoListViewController: UIViewController {
     func updateTodoLists(_ lists: [TodoList]) {
         dataSource.todoLists = lists
         dataSource.applySnapshot()
-        tableView.reloadData() // hacky, just want to reload section headers for title changes
     }
 }
 
@@ -111,7 +114,7 @@ extension TodoListViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header = TodoListSectionHeaderView()
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "sectionHeader") as! TodoListSectionHeaderView
         header.configure(data: dataSource.todoLists[section])
         header.section = section
         header.delegate = self
