@@ -15,7 +15,6 @@ struct Setting: Codable, Identifiable, Hashable {
         case frequency
     }
 
-    // TODO: Make it OptionSet https://nshipster.com/optionset/
     enum Frequency: Int, Codable, CaseIterable {
         case sundays = 0
         case mondays

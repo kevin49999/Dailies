@@ -10,7 +10,7 @@ import UIKit
 
 protocol AddTodoCellDelegate: AnyObject {
     func addTodoCell(_ cell: AddTodoCell, isEditing textView: UITextView)
-    func addTodoCell(_ cell: AddTodoCell, didEndEditing text: String)
+    func addTodoCell(_ cell: AddTodoCell, didEndEditing textView: UITextView)
 }
 
 class AddTodoCell: UITableViewCell {
@@ -21,6 +21,12 @@ class AddTodoCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         setup()
+    }
+    
+    func reset() {
+        textView.text = nil
+        textView.resignFirstResponder()
+        placeholderTextView.isHidden = false
     }
 
     private func setup() {
@@ -36,12 +42,6 @@ class AddTodoCell: UITableViewCell {
             weight: .medium
         ).scaledFontforTextStyle(.body)
     }
-
-    private func reset() {
-        textView.text = nil
-        textView.resignFirstResponder()
-        placeholderTextView.isHidden = false
-    }
 }
 
 // MARK: - UITextViewDelegate
@@ -56,8 +56,7 @@ extension AddTodoCell: UITextViewDelegate {
 
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if text == "\n", !textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty  {
-            delegate?.addTodoCell(self, didEndEditing: textView.text)
-            reset()
+            delegate?.addTodoCell(self, didEndEditing: textView)
             return false
         }
         return true
@@ -65,8 +64,7 @@ extension AddTodoCell: UITextViewDelegate {
 
     func textViewDidEndEditing(_ textView: UITextView) {
         if !textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            delegate?.addTodoCell(self, didEndEditing: textView.text)
-            reset()
+            delegate?.addTodoCell(self, didEndEditing: textView)
         }
     }
 }

@@ -156,14 +156,16 @@ extension TodoListViewController: AddTodoCellDelegate {
         tableView.resize(for: textView)
     }
 
-    func addTodoCell(_ cell: AddTodoCell, didEndEditing text: String) {
+    func addTodoCell(_ cell: AddTodoCell, didEndEditing textView: UITextView) {
         guard let indexPath = tableView.indexPath(for: cell) else {
             assertionFailure()
             return
         }
         
-        dataSource.todoLists[indexPath.section].add(todo: Todo(text: text))
+        dataSource.todoLists[indexPath.section].add(todo: Todo(text: textView.text))
         dataSource.applySnapshot()
+        cell.reset()
+        tableView.resize(for: textView)
         // review action could be anything
         SKStoreReviewController.incrementReviewAction()
     }

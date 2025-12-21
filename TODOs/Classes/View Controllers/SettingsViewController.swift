@@ -57,10 +57,12 @@ extension SettingsViewController: AddTodoCellDelegate {
         tableView.resize(for: textView)
     }
 
-    func addTodoCell(_ cell: AddTodoCell, didEndEditing text: String) {
-        let setting = Setting(name: text)
+    func addTodoCell(_ cell: AddTodoCell, didEndEditing textView: UITextView) {
+        let setting = Setting(name: textView.text)
         dataSource.settings.append(setting)
         dataSource.applySnapshot()
+        cell.reset()
+        tableView.resize(for: textView)
     }
 }
 
