@@ -14,6 +14,7 @@ class SettingsTableViewDataSource: UITableViewDiffableDataSource<SettingsViewCon
     enum Model: Hashable {
         case toggle(ToggleSetting)
         case recurring(Setting)
+        case add
     }
 
     typealias Section = SettingsViewController.Section
@@ -26,15 +27,9 @@ class SettingsTableViewDataSource: UITableViewDiffableDataSource<SettingsViewCon
         settings: [Setting],
         cellDelegate: SettingsCellsDelegate? = nil
     ) {
-        self.init(tableView: tableView, cellProvider: { [weak cellDelegate] tableView, indexPath, recurring in
-            switch recurring {
+        self.init(tableView: tableView, cellProvider: { [weak cellDelegate] tableView, indexPath, model in
+            switch model {
             case .recurring(let recurring):
-                if recurring.name == "AddTodoCellHack" {
-                    let cell: AddTodoCell = tableView.dequeueReusableCell(for: indexPath)
-                    cell.separatorInset = .hideSeparator // hide last
-                    cell.delegate = cellDelegate
-                    return cell
-                }
                 let cell: RecurringTodoCell = tableView.dequeueReusableCell(for: indexPath)
                 cell.delegate = cellDelegate
                 cell.configure(data: recurring)
@@ -42,6 +37,11 @@ class SettingsTableViewDataSource: UITableViewDiffableDataSource<SettingsViewCon
             case .toggle(let toggle):
                 let cell: SettingCell = tableView.dequeueReusableCell(for: indexPath)
                 cell.configure(title: toggle.name, on: toggle.isOn)
+                cell.delegate = cellDelegate
+                return cell
+            case .add:
+                let cell: AddTodoCell = tableView.dequeueReusableCell(for: indexPath)
+                cell.separatorInset = .hideSeparator // hide last
                 cell.delegate = cellDelegate
                 return cell
             }
@@ -54,23 +54,16 @@ class SettingsTableViewDataSource: UITableViewDiffableDataSource<SettingsViewCon
         guard let s = Section(rawValue: indexPath.section) else {
             preconditionFailure()
         }
+        
         switch s {
         case .toggles:
             return false
         case .recurring:
-            if settings.count == indexPath.row {
+            if indexPath.row >= settings.count  {
                 return false // AddTodoCell
             }
             return true
         }
-    }
-
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // TODO: Could enable, and update lists based on order in settings 🤔
-        if settings.count == indexPath.row {
-            return false // AddTodoCell
-        }
-        return true
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -106,23 +99,9 @@ extension SettingsTableViewDataSource {
             toSection: .toggles
         )
         new.appendSections([.recurring])
-        var items = settings.map { Model.recurring($0) }
-        /// Repeated hack from TodoListTableViewDataSource
-        let current = snapshot()
-        if current.indexOfSection(.recurring) != nil,
-           let add = current.itemIdentifiers(inSection: .recurring).first(where: {
-            switch $0 {
-            case .recurring(let setting):
-                return setting.name == "AddTodoCellHack"
-            case .toggle:
-                return false // not doing in section
-            }
-           }) {
-            items.append(add)
-        } else {
-            items.append(Model.recurring(.init(name: "AddTodoCellHack", frequency: .mondays)))
-        }
+        let items = settings.map { Model.recurring($0) }
         new.appendItems(items, toSection: .recurring)
+        new.appendItems([.add], toSection: .recurring)
         apply(new, animatingDifferences: animatingDifferences)
     }
 }
