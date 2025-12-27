@@ -63,7 +63,10 @@ extension AddTodoCell: UITextViewDelegate {
     }
 
     func textViewDidEndEditing(_ textView: UITextView) {
-        if !textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+        if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            textView.text = ""
+            placeholderTextView.isHidden = false
+        } else {
             delegate?.addTodoCell(self, didEndEditing: textView)
         }
     }
