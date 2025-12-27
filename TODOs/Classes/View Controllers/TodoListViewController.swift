@@ -106,7 +106,7 @@ extension TodoListViewController: UITableViewDelegate {
             case .delete:
                 self.dataSource.delete(todo)
             case .reload:
-                self.dataSource.reload(todo)
+                self.dataSource.reload(todo, animate: false)
             }
             completion(true)
         }

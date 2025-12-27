@@ -92,10 +92,10 @@ extension TodoListTableViewDataSource {
         apply(new, animatingDifferences: animatingDifferences)
     }
 
-    func reload(_ todo: Todo) {
+    func reload(_ todo: Todo, animate: Bool) {
         var current = snapshot()
         current.reloadItems([.todo(todo)])
-        apply(current, animatingDifferences: true)
+        apply(current, animatingDifferences: animate)
     }
 
     func insert(_ todo: Todo, after: Todo) {
