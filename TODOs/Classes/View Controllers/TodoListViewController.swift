@@ -60,6 +60,14 @@ class TodoListViewController: UIViewController {
         tableView.dataSource = dataSource
         tableView.dropDelegate = self
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        
+        //
+        tableView.keyboardDismissMode = .interactiveWithAccessory
+        NSLayoutConstraint.activate([
+            tableView.bottomAnchor.constraint(equalTo: view.keyboardLayoutGuide.topAnchor)
+        ])
+        tableView.contentInset.bottom = keyboardHeight // this is handled automatically by the guide
+        
         dataSource.applySnapshot(animatingDifferences: false)
     }
 

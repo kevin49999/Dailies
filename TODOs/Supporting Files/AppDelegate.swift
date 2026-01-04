@@ -11,23 +11,11 @@ import UIKit
 import FirebaseAnalytics
 import FirebaseCore
 import FirebaseCrashlytics
-import IQKeyboardManagerSwift
-import IQKeyboardToolbarManager
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // keyboard
-        IQKeyboardManager.shared.isEnabled = true
-        IQKeyboardManager.shared.resignOnTouchOutside = true
-        
-        // toolbar
-        IQKeyboardToolbarManager.shared.isEnabled = true
-        IQKeyboardToolbarManager.shared.toolbarConfiguration.doneBarButtonConfiguration = .init(title: "Done")
-        IQKeyboardToolbarManager.shared.toolbarConfiguration.previousNextDisplayMode = .alwaysHide
-        
-        // firebase
         FirebaseApp.configure()
         
         return true

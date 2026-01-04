@@ -41,6 +41,16 @@ class AddTodoCell: UITableViewCell {
             ofSize: 16,
             weight: .medium
         ).scaledFontforTextStyle(.body)
+        
+        let bar = UIToolbar()
+        let done = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(resetTapped))
+        bar.items = [done] // spacer to push over
+        bar.sizeToFit()
+        textView.inputAccessoryView = bar
+    }
+    
+    @objc func resetTapped() {
+        textView.resignFirstResponder()
     }
 }
 
