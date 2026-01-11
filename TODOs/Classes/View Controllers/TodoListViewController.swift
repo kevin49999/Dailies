@@ -9,36 +9,19 @@
 import StoreKit
 import UIKit
 
-class TodoListViewController: UIViewController {
+class TodoListViewController: UITableViewController {
 
     // MARK: - Properties
 
     private(set) var dataSource: TodoListTableViewDataSource!
-    private let tableView: UITableView = {
-        let table = UITableView(frame: .zero, style: .insetGrouped)
-        table.dragInteractionEnabled = true
-        table.register(cell: TodoCell.self)
-        table.register(cell: AddTodoCell.self)
-        table.register(
-            TodoListSectionHeaderView.self,
-            forHeaderFooterViewReuseIdentifier: "sectionHeader"
-        )
-        table.rowHeight = UITableView.automaticDimension
-        table.estimatedRowHeight = 65
-        table.sectionHeaderHeight = UITableView.automaticDimension
-        table.estimatedSectionHeaderHeight = 44
-        table.tableFooterView = UIView(frame: .zero)
-        table.clipsToBounds = true
-        table.translatesAutoresizingMaskIntoConstraints = false
-        table.showsVerticalScrollIndicator = false
-        return table
-    }()
+    /// only using to setup the dataSource in viewDidLoad, could convert dataSource to lazy (eh)
+    private var initialTodoLists: [TodoList]!
 
     // MARK: - Init
 
     init(todoLists: [TodoList]) {
-        super.init(nibName: nil, bundle: nil)
-        self.dataSource = .init(tableView: tableView, todoLists: todoLists, cellDelegate: self)
+        super.init(style: .insetGrouped)
+        self.initialTodoLists = todoLists
     }
 
     required init?(coder: NSCoder) {
@@ -49,17 +32,26 @@ class TodoListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(tableView)
-        NSLayoutConstraint.activate([
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            tableView.topAnchor.constraint(equalTo: view.topAnchor)
-        ])
+        dataSource = .init(tableView: tableView, todoLists: initialTodoLists, cellDelegate: self)
         tableView.delegate = self
         tableView.dataSource = dataSource
         tableView.dropDelegate = self
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        tableView.dragInteractionEnabled = true
+        tableView.register(cell: TodoCell.self)
+        tableView.register(cell: AddTodoCell.self)
+        tableView.register(
+            TodoListSectionHeaderView.self,
+            forHeaderFooterViewReuseIdentifier: "sectionHeader"
+        )
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 65
+        tableView.sectionHeaderHeight = UITableView.automaticDimension
+        tableView.estimatedSectionHeaderHeight = 44
+        tableView.tableFooterView = UIView(frame: .zero)
+        tableView.clipsToBounds = true
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.showsVerticalScrollIndicator = false
         dataSource.applySnapshot(animatingDifferences: false)
     }
 
@@ -73,8 +65,8 @@ class TodoListViewController: UIViewController {
 
 // MARK: - UITableViewDelegate
 
-extension TodoListViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+extension TodoListViewController {
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let list =  dataSource.todoLists[indexPath.section]
         let todo = list.visible[indexPath.row]
         let delete = UIContextualAction(style: .destructive, title: "Delete") { (_, _, completion) in
@@ -114,7 +106,7 @@ extension TodoListViewController: UITableViewDelegate {
         return UISwipeActionsConfiguration(actions: [delete, duplicate, complete])
     }
 
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "sectionHeader") as! TodoListSectionHeaderView
         header.configure(data: dataSource.todoLists[section])
         header.section = section
@@ -122,7 +114,7 @@ extension TodoListViewController: UITableViewDelegate {
         return header
     }
 
-    func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
+    override func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
         // Disallow moving TodoCell below AddTodoCell
         let proposedSection = proposedDestinationIndexPath.section
         let proposedRow = proposedDestinationIndexPath.row

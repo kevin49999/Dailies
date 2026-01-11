@@ -40,9 +40,16 @@ class RecurringTodoCell: UITableViewCell {
         frequencyButton.setTitleColor(.systemGreen, for: .normal)
         frequencyButton.backgroundColor = UIColor.systemGreen.withAlphaComponent(0.20)
         frequencyButton.layer.cornerRadius = 6.0
+        
+        let bar = UIToolbar()
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let done = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneTapped))
+        bar.items = [flexSpace, done]
+        bar.sizeToFit()
+        textView.inputAccessoryView = bar
     }
-
-    private func reset() {
+    
+    @objc func doneTapped() {
         textView.resignFirstResponder()
     }
 
@@ -62,6 +69,6 @@ extension RecurringTodoCell: UITextViewDelegate {
 
     func textViewDidEndEditing(_ textView: UITextView) {
         delegate?.recurringTodoCell(self, didEndEditing: textView.text)
-        reset()
+        textView.resignFirstResponder()
     }
 }

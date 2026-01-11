@@ -34,6 +34,17 @@ class TodoCell: UITableViewCell {
         textView.delegate = self
         textView.isSelectable = true
         textView.adjustsFontForContentSizeCategory = true
+        
+        let bar = UIToolbar()
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let done = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneTapped))
+        bar.items = [flexSpace, done]
+        bar.sizeToFit()
+        textView.inputAccessoryView = bar
+    }
+    
+    @objc func doneTapped() {
+        textView.resignFirstResponder()
     }
 }
 
