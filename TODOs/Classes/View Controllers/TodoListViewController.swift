@@ -61,14 +61,21 @@ class TodoListViewController: UIViewController {
         tableView.dropDelegate = self
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         
-        //
-        tableView.keyboardDismissMode = .interactiveWithAccessory
-        NSLayoutConstraint.activate([
-            tableView.bottomAnchor.constraint(equalTo: view.keyboardLayoutGuide.topAnchor)
-        ])
-        tableView.contentInset.bottom = keyboardHeight // this is handled automatically by the guide
-        
         dataSource.applySnapshot(animatingDifferences: false)
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillHide),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil
+        )
     }
 
     // MARK: - Public Functions
@@ -76,6 +83,21 @@ class TodoListViewController: UIViewController {
     func updateTodoLists(_ lists: [TodoList]) {
         dataSource.todoLists = lists
         dataSource.applySnapshot()
+    }
+    
+    // MARK: - Keyboard
+    
+    @objc func keyboardWillShow(_ notification: Notification) {
+        guard let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
+        
+        let keyboardHeight = keyboardFrame.height
+        tableView.contentInset.bottom = keyboardHeight
+        tableView.verticalScrollIndicatorInsets.bottom = keyboardHeight
+    }
+    
+    @objc func keyboardWillHide(_ notification: Notification) {
+        tableView.contentInset.bottom = 0
+        tableView.verticalScrollIndicatorInsets.bottom = 0
     }
 }
 
