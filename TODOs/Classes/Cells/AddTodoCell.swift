@@ -43,13 +43,14 @@ class AddTodoCell: UITableViewCell {
         ).scaledFontforTextStyle(.body)
         
         let bar = UIToolbar()
-        let done = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(resetTapped))
-        bar.items = [done] // spacer to push over
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let done = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneTapped))
+        bar.items = [flexSpace, done]
         bar.sizeToFit()
         textView.inputAccessoryView = bar
     }
     
-    @objc func resetTapped() {
+    @objc func doneTapped() {
         textView.resignFirstResponder()
     }
 }
