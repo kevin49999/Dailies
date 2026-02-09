@@ -6,5 +6,5 @@ This app collects:
 
 ## Changes
 
-__October 14, 2025:__ Updated to include Firebase
-__January 10, 2021:__ Created
+- **October 14, 2025**: Updated to include Firebase
+- **January 10, 2021**: Created
