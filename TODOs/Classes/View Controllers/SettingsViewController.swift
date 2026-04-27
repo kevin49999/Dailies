@@ -26,6 +26,7 @@ class SettingsViewController: UITableViewController {
     private var initial = Setting.saved()
     private var changingFreqIndex: Int?
     private var changingFrequencies: [Setting.Frequency] = []
+    weak private var dummyTextField: UITextField?
 
     // MARK: - Deinit
 
@@ -47,6 +48,10 @@ class SettingsViewController: UITableViewController {
         tableView.estimatedRowHeight = 140
         tableView.rowHeight = UITableView.automaticDimension
         dataSource.applySnapshot(animatingDifferences: false)
+    }
+    
+    @objc func doneTapped() {
+        dummyTextField?.resignFirstResponder()
     }
 }
 
@@ -95,13 +100,22 @@ extension SettingsViewController: RecurringTodoCellDelegate {
         mFrequencies.removeAll(where: { $0 == initial })
         mFrequencies.insert(initial, at: 0)
         self.changingFrequencies = mFrequencies
+
         let picker = UIPickerView()
         picker.dataSource = self
         picker.delegate = self
+        let bar = UIToolbar()
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let done = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneTapped))
+        bar.items = [flexSpace, done]
+        bar.sizeToFit()
+        
         let dummy = UITextField(frame: .zero)
         dummy.delegate = self
+        dummyTextField = dummy
         view.addSubview(dummy)
         dummy.inputView = picker
+        dummy.inputAccessoryView = bar
         dummy.becomeFirstResponder()
     }
 }
@@ -148,6 +162,7 @@ extension SettingsViewController: UIPickerViewDataSource, UIPickerViewDelegate, 
 
     func textFieldDidEndEditing(_ textField: UITextField) {
         self.changingFreqIndex = nil
+        self.dummyTextField = nil
         self.changingFrequencies = []
         self.dataSource.applySnapshot(animatingDifferences: false)
     }
