@@ -16,12 +16,13 @@ class SettingsTableViewDataSource: UITableViewDiffableDataSource<SettingsViewCon
         case recurring(Setting)
         case add
     }
-
+    
     typealias Section = SettingsViewController.Section
     typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Model>
-
+    
+    // TODO: remove and rely on snapshot
     var settings: [Setting] = []
-
+    
     convenience init(
         tableView: UITableView,
         settings: [Setting],
@@ -46,10 +47,11 @@ class SettingsTableViewDataSource: UITableViewDiffableDataSource<SettingsViewCon
                 return cell
             }
         })
+        
         self.settings = settings
         self.defaultRowAnimation = .fade
     }
-
+    
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         guard let s = Section(rawValue: indexPath.section) else {
             preconditionFailure()
@@ -65,7 +67,7 @@ class SettingsTableViewDataSource: UITableViewDiffableDataSource<SettingsViewCon
             return true
         }
     }
-
+    
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         guard let s = Section(rawValue: section) else {
             preconditionFailure()
@@ -77,12 +79,34 @@ class SettingsTableViewDataSource: UITableViewDiffableDataSource<SettingsViewCon
             return "Recurring"
         }
     }
-
+    
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         let setting = settings.remove(at: indexPath.row)
         var current = snapshot()
         current.deleteItems([.recurring(setting)])
         apply(current, animatingDifferences: true)
+    }
+    
+    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        guard let s = Section(rawValue: indexPath.section) else {
+            preconditionFailure()
+        }
+        
+        switch s {
+        case .toggles:
+            return false
+        case .recurring:
+            if indexPath.row >= settings.count  {
+                return false // AddTodoCell
+            }
+            return true
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let setting = settings.remove(at: sourceIndexPath.row)
+        settings.insert(setting, at: destinationIndexPath.row)
+        applySnapshot(animatingDifferences: true)
     }
 }
 

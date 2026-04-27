@@ -47,6 +47,8 @@ class SettingsViewController: UITableViewController {
         tableView.register(cell: SettingCell.self)
         tableView.estimatedRowHeight = 140
         tableView.rowHeight = UITableView.automaticDimension
+        tableView.dragInteractionEnabled = true
+        tableView.dropDelegate = self
         dataSource.applySnapshot(animatingDifferences: false)
     }
     
@@ -166,4 +168,15 @@ extension SettingsViewController: UIPickerViewDataSource, UIPickerViewDelegate, 
         self.changingFrequencies = []
         self.dataSource.applySnapshot(animatingDifferences: false)
     }
+}
+
+// MARK: - UITableViewDropDelegate
+
+
+extension SettingsViewController: UITableViewDropDelegate {
+    func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
+        return .init(operation: .move, intent: .insertAtDestinationIndexPath)
+    }
+
+    func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) { }
 }
