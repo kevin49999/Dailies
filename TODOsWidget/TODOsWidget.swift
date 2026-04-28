@@ -135,7 +135,7 @@ struct TODOsWidget: Widget {
             TODOsWidgetEntryView(entry: entry)
         }
         .contentMarginsDisabled()
-        .configurationDisplayName("TODOs for today")
+        .configurationDisplayName("Dailies")
         .description("Show the list of TODOs for today")
         .supportedFamilies([.systemSmall])
     }
