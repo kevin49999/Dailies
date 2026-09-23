@@ -74,7 +74,12 @@ extension TodoListViewController {
             self.dataSource.delete(todo)
             Undo.shared.show(title: "Undo Delete \"\(todo.text)\"", completion: { undo in
                 if undo {
-                    list.insert(todo: Todo(text: todo.text), index: indexPath.row)
+                    let new = Todo(
+                        text: todo.text,
+                        completed: todo.completed,
+                        settingUUID: todo.settingUUID
+                    )
+                    list.insert(todo: new, index: indexPath.row)
                     self.dataSource.applySnapshot()
                 }
             })
